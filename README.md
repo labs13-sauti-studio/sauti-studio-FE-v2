@@ -6,7 +6,7 @@
 
 # 1️⃣ Title of project goes here
 
-1️⃣ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
+1️⃣ You can find the deployed project at [🚫Sauti Design Studio](🚫https://sautistudio.netlify.com/).
 
 ## 4️⃣ Contributors
 
@@ -33,9 +33,9 @@
 
 ## Project Overview
 
-1️⃣ [Trello Board](🚫add link to trello board here)
+1️⃣ [Trello Board](🚫https://trello.com/b/Kt9QUwpw/labs13-sauti-studio)
 
-1️⃣ [Product Canvas](🚫add link to product canvas here)
+1️⃣ [Product Canvas](🚫https://projects.invisionapp.com/share/YAS77O8SMTK#/screens)
 
 1️⃣ [UX Design files](🚫add link to design files here) - 🚫 delete if not applicable
 
@@ -58,20 +58,20 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 ### Front end built using:
 
-#### _Front end framework goes here_
+####  React/Gatsbyjs
 
 🚫 Why did you choose this framework?
 
--    point one
--    point two
--    point three
--    point four
+-    Server-side rendering
+-    Quick loading times
+-    Industry standard
+-    SEO
 
 🚫List the rest of the front end features and libraries in the same format as the framework above.
 
-#### Front end deployed to `🚫insert service here`
+#### Front end deployed to `🚫Netlify`
 
-#### [Back end](🚫link to back end repo here) built using:
+#### [Back end](🚫https://github.com/labs13-sauti-studio/labs13-sauti-studio-BE) built using:
 
 #### 🚫 back end framework goes here
 
@@ -83,7 +83,7 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 # APIs
 
-## 2️⃣ Authentication API here
+## 2️⃣ Oauth
 
 🚫Replace text below with a description of the API
 
