@@ -1,22 +1,12 @@
-import { StaticQuery, graphql } from 'gatsby'
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
-import PropTypes from 'prop-types'
 import React from 'react'
-import Container from '@material-ui/core/Container'
+import { StaticQuery, graphql } from 'gatsby'
+import PropTypes from 'prop-types'
+import { ThemeProvider } from 'styled-components'
+import { MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import Container from '@material-ui/core/Container'
+import { theme, muiTheme, GlobalStyle } from '../theme'
 import Navbar from './navbar'
-
-const theme = {}
-
-const GlobalStyle = createGlobalStyle`
-body, html { width: 100%; margin: 0; padding: 0; }
-a { all: unset; }
-a { :hover { cursor: pointer; } }
-`
-
-const Main = styled.main`
-  padding: 1rem 0;
-`
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -29,16 +19,18 @@ const Layout = ({ children }) => (
         }
       }
     `}
-    render={data => (
+    render={() => (
       <ThemeProvider theme={theme}>
-        <>
-          <CssBaseline />
-          <GlobalStyle />
-          <Navbar />
-          <Container>
-            <Main>{children}</Main>
-          </Container>
-        </>
+        <MuiThemeProvider theme={muiTheme}>
+          <>
+            <CssBaseline />
+            <GlobalStyle />
+            <Navbar />
+            <Container>
+              <main>{children}</main>
+            </Container>
+          </>
+        </MuiThemeProvider>
       </ThemeProvider>
     )}
   />

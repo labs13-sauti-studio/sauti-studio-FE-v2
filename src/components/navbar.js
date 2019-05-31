@@ -9,9 +9,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'gatsby'
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -20,29 +17,26 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function Navbar() {
+const Navbar = () => {
   const classes = useStyles()
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            <Link to="/">Sauti Studio</Link>
-          </Typography>
-          <Button color="inherit">
-            <Link to="/login">Login</Link>
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="static" color="secondary">
+      <Toolbar>
+        <IconButton
+          edge="start"
+          className={classes.menuButton}
+          aria-label="Menu"
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" className={classes.title}>
+          <Link to="/">Sauti Studio</Link>
+        </Typography>
+        <Link to="/login">
+          <Button color="primary">Login</Button>
+        </Link>
+      </Toolbar>
+    </AppBar>
   )
 }
 
