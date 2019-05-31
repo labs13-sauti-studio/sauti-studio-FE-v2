@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
@@ -9,6 +10,8 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import { connect } from 'react-redux'
+import { logUserIn } from '../../redux/reducers'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -35,9 +38,8 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const LoginForm = () => {
+const LoginForm = ({ isLoggedIn, dispatch }) => {
   const classes = useStyles()
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -78,6 +80,10 @@ const LoginForm = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={e => {
+              e.preventDefault()
+              dispatch(logUserIn(!isLoggedIn))
+            }}
           >
             Sign In
           </Button>
@@ -97,4 +103,11 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+LoginForm.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
+}
+
+export default connect(state => ({
+  isLoggedIn: state.isLoggedIn,
+}))(LoginForm)

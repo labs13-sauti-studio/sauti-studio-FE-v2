@@ -47,8 +47,11 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
+    "react-redux": "^7.0.3",
     "react-typography": "^0.16.19",
-    "styled-components": "^4.2.1"
+    "redux": "^4.0.1",
+    "styled-components": "^4.2.1",
+    "redux-devtools-extension": "^2.13.8"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
