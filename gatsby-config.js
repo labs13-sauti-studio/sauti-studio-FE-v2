@@ -29,12 +29,10 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-material-ui`,
-      options: {},
-    },
-    {
-      resolve: `gatsby-plugin-typography`,
       options: {
-        pathToConfigModule: `src/utils/typography`,
+        stylesProvider: {
+          injectFirst: true,
+        },
       },
     },
     {

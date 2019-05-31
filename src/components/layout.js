@@ -3,12 +3,15 @@ import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Container from '@material-ui/core/Container'
+import CssBaseline from '@material-ui/core/CssBaseline'
 import Navbar from './navbar'
 
 const theme = {}
 
 const GlobalStyle = createGlobalStyle`
 body, html { width: 100%; margin: 0; padding: 0; }
+a { all: unset; }
+a { :hover { cursor: pointer; } }
 `
 
 const Main = styled.main`
@@ -29,6 +32,7 @@ const Layout = ({ children }) => (
     render={data => (
       <ThemeProvider theme={theme}>
         <>
+          <CssBaseline />
           <GlobalStyle />
           <Navbar />
           <Container>
