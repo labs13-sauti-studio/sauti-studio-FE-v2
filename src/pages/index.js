@@ -1,11 +1,10 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import styled from 'styled-components'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import { Graphic1, Graphic2, Graphic3 } from '../components/graphics'
+import { Graphic1, Graphic2 } from '../components/graphics'
 
 const Landing = styled.div`
   section {
@@ -16,12 +15,6 @@ const Landing = styled.div`
       text-align: left;
     }
     margin: 1rem 0;
-  }
-`
-
-const List = styled.ul`
-  * {
-    text-decoration: none;
   }
 `
 
