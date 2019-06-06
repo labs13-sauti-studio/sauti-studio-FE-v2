@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Navbar = () => {
+  console.log(process.env.GATSBY_API_URL)
   const classes = useStyles()
   return (
     <AppBar position="static" color="secondary">
@@ -32,9 +33,9 @@ const Navbar = () => {
         <Typography variant="h6" className={classes.title}>
           <Link to="/">Sauti Studio</Link>
         </Typography>
-        <Link to="/login">
+        <a href="http://localhost:5000/auth/google">
           <Button color="primary">Login</Button>
-        </Link>
+        </a>
       </Toolbar>
     </AppBar>
   )
