@@ -18,10 +18,11 @@ export default class UsersPage extends Component {
   }
 
   render() {
+    const { users } = this.state
     return (
       <Layout>
         <SEO title="Register" />
-        {JSON.stringify(this.state.users)}
+        {JSON.stringify(users)}
       </Layout>
     )
   }

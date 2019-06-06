@@ -33,7 +33,7 @@ const Navbar = () => {
         <Typography variant="h6" className={classes.title}>
           <Link to="/">Sauti Studio</Link>
         </Typography>
-        <a href="http://localhost:5000/auth/google">
+        <a href={`${process.env.GATSBY_API_URL}/auth/google`}>
           <Button color="primary">Login</Button>
         </a>
       </Toolbar>

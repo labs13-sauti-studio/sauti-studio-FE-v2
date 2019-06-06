@@ -1,6 +1,6 @@
 import axios from 'axios'
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: process.env.GATSBY_API_URL,
   withCredentials: true,
 })
