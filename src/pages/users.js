@@ -22,7 +22,15 @@ export default class UsersPage extends Component {
     return (
       <Layout>
         <SEO title="Register" />
-        {JSON.stringify(users)}
+        <ul>
+          {users.map((user, i) => (
+            <li key={i}>
+              <span>{user.display_name}</span>
+              <br />
+              <span>{user.email}</span>
+            </li>
+          ))}
+        </ul>
       </Layout>
     )
   }
