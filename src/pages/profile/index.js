@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
 import { Typography } from '@material-ui/core'
-import Input from '@material-ui/core/Input'
 import TextField from '@material-ui/core/TextField'
 import Layout from '../../components/layout'
 import SEO from '../../components/seo'
@@ -41,7 +40,7 @@ const UserDetails = styled.form`
 export default class UserIndexPage extends Component {
   constructor() {
     super()
-    this.state = { info: {}, updating: false }
+    this.state = { updating: false }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
