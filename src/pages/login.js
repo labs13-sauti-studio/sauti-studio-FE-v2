@@ -1,13 +1,19 @@
 import React from 'react'
+import Container from '@material-ui/core/Container'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import LoginForm from '../components/forms/login'
+import GoogleLoginButton from '../images/google-login-button.png'
 
-const IndexPage = () => (
+const LoginPage = () => (
   <Layout>
     <SEO title="Login" />
-    <LoginForm />
+
+    <Container>
+      <a href={`${process.env.GATSBY_API_URL}/auth/google`}>
+        <img src={GoogleLoginButton} alt="" />
+      </a>
+    </Container>
   </Layout>
 )
 
-export default IndexPage
+export default LoginPage
