@@ -1,8 +1,9 @@
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { createStore as reduxCreateStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 import rootReducer from './reducers'
 
-export const createStore = () =>
-  reduxCreateStore(rootReducer, composeWithDevTools())
-
-export const store = createStore()
+export default createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+)

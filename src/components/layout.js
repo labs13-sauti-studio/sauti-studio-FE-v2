@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container'
 import { theme, muiTheme, GlobalStyle } from '../theme'
 import Navbar from './navbar'
 
-const Layout = ({ children }) => (
+const Layout = ({ loggedIn, children }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -25,7 +25,7 @@ const Layout = ({ children }) => (
           <>
             <CssBaseline />
             <GlobalStyle />
-            <Navbar />
+            {!loggedIn ? <Navbar /> : <Navbar loggedIn />}
             <Container>
               <main>{children}</main>
             </Container>
@@ -38,6 +38,7 @@ const Layout = ({ children }) => (
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  loggedIn: PropTypes.bool,
 }
 
 export default Layout
