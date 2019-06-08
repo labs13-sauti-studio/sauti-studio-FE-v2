@@ -5,11 +5,16 @@ import styled from 'styled-components'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import { Graphic1, Graphic2 } from '../components/graphics'
+import { media } from '../theme'
 
 const Landing = styled.div`
+  margin-top: 4rem;
+  * {
+    max-width: 100%;
+  }
   section {
     h2 {
-      margin-bottom: 1rem;
+      margin-bottom: 3rem;
     }
     h4 {
       text-align: left;
@@ -17,64 +22,87 @@ const Landing = styled.div`
     margin: 1rem 0;
   }
 `
-
+const Section1 = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: space-between;
+  /* text-align: center; */
+  h2 {
+    grid-column: 1/-1;
+  }
+  .sub-info {
+    text-align: right;
+    .start {
+      height: 100%;
+      text-align: center;
+      button {
+        margin-top: 4rem;
+      }
+    }
+  }
+  ${media.tablet`
+    grid-template-columns: 1fr;
+    button {
+      margin-bottom: 4rem;
+    }
+   `}
+`
 const Section2 = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr;
-
-  ul {
+  gap: 1rem;
+  .list {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
   }
+  ${media.phone`
+    grid-template-columns: 1fr;
+
+    .list {
+      text-align: center;
+    }
+   `}
 `
 
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
     <Landing>
-      <section>
+      <Section1>
         <Typography variant="h2">Design Your Own Text-Based Flow</Typography>
-        <Typography variant="h4">
-          Sharing information made simple & easy with Sauti Studio + Design
-        </Typography>
         <Graphic1 />
-        <Button variant="outlined" color="primary">
-          Start a New Flow
-        </Button>
-      </section>
+        <div className="sub-info">
+          <Typography variant="h4">
+            Sharing information made simple & easy with Sauti Studio + Design
+          </Typography>
+          <div className="start">
+            <Button variant="outlined" color="primary">
+              Start a New Flow
+            </Button>
+          </div>
+        </div>
+      </Section1>
+
       <Section2>
         <div>
-          <ul>
-            <li>
-              <Typography varient="h3">
-                No programming background needed
-              </Typography>
-            </li>
-            <li>
-              <Typography varient="h3">
-                Create, Update, save & delete flows
-              </Typography>
-            </li>
-            <li>
-              <Typography varient="h3">
-                Create, Update, save & delete flows
-              </Typography>
-            </li>
-            <li>
-              <Typography varient="h3">Simple & intuative visual</Typography>
-            </li>
-            <li>
-              <Typography varient="h3">Cloud-based tool</Typography>
-            </li>
-            <li>
-              <Typography varient="h3">Click through mockup view</Typography>
-            </li>
-            <li>
-              <Typography varient="h3">Cloud-based tool</Typography>
-            </li>
-          </ul>
+          <Typography varient="ul" className="list">
+            <Typography varient="li">
+              No programming background needed
+            </Typography>
+            <Typography varient="li">
+              Create, Update, save & delete flows
+            </Typography>
+            <Typography varient="li">
+              Create, Update, save & delete flows
+            </Typography>
+            <Typography varient="li">Simple & intuative visual</Typography>
+            <Typography varient="li">Cloud-based tool</Typography>
+            <Typography varient="li">Click through mockup view</Typography>
+            <Typography varient="li">Cloud-based tool</Typography>
+          </Typography>
         </div>
         <div>
           <Graphic2 />

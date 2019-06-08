@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, css } from 'styled-components'
 
 export const theme = {
   colors: {
@@ -11,6 +11,20 @@ export const theme = {
     yellow: '#ffba29',
   },
 }
+const sizes = {
+  phone: 576,
+  tablet: 768,
+  desktop: 992,
+}
+
+export const media = Object.keys(sizes).reduce((acc, label) => {
+  acc[label] = (...args) => css`
+    @media (max-width: ${sizes[label] / 16}em) {
+      ${css(...args)}
+    }
+  `
+  return acc
+}, {})
 
 export const muiTheme = createMuiTheme({
   palette: {
@@ -34,4 +48,7 @@ export const muiTheme = createMuiTheme({
 export const GlobalStyle = createGlobalStyle`
 a { all: unset; }
 a { :hover { cursor: pointer; } }
+html {max-width: 100vw;}
+body {width: 100%;}
+svg {width: auto;}
 `
