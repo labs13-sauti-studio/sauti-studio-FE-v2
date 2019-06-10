@@ -30,44 +30,41 @@ const Grid = styled.div`
   gap: 1rem;
 `
 
-const index = () => {
-  const wf = window.location.pathname.replace('/workflow/', '')
-  return (
-    <Layout>
-      <Container>
-        <Grid>
-          <Card className="grid-item">
-            <CardContent>
-              <Typography variant="h5" component="h2">
-                {data.title}
-              </Typography>
-              <Typography color="textSecondary">{data.description}</Typography>
-            </CardContent>
-          </Card>
-          {data.options.map(option => (
-            <Fragment>
-              <Card key={option.id} className="grid-item">
-                <CardContent>
-                  <Typography variant="h5" component="h2">
-                    {option.title}
-                  </Typography>
-                  <Typography color="textSecondary">'desc'</Typography>
-                </CardContent>
-                <CardActions />
-              </Card>
-              <div>
-                {option.responses.map(res => (
-                  <Card key={res.id}>
-                    <CardContent>{res.text}</CardContent>
-                  </Card>
-                ))}
-              </div>
-            </Fragment>
-          ))}
-        </Grid>
-      </Container>
-    </Layout>
-  )
-}
+const index = () => (
+  <Layout>
+    <Container>
+      <Grid>
+        <Card className="grid-item">
+          <CardContent>
+            <Typography variant="h5" component="h2">
+              {data.title}
+            </Typography>
+            <Typography color="textSecondary">{data.description}</Typography>
+          </CardContent>
+        </Card>
+        {data.options.map(option => (
+          <Fragment>
+            <Card key={option.id} className="grid-item">
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  {option.title}
+                </Typography>
+                <Typography color="textSecondary">'desc'</Typography>
+              </CardContent>
+              <CardActions />
+            </Card>
+            <div>
+              {option.responses.map(res => (
+                <Card key={res.id}>
+                  <CardContent>{res.text}</CardContent>
+                </Card>
+              ))}
+            </div>
+          </Fragment>
+        ))}
+      </Grid>
+    </Container>
+  </Layout>
+)
 
 export default index
