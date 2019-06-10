@@ -64,7 +64,29 @@ const authReducer = (state = initialAuthState, action) => {
   }
 }
 
+const initialProfileState = {
+  activeTab: 0,
+}
+
+const CHANGE_TAB = 'CHANGE_TAB'
+
+export const tabChange = () => dispatch => {
+  dispatch({ type: CHANGE_TAB })
+  return console.log('tabChanged')
+}
+
+const profileReducer = (state = initialProfileState, action) => {
+  switch (action.type) {
+    case CHANGE_TAB:
+      return { ...state, activeTab: action.payload }
+
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   auth: authReducer,
   login: loginReducer,
+  profile: profileReducer,
 })

@@ -1,6 +1,5 @@
-require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`,
-})
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
+const path = require('path')
 
 module.exports = {
   siteMetadata: {
@@ -49,7 +48,14 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/profile/*`] },
+      options: { prefixes: [`/workflow/*`] },
+    },
+    {
+      resolve: `gatsby-plugin-root-import`,
+      options: {
+        src: path.join(__dirname, `src/`),
+        '@': path.join(__dirname, `src/components/`),
+      },
     },
   ],
 }
