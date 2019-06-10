@@ -2,10 +2,10 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import styled from 'styled-components'
-import Layout from '../components/layout'
-import SEO from '../components/seo'
-import { Graphic1, Graphic2 } from '../components/graphics'
-import { media } from '../theme'
+import Layout from '@/layout'
+import SEO from '@/seo'
+import { Graphic1, Graphic2 } from '@/graphics'
+import { media } from 'src/theme'
 
 const Landing = styled.div`
   margin-top: 4rem;
