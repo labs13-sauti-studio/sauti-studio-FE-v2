@@ -7,13 +7,13 @@ import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 
-const WorkflowCard = ({ id, title, description }) => (
+const WorkflowCard = ({ id, name, category }) => (
   <Card>
     <CardContent>
       <Typography variant="h5" component="h2">
-        {title}
+        {name}
       </Typography>
-      <Typography color="textSecondary">{description}</Typography>
+      <Typography color="textSecondary">{category}</Typography>
     </CardContent>
     <CardActions>
       <Link to={`workflow/${id}`}>
@@ -27,8 +27,8 @@ const WorkflowCard = ({ id, title, description }) => (
 
 WorkflowCard.propTypes = {
   id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
 }
 
 export default WorkflowCard
