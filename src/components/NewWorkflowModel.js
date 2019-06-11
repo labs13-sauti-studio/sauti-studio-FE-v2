@@ -35,7 +35,7 @@ export default class NewWorkflowModel extends Component {
     e.preventDefault()
     const { name, area_code, category, client_id, question_id } = this.state
     const obj = { name, area_code, category, client_id, question_id }
-    axiosInstance.post('/worksflows', obj).then(res => console.log(res))
+    axiosInstance.post('/workflows', obj).then(res => console.log(res))
   }
 
   render() {
@@ -46,7 +46,7 @@ export default class NewWorkflowModel extends Component {
     return (
       <div>
         <Button variant="outlined" color="primary" onClick={toggleModal}>
-          Open form dialog
+          Create a new workflow
         </Button>
         <Dialog
           open={open}

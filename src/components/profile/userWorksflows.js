@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import WorkflowCard from './workflowCard'
-import { axiosInstance } from '../../helpers'
-import { media } from '../../theme'
+import { axiosInstance } from 'src/helpers'
+import { media } from 'src/theme'
+import NewWorkflowModal from '@/NewWorkflowModel'
 
 const WorkflowGrid = styled.div`
   margin-top: 1rem;
@@ -27,6 +28,7 @@ export default function UserWorkflows() {
 
   return (
     <div>
+      <NewWorkflowModal />
       <WorkflowGrid>
         {data.map((wf, i) => (
           <WorkflowCard key={i} {...wf} />

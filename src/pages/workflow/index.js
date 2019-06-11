@@ -10,7 +10,6 @@ import Typography from '@material-ui/core/Typography'
 import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField'
 import { axiosInstance } from 'src/helpers'
-import NewWorkflowModel from '@/NewWorkflowModel'
 
 const Grid = styled.div`
   display: grid;
@@ -92,7 +91,6 @@ export default class WorkflowPage extends React.Component {
 
     return (
       <Layout>
-        <NewWorkflowModel />
         <Container>
           <Card className="grid-item">
             <CardContent>
