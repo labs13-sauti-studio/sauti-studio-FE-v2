@@ -4,14 +4,6 @@ import styled from 'styled-components'
 import WorkflowCard from './workflowCard'
 import { axiosInstance } from '../../helpers'
 import { media } from '../../theme'
-// const workflows = [
-//   { id: 0, title: 'Workflow 1', description: 'very cool wf' },
-//   { id: 1, title: 'Workflow 2', description: 'badass wf' },
-//   { id: 2, title: 'Workflow 2', description: 'badass wf' },
-//   { id: 3, title: 'Workflow 2', description: 'badass wf' },
-//   { id: 4, title: 'Workflow 2', description: 'badass wf' },
-//   { id: 5, title: 'Workflow 2', description: 'badass wf' },
-// ]
 
 const WorkflowGrid = styled.div`
   margin-top: 1rem;
@@ -27,19 +19,17 @@ const WorkflowGrid = styled.div`
 `
 
 export default function UserWorkflows() {
-  const [workflows, setWorkflows] = useState({ workflows: [] })
+  const [data, setData] = useState([])
 
-  useEffect(async () => {
-    const result = await axiosInstance('/workflows')
-    setWorkflows(result.data)
+  useEffect(() => {
+    axiosInstance.get('/workflows').then(result => setData(result.data))
   }, [])
 
   return (
     <div>
-      {JSON.stringify(workflows[0])}
       <WorkflowGrid>
-        {workflows.map(wf => (
-          <WorkflowCard key={wf.id} {...wf} />
+        {data.map((wf, i) => (
+          <WorkflowCard key={i} {...wf} />
         ))}
       </WorkflowGrid>
     </div>
