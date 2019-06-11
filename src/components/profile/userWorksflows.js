@@ -1,16 +1,9 @@
-import React from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import WorkflowCard from './workflowCard'
+import { axiosInstance } from '../../helpers'
 import { media } from '../../theme'
-
-const workflows = [
-  { id: 0, title: 'Workflow 1', description: 'very cool wf' },
-  { id: 1, title: 'Workflow 2', description: 'badass wf' },
-  { id: 2, title: 'Workflow 2', description: 'badass wf' },
-  { id: 3, title: 'Workflow 2', description: 'badass wf' },
-  { id: 4, title: 'Workflow 2', description: 'badass wf' },
-  { id: 5, title: 'Workflow 2', description: 'badass wf' },
-]
 
 const WorkflowGrid = styled.div`
   margin-top: 1rem;
@@ -25,12 +18,20 @@ const WorkflowGrid = styled.div`
   `}
 `
 
-const UserWorkflows = () => (
-  <WorkflowGrid>
-    {workflows.map((wf, i) => (
-      <WorkflowCard key={i} {...wf} />
-    ))}
-  </WorkflowGrid>
-)
+export default function UserWorkflows() {
+  const [data, setData] = useState([])
 
-export default UserWorkflows
+  useEffect(() => {
+    axiosInstance.get('/workflows').then(result => setData(result.data))
+  }, [])
+
+  return (
+    <div>
+      <WorkflowGrid>
+        {data.map((wf, i) => (
+          <WorkflowCard key={i} {...wf} />
+        ))}
+      </WorkflowGrid>
+    </div>
+  )
+}
