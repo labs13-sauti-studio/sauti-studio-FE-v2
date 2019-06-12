@@ -1,5 +1,7 @@
-require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
+require('dotenv').config()
 const path = require('path')
+console.log(process.env.NODE_ENV);
+
 
 module.exports = {
   siteMetadata: {
@@ -27,7 +29,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/Fav_icon@3x.png`, // This path is relative to the root of the site.
+        icon: `src/images/favicon.png`, // This path is relative to the root of the site.
       },
     },
     {
