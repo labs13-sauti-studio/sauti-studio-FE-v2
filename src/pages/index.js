@@ -1,11 +1,11 @@
-import React from 'react'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
-import styled from 'styled-components'
-import Layout from '@/layout'
-import SEO from '@/seo'
-import { Graphic1, Graphic2 } from '@/graphics'
-import { media } from 'src/theme'
+import React from "react"
+import Typography from "@material-ui/core/Typography"
+import Button from "@material-ui/core/Button"
+import styled from "styled-components"
+import Layout from "@/layout"
+import SEO from "@/seo"
+import { Graphic1, Graphic2 } from "@/graphics"
+import { media } from "src/theme"
 
 const Landing = styled.div`
   margin-top: 4rem;
@@ -122,7 +122,7 @@ const IndexPage = () => (
           to create their own flow whether to promote a buisness or share
           essential information that can support their community. From bus
           scheduals to a church event calendar, the weather or legal
-          information. You can create any text-based app flow with our product.{' '}
+          information. You can create any text-based app flow with our product.{" "}
         </p>
 
         <p>
