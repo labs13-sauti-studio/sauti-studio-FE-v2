@@ -1,92 +1,32 @@
 import { combineReducers } from 'redux'
-import { axiosInstance } from '../helpers'
 
-const initialState = {
-  loggingIn: false,
-  errorMsg: '',
-  successMsg: '',
+import {
+  LOAD_USER_START,
+  LOAD_USER_SUCCESS,
+  LOAD_USER_FAILURE,
+} from 'src/state/action'
+
+const initialUserState = {
+  user: {},
+  loading: false,
+  error: null,
+  msg: null,
 }
 
-const LOGIN_START = 'LOGIN_START'
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-const LOGIN_FAILURE = 'LOGIN_FAILURE'
-const LOGGED_IN = 'LOGGED_IN'
-const LOGGED_OUT = 'LOGGED_OUT'
-
-export const login = () => dispatch => {
-  dispatch({ type: LOGIN_START })
-  return console.log('login')
-}
-
-export const logout = () => dispatch => {
-  dispatch({ type: LOGGED_OUT })
-  return axiosInstance.get('/logout')
-}
-
-const loginReducer = (state = initialState, action) => {
+const userReducer = (state = initialUserState, action) => {
   switch (action.type) {
-    case LOGIN_START:
-      return { ...state, loggingIn: true }
+    case LOAD_USER_START:
+      return { ...state, loading: true }
 
-    case LOGIN_SUCCESS:
-      return {
-        ...state,
-        loggingIn: false,
-        errorMsg: '',
-        successMsg: action.payload,
-      }
+    case LOAD_USER_SUCCESS:
+      return { ...state, loading: false, user: action.payload, msg: 'Success' }
 
-    case LOGIN_FAILURE:
-      return { ...state, errorMsg: action.payload, loggingIn: false }
+    case LOAD_USER_FAILURE:
+      return { ...state, loading: false, error: true, msg: action.payload }
 
     default:
       return state
   }
 }
 
-const authCheck = () =>
-  axiosInstance.get('/users').then(res => res.status !== 400)
-
-const initialAuthState = {
-  loggedIn: authCheck(),
-}
-
-const authReducer = (state = initialAuthState, action) => {
-  switch (action.type) {
-    case LOGGED_IN:
-      return { ...state, loggedIn: true }
-
-    case LOGGED_OUT:
-      return { ...state, loggedIn: false }
-
-    default:
-      return state
-  }
-}
-
-const initialProfileState = {
-  activeTab: 0,
-}
-
-const CHANGE_TAB = 'CHANGE_TAB'
-
-export const tabChange = () => dispatch => {
-  dispatch({ type: CHANGE_TAB })
-  return console.log('tabChanged')
-}
-
-const profileReducer = (state = initialProfileState, action) => {
-  switch (action.type) {
-    case CHANGE_TAB:
-      return { ...state, activeTab: action.payload }
-
-    default:
-      return state
-  }
-}
-
-export default combineReducers({
-  auth: authReducer,
-  login: loginReducer,
-  profile: profileReducer,
-})
+export default combineReducers({ user: userReducer })
