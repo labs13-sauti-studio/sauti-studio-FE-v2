@@ -4,10 +4,11 @@ import {
   LOAD_USER_START,
   LOAD_USER_SUCCESS,
   LOAD_USER_FAILURE,
-} from 'src/state/action'
+  TOGGLE_SIDEBAR,
+} from 'state/actions'
 
 const initialUserState = {
-  user: {},
+  info: {},
   loading: false,
   error: null,
   msg: null,
@@ -19,7 +20,7 @@ const userReducer = (state = initialUserState, action) => {
       return { ...state, loading: true }
 
     case LOAD_USER_SUCCESS:
-      return { ...state, loading: false, user: action.payload, msg: 'Success' }
+      return { ...state, loading: false, info: action.payload, msg: 'Success' }
 
     case LOAD_USER_FAILURE:
       return { ...state, loading: false, error: true, msg: action.payload }
@@ -29,4 +30,16 @@ const userReducer = (state = initialUserState, action) => {
   }
 }
 
-export default combineReducers({ user: userReducer })
+const initialUiState = { isSidebarOpen: true }
+
+const uiReducer = (state = initialUiState, action) => {
+  switch (action.type) {
+    case TOGGLE_SIDEBAR:
+      return { ...state, isSidebarOpen: action.payload }
+
+    default:
+      return state
+  }
+}
+
+export default combineReducers({ user: userReducer, ui: uiReducer })

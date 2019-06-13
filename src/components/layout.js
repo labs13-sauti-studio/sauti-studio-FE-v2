@@ -1,8 +1,8 @@
-import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
-import PropTypes from 'prop-types'
 import Container from '@material-ui/core/Container'
 import Navbar from '@/navbar'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 const Layout = ({ children }) => (
   <StaticQuery

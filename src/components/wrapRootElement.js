@@ -10,11 +10,13 @@ import { theme, muiTheme, GlobalStyle } from 'src/theme'
 import store from '../state/store'
 
 export default ({ element }) => (
-  <ThemeProvider theme={theme}>
-    <MuiThemeProvider theme={muiTheme}>
-      <CssBaseline />
-      <GlobalStyle />
-      <Provider store={store}>{element}</Provider>
-    </MuiThemeProvider>
-  </ThemeProvider>
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <MuiThemeProvider theme={muiTheme}>
+        <CssBaseline />
+        <GlobalStyle />
+        {element}
+      </MuiThemeProvider>
+    </ThemeProvider>
+  </Provider>
 )
