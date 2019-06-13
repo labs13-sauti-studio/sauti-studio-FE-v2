@@ -5,4 +5,4 @@
  */
 
 // You can delete this file if you're not using it
-export { default as wrapRootElement } from './src/redux/ReduxWrapper'
+export { default as wrapRootElement } from './src/components/wrapRootElement'

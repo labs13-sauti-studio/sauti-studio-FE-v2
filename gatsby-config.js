@@ -1,7 +1,5 @@
 require('dotenv').config()
 const path = require('path')
-console.log(process.env.NODE_ENV);
-
 
 module.exports = {
   siteMetadata: {
@@ -57,6 +55,9 @@ module.exports = {
       options: {
         src: path.join(__dirname, `src/`),
         '@': path.join(__dirname, `src/components/`),
+        state: path.join(__dirname, `src/state/`),
+        theme: path.join(__dirname, `src/theme.js`),
+        helpers: path.join(__dirname, `src/helpers.js`),
       },
     },
   ],

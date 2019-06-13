@@ -1,33 +1,70 @@
-import React from 'react'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import UserWorkflows from '@/profile/userWorksflows'
-import Layout from '@/layout'
-import UserInfo from '@/profile/userInfo'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import UserLayout from '@/userLayout'
+import { connect } from 'react-redux'
+import { loadUserInfo } from 'state/actions'
+import Avatar from '@material-ui/core/Avatar'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
 
-const IndexPage = () => {
-  const [value, setValue] = React.useState(0)
+class ProfilePage extends Component {
+  constructor(props) {
+    super(props)
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
+    this.state = {}
   }
 
-  return (
-    <Layout>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        centered
-      >
-        <Tab label="Workflows" />
-        <Tab label="Profile" />
-      </Tabs>
-      {value === 0 && <UserWorkflows />}
-      {value === 1 && <UserInfo>Page One</UserInfo>}
-    </Layout>
-  )
+  componentDidMount() {
+    const { dispatch } = this.props
+
+    dispatch(loadUserInfo())
+  }
+
+  render() {
+    const { user } = this.props
+
+    const { company_name, country, display_name, email, phone_num, pic } = user
+
+    return (
+      <UserLayout>
+        <Card>
+          <CardContent>
+            <Typography color="textSecondary" gutterBottom>
+              <Avatar src={pic} />
+            </Typography>
+            <Typography className="{classes.pos}" color="textSecondary">
+              {display_name}
+            </Typography>
+            <Typography variant="body2" component="p">
+              {company_name}
+            </Typography>
+            <Typography variant="body2" component="p">
+              {country}
+            </Typography>
+            <Typography variant="body2" component="p">
+              {email}
+            </Typography>
+            <Typography variant="body2" component="p">
+              {phone_num}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Learn More</Button>
+          </CardActions>
+        </Card>
+      </UserLayout>
+    )
+  }
 }
 
-export default IndexPage
+ProfilePage.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.object,
+}
+
+export default connect(state => ({
+  user: state.user.info,
+}))(ProfilePage)

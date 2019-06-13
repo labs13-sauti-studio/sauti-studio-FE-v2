@@ -4,15 +4,25 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": "src/",
     "paths": {
+      "src/*": [
+        "/*"
+      ],
       "@/*": [
         "components/*"
       ],
-      "src/*": [
-        "/*"
+      "theme": [
+        "./src/theme.js"
+      ],
+      "helpers": [
+        "./src/helpers.js"
+      ],
+      "state": [
+        "./src/state/*"
       ]
     }
   },
   "exclude": [
+    "node_modules",
     "public"
   ],
   "module": "commonjs"
