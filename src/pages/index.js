@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button"
 import styled from "styled-components"
 import Layout from "@/layout"
 import SEO from "@/seo"
+import { Link } from 'gatsby'
 import { Graphic1, Graphic2 } from "@/graphics"
 import { media } from "src/theme"
 
@@ -79,9 +80,11 @@ const IndexPage = () => (
             Sharing information made simple & easy with Sauti Studio + Design
           </Typography>
           <div className="start">
+          <Link to="/login">
             <Button variant="outlined" color="primary">
               Start a New Flow
             </Button>
+            </Link>
           </div>
         </div>
       </Section1>
