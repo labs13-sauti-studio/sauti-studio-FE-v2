@@ -26,21 +26,14 @@ class ProfilePage extends Component {
   render() {
     const { user } = this.props
 
-    const {
-      company_name,
-      country,
-      display_name,
-      email,
-      phone_num,
-      avitar,
-    } = user
+    const { company_name, country, display_name, email, phone_num, pic } = user
 
     return (
       <UserLayout>
         <Card>
           <CardContent>
             <Typography color="textSecondary" gutterBottom>
-              <Avatar src={avitar} />
+              <Avatar src={pic} />
             </Typography>
             <Typography className="{classes.pos}" color="textSecondary">
               {display_name}
