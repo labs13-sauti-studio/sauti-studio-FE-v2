@@ -11,6 +11,7 @@ export const theme = {
     yellow: '#ffba29',
   },
 }
+
 const sizes = {
   phone: 576,
   tablet: 768,
