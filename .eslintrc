@@ -1,8 +1,39 @@
 {
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          [
+            "src",
+            "./src"
+          ],
+          [
+            "@",
+            "./src/components"
+          ],
+          [
+            "state",
+            "./src/state"
+          ],
+          [
+            "theme",
+            "./src/theme.js"
+          ],
+          [
+            "helpers",
+            "./src/helpers.js"
+          ]
+        ],
+        "extensions": [
+          ".js"
+        ]
+      }
+    }
+  },
   "extends": [
     "wesbos"
   ],
   "rules": {
-    "import/no-unresolved": "off"
+    "camelcase": "off"
   }
 }
