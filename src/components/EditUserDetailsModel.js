@@ -10,18 +10,20 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import PropTypes from 'prop-types'
-
 import { connect } from 'react-redux'
-import { toggleEditProfileModal } from 'state/actions'
+import {
+  toggleEditProfileModal,
+  closeEditProfileModal,
+  updateUserInfo,
+} from 'state/actions'
 import { axiosInstance } from 'helpers'
 
 class EditUserDetailsModel extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+
     this.state = {
-      company_name: '',
-      country: '',
-      phone_num: '',
+      ...this.props,
     }
   }
 
@@ -38,30 +40,22 @@ class EditUserDetailsModel extends Component {
   handleSubmit = e => {
     e.preventDefault()
     const { company_name, country, phone_num } = this.state
+    const { dispatch } = this.props
     const obj = { company_name, country, phone_num }
-    console.log(obj)
-    axiosInstance
-      .put('/profile', obj)
-      .then(res => console.log(res.data.user))
-      .then(
-        this.setState({
-          open: false,
-          company_name: '',
-          country: '',
-          phone_num: '',
-        })
-      )
+
+    dispatch(updateUserInfo(obj))
+    dispatch(closeEditProfileModal())
   }
 
   render() {
-    const { toggleModal, handleSubmit, handleInput } = this
-    const { isEditingProfile } = this.props
+    const { handleSubmit, handleInput } = this
+    const { isEditingProfile, dispatch } = this.props
     const { company_name, country, phone_num } = this.state
 
     return (
       <Dialog
         open={isEditingProfile}
-        onClose={toggleModal}
+        onClose={() => dispatch(closeEditProfileModal())}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Update your user info</DialogTitle>
@@ -101,17 +95,13 @@ class EditUserDetailsModel extends Component {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={() =>
-              this.props.dispatch(
-                toggleEditProfileModal(!this.props.isEditingProfile)
-              )
-            }
+            onClick={() => dispatch(toggleEditProfileModal(!isEditingProfile))}
             color="primary"
           >
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary">
-            Create Workflow
+            Update Info
           </Button>
         </DialogActions>
       </Dialog>
@@ -126,6 +116,9 @@ EditUserDetailsModel.propTypes = {
 
 export default connect(
   state => ({
+    company_name: state.user.company_name,
+    country: state.user.country,
+    phone_num: state.user.phone_num,
     isEditingProfile: state.ui.isEditingProfile,
   }),
   null

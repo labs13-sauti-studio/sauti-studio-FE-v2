@@ -21,6 +21,36 @@ export const loadUserInfo = () => dispatch => {
     )
 }
 
+export const SET_UPDATED_USER = 'SET_UPDATED_USER'
+
+export const setUpdatedUser = info => dispatch => {
+  dispatch({ type: SET_UPDATED_USER, payload: info })
+}
+
+export const UPDATE_USER_START = 'UPDATE_USER_START'
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS'
+export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE'
+
+export const updateUserInfo = info => dispatch => {
+  dispatch({ type: UPDATE_USER_START })
+
+  return axiosInstance
+    .put('/profile', info)
+    .then(({ data: { user } }) => {
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: user[0],
+        msg: 'Success',
+      })
+    })
+    .catch(err =>
+      dispatch({
+        type: UPDATE_USER_FAILURE,
+        payload: err.message,
+      })
+    )
+}
+
 // WORKFLOWS
 
 export const LOAD_WORKFLOWS_START = 'LOAD_WORKFLOWS_START'
@@ -161,3 +191,8 @@ export const TOGGLE_EDIT_PROFILE = 'TOGGLE_EDIT_PROFILE'
 
 export const toggleEditProfileModal = bool => dispatch =>
   dispatch({ type: TOGGLE_EDIT_PROFILE, payload: bool })
+
+export const CLOSE_EDIT_PROFILE = 'CLOSE_EDIT_PROFILE'
+
+export const closeEditProfileModal = () => dispatch =>
+  dispatch({ type: CLOSE_EDIT_PROFILE })

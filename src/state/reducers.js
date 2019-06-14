@@ -7,10 +7,14 @@ import {
   TOGGLE_SIDEBAR,
   TOGGLE_WORKFLOW_MODAL,
   TOGGLE_EDIT_PROFILE,
+  CLOSE_EDIT_PROFILE,
   CLOSE_WORKFLOW_MODAL,
   LOAD_WORKFLOWS_START,
   LOAD_WORKFLOWS_SUCCESS,
   LOAD_WORKFLOWS_FAILURE,
+  UPDATE_USER_START,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
   ADD_WORKFLOW_START,
   ADD_WORKFLOW_SUCCESS,
   ADD_WORKFLOW_FAILURE,
@@ -42,10 +46,29 @@ const userReducer = (state = initialUserState, action) => {
       return { ...state, loading: true }
 
     case LOAD_USER_SUCCESS:
-      return { ...state, loading: false, ...action.payload, msg: 'Success' }
+      return {
+        ...state,
+        loading: false,
+        ...action.payload,
+        msg: action.payload,
+      }
 
     case LOAD_USER_FAILURE:
       return { ...state, loading: false, error: true, msg: action.payload }
+
+    case UPDATE_USER_START:
+      return { ...state, loading: true }
+
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        ...action.payload,
+        msg: action.payload,
+      }
+
+    case UPDATE_USER_FAILURE:
+      return { ...state, loading: false, msg: action.payload }
 
     default:
       return state
@@ -129,6 +152,9 @@ const uiReducer = (state = initialUiState, action) => {
 
     case TOGGLE_EDIT_PROFILE:
       return { ...state, isEditingProfile: action.payload }
+
+    case CLOSE_EDIT_PROFILE:
+      return { ...state, isEditingProfile: false }
 
     default:
       return state

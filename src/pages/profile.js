@@ -42,17 +42,16 @@ class ProfilePage extends Component {
           <CardContent>
             <Avatar src={pic} />
             <br />
-            <Typography className="{classes.pos}" color="textSecondary">
-              {display_name}
+            <Typography color="textSecondary">{display_name}</Typography>
+            <Typography color="textSecondary" variant="body2" component="p">
+              {email}
             </Typography>
+            <br />
             <Typography variant="body2" component="p">
               {company_name}
             </Typography>
             <Typography variant="body2" component="p">
               {country}
-            </Typography>
-            <Typography variant="body2" component="p">
-              {email}
             </Typography>
             <Typography variant="body2" component="p">
               {phone_num}
