@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
-import { Link } from 'gatsby'
+import { navigate } from 'gatsby'
 
 const WorkflowCard = ({ id, name, category }) => (
   <Card>
@@ -13,14 +13,27 @@ const WorkflowCard = ({ id, name, category }) => (
       <Typography variant="h5" component="h2">
         {name}
       </Typography>
-      <Typography color="textSecondary">{category}</Typography>
+      {category !== '' ? (
+        <Typography color="textSecondary">{category}</Typography>
+      ) : (
+        <br />
+      )}
     </CardContent>
     <CardActions>
-      <Link to={`workflow/${id}`}>
-        <Button size="small" color="primary">
-          Edit
-        </Button>
-      </Link>
+      <Button
+        size="small"
+        color="primary"
+        onClick={() => navigate(`/workflow/${id}`)}
+      >
+        Edit
+      </Button>
+      <Button
+        size="small"
+        color="primary"
+        onClick={() => console.log('delete')}
+      >
+        Delete
+      </Button>
     </CardActions>
   </Card>
 )
