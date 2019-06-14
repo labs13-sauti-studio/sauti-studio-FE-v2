@@ -24,7 +24,6 @@ class WorkflowPage extends Component {
     return (
       <UserLayout>
         <Typography variant="subtitle1">WORKFLOW</Typography>
-        {/* <br /> */}
         <Typography variant="h3">{name}</Typography>
         <Typography variant="body1">{id}</Typography>
         <Typography variant="body1">{category}</Typography>

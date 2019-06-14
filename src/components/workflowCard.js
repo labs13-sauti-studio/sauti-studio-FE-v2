@@ -10,8 +10,8 @@ import { deleteUserWorkflow } from 'state/actions'
 import { connect } from 'react-redux'
 
 const WorkflowCard = ({ id, name, category, dispatch }) => (
-  <Card onClick={() => navigate(`/workflow/${id}`)}>
-    <CardContent>
+  <Card>
+    <CardContent onClick={() => navigate(`/workflow/${id}`)}>
       <Typography variant="h5" component="h2">
         {name}
       </Typography>
@@ -22,13 +22,6 @@ const WorkflowCard = ({ id, name, category, dispatch }) => (
       )}
     </CardContent>
     <CardActions>
-      <Button
-        size="small"
-        color="primary"
-        onClick={() => navigate(`/workflow/${id}`)}
-      >
-        Edit
-      </Button>
       <Button
         size="small"
         color="primary"
