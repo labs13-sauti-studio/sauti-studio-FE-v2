@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import WorkflowCard from '@/workflowCard'
-import { axiosInstance } from 'src/helpers'
 import { media } from 'src/theme'
+
+import PropTypes from 'prop-types'
 
 const WorkflowGrid = styled.div`
   margin-top: 1rem;
@@ -18,18 +19,16 @@ const WorkflowGrid = styled.div`
   `}
 `
 
-export default function UserWorkflows() {
-  const [data, setData] = useState([])
+const UserWorkflows = ({ workflows }) => (
+  <WorkflowGrid>
+    {workflows.map((wf, i) => (
+      <WorkflowCard key={i} {...wf} />
+    ))}
+  </WorkflowGrid>
+)
 
-  useEffect(() => {
-    axiosInstance.get('/workflows').then(result => setData(result.data))
-  }, [])
-
-  return (
-    <WorkflowGrid>
-      {data.map((wf, i) => (
-        <WorkflowCard key={i} {...wf} />
-      ))}
-    </WorkflowGrid>
-  )
+UserWorkflows.propTypes = {
+  workflows: PropTypes.array.isRequired,
 }
+
+export default UserWorkflows

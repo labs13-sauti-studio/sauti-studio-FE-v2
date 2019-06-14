@@ -17,10 +17,11 @@ class WorkflowPage extends Component {
     const { dispatch, '*': url } = this.props
     const id = url.replace('workflow/', '')
     dispatch(loadWorkflow(id))
+    this.forceUpdate()
   }
 
   render() {
-    const { id, name, category, area_code } = this.props
+    const { id, name, category, area_code, questions } = this.props
     return (
       <UserLayout>
         <Typography variant="subtitle1">WORKFLOW</Typography>
@@ -28,6 +29,7 @@ class WorkflowPage extends Component {
         <Typography variant="body1">{id}</Typography>
         <Typography variant="body1">{category}</Typography>
         <Typography variant="body1">{area_code}</Typography>
+        <div>{JSON.stringify(questions)}</div>
       </UserLayout>
     )
   }
@@ -38,6 +40,7 @@ WorkflowPage.propTypes = {
   category: PropTypes.string,
   id: PropTypes.number,
   area_code: PropTypes.string,
+  questions: PropTypes.array.isRequired,
   '*': PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
 }
@@ -47,4 +50,5 @@ export default connect(state => ({
   name: state.workflow.name,
   category: state.workflow.category,
   area_code: state.workflow.area_code,
+  questions: state.workflow.questions,
 }))(WorkflowPage)
