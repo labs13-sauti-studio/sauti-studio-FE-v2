@@ -31,15 +31,11 @@ export const loadUserWorkflows = () => dispatch => {
   dispatch({ type: LOAD_WORKFLOWS_START })
   return axiosInstance
     .get('/workflows')
-    .then(res => {
-      console.log(res)
-
-      dispatch({ type: LOAD_WORKFLOWS_SUCCESS, payload: res.data })
-    })
-    .catch(() =>
+    .then(res => dispatch({ type: LOAD_WORKFLOWS_SUCCESS, payload: res.data }))
+    .catch(err =>
       dispatch({
         type: LOAD_WORKFLOWS_FAILURE,
-        payload: 'Problem fetching workflows',
+        payload: err.message,
       })
     )
 }
@@ -102,7 +98,46 @@ export const loadWorkflow = id => dispatch => {
   axiosInstance
     .get(`/workflows/${id}`)
     .then(res => dispatch({ type: 'LOAD_WORKFLOW_SUCCESS', payload: res.data }))
-    .catch(err => console.log(err))
+    .catch(err =>
+      dispatch({
+        type: 'LOAD_WORKFLOWS_FAILURE',
+        msg: err.message,
+      })
+    )
+
+  dispatch({ type: 'LOAD_WORKFLOW_START' })
+
+  axiosInstance
+    .get(`questions/${id}`)
+    .then(res =>
+      dispatch({
+        type: 'LOAD_WORKFLOW_QUESTIONS_SUCCESS',
+        payload: res.message,
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: 'LOAD_WORKFLOW_QUESTIONS_FAILURE',
+        msg: err.message,
+      })
+    )
+}
+
+export const LOAD_WORKFLOW_QUESTIONS_START = 'LOAD_WORKFLOW_QUESTIONS_START'
+export const LOAD_WORKFLOW_QUESTIONS_SUCCESS = 'LOAD_WORKFLOW_QUESTIONS_SUCCESS'
+export const LOAD_WORKFLOW_QUESTIONS_FAILURE = 'LOAD_WORKFLOW_QUESTIONS_FAILURE'
+
+// WORKFLOW QUESTIONS
+export const loadWorkflowQuestions = () => dispatch => {
+  dispatch({ type: 'LOAD_WORKFLOW_QUESTIONS_START' })
+
+  axiosInstance
+    .get('/questions')
+    .then(res => console.log(res))
+    .catch(err => {
+      console.log(err)
+      dispatch({ type: 'DELETE_WORKFLOW_FAILURE' })
+    })
 }
 
 // USER INTERFACE
@@ -121,3 +156,8 @@ export const CLOSE_WORKFLOW_MODAL = 'CLOSE_WORKFLOW_MODAL'
 
 export const closeWorkflowModal = () => dispatch =>
   dispatch({ type: CLOSE_WORKFLOW_MODAL })
+
+export const TOGGLE_EDIT_PROFILE = 'TOGGLE_EDIT_PROFILE'
+
+export const toggleEditProfileModal = bool => dispatch =>
+  dispatch({ type: TOGGLE_EDIT_PROFILE, payload: bool })

@@ -6,6 +6,7 @@ import {
   LOAD_USER_FAILURE,
   TOGGLE_SIDEBAR,
   TOGGLE_WORKFLOW_MODAL,
+  TOGGLE_EDIT_PROFILE,
   CLOSE_WORKFLOW_MODAL,
   LOAD_WORKFLOWS_START,
   LOAD_WORKFLOWS_SUCCESS,
@@ -20,10 +21,16 @@ import {
   LOAD_WORKFLOW_START,
   LOAD_WORKFLOW_SUCCESS,
   LOAD_WORKFLOW_FAILURE,
+  LOAD_WORKFLOW_QUESTIONS_START,
+  LOAD_WORKFLOW_QUESTIONS_SUCCESS,
+  LOAD_WORKFLOW_QUESTIONS_FAILURE,
 } from 'state/actions'
 
 const initialUserState = {
-  info: {},
+  id: null,
+  company_name: null,
+  country: null,
+  display_name: 'Garrett Weems',
   loading: false,
   error: null,
   msg: null,
@@ -35,7 +42,7 @@ const userReducer = (state = initialUserState, action) => {
       return { ...state, loading: true }
 
     case LOAD_USER_SUCCESS:
-      return { ...state, loading: false, info: action.payload, msg: 'Success' }
+      return { ...state, loading: false, ...action.payload, msg: 'Success' }
 
     case LOAD_USER_FAILURE:
       return { ...state, loading: false, error: true, msg: action.payload }
@@ -100,12 +107,13 @@ const workflowsReducer = (state = initialWorkflowsState, action) => {
 }
 
 const initialUiState = {
-  isSidebarOpen: true,
-  isAddingNewWorkflow: false,
   sideBarData: [
     { name: 'Profile', to: '/profile' },
     { name: 'Workflows', to: 'workflows' },
   ],
+  isSidebarOpen: true,
+  isAddingNewWorkflow: false,
+  isEditingProfile: false,
 }
 
 const uiReducer = (state = initialUiState, action) => {
@@ -118,6 +126,9 @@ const uiReducer = (state = initialUiState, action) => {
 
     case CLOSE_WORKFLOW_MODAL:
       return { ...state, isAddingNewWorkflow: false }
+
+    case TOGGLE_EDIT_PROFILE:
+      return { ...state, isEditingProfile: action.payload }
 
     default:
       return state
@@ -134,6 +145,8 @@ const initialWorkflowState = {
   loading: false,
   msg: null,
   error: null,
+  questions: [],
+  loadingQuestions: false,
 }
 
 const workflowReducer = (state = initialWorkflowState, action) => {
@@ -151,6 +164,15 @@ const workflowReducer = (state = initialWorkflowState, action) => {
 
     case LOAD_WORKFLOW_FAILURE:
       return { ...state, error: true, msg: action.payload }
+
+    case LOAD_WORKFLOW_QUESTIONS_START:
+      return { ...state, loadingQuestions: true }
+
+    case LOAD_WORKFLOW_QUESTIONS_SUCCESS:
+      return { ...state, loadingQuestions: false, question: action.payload }
+
+    case LOAD_WORKFLOW_QUESTIONS_FAILURE:
+      return { ...state, error: true, msg: 'Problem Loading Questions' }
 
     default:
       return state

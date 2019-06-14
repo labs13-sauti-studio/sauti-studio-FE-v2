@@ -21,9 +21,10 @@ import MailIcon from '@material-ui/icons/Mail'
 import { connect } from 'react-redux'
 import { toggleSidebar } from 'state/actions'
 import PropTypes from 'prop-types'
+import Avatar from '@material-ui/core/Avatar'
 import { navigate } from '../../node_modules/gatsby-link/index'
 
-function Dashboard({ sideBarData, isSidebarOpen, children, dispatch }) {
+function Dashboard({ user, sideBarData, isSidebarOpen, children, dispatch }) {
   const classes = useStyles()
   const theme = useTheme()
 
@@ -61,6 +62,7 @@ function Dashboard({ sideBarData, isSidebarOpen, children, dispatch }) {
         }}
       >
         <div className={classes.drawerHeader}>
+          <Avatar src={user.pic} />
           <Typography variant="h6">Sauti Studio</Typography>
           <IconButton onClick={() => dispatch(toggleSidebar(!isSidebarOpen))}>
             {theme.direction === 'ltr' ? (
@@ -110,6 +112,7 @@ Dashboard.propTypes = {
   isSidebarOpen: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   children: PropTypes.node,
+  user: PropTypes.object,
 }
 
 export default connect(state => ({
