@@ -17,6 +17,9 @@ import {
   DELETE_WORKFLOW_START,
   DELETE_WORKFLOW_SUCCESS,
   DELETE_WORKFLOW_FAILURE,
+  LOAD_WORKFLOW_START,
+  LOAD_WORKFLOW_SUCCESS,
+  LOAD_WORKFLOW_FAILURE,
 } from 'state/actions'
 
 const initialUserState = {
@@ -117,8 +120,42 @@ const uiReducer = (state = initialUiState, action) => {
   }
 }
 
+const initialWorkflowState = {
+  id: null,
+  name: 'test',
+  area_code: null,
+  category: null,
+  client_id: null,
+  question_id: null,
+  loading: false,
+  msg: null,
+  error: null,
+}
+
+const workflowReducer = (state = initialWorkflowState, action) => {
+  switch (action.type) {
+    case LOAD_WORKFLOW_START:
+      return { ...state, loading: true }
+
+    case LOAD_WORKFLOW_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        msg: 'Success',
+        ...action.payload,
+      }
+
+    case LOAD_WORKFLOW_FAILURE:
+      return { ...state, error: true, msg: action.payload }
+
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   user: userReducer,
   workflows: workflowsReducer,
+  workflow: workflowReducer,
   ui: uiReducer,
 })

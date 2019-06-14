@@ -90,6 +90,21 @@ export const deleteUserWorkflow = id => dispatch => {
     })
 }
 
+// USER WORKFLOW
+
+export const LOAD_WORKFLOW_START = 'LOAD_WORKFLOW_START'
+export const LOAD_WORKFLOW_SUCCESS = 'LOAD_WORKFLOW_SUCCESS'
+export const LOAD_WORKFLOW_FAILURE = 'LOAD_WORKFLOW_FAILURE'
+
+export const loadWorkflow = id => dispatch => {
+  dispatch({ type: 'LOAD_WORKFLOW_START' })
+
+  axiosInstance
+    .get(`/workflows/${id}`)
+    .then(res => dispatch({ type: 'LOAD_WORKFLOW_SUCCESS', payload: res.data }))
+    .catch(err => console.log(err))
+}
+
 // USER INTERFACE
 
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR'
