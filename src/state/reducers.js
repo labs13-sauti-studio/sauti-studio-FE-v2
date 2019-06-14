@@ -14,6 +14,12 @@ import {
   ADD_WORKFLOW_SUCCESS,
   ADD_WORKFLOW_FAILURE,
   SET_USER_WORKFLOWS,
+  DELETE_WORKFLOW_START,
+  DELETE_WORKFLOW_SUCCESS,
+  DELETE_WORKFLOW_FAILURE,
+  LOAD_WORKFLOW_START,
+  LOAD_WORKFLOW_SUCCESS,
+  LOAD_WORKFLOW_FAILURE,
 } from 'state/actions'
 
 const initialUserState = {
@@ -44,7 +50,7 @@ const initialWorkflowsState = {
   error: null,
   msg: null,
   isAdding: false,
-  shit: null,
+  isDeleting: false,
 }
 
 const workflowsReducer = (state = initialWorkflowsState, action) => {
@@ -78,6 +84,16 @@ const workflowsReducer = (state = initialWorkflowsState, action) => {
 
     case SET_USER_WORKFLOWS:
       return { ...state, data: action.payload }
+
+    case DELETE_WORKFLOW_START:
+      return { ...state, isDeleting: true }
+
+    case DELETE_WORKFLOW_SUCCESS:
+      return { ...state, isDeleting: false, msg: action.payload }
+
+    case DELETE_WORKFLOW_FAILURE:
+      return { ...state }
+
     default:
       return state
   }
@@ -86,6 +102,10 @@ const workflowsReducer = (state = initialWorkflowsState, action) => {
 const initialUiState = {
   isSidebarOpen: true,
   isAddingNewWorkflow: false,
+  sideBarData: [
+    { name: 'Profile', to: '/profile' },
+    { name: 'Workflows', to: 'workflows' },
+  ],
 }
 
 const uiReducer = (state = initialUiState, action) => {
@@ -104,8 +124,42 @@ const uiReducer = (state = initialUiState, action) => {
   }
 }
 
+const initialWorkflowState = {
+  id: null,
+  name: 'test',
+  area_code: null,
+  category: null,
+  client_id: null,
+  question_id: null,
+  loading: false,
+  msg: null,
+  error: null,
+}
+
+const workflowReducer = (state = initialWorkflowState, action) => {
+  switch (action.type) {
+    case LOAD_WORKFLOW_START:
+      return { ...state, loading: true }
+
+    case LOAD_WORKFLOW_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        msg: 'Success',
+        ...action.payload,
+      }
+
+    case LOAD_WORKFLOW_FAILURE:
+      return { ...state, error: true, msg: action.payload }
+
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   user: userReducer,
   workflows: workflowsReducer,
+  workflow: workflowReducer,
   ui: uiReducer,
 })

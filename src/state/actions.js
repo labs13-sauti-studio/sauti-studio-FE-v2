@@ -1,5 +1,7 @@
 import { axiosInstance } from 'helpers'
 
+// USER DETAILS
+
 export const LOAD_USER_START = 'LOAD_USER_START'
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS'
 export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE'
@@ -18,6 +20,8 @@ export const loadUserInfo = () => dispatch => {
       })
     )
 }
+
+// WORKFLOWS
 
 export const LOAD_WORKFLOWS_START = 'LOAD_WORKFLOWS_START'
 export const LOAD_WORKFLOWS_SUCCESS = 'LOAD_WORKFLOWS_SUCCESS'
@@ -43,6 +47,7 @@ export const loadUserWorkflows = () => dispatch => {
 export const ADD_WORKFLOW_START = 'ADD_WORKFLOW_START'
 export const ADD_WORKFLOW_SUCCESS = 'ADD_WORKFLOW_SUCCESS'
 export const ADD_WORKFLOW_FAILURE = 'ADD_WORKFLOW_FAILURE'
+
 export const addUserWorkflow = obj => dispatch => {
   dispatch({ type: ADD_WORKFLOW_START })
   axiosInstance
@@ -59,17 +64,49 @@ export const addUserWorkflow = obj => dispatch => {
       })
     )
 }
+
 export const SET_USER_WORKFLOWS = 'SET_USER_WORKFLOWS'
 
 export const setUserWorkflows = workflows => dispatch => {
   dispatch({ type: 'SET_USER_WORKFLOWS', payload: workflows })
 }
 
-export const DELETE_USER_WORKFLOW = 'DELETE_USER_WORKFLOW'
+export const DELETE_WORKFLOW_START = 'DELETE_WORKFLOW_START'
+export const DELETE_WORKFLOW_SUCCESS = 'DELETE_WORKFLOW_SUCCESS'
+export const DELETE_WORKFLOW_FAILURE = 'DELETE_WORKFLOW_FAILURE'
 
 export const deleteUserWorkflow = id => dispatch => {
-  dispatch({ type: 'DELETE_USER_WORKFLOW', payload: id })
+  dispatch({ type: 'DELETE_WORKFLOW_START' })
+
+  axiosInstance
+    .delete(`/workflows/${id}`)
+    .then(({ data: { message } }) => {
+      dispatch({ type: 'DELETE_WORKFLOW_SUCCESS', payload: message })
+      dispatch(loadUserWorkflows())
+    })
+    .catch(err => {
+      console.log(err)
+      dispatch({ type: 'DELETE_WORKFLOW_FAILURE' })
+    })
 }
+
+// USER WORKFLOW
+
+export const LOAD_WORKFLOW_START = 'LOAD_WORKFLOW_START'
+export const LOAD_WORKFLOW_SUCCESS = 'LOAD_WORKFLOW_SUCCESS'
+export const LOAD_WORKFLOW_FAILURE = 'LOAD_WORKFLOW_FAILURE'
+
+export const loadWorkflow = id => dispatch => {
+  dispatch({ type: 'LOAD_WORKFLOW_START' })
+
+  axiosInstance
+    .get(`/workflows/${id}`)
+    .then(res => dispatch({ type: 'LOAD_WORKFLOW_SUCCESS', payload: res.data }))
+    .catch(err => console.log(err))
+}
+
+// USER INTERFACE
+
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR'
 
 export const toggleSidebar = bool => dispatch =>

@@ -21,10 +21,9 @@ import MailIcon from '@material-ui/icons/Mail'
 import { connect } from 'react-redux'
 import { toggleSidebar } from 'state/actions'
 import PropTypes from 'prop-types'
+import { navigate } from '../../node_modules/gatsby-link/index'
 
-const sideBarData = ['Profile', 'Workflows']
-
-function Dashboard({ isSidebarOpen, children, dispatch }) {
+function Dashboard({ sideBarData, isSidebarOpen, children, dispatch }) {
   const classes = useStyles()
   const theme = useTheme()
 
@@ -73,12 +72,12 @@ function Dashboard({ isSidebarOpen, children, dispatch }) {
         </div>
         <Divider />
         <List>
-          {sideBarData.map((text, index) => (
-            <ListItem button key={text}>
+          {sideBarData.map(({ name, to }, i) => (
+            <ListItem button key={name} onClick={() => navigate(to)}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {i % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={name} />
             </ListItem>
           ))}
         </List>
@@ -107,12 +106,14 @@ function Dashboard({ isSidebarOpen, children, dispatch }) {
 }
 
 Dashboard.propTypes = {
+  sideBarData: PropTypes.array.isRequired,
   isSidebarOpen: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   children: PropTypes.node,
 }
 
 export default connect(state => ({
+  sideBarData: state.ui.sideBarData,
   isSidebarOpen: state.ui.isSidebarOpen,
 }))(Dashboard)
 

@@ -6,10 +6,12 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
 import { navigate } from 'gatsby'
+import { deleteUserWorkflow } from 'state/actions'
+import { connect } from 'react-redux'
 
-const WorkflowCard = ({ id, name, category }) => (
+const WorkflowCard = ({ id, name, category, dispatch }) => (
   <Card>
-    <CardContent>
+    <CardContent onClick={() => navigate(`/workflow/${id}`)}>
       <Typography variant="h5" component="h2">
         {name}
       </Typography>
@@ -23,14 +25,7 @@ const WorkflowCard = ({ id, name, category }) => (
       <Button
         size="small"
         color="primary"
-        onClick={() => navigate(`/workflow/${id}`)}
-      >
-        Edit
-      </Button>
-      <Button
-        size="small"
-        color="primary"
-        onClick={() => console.log('delete')}
+        onClick={() => dispatch(deleteUserWorkflow(id))}
       >
         Delete
       </Button>
@@ -42,6 +37,7 @@ WorkflowCard.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 }
 
-export default WorkflowCard
+export default connect()(WorkflowCard)
