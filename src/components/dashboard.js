@@ -62,6 +62,7 @@ function Dashboard({ isSidebarOpen, children, dispatch }) {
         }}
       >
         <div className={classes.drawerHeader}>
+          <Typography variant="h6">Sauti Studio</Typography>
           <IconButton onClick={() => dispatch(toggleSidebar(!isSidebarOpen))}>
             {theme.direction === 'ltr' ? (
               <ChevronLeftIcon />
@@ -153,7 +154,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     padding: '0 8px',
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
   },
   content: {
     flexGrow: 1,

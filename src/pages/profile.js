@@ -52,7 +52,9 @@ class ProfilePage extends Component {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">Learn More</Button>
+            <a href={`${process.env.GATSBY_API_URL}/logout`}>
+              <Button size="small">Logout</Button>
+            </a>
           </CardActions>
         </Card>
       </UserLayout>
