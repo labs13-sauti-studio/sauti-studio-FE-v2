@@ -102,6 +102,10 @@ const workflowsReducer = (state = initialWorkflowsState, action) => {
 const initialUiState = {
   isSidebarOpen: true,
   isAddingNewWorkflow: false,
+  sideBarData: [
+    { name: 'Profile', to: '/profile' },
+    { name: 'Workflows', to: 'workflows' },
+  ],
 }
 
 const uiReducer = (state = initialUiState, action) => {

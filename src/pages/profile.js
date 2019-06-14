@@ -32,9 +32,8 @@ class ProfilePage extends Component {
       <UserLayout>
         <Card>
           <CardContent>
-            <Typography color="textSecondary" gutterBottom>
-              <Avatar src={pic} />
-            </Typography>
+            <Avatar src={pic} />
+            <br />
             <Typography className="{classes.pos}" color="textSecondary">
               {display_name}
             </Typography>
