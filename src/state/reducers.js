@@ -14,6 +14,9 @@ import {
   ADD_WORKFLOW_SUCCESS,
   ADD_WORKFLOW_FAILURE,
   SET_USER_WORKFLOWS,
+  DELETE_WORKFLOW_START,
+  DELETE_WORKFLOW_SUCCESS,
+  DELETE_WORKFLOW_FAILURE,
 } from 'state/actions'
 
 const initialUserState = {
@@ -44,7 +47,7 @@ const initialWorkflowsState = {
   error: null,
   msg: null,
   isAdding: false,
-  shit: null,
+  isDeleting: false,
 }
 
 const workflowsReducer = (state = initialWorkflowsState, action) => {
@@ -78,6 +81,16 @@ const workflowsReducer = (state = initialWorkflowsState, action) => {
 
     case SET_USER_WORKFLOWS:
       return { ...state, data: action.payload }
+
+    case DELETE_WORKFLOW_START:
+      return { ...state, isDeleting: true }
+
+    case DELETE_WORKFLOW_SUCCESS:
+      return { ...state, isDeleting: false, msg: action.payload }
+
+    case DELETE_WORKFLOW_FAILURE:
+      return { ...state }
+
     default:
       return state
   }
