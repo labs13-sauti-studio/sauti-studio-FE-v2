@@ -153,20 +153,29 @@ export const loadWorkflow = id => dispatch => {
     )
 }
 
+export const SET_ACTIVE_WORKFLOW = 'SET_ACTIVE_WORKFLOW'
+
+export const setActiveWorkflow = workflow => dispatch => {
+  dispatch({ type: SET_ACTIVE_WORKFLOW, payload: workflow })
+  console.log(workflow)
+}
+
 export const LOAD_WORKFLOW_QUESTIONS_START = 'LOAD_WORKFLOW_QUESTIONS_START'
 export const LOAD_WORKFLOW_QUESTIONS_SUCCESS = 'LOAD_WORKFLOW_QUESTIONS_SUCCESS'
 export const LOAD_WORKFLOW_QUESTIONS_FAILURE = 'LOAD_WORKFLOW_QUESTIONS_FAILURE'
 
 // WORKFLOW QUESTIONS
-export const loadWorkflowQuestions = () => dispatch => {
-  dispatch({ type: 'LOAD_WORKFLOW_QUESTIONS_START' })
+export const loadWorkflowQuestions = id => dispatch => {
+  dispatch({ type: LOAD_WORKFLOW_QUESTIONS_START })
 
   axiosInstance
-    .get('/questions')
-    .then(res => console.log(res))
+    .get(`/questions/${id}`)
+    .then(({ data }) =>
+      dispatch({ type: LOAD_WORKFLOW_QUESTIONS_SUCCESS, payload: data })
+    )
     .catch(err => {
       console.log(err)
-      dispatch({ type: 'DELETE_WORKFLOW_FAILURE' })
+      dispatch({ type: LOAD_WORKFLOW_QUESTIONS_FAILURE })
     })
 }
 

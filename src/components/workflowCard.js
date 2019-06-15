@@ -9,7 +9,7 @@ import { navigate } from 'gatsby'
 import { deleteUserWorkflow } from 'state/actions'
 import { connect } from 'react-redux'
 
-const WorkflowCard = ({ id, name, category, dispatch }) => (
+const WorkflowCard = ({ id, name, category, area_code, dispatch }) => (
   <Card>
     <CardContent onClick={() => navigate(`/workflow/${id}`)}>
       <Typography variant="h5" component="h2">
@@ -17,6 +17,11 @@ const WorkflowCard = ({ id, name, category, dispatch }) => (
       </Typography>
       {category !== '' ? (
         <Typography color="textSecondary">{category}</Typography>
+      ) : (
+        <br />
+      )}
+      {area_code !== '' ? (
+        <Typography color="textSecondary">{area_code}</Typography>
       ) : (
         <br />
       )}
@@ -37,6 +42,7 @@ WorkflowCard.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  area_code: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
 }
 

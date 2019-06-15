@@ -19,6 +19,7 @@ import {
   ADD_WORKFLOW_SUCCESS,
   ADD_WORKFLOW_FAILURE,
   SET_USER_WORKFLOWS,
+  SET_ACTIVE_WORKFLOW,
   DELETE_WORKFLOW_START,
   DELETE_WORKFLOW_SUCCESS,
   DELETE_WORKFLOW_FAILURE,
@@ -163,7 +164,7 @@ const uiReducer = (state = initialUiState, action) => {
 
 const initialWorkflowState = {
   id: null,
-  name: 'test',
+  name: null,
   area_code: null,
   category: null,
   client_id: null,
@@ -195,10 +196,13 @@ const workflowReducer = (state = initialWorkflowState, action) => {
       return { ...state, loadingQuestions: true }
 
     case LOAD_WORKFLOW_QUESTIONS_SUCCESS:
-      return { ...state, loadingQuestions: false, question: action.payload }
+      return { ...state, loadingQuestions: false, questions: action.payload }
 
     case LOAD_WORKFLOW_QUESTIONS_FAILURE:
       return { ...state, error: true, msg: 'Problem Loading Questions' }
+
+    case SET_ACTIVE_WORKFLOW:
+      return { ...state, ...action.payload }
 
     default:
       return state

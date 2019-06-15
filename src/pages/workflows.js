@@ -22,7 +22,6 @@ class WorkflowsPage extends Component {
 
   toggleModal = () => {
     const { isAddingNewWorkflow, dispatch } = this.props
-
     dispatch(toggleWorkflowModal(!isAddingNewWorkflow))
   }
 

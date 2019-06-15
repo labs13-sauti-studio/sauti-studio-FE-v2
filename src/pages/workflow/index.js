@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import UserLayout from '@/userLayout'
-import { loadWorkflow } from 'state/actions'
+import { loadWorkflow, loadWorkflowQuestions } from 'state/actions'
 
 class WorkflowPage extends Component {
   constructor(props) {
@@ -15,9 +15,10 @@ class WorkflowPage extends Component {
 
   componentDidMount() {
     const { dispatch, '*': url } = this.props
-    const id = url.replace('workflow/', '')
-    dispatch(loadWorkflow(id))
-    this.forceUpdate()
+    const workflow_id = url.replace('workflow/', '')
+
+    dispatch(loadWorkflow(workflow_id))
+    dispatch(loadWorkflowQuestions(workflow_id))
   }
 
   render() {
