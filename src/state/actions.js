@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import { axiosInstance } from 'helpers'
 
 // USER DETAILS
@@ -134,23 +135,6 @@ export const loadWorkflow = id => dispatch => {
         msg: err.message,
       })
     )
-
-  dispatch({ type: 'LOAD_WORKFLOW_START' })
-
-  axiosInstance
-    .get(`questions/${id}`)
-    .then(res =>
-      dispatch({
-        type: 'LOAD_WORKFLOW_QUESTIONS_SUCCESS',
-        payload: res.message,
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: 'LOAD_WORKFLOW_QUESTIONS_FAILURE',
-        msg: err.message,
-      })
-    )
 }
 
 export const SET_ACTIVE_WORKFLOW = 'SET_ACTIVE_WORKFLOW'
@@ -177,6 +161,30 @@ export const loadWorkflowQuestions = id => dispatch => {
       console.log(err)
       dispatch({ type: LOAD_WORKFLOW_QUESTIONS_FAILURE })
     })
+}
+
+export const ADD_WORKFLOW_QUESTION_START = 'ADD_WORKFLOW_QUESTIONS_START'
+export const ADD_WORKFLOW_QUESTION_SUCCESS = 'ADD_WORKFLOW_QUESTIONS_SUCCESS'
+export const ADD_WORKFLOW_QUESTION_FAILURE = 'ADD_WORKFLOW_QUESTIONS_FAILURE'
+
+// ADD NEW QUESTIONS TO WORKFLOW
+export const addWorkflowQuestion = (
+  workflow_id,
+  question_text,
+  option_number
+) => dispatch => {
+  dispatch({ type: ADD_WORKFLOW_QUESTION_START })
+
+  axiosInstance
+    .post(`/questions/${workflow_id}`, {
+      workflow_id,
+      question_text,
+      option_number,
+    })
+    .then(({ data }) =>
+      dispatch({ type: ADD_WORKFLOW_QUESTION_SUCCESS, payload: data })
+    )
+    .catch(err => new Error(err))
 }
 
 // USER INTERFACE

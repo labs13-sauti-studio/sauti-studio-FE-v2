@@ -29,6 +29,9 @@ import {
   LOAD_WORKFLOW_QUESTIONS_START,
   LOAD_WORKFLOW_QUESTIONS_SUCCESS,
   LOAD_WORKFLOW_QUESTIONS_FAILURE,
+  ADD_WORKFLOW_QUESTION_START,
+  ADD_WORKFLOW_QUESTION_SUCCESS,
+  ADD_WORKFLOW_QUESTION_FAILURE,
 } from 'state/actions'
 
 const initialUserState = {
@@ -174,6 +177,7 @@ const initialWorkflowState = {
   error: null,
   questions: [],
   loadingQuestions: false,
+  isAddingQuestion: false,
 }
 
 const workflowReducer = (state = initialWorkflowState, action) => {
@@ -203,6 +207,15 @@ const workflowReducer = (state = initialWorkflowState, action) => {
 
     case SET_ACTIVE_WORKFLOW:
       return { ...state, ...action.payload }
+
+    case ADD_WORKFLOW_QUESTION_START:
+      return { ...state, isAddingQuestion: true }
+
+    case ADD_WORKFLOW_QUESTION_SUCCESS:
+      return { ...state, isAddingQuestion: false, questions: action.payload }
+
+    case ADD_WORKFLOW_QUESTION_FAILURE:
+      return { ...state, error: true }
 
     default:
       return state
