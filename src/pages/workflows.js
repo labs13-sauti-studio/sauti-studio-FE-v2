@@ -22,19 +22,19 @@ class WorkflowsPage extends Component {
 
   toggleModal = () => {
     const { isAddingNewWorkflow, dispatch } = this.props
-
     dispatch(toggleWorkflowModal(!isAddingNewWorkflow))
   }
 
   render() {
     const { toggleModal } = this
+    const { workflows } = this.props
     return (
       <UserLayout>
         <Button variant="outlined" color="primary" onClick={toggleModal}>
           Create a new workflow
         </Button>
         <AddUserWorkflow />
-        <UserWorkflows />
+        <UserWorkflows workflows={workflows} />
       </UserLayout>
     )
   }
@@ -42,6 +42,7 @@ class WorkflowsPage extends Component {
 
 WorkflowsPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  workflows: PropTypes.array.isRequired,
   isAddingNewWorkflow: PropTypes.bool.isRequired,
 }
 

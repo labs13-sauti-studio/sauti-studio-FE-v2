@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import { axiosInstance } from 'helpers'
 
 // USER DETAILS
@@ -21,6 +22,36 @@ export const loadUserInfo = () => dispatch => {
     )
 }
 
+export const SET_UPDATED_USER = 'SET_UPDATED_USER'
+
+export const setUpdatedUser = info => dispatch => {
+  dispatch({ type: SET_UPDATED_USER, payload: info })
+}
+
+export const UPDATE_USER_START = 'UPDATE_USER_START'
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS'
+export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE'
+
+export const updateUserInfo = info => dispatch => {
+  dispatch({ type: UPDATE_USER_START })
+
+  return axiosInstance
+    .put('/profile', info)
+    .then(({ data: { user } }) => {
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: user[0],
+        msg: 'Success',
+      })
+    })
+    .catch(err =>
+      dispatch({
+        type: UPDATE_USER_FAILURE,
+        payload: err.message,
+      })
+    )
+}
+
 // WORKFLOWS
 
 export const LOAD_WORKFLOWS_START = 'LOAD_WORKFLOWS_START'
@@ -31,15 +62,11 @@ export const loadUserWorkflows = () => dispatch => {
   dispatch({ type: LOAD_WORKFLOWS_START })
   return axiosInstance
     .get('/workflows')
-    .then(res => {
-      console.log(res)
-
-      dispatch({ type: LOAD_WORKFLOWS_SUCCESS, payload: res.data })
-    })
-    .catch(() =>
+    .then(res => dispatch({ type: LOAD_WORKFLOWS_SUCCESS, payload: res.data }))
+    .catch(err =>
       dispatch({
         type: LOAD_WORKFLOWS_FAILURE,
-        payload: 'Problem fetching workflows',
+        payload: err.message,
       })
     )
 }
@@ -102,7 +129,79 @@ export const loadWorkflow = id => dispatch => {
   axiosInstance
     .get(`/workflows/${id}`)
     .then(res => dispatch({ type: 'LOAD_WORKFLOW_SUCCESS', payload: res.data }))
-    .catch(err => console.log(err))
+    .catch(err =>
+      dispatch({
+        type: 'LOAD_WORKFLOWS_FAILURE',
+        msg: err.message,
+      })
+    )
+}
+
+export const SET_ACTIVE_WORKFLOW = 'SET_ACTIVE_WORKFLOW'
+
+export const setActiveWorkflow = workflow => dispatch => {
+  dispatch({ type: SET_ACTIVE_WORKFLOW, payload: workflow })
+  console.log(workflow)
+}
+
+export const LOAD_WORKFLOW_QUESTIONS_START = 'LOAD_WORKFLOW_QUESTIONS_START'
+export const LOAD_WORKFLOW_QUESTIONS_SUCCESS = 'LOAD_WORKFLOW_QUESTIONS_SUCCESS'
+export const LOAD_WORKFLOW_QUESTIONS_FAILURE = 'LOAD_WORKFLOW_QUESTIONS_FAILURE'
+
+// WORKFLOW QUESTIONS
+export const loadWorkflowQuestions = id => dispatch => {
+  dispatch({ type: LOAD_WORKFLOW_QUESTIONS_START })
+
+  axiosInstance
+    .get(`/questions/${id}`)
+    .then(({ data }) =>
+      dispatch({ type: LOAD_WORKFLOW_QUESTIONS_SUCCESS, payload: data })
+    )
+    .catch(err => {
+      console.log(err)
+      dispatch({ type: LOAD_WORKFLOW_QUESTIONS_FAILURE })
+    })
+}
+
+export const ADD_WORKFLOW_QUESTION_START = 'ADD_WORKFLOW_QUESTIONS_START'
+export const ADD_WORKFLOW_QUESTION_SUCCESS = 'ADD_WORKFLOW_QUESTIONS_SUCCESS'
+export const ADD_WORKFLOW_QUESTION_FAILURE = 'ADD_WORKFLOW_QUESTIONS_FAILURE'
+
+// ADD NEW QUESTIONS TO WORKFLOW
+export const addWorkflowQuestion = (
+  workflow_id,
+  question_text,
+  option_number
+) => dispatch => {
+  dispatch({ type: ADD_WORKFLOW_QUESTION_START })
+
+  axiosInstance
+    .post(`/questions/${workflow_id}`, {
+      workflow_id,
+      question_text,
+      option_number,
+    })
+    .then(({ data }) =>
+      dispatch({ type: ADD_WORKFLOW_QUESTION_SUCCESS, payload: data })
+    )
+    .catch(err => new Error(err))
+}
+export const DELETE_WORKFLOW_QUESTION_START = 'DELETE_WORKFLOW_QUESTIONS_START'
+export const DELETE_WORKFLOW_QUESTION_SUCCESS =
+  'DELETE_WORKFLOW_QUESTIONS_SUCCESS'
+export const DELETE_WORKFLOW_QUESTION_FAILURE =
+  'DELETE_WORKFLOW_QUESTIONS_FAILURE'
+
+// ADD NEW QUESTIONS TO WORKFLOW
+export const deleteWorkflowQuestion = question_id => dispatch => {
+  dispatch({ type: DELETE_WORKFLOW_QUESTION_START })
+
+  axiosInstance
+    .delete(`/questions/${question_id}`)
+    .then(res => {
+      dispatch({ type: DELETE_WORKFLOW_QUESTION_SUCCESS })
+    })
+    .catch(err => new Error(err))
 }
 
 // USER INTERFACE
@@ -121,3 +220,13 @@ export const CLOSE_WORKFLOW_MODAL = 'CLOSE_WORKFLOW_MODAL'
 
 export const closeWorkflowModal = () => dispatch =>
   dispatch({ type: CLOSE_WORKFLOW_MODAL })
+
+export const TOGGLE_EDIT_PROFILE = 'TOGGLE_EDIT_PROFILE'
+
+export const toggleEditProfileModal = bool => dispatch =>
+  dispatch({ type: TOGGLE_EDIT_PROFILE, payload: bool })
+
+export const CLOSE_EDIT_PROFILE = 'CLOSE_EDIT_PROFILE'
+
+export const closeEditProfileModal = () => dispatch =>
+  dispatch({ type: CLOSE_EDIT_PROFILE })
