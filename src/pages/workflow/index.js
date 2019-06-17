@@ -18,7 +18,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 class WorkflowPage extends Component {
   constructor() {
     super()
-    this.state = { question_text: '', option_number: '' }
+    this.state = { question_text: '' }
   }
 
   componentDidMount() {
@@ -33,9 +33,9 @@ class WorkflowPage extends Component {
 
   handleSubmit = () => {
     const { id: workflow_id, dispatch } = this.props
-    const { question_text, option_number } = this.state
+    const { question_text } = this.state
 
-    dispatch(addWorkflowQuestion(workflow_id, question_text, option_number))
+    dispatch(addWorkflowQuestion(workflow_id, question_text))
   }
 
   deleteQuestion = id => {
@@ -52,7 +52,7 @@ class WorkflowPage extends Component {
       questions,
       loadingQuestions,
     } = this.props
-    const { question_text, option_number } = this.state
+    const { question_text } = this.state
     return (
       <UserLayout>
         <Typography variant="subtitle1">WORKFLOW</Typography>
@@ -70,7 +70,6 @@ class WorkflowPage extends Component {
         )}
         <AddNewQuestion
           question_text={question_text}
-          option_number={option_number}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         ></AddNewQuestion>
@@ -96,7 +95,6 @@ const QuestionList = ({ questions, deleteQuestion }) => (
 const AddNewQuestion = ({ handleChange, handleSubmit }) => (
   <div>
     <input name="question_text" type="text" onChange={handleChange} />
-    <input name="option_number" type="number" onChange={handleChange} />
     <button type="button" onClick={handleSubmit}>
       Add Question
     </button>
