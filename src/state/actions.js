@@ -186,6 +186,23 @@ export const addWorkflowQuestion = (
     )
     .catch(err => new Error(err))
 }
+export const DELETE_WORKFLOW_QUESTION_START = 'DELETE_WORKFLOW_QUESTIONS_START'
+export const DELETE_WORKFLOW_QUESTION_SUCCESS =
+  'DELETE_WORKFLOW_QUESTIONS_SUCCESS'
+export const DELETE_WORKFLOW_QUESTION_FAILURE =
+  'DELETE_WORKFLOW_QUESTIONS_FAILURE'
+
+// ADD NEW QUESTIONS TO WORKFLOW
+export const deleteWorkflowQuestion = question_id => dispatch => {
+  dispatch({ type: DELETE_WORKFLOW_QUESTION_START })
+
+  axiosInstance
+    .delete(`/questions/${question_id}`)
+    .then(res => {
+      dispatch({ type: DELETE_WORKFLOW_QUESTION_SUCCESS })
+    })
+    .catch(err => new Error(err))
+}
 
 // USER INTERFACE
 

@@ -9,6 +9,7 @@ import {
   loadWorkflow,
   loadWorkflowQuestions,
   addWorkflowQuestion,
+  deleteWorkflowQuestion,
 } from 'state/actions'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -37,6 +38,11 @@ class WorkflowPage extends Component {
     dispatch(addWorkflowQuestion(workflow_id, question_text, option_number))
   }
 
+  deleteQuestion = id => {
+    const { dispatch } = this.props
+    dispatch(deleteWorkflowQuestion(id))
+  }
+
   render() {
     const {
       id,
@@ -57,7 +63,10 @@ class WorkflowPage extends Component {
         {loadingQuestions ? (
           <CircularProgress></CircularProgress>
         ) : (
-          <QuestionList questions={questions} />
+          <QuestionList
+            questions={questions}
+            deleteQuestion={this.deleteQuestion}
+          />
         )}
         <AddNewQuestion
           question_text={question_text}
@@ -70,12 +79,15 @@ class WorkflowPage extends Component {
   }
 }
 
-const QuestionList = ({ questions }) => (
+const QuestionList = ({ questions, deleteQuestion }) => (
   <List>
-    {questions.map(({ question_text, option_number }, i) => (
+    {questions.map(({ question_id, question_text, option_number }, i) => (
       <ListItem key={i}>
         {question_text}
         {option_number}
+        <button type="button" onClick={() => deleteQuestion(question_id)}>
+          Delete
+        </button>
       </ListItem>
     ))}
   </List>
@@ -84,7 +96,7 @@ const QuestionList = ({ questions }) => (
 const AddNewQuestion = ({ handleChange, handleSubmit }) => (
   <div>
     <input name="question_text" type="text" onChange={handleChange} />
-    <input name="option_number" type="text" onChange={handleChange} />
+    <input name="option_number" type="number" onChange={handleChange} />
     <button type="button" onClick={handleSubmit}>
       Add Question
     </button>
