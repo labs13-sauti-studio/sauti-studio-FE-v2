@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-expressions */
 import React, { Component } from 'react'
@@ -60,7 +61,7 @@ class WorkflowPage extends Component {
     const { question_id, dispatch } = this.props
     const { answer_text } = this.state
 
-    dispatch(addQuestionAnswer(answer_text, 7, question_id))
+    dispatch(addQuestionAnswer(answer_text, 1, question_id))
   }
 
   deleteQuestion = id => {
@@ -141,18 +142,39 @@ class WorkflowPage extends Component {
             handleSubmit={this.handleSubmit}
           />
         </div>
+        <ResponseList answers={answers} />
       </UserLayout>
     )
   }
 }
 
+const ResponseList = ({ answers }) => (
+  <List>
+    {answers.map((answer, i) => (
+      <QuestionOrAnswer key={i} {...answer} />
+    ))}
+  </List>
+)
+
+// { id, answer_text, answer_number, question_text, question_id }
+const QuestionOrAnswer = ({
+  id,
+  answer_text,
+  answer_number,
+  question_text,
+  question_id,
+}) => {
+  if (answer_text) return <ListItem>{`Answer: ${answer_text}`}</ListItem>
+  return <ListItem>{`Question: ${question_text}`}</ListItem>
+}
+
 const QuestionList = ({ questions, deleteQuestion, setActiveQuestion }) => (
   <List>
-    {questions.map(({ question_id, question_text, option_number }, i) => (
+    {questions.map(({ id, question_text, option_number }) => (
       <ListItem
-        key={i}
+        key={id}
         style={{ outline: '1px solid black' }}
-        onClick={() => setActiveQuestion(question_id)}
+        onClick={() => setActiveQuestion(id)}
       >
         {question_text}
         {option_number}
@@ -160,7 +182,7 @@ const QuestionList = ({ questions, deleteQuestion, setActiveQuestion }) => (
           size="small"
           style={{ marginLeft: '1rem' }}
           type="button"
-          onClick={() => deleteQuestion(question_id)}
+          onClick={() => deleteQuestion(id)}
         >
           Delete
         </Button>
