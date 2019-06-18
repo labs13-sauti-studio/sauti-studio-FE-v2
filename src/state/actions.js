@@ -198,7 +198,41 @@ export const deleteWorkflowQuestion = question_id => dispatch => {
     })
     .catch(err => new Error(err))
 }
+export const ADD_QUESTION_ANSWER_START = 'ADD_QUESTION_ANSWER_START'
+export const ADD_QUESTION_ANSWER_SUCCESS = 'ADD_QUESTION_ANSWER_SUCCESS'
+export const ADD_QUESTION_ANSWER_FAILURE = 'ADD_QUESTION_ANSWER_FAILURE '
 
+// ADD NEW QUESTIONS TO WORKFLOW
+export const addQuestionAnswer = (
+  answer_text,
+  answer_number,
+  question_id
+) => dispatch => {
+  dispatch({ type: ADD_QUESTION_ANSWER_START })
+
+  axiosInstance
+    .post(`/answers/${question_id}`, { answer_text, answer_number })
+    .then(({ data }) => {
+      dispatch({ type: ADD_QUESTION_ANSWER_SUCCESS, payload: data })
+    })
+    .catch(err => dispatch({ type: ADD_QUESTION_ANSWER_FAILURE }))
+}
+
+export const LOAD_QUESTION_ANSWERS_START = 'LOAD_QUESTION_ANSWERS_START'
+export const LOAD_QUESTION_ANSWERS_SUCCESS = 'LOAD_QUESTION_ANSWERS_SUCCESS'
+export const LOAD_QUESTION_ANSWERS_FAILURE = 'LOAD_QUESTION_ANSWERS_FAILURE '
+
+// ADD NEW QUESTIONS TO WORKFLOW
+export const loadQuestionAnswers = question_id => dispatch => {
+  dispatch({ type: LOAD_QUESTION_ANSWERS_START })
+
+  axiosInstance
+    .get(`/answers/${question_id}`)
+    .then(({ data }) => {
+      dispatch({ type: LOAD_QUESTION_ANSWERS_SUCCESS, payload: data })
+    })
+    .catch(err => dispatch({ type: LOAD_QUESTION_ANSWERS_FAILURE }))
+}
 // USER INTERFACE
 
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR'

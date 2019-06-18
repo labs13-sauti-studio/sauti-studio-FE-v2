@@ -29,9 +29,15 @@ import {
   LOAD_WORKFLOW_QUESTIONS_START,
   LOAD_WORKFLOW_QUESTIONS_SUCCESS,
   LOAD_WORKFLOW_QUESTIONS_FAILURE,
+  LOAD_QUESTION_ANSWERS_START,
+  LOAD_QUESTION_ANSWERS_SUCCESS,
+  LOAD_QUESTION_ANSWERS_FAILURE,
   ADD_WORKFLOW_QUESTION_START,
   ADD_WORKFLOW_QUESTION_SUCCESS,
   ADD_WORKFLOW_QUESTION_FAILURE,
+  ADD_QUESTION_ANSWER_START,
+  ADD_QUESTION_ANSWER_SUCCESS,
+  ADD_QUESTION_ANSWER_FAILURE,
 } from 'state/actions'
 
 const initialUserState = {
@@ -138,7 +144,7 @@ const initialUiState = {
     { name: 'Profile', to: '/profile' },
     { name: 'Workflows', to: 'workflows' },
   ],
-  isSidebarOpen: true,
+  isSidebarOpen: false,
   isAddingNewWorkflow: false,
   isEditingProfile: false,
 }
@@ -176,10 +182,13 @@ const initialWorkflowState = {
   msg: null,
   error: null,
   questions: [],
+  answers: [],
+  loadingAnswers: false,
   loadingQuestions: false,
   isAddingQuestion: false,
 }
 
+const SET_ACTIVE_QUESTION = 'SET_ACTIVE_QUESTION'
 const workflowReducer = (state = initialWorkflowState, action) => {
   switch (action.type) {
     case LOAD_WORKFLOW_START:
@@ -216,6 +225,32 @@ const workflowReducer = (state = initialWorkflowState, action) => {
 
     case ADD_WORKFLOW_QUESTION_FAILURE:
       return { ...state, error: true }
+
+    case LOAD_QUESTION_ANSWERS_START:
+      return { ...state, loadingAnswers: true }
+
+    case LOAD_QUESTION_ANSWERS_SUCCESS:
+      return { ...state, loadingAnswers: false, answers: action.payload }
+
+    case LOAD_QUESTION_ANSWERS_FAILURE:
+      return { ...state, error: true, msg: 'Problem Loading Answers' }
+
+    case ADD_QUESTION_ANSWER_START:
+      return { ...state, loadingAnswers: true }
+
+    case ADD_QUESTION_ANSWER_SUCCESS:
+      return { ...state, loadingAnswers: false, answers: action.payload }
+
+    case ADD_QUESTION_ANSWER_FAILURE:
+      return {
+        ...state,
+        loadingAnswers: false,
+        error: true,
+        msg: 'Problem adding answer',
+      }
+
+    case SET_ACTIVE_QUESTION:
+      return { ...state, question_id: action.payload }
 
     default:
       return state

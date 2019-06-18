@@ -10,10 +10,28 @@ import {
   loadWorkflowQuestions,
   addWorkflowQuestion,
   deleteWorkflowQuestion,
+  loadQuestionAnswers,
+  addQuestionAnswer,
 } from 'state/actions'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import styled from 'styled-components'
+import Button from '@material-ui/core/Button'
+import Input from '@material-ui/core/Input'
+
+const Grid = styled.div`
+  display: flex;
+  flex-direction: row;
+  div:first-child {
+    /* width: 100%; */
+    flex-basis: 50%;
+  }
+  div:last-child {
+    /* width: 100%; */
+    flex-basis: 50%;
+  }
+`
 
 class WorkflowPage extends Component {
   constructor() {
@@ -34,13 +52,28 @@ class WorkflowPage extends Component {
   handleSubmit = () => {
     const { id: workflow_id, dispatch } = this.props
     const { question_text } = this.state
-
+    if (question_text === '') return
     dispatch(addWorkflowQuestion(workflow_id, question_text))
+  }
+
+  addAnswer = () => {
+    const { question_id, dispatch } = this.props
+    const { answer_text } = this.state
+
+    dispatch(addQuestionAnswer(answer_text, 7, question_id))
   }
 
   deleteQuestion = id => {
     const { dispatch } = this.props
     dispatch(deleteWorkflowQuestion(id))
+  }
+
+  setActiveQuestion = question_id => {
+    const { dispatch } = this.props
+
+    dispatch({ type: 'SET_ACTIVE_QUESTION', payload: question_id })
+
+    dispatch(loadQuestionAnswers(question_id))
   }
 
   render() {
@@ -50,7 +83,9 @@ class WorkflowPage extends Component {
       category,
       area_code,
       questions,
+      answers,
       loadingQuestions,
+      loadingAnswers,
     } = this.props
     const { question_text } = this.state
     return (
@@ -60,33 +95,75 @@ class WorkflowPage extends Component {
         <Typography variant="body1">{id}</Typography>
         <Typography variant="body1">{category}</Typography>
         <Typography variant="body1">{area_code}</Typography>
-        {loadingQuestions ? (
-          <CircularProgress></CircularProgress>
-        ) : (
-          <QuestionList
-            questions={questions}
-            deleteQuestion={this.deleteQuestion}
+        <Grid>
+          {loadingQuestions ? (
+            <div>
+              <CircularProgress />
+            </div>
+          ) : (
+            <QuestionList
+              questions={questions}
+              deleteQuestion={this.deleteQuestion}
+              setActiveQuestion={this.setActiveQuestion}
+            />
+          )}
+          {loadingAnswers ? (
+            <div>
+              <CircularProgress />
+            </div>
+          ) : (
+            <List>
+              {answers.map((answer, i) => (
+                <ListItem key={i}>{answer.answer_text}</ListItem>
+              ))}
+              <ListItem>
+                <Input
+                  name="answer_text"
+                  type="text"
+                  onChange={this.handleChange}
+                />
+                <Button
+                  size="small"
+                  type="button"
+                  variant="outlined"
+                  onClick={this.addAnswer}
+                >
+                  Add Answer
+                </Button>
+              </ListItem>
+            </List>
+          )}
+        </Grid>
+        <div>
+          <AddNewQuestion
+            question_text={question_text}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
           />
-        )}
-        <AddNewQuestion
-          question_text={question_text}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        ></AddNewQuestion>
+        </div>
       </UserLayout>
     )
   }
 }
 
-const QuestionList = ({ questions, deleteQuestion }) => (
+const QuestionList = ({ questions, deleteQuestion, setActiveQuestion }) => (
   <List>
     {questions.map(({ question_id, question_text, option_number }, i) => (
-      <ListItem key={i}>
+      <ListItem
+        key={i}
+        style={{ outline: '1px solid black' }}
+        onClick={() => setActiveQuestion(question_id)}
+      >
         {question_text}
         {option_number}
-        <button type="button" onClick={() => deleteQuestion(question_id)}>
+        <Button
+          size="small"
+          style={{ marginLeft: '1rem' }}
+          type="button"
+          onClick={() => deleteQuestion(question_id)}
+        >
           Delete
-        </button>
+        </Button>
       </ListItem>
     ))}
   </List>
@@ -94,10 +171,15 @@ const QuestionList = ({ questions, deleteQuestion }) => (
 
 const AddNewQuestion = ({ handleChange, handleSubmit }) => (
   <div>
-    <input name="question_text" type="text" onChange={handleChange} />
-    <button type="button" onClick={handleSubmit}>
+    <Input name="question_text" type="text" onChange={handleChange} />
+    <Button
+      size="small"
+      type="button"
+      variant="outlined"
+      onClick={handleSubmit}
+    >
       Add Question
-    </button>
+    </Button>
   </div>
 )
 
@@ -107,6 +189,7 @@ WorkflowPage.propTypes = {
   id: PropTypes.number,
   area_code: PropTypes.string,
   questions: PropTypes.array,
+  loadingAnswers: PropTypes.bool.isRequired,
   loadingQuestions: PropTypes.bool.isRequired,
   '*': PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
@@ -118,5 +201,8 @@ export default connect(state => ({
   category: state.workflow.category,
   area_code: state.workflow.area_code,
   questions: state.workflow.questions,
+  answers: state.workflow.answers,
+  question_id: state.workflow.question_id,
+  loadingAnswers: state.workflow.loadingAnswers,
   loadingQuestions: state.workflow.loadingQuestions,
 }))(WorkflowPage)
