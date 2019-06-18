@@ -55,7 +55,8 @@ module.exports = {
       options: {
         src: path.join(__dirname, `src/`),
         '@': path.join(__dirname, `src/components/`),
-        state: path.join(__dirname, `src/state/`),
+        actions: path.join(__dirname, `src/actions/`),
+        reducers: path.join(__dirname, `src/reducers/`),
         theme: path.join(__dirname, `src/theme.js`),
         helpers: path.join(__dirname, `src/helpers.js`),
       },

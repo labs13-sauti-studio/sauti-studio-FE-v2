@@ -13,7 +13,7 @@ import {
   toggleWorkflowModal,
   closeWorkflowModal,
   addUserWorkflow,
-} from 'state/actions'
+} from 'actions'
 
 class NewWorkflowModel extends Component {
   constructor() {

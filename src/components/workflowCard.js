@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
 import { navigate } from 'gatsby'
-import { deleteUserWorkflow } from 'state/actions'
+import { deleteUserWorkflow } from 'actions'
 import { connect } from 'react-redux'
 
 const WorkflowCard = ({ id, name, category, area_code, dispatch }) => (

@@ -13,7 +13,7 @@ import {
   deleteWorkflowQuestion,
   loadQuestionAnswers,
   addQuestionAnswer,
-} from 'state/actions'
+} from 'actions'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import CircularProgress from '@material-ui/core/CircularProgress'
