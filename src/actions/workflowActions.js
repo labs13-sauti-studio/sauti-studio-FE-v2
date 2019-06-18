@@ -82,23 +82,47 @@ export const addWorkflowQuestion = (workflow_id, question_text) => dispatch => {
     )
     .catch(err => new Error(err))
 }
-export const DELETE_WORKFLOW_QUESTION_START = 'DELETE_WORKFLOW_QUESTIONS_START'
-export const DELETE_WORKFLOW_QUESTION_SUCCESS =
-  'DELETE_WORKFLOW_QUESTIONS_SUCCESS'
-export const DELETE_WORKFLOW_QUESTION_FAILURE =
-  'DELETE_WORKFLOW_QUESTIONS_FAILURE'
+export const DELETE_WF_QUESTION_START = 'DELETE_WF_QUESTION_START'
+export const DELETE_WF_QUESTION_SUCCESS = 'DELETE_WF_QUESTION_SUCCESS'
+export const DELETE_WF_QUESTION_FAILURE = 'DELETE_WF_QUESTION_FAILURE'
 
-// ADD NEW QUESTIONS TO WORKFLOW
 export const deleteWorkflowQuestion = question_id => dispatch => {
-  dispatch({ type: DELETE_WORKFLOW_QUESTION_START })
+  dispatch({ type: DELETE_WF_QUESTION_START })
 
   axiosInstance
     .delete(`/questions/${question_id}`)
     .then(res => {
-      dispatch({ type: DELETE_WORKFLOW_QUESTION_SUCCESS })
+      dispatch({
+        type: DELETE_WF_QUESTION_SUCCESS,
+        msg: `Question ${question_id} deleted`,
+      })
     })
-    .catch(err => new Error(err))
+    .catch(err =>
+      dispatch({
+        type: DELETE_WF_QUESTION_FAILURE,
+      })
+    )
 }
+
+export const DELETE_WF_ANSWER_START = 'DELETE_WF_ANSWER_START'
+export const DELETE_WF_ANSWER_SUCCESS = 'DELETE_WF_ANSWER_SUCCESS'
+export const DELETE_WF_ANSWER_FAILURE = 'DELETE_WF_QUESTION_FAILURE'
+
+export const deleteWorkflowAnswer = answers_id => dispatch => {
+  dispatch({ type: DELETE_WF_ANSWER_START })
+
+  axiosInstance
+    .delete(`/answers/${answers_id}`)
+    .then(({ data }) =>
+      dispatch({ type: DELETE_WF_ANSWER_SUCCESS, payload: data })
+    )
+    .catch(err =>
+      dispatch({
+        type: DELETE_WF_ANSWER_FAILURE,
+      })
+    )
+}
+
 export const ADD_QUESTION_ANSWER_START = 'ADD_QUESTION_ANSWER_START'
 export const ADD_QUESTION_ANSWER_SUCCESS = 'ADD_QUESTION_ANSWER_SUCCESS'
 export const ADD_QUESTION_ANSWER_FAILURE = 'ADD_QUESTION_ANSWER_FAILURE '
@@ -107,12 +131,13 @@ export const ADD_QUESTION_ANSWER_FAILURE = 'ADD_QUESTION_ANSWER_FAILURE '
 export const addQuestionAnswer = (
   answer_text,
   answer_number,
+  next,
   question_id
 ) => dispatch => {
   dispatch({ type: ADD_QUESTION_ANSWER_START })
 
   axiosInstance
-    .post(`/answers/${question_id}`, { answer_text, answer_number })
+    .post(`/answers/${question_id}`, { answer_text, answer_number, next })
     .then(({ data }) => {
       dispatch({ type: ADD_QUESTION_ANSWER_SUCCESS, payload: data })
     })

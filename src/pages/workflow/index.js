@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-expressions */
@@ -11,6 +12,7 @@ import {
   loadWorkflowQuestions,
   addWorkflowQuestion,
   deleteWorkflowQuestion,
+  deleteWorkflowAnswer,
   loadQuestionAnswers,
   addQuestionAnswer,
 } from 'actions'
@@ -20,17 +22,40 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button'
 import Input from '@material-ui/core/Input'
+import TextField from '@material-ui/core/TextField'
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
+import { palette, spacing, borders } from '@material-ui/system'
+import NoSsr from '@material-ui/core/NoSsr'
+import { axiosInstance } from 'helpers'
+
+const Box = styled.div`
+  ${palette}
+  ${spacing}
+  ${borders}
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: fit-content;
+  button {
+    margin-left: 1rem;
+  }
+`
 
 const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+`
+
+const InputWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  div:first-child {
-    /* width: 100%; */
-    flex-basis: 50%;
-  }
-  div:last-child {
-    /* width: 100%; */
-    flex-basis: 50%;
+  justify-content: space-between;
+  align-items: center;
+  width: fit-content;
+  button {
+    margin-left: 1rem;
   }
 `
 
@@ -50,23 +75,30 @@ class WorkflowPage extends Component {
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value })
 
-  handleSubmit = () => {
+  addQuestion = () => {
     const { id: workflow_id, dispatch } = this.props
-    const { question_text } = this.state
-    if (question_text === '') return
+    const { question_text, answer_text } = this.state
+
+    if (question_text === '' || answer_text === '') return
     dispatch(addWorkflowQuestion(workflow_id, question_text))
+    this.setState({ question_text: '' })
   }
 
   addAnswer = () => {
     const { question_id, dispatch } = this.props
     const { answer_text } = this.state
 
-    dispatch(addQuestionAnswer(answer_text, 1, question_id))
+    dispatch(addQuestionAnswer(answer_text, 1, 1, question_id))
   }
 
   deleteQuestion = id => {
     const { dispatch } = this.props
     dispatch(deleteWorkflowQuestion(id))
+  }
+
+  deleteAnswer = id => {
+    const { dispatch } = this.props
+    dispatch(deleteWorkflowAnswer(id))
   }
 
   setActiveQuestion = question_id => {
@@ -78,17 +110,9 @@ class WorkflowPage extends Component {
   }
 
   render() {
-    const {
-      id,
-      name,
-      category,
-      area_code,
-      questions,
-      answers,
-      loadingQuestions,
-      loadingAnswers,
-    } = this.props
+    const { id, name, category, area_code, questions, answers } = this.props
     const { question_text } = this.state
+    const { deleteQuestion, deleteAnswer, dispatch } = this
     return (
       <UserLayout>
         <Typography variant="subtitle1">WORKFLOW</Typography>
@@ -97,75 +121,154 @@ class WorkflowPage extends Component {
         <Typography variant="body1">{category}</Typography>
         <Typography variant="body1">{area_code}</Typography>
         <Grid>
-          {loadingQuestions ? (
-            <div>
-              <CircularProgress />
-            </div>
-          ) : (
-            <QuestionList
-              questions={questions}
-              deleteQuestion={this.deleteQuestion}
-              setActiveQuestion={this.setActiveQuestion}
-            />
-          )}
-          {loadingAnswers ? (
-            <div>
-              <CircularProgress />
-            </div>
-          ) : (
-            <List>
-              {answers.map((answer, i) => (
-                <ListItem key={i}>{answer.answer_text}</ListItem>
-              ))}
-              <ListItem>
-                <Input
+          <List>
+            {questions.map(({ id, question_text }) => (
+              <ListItem key={id} onClick={() => this.setActiveQuestion(id)}>
+                <Box p={1} borderRadius={1} borderColor="primary" border={1}>
+                  <Typography variant="body1">{question_text}</Typography>
+                  <IconButton
+                    size="small"
+                    aria-label="Delete"
+                    onClick={() => this.deleteQuestion(id)}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                </Box>
+              </ListItem>
+            ))}
+          </List>
+
+          <List>
+            <ListItem>
+              <Typography variant="h6">{answers.length}</Typography>
+            </ListItem>
+            {answers.map(({ id, answer_text, question_text }, i) => {
+              if (answer_text)
+                return (
+                  <ListItem key={i}>
+                    <Box
+                      p={1}
+                      borderRadius={1}
+                      borderColor="primary"
+                      border={1}
+                    >
+                      <Typography variant="body1">{answer_text}</Typography>
+                      <IconButton
+                        size="small"
+                        aria-label="Delete"
+                        onClick={() => this.deleteAnswer(id)}
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </Box>
+                  </ListItem>
+                )
+
+              return (
+                <ListItem key={i}>
+                  <Box p={1} borderRadius={1} borderColor="primary" border={1}>
+                    <Typography variant="body1">{question_text}</Typography>
+                    <IconButton
+                      size="small"
+                      aria-label="Delete"
+                      onClick={() => deleteQuestion(id)}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  </Box>
+                </ListItem>
+              )
+            })}
+
+            <ListItem>
+              <InputWrapper>
+                <TextField
+                  id="outlined-name"
+                  label="Answer"
                   name="answer_text"
-                  type="text"
                   onChange={this.handleChange}
-                />
-                <Button
-                  size="small"
-                  type="button"
+                  margin="normal"
                   variant="outlined"
+                />
+                <Fab
+                  size="small"
+                  color="primary"
+                  aria-label="Add"
                   onClick={this.addAnswer}
                 >
-                  Add Answer
-                </Button>
-              </ListItem>
-            </List>
-          )}
+                  <AddIcon />
+                </Fab>
+              </InputWrapper>
+            </ListItem>
+          </List>
         </Grid>
         <div>
-          <AddNewQuestion
-            question_text={question_text}
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-          />
+          <InputWrapper>
+            <TextField
+              id="outlined-name"
+              label="Question"
+              name="question_text"
+              onChange={this.handleChange}
+              margin="normal"
+              variant="outlined"
+            />
+            <Fab
+              size="small"
+              color="primary"
+              aria-label="Add"
+              onClick={this.addQuestion}
+            >
+              <AddIcon />
+            </Fab>
+          </InputWrapper>
+          <div></div>
         </div>
-        <ResponseList answers={answers} />
       </UserLayout>
     )
   }
 }
 
-const ResponseList = ({ answers }) => (
-  <List>
-    {answers.map((answer, i) => (
-      <QuestionOrAnswer key={i} {...answer} />
-    ))}
-  </List>
-)
-
 // { id, answer_text, answer_number, question_text, question_id }
 const QuestionOrAnswer = ({
+  dispatch,
   id,
   answer_text,
   answer_number,
   question_text,
   question_id,
+  deleteQuestion,
+  deleteAnswer,
 }) => {
-  if (answer_text) return <ListItem>{`Answer: ${answer_text}`}</ListItem>
-  return <ListItem>{`Question: ${question_text}`}</ListItem>
+  if (answer_text)
+    return (
+      <ListItem key={id}>
+        <Box p={1} borderRadius={1} borderColor="primary" border={1}>
+          <Typography variant="body1">{answer_text}</Typography>
+          <IconButton
+            size="small"
+            aria-label="Delete"
+            onClick={() => console.log(dispatch)}
+          >
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+        </Box>
+      </ListItem>
+    )
+
+  return (
+    <ListItem key={id}>
+      <Box p={1} borderRadius={1} borderColor="primary" border={1}>
+        <Typography variant="body1">{question_text}</Typography>
+        <IconButton
+          size="small"
+          aria-label="Delete"
+          onClick={() => deleteQuestion(id)}
+        >
+          <DeleteIcon fontSize="small" />
+        </IconButton>
+      </Box>
+    </ListItem>
+  )
 }
 
 const QuestionList = ({ questions, deleteQuestion, setActiveQuestion }) => (
@@ -178,18 +281,30 @@ const QuestionList = ({ questions, deleteQuestion, setActiveQuestion }) => (
       >
         {question_text}
         {option_number}
-        <Button
-          size="small"
-          style={{ marginLeft: '1rem' }}
-          type="button"
-          onClick={() => deleteQuestion(id)}
-        >
-          Delete
-        </Button>
+        <IconButton aria-label="Delete" onClick={() => deleteQuestion(id)}>
+          <DeleteIcon fontSize="small" />
+        </IconButton>
       </ListItem>
     ))}
   </List>
 )
+
+//   < TextField
+// id = "outlined-name"
+// label = "Name"
+// name = "answer_text"
+// onChange = { this.handleChange }
+// margin = "normal"
+// variant = "outlined"
+//   />
+//   <Fab
+//     size="small"
+//     color="primary"
+//     aria-label="Add"
+//     onClick={this.addAnswer}
+//   >
+//     <AddIcon />
+//   </Fab>
 
 const AddNewQuestion = ({ handleChange, handleSubmit }) => (
   <div>
@@ -211,8 +326,8 @@ WorkflowPage.propTypes = {
   id: PropTypes.number,
   area_code: PropTypes.string,
   questions: PropTypes.array,
-  loadingAnswers: PropTypes.bool.isRequired,
-  loadingQuestions: PropTypes.bool.isRequired,
+  // loadingAnswers: PropTypes.bool.isRequired,
+  // loadingQuestions: PropTypes.bool.isRequired,
   '*': PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
 }

@@ -15,6 +15,12 @@ import {
   ADD_QUESTION_ANSWER_START,
   ADD_QUESTION_ANSWER_SUCCESS,
   ADD_QUESTION_ANSWER_FAILURE,
+  DELETE_WF_QUESTION_START,
+  DELETE_WF_QUESTION_SUCCESS,
+  DELETE_WF_QUESTION_FAILURE,
+  DELETE_WF_ANSWER_START,
+  DELETE_WF_ANSWER_SUCCESS,
+  DELETE_WF_ANSWER_FAILURE,
 } from 'actions'
 
 const initialWorkflowState = {
@@ -29,6 +35,7 @@ const initialWorkflowState = {
   error: null,
   questions: [],
   answers: [],
+  order: 1,
   loadingAnswers: false,
   loadingQuestions: false,
   isAddingQuestion: false,
@@ -98,9 +105,42 @@ const workflowReducer = (state = initialWorkflowState, action) => {
     case SET_ACTIVE_QUESTION:
       return { ...state, question_id: action.payload }
 
+    case DELETE_WF_QUESTION_START:
+      return { ...state, loading: true }
+
+    case DELETE_WF_QUESTION_SUCCESS:
+      return { ...state, loading: false }
+
+    case DELETE_WF_QUESTION_FAILURE:
+      return { ...state, error: true, msg: 'Problem deleting question' }
+
+    case DELETE_WF_ANSWER_START:
+      return { ...state, loading: true }
+
+    case DELETE_WF_ANSWER_SUCCESS:
+      return { ...state, loading: false, msg: 'Answer Deleted successfully' }
+
+    case DELETE_WF_ANSWER_FAILURE:
+      return { ...state, error: true, msg: 'Problem deleting answer' }
+
     default:
       return state
   }
 }
-
+// const initialWorkflowState = {
+//   id: null,
+//   name: null,
+//   area_code: null,
+//   category: null,
+//   client_id: null,
+//   question_id: null,
+//   loading: false,
+//   msg: null,
+//   error: null,
+//   questions: [],
+//   answers: [],
+//   loadingAnswers: false,
+//   loadingQuestions: false,
+//   isAddingQuestion: false,
+// }
 export default workflowReducer
