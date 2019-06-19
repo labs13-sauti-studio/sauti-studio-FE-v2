@@ -44,7 +44,6 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     marginTop: '20px',
-    
   },
   icons: {
     display: 'block',
