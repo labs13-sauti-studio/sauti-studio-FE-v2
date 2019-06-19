@@ -12,8 +12,12 @@
             "./src/components"
           ],
           [
-            "state",
-            "./src/state"
+            "actions",
+            "./src/actions"
+          ],
+          [
+            "reducers",
+            "./src/reducers"
           ],
           [
             "theme",
@@ -34,6 +38,7 @@
     "wesbos"
   ],
   "rules": {
-    "camelcase": "off"
+    "camelcase": "off",
+    "import/no-cycle": "off"
   }
 }

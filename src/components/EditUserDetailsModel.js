@@ -15,7 +15,7 @@ import {
   toggleEditProfileModal,
   closeEditProfileModal,
   updateUserInfo,
-} from 'state/actions'
+} from 'actions'
 import { axiosInstance } from 'helpers'
 
 class EditUserDetailsModel extends Component {

@@ -22,7 +22,7 @@ const WorkflowGrid = styled.div`
 const UserWorkflows = ({ workflows }) => (
   <WorkflowGrid>
     {workflows.map((wf, i) => (
-      <WorkflowCard key={i} {...wf} />
+      <WorkflowCard key={i} {...wf} onClick={() => console.log(wf)} />
     ))}
   </WorkflowGrid>
 )
