@@ -135,29 +135,27 @@ const IndexPage = () => (
           solutions and quickly communicate ideas to address proverty.
         </p>
       </section>
-      <hr style={{
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    marginLeft: 5,
-    marginRight: 5
-  }}>
-      </hr>
+      <hr
+        style={{
+          borderBottomColor: 'black',
+          borderBottomWidth: 1,
+          marginLeft: 5,
+          marginRight: 5,
+        }}
+      ></hr>
       <section>
-      <Typography variant="h3">
-          Explor Our Flow Samples
-        </Typography>
-        <hr style={{
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    marginLeft: 5,
-    marginRight: 5
-  }}>
-      </hr>
+        <Typography variant="h3">Explor Our Flow Samples</Typography>
+        <hr
+          style={{
+            borderBottomColor: 'black',
+            borderBottomWidth: 1,
+            marginLeft: 5,
+            marginRight: 5,
+          }}
+        ></hr>
       </section>
 
-<section>
-  
-</section>
+      <section></section>
     </Landing>
   </Layout>
 )
