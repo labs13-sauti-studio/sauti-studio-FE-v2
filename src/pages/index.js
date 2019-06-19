@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Layout from '@/layout'
 import SEO from '@/seo'
 import { Link } from 'gatsby'
-import { Graphic1, Graphic2 } from '@/graphics'
+import { Graphic1, Graphic2, Graphic3, Graphic4 } from '@/graphics'
 import { media } from 'src/theme'
 
 const Landing = styled.div`
@@ -64,6 +64,32 @@ const Section2 = styled.section`
 
     .list {
       text-align: center;
+    }
+   `}
+`
+const Section3 = styled.section`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-items: space-between;
+  text-align: center;
+  h2 {
+    grid-column: 1/-1;
+  }
+  .sub-info {
+    text-align: center;
+    .start {
+      height: 100%;
+      text-align: center;
+      button {
+        margin-top: 4rem;
+      }
+    }
+  }
+  ${media.tablet`
+    grid-template-columns: 1fr;
+    button {
+      margin-bottom: 4rem;
     }
    `}
 `
@@ -143,19 +169,24 @@ const IndexPage = () => (
           marginRight: 5,
         }}
       ></hr>
-      <section>
+      <Section3>
         <Typography variant="h3">Explor Our Flow Samples</Typography>
-        <hr
-          style={{
-            borderBottomColor: 'black',
-            borderBottomWidth: 1,
-            marginLeft: 5,
-            marginRight: 5,
-          }}
-        ></hr>
-      </section>
-
-      <section></section>
+        <div>
+          <Graphic4 />
+        </div>
+      </Section3>
+      <hr
+        style={{
+          borderBottomColor: 'black',
+          borderBottomWidth: 1,
+          marginLeft: 5,
+          marginRight: 5,
+        }}
+      ></hr>
+      <Section3>
+        <Typography variant="h4">Contact Us</Typography>
+        <div></div>
+      </Section3>
     </Landing>
   </Layout>
 )

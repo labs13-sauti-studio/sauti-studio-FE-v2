@@ -4,10 +4,6 @@ import React from 'react'
 // import SEO from '@/seo'
 import LoginModal from '@/modal'
 
-const LoginPage = () => (
-  <LoginModal>
-    
-  </LoginModal>
-)
+const LoginPage = () => <LoginModal></LoginModal>
 
 export default LoginPage
