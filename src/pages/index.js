@@ -5,8 +5,9 @@ import styled from 'styled-components'
 import Layout from '@/layout'
 import SEO from '@/seo'
 import { Link } from 'gatsby'
-import { Graphic1, Graphic2, Graphic3, Graphic4 } from '@/graphics'
+import { Graphic1, Graphic2, Graphic3 } from '@/graphics'
 import { media } from 'src/theme'
+import Phone from '../images/sautiphone.png'
 
 const Landing = styled.div`
   margin-top: 4rem;
@@ -67,7 +68,35 @@ const Section2 = styled.section`
     }
    `}
 `
+
 const Section3 = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: space-between;
+  /* text-align: center; */
+  h2 {
+    grid-column: 1/-1;
+  }
+  .sub-info {
+    text-align: right;
+    .start {
+      height: 100%;
+      text-align: center;
+      button {
+        margin-top: 4rem;
+      }
+    }
+  }
+  ${media.tablet`
+    grid-template-columns: 1fr;
+    button {
+      margin-bottom: 4rem;
+    }
+   `}
+`
+
+const Section4 = styled.section`
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
@@ -160,7 +189,29 @@ const IndexPage = () => (
           Providing a simple tool to create (develop and deploy) empowering
           solutions and quickly communicate ideas to address proverty.
         </p>
+        <hr
+          style={{
+            borderBottomColor: 'black',
+            borderBottomWidth: 1,
+            marginLeft: 5,
+            marginRight: 5,
+          }}
+        ></hr>
       </section>
+
+      {/* TRY OUT INTERACTIVE DEMO SECTION */}
+      <Section3>
+        <Typography variant="h3">Try Our Interactive Demo</Typography>
+        <div>
+          <p>
+            In this simulation we're using Sauti East Africa flow to demonstrate
+            Sauti Studio + Design text-based app creation tool.
+          </p>
+        </div>
+        <div>
+          <img src={Phone} />
+        </div>
+      </Section3>
       <hr
         style={{
           borderBottomColor: 'black',
@@ -169,12 +220,13 @@ const IndexPage = () => (
           marginRight: 5,
         }}
       ></hr>
-      <Section3>
+      {/* EXPLORE OUR FLOW SAMPLES SECTION */}
+      <Section4>
         <Typography variant="h3">Explor Our Flow Samples</Typography>
         <div>
-          <Graphic4 />
+          <Graphic3 />
         </div>
-      </Section3>
+      </Section4>
       <hr
         style={{
           borderBottomColor: 'black',
