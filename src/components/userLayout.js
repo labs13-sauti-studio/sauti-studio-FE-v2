@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Dashboard from '@/dashboard'
-import { loadUserInfo } from 'state/actions'
+import { loadUserInfo } from 'actions'
 import { connect } from 'react-redux'
 // const UserLayout = ({ children }) => <Dashboard>{children}</Dashboard>
 

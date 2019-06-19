@@ -16,8 +16,11 @@
       "helpers": [
         "./src/helpers.js"
       ],
-      "state": [
-        "./src/state/*"
+      "actions": [
+        "./src/actions/*"
+      ],
+      "reducers": [
+        "./src/reducers/*"
       ]
     }
   },

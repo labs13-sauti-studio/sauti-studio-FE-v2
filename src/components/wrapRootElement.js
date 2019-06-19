@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { theme, muiTheme, GlobalStyle } from 'src/theme'
-import store from '../state/store'
+import store from 'src/store'
 
 export default ({ element }) => (
   <Provider store={store}>
