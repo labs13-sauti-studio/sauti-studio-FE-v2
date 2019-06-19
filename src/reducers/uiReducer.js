@@ -9,7 +9,7 @@ import {
 
 const initialUiState = {
   sideBarData: [
-    { name: 'Profile', to: '/profile' },
+    { name: 'Profile', to: '/profile/' },
     { name: 'Workflows', to: 'workflows' },
   ],
   isSidebarOpen: false,

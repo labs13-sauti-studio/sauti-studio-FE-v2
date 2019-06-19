@@ -1,8 +1,3 @@
-import React, { Component } from 'react'
-import Typography from '@material-ui/core/Typography'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import UserLayout from '@/userLayout'
 import {
   Divider,
   Container,
@@ -16,14 +11,12 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  List,
-  ListItem,
-  Button,
-  TextField,
-  ListSubheader,
-  Paper,
-  StarBorder,
 } from '@material-ui/core'
+import React, { Component } from 'react'
+import Typography from '@material-ui/core/Typography'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import UserLayout from '@/userLayout'
 import {
   loadWorkflow,
   loadWorkflowQuestions,
@@ -34,8 +27,15 @@ import {
   setActiveQuestionId,
   toggleDeleteQuestionModal,
 } from 'actions'
+import ListSubheader from '@material-ui/core/ListSubheader'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
 import styled from 'styled-components'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import Paper from '@material-ui/core/Paper'
 import { palette, spacing, borders } from '@material-ui/system'
+import StarBorder from '@material-ui/icons/StarBorder'
 
 const Box = styled.div`
   ${palette}
@@ -100,22 +100,21 @@ class WorkflowPage extends Component {
     dispatch(loadQuestionAnswers(question_id))
   }
 
-  handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
-
-  addQuestion = async () => {
+  addQuestion = () => {
     const { question_text } = this.state
     const { dispatch, '*': url } = this.props
     const workflow_id = url.replace('workflow/', '')
     if (question_text === '') return
-    this.setState({ question_text: '' })
     dispatch(addWorkflowQuestion(workflow_id, question_text))
+    this.setState({ question_text: '' })
   }
 
+  handleChange = e => this.setState({ [e.target.name]: e.target.value })
+
   addAnswer = () => {
-    const { dispatch, question_id } = this.props
+    const { question_id, dispatch } = this.props
     const { answer_text } = this.state
     dispatch(addQuestionAnswer(answer_text, 1, 1, question_id))
-    this.setState({ answer_text: '' })
   }
 
   handleMouseHover = () => this.setState(this.toggleHoverState)
@@ -143,7 +142,7 @@ class WorkflowPage extends Component {
       answers,
       isDeleteQuestionModalOpen,
     } = this.props
-    const { question_text, answer_text, isHovering } = this.state
+    const { isHovering } = this.state
     return (
       <UserLayout>
         <Container>
@@ -166,11 +165,10 @@ class WorkflowPage extends Component {
               id="outlined-name"
               label="New Question"
               name="question_text"
+              onChange={this.handleChange}
               margin="dense"
               variant="outlined"
               style={{ width: '100%' }}
-              onChange={this.handleInputChange}
-              value={question_text}
             />
             <Button
               size="large"
@@ -258,11 +256,10 @@ class WorkflowPage extends Component {
                       id="outlined-name"
                       label="New Answer"
                       name="answer_text"
+                      onChange={this.handleChange}
                       margin="dense"
                       variant="outlined"
                       style={{ width: '100%' }}
-                      value={answer_text}
-                      onChange={this.handleInputChange}
                     />
                     <Button
                       size="large"
@@ -298,25 +295,22 @@ WorkflowPage.propTypes = {
   category: PropTypes.string,
   id: PropTypes.number,
   questions: PropTypes.array,
-  question_id: PropTypes.number,
   answers: PropTypes.array,
+  question_id: PropTypes.number,
   isDeleteQuestionModalOpen: PropTypes.bool,
   '*': PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
 }
 
-export default connect(
-  state => ({
-    id: state.workflow.id,
-    name: state.workflow.name,
-    category: state.workflow.category,
-    area_code: state.workflow.area_code,
-    questions: state.workflow.questions,
-    answers: state.workflow.answers,
-    question_id: state.workflow.question_id,
-    loadingAnswers: state.workflow.loadingAnswers,
-    loadingQuestions: state.workflow.loadingQuestions,
-    isDeleteQuestionModalOpen: state.ui.isDeleteQuestionModalOpen,
-  }),
-  null
-)(WorkflowPage)
+export default connect(state => ({
+  id: state.workflow.id,
+  name: state.workflow.name,
+  category: state.workflow.category,
+  area_code: state.workflow.area_code,
+  questions: state.workflow.questions,
+  answers: state.workflow.answers,
+  question_id: state.workflow.question_id,
+  loadingAnswers: state.workflow.loadingAnswers,
+  loadingQuestions: state.workflow.loadingQuestions,
+  isDeleteQuestionModalOpen: state.ui.isDeleteQuestionModalOpen,
+}))(WorkflowPage)
