@@ -2,9 +2,11 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Modal from '@material-ui/core/Modal'
-import Button from '@material-ui/core/Button'
-import GoogleLoginButton from 'src/images/google-login-button.png'
-import FacebookLoginButton from 'src/images/facebook-login-button.png'
+// import Button from '@material-ui/core/Button'
+// import GoogleLoginButton from 'src/images/google-login-button.png'
+// import FacebookLoginButton from 'src/images/facebook-login-button.png'
+import { FacebookLoginButton } from 'react-social-login-buttons'
+import { GoogleLoginButton } from 'react-social-login-buttons'
 
 function getModalStyle() {
   const top = 50
@@ -81,14 +83,19 @@ function LoginModal() {
           <Typography variant="h6" id="modal-title">
             Sauti Studio
           </Typography>
-          <Typography variant="subtitle1" id="simple-modal-description">
-            <a href={`${process.env.GATSBY_API_URL}/auth/google`}>
-              <img src={GoogleLoginButton} alt="" />
-            </a>
-            <a href={`${process.env.GATSBY_API_URL}/auth/facebook`}>
-              <img src={FacebookLoginButton} alt="" />
-            </a>{' '}
-          </Typography>
+
+          <GoogleLoginButton
+            onClick={() =>
+              (window.location.href = `${process.env.GATSBY_API_URL}/auth/google`)
+            }
+          />
+          <FacebookLoginButton
+            onClick={() =>
+              (window.location.href = `${process.env.GATSBY_API_URL}/auth/facebook`)
+            }
+          />
+
+          {/*  */}
         </div>
       </Modal>
     </div>
@@ -96,3 +103,14 @@ function LoginModal() {
 }
 
 export default LoginModal
+
+{
+  /* <Typography variant="subtitle1" id="simple-modal-description">
+            <a href={`${process.env.GATSBY_API_URL}/auth/google`}>
+              <img src={GoogleLoginButton} alt="" />
+            </a>
+            <a href={`${process.env.GATSBY_API_URL}/auth/facebook`}>
+              <img src={FacebookLoginButton} alt="" />
+            </a>{' '}
+          </Typography> */
+}
