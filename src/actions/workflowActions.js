@@ -1,25 +1,6 @@
 import { axiosInstance } from 'helpers'
 import { loadUserWorkflows } from 'actions'
 
-export const DELETE_WORKFLOW_START = 'DELETE_WORKFLOW_START'
-export const DELETE_WORKFLOW_SUCCESS = 'DELETE_WORKFLOW_SUCCESS'
-export const DELETE_WORKFLOW_FAILURE = 'DELETE_WORKFLOW_FAILURE'
-
-export const deleteUserWorkflow = id => dispatch => {
-  dispatch({ type: 'DELETE_WORKFLOW_START' })
-
-  axiosInstance
-    .delete(`/workflows/${id}`)
-    .then(({ data: { message } }) => {
-      dispatch({ type: 'DELETE_WORKFLOW_SUCCESS', payload: message })
-      dispatch(loadUserWorkflows())
-    })
-    .catch(err => {
-      console.log(err)
-      dispatch({ type: 'DELETE_WORKFLOW_FAILURE' })
-    })
-}
-
 export const LOAD_WORKFLOW_START = 'LOAD_WORKFLOW_START'
 export const LOAD_WORKFLOW_SUCCESS = 'LOAD_WORKFLOW_SUCCESS'
 export const LOAD_WORKFLOW_FAILURE = 'LOAD_WORKFLOW_FAILURE'
@@ -38,11 +19,15 @@ export const loadWorkflow = id => dispatch => {
     )
 }
 
-export const SET_ACTIVE_WORKFLOW = 'SET_ACTIVE_WORKFLOW'
+export const SET_WORKFLOW_ID = 'SET_WORKFLOW_ID'
 
-export const setActiveWorkflow = workflow => dispatch => {
-  dispatch({ type: SET_ACTIVE_WORKFLOW, payload: workflow })
-  console.log(workflow)
+export const setActiveWorkflowId = workflow_id => dispatch => {
+  dispatch({ type: SET_WORKFLOW_ID, payload: workflow_id })
+}
+export const SET_QUESTION_ID = 'SET_QUESTION_ID'
+
+export const setActiveQuestionId = question_id => dispatch => {
+  dispatch({ type: SET_QUESTION_ID, payload: question_id })
 }
 
 export const LOAD_WORKFLOW_QUESTIONS_START = 'LOAD_WORKFLOW_QUESTIONS_START'
@@ -82,6 +67,32 @@ export const addWorkflowQuestion = (workflow_id, question_text) => dispatch => {
     )
     .catch(err => new Error(err))
 }
+
+export const SET_WORKFLOW_QUESTIONS = 'SET_WORKFLOW_QUESTIONS'
+
+export const setWorkflowQuestions = questions => dispatch => {
+  dispatch({ type: SET_WORKFLOW_QUESTIONS, paylaod: questions })
+}
+
+export const DELETE_WORKFLOW_START = 'DELETE_WORKFLOW_START'
+export const DELETE_WORKFLOW_SUCCESS = 'DELETE_WORKFLOW_SUCCESS'
+export const DELETE_WORKFLOW_FAILURE = 'DELETE_WORKFLOW_FAILURE'
+
+export const deleteUserWorkflow = id => dispatch => {
+  dispatch({ type: 'DELETE_WORKFLOW_START' })
+
+  axiosInstance
+    .delete(`/workflows/${id}`)
+    .then(({ data: { message } }) => {
+      dispatch({ type: 'DELETE_WORKFLOW_SUCCESS', payload: message })
+      dispatch(loadUserWorkflows())
+    })
+    .catch(err => {
+      console.log(err)
+      dispatch({ type: 'DELETE_WORKFLOW_FAILURE' })
+    })
+}
+
 export const DELETE_WF_QUESTION_START = 'DELETE_WF_QUESTION_START'
 export const DELETE_WF_QUESTION_SUCCESS = 'DELETE_WF_QUESTION_SUCCESS'
 export const DELETE_WF_QUESTION_FAILURE = 'DELETE_WF_QUESTION_FAILURE'

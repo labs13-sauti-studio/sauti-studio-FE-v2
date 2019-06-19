@@ -5,13 +5,14 @@ import {
   LOAD_WORKFLOW_QUESTIONS_START,
   LOAD_WORKFLOW_QUESTIONS_SUCCESS,
   LOAD_WORKFLOW_QUESTIONS_FAILURE,
-  SET_ACTIVE_WORKFLOW,
+  SET_WORKFLOW_ID,
   ADD_WORKFLOW_QUESTION_START,
   ADD_WORKFLOW_QUESTION_SUCCESS,
   ADD_WORKFLOW_QUESTION_FAILURE,
   LOAD_QUESTION_ANSWERS_START,
   LOAD_QUESTION_ANSWERS_SUCCESS,
   LOAD_QUESTION_ANSWERS_FAILURE,
+  SET_WORKFLOW_QUESTIONS,
   ADD_QUESTION_ANSWER_START,
   ADD_QUESTION_ANSWER_SUCCESS,
   ADD_QUESTION_ANSWER_FAILURE,
@@ -21,6 +22,7 @@ import {
   DELETE_WF_ANSWER_START,
   DELETE_WF_ANSWER_SUCCESS,
   DELETE_WF_ANSWER_FAILURE,
+  SET_QUESTION_ID,
 } from 'actions'
 
 const initialWorkflowState = {
@@ -67,8 +69,8 @@ const workflowReducer = (state = initialWorkflowState, action) => {
     case LOAD_WORKFLOW_QUESTIONS_FAILURE:
       return { ...state, error: true, msg: 'Problem Loading Questions' }
 
-    case SET_ACTIVE_WORKFLOW:
-      return { ...state, ...action.payload }
+    case SET_WORKFLOW_ID:
+      return { ...state, workflow_id: action.payload }
 
     case ADD_WORKFLOW_QUESTION_START:
       return { ...state, isAddingQuestion: true }
@@ -122,6 +124,12 @@ const workflowReducer = (state = initialWorkflowState, action) => {
 
     case DELETE_WF_ANSWER_FAILURE:
       return { ...state, error: true, msg: 'Problem deleting answer' }
+
+    case SET_QUESTION_ID:
+      return { ...state, question_id: action.payload }
+
+    case SET_WORKFLOW_QUESTIONS:
+      return { ...state, questions: action.payload }
 
     default:
       return state

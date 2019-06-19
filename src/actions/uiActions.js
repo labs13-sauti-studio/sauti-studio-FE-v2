@@ -22,3 +22,8 @@ export const CLOSE_EDIT_PROFILE = 'CLOSE_EDIT_PROFILE'
 
 export const closeEditProfileModal = () => dispatch =>
   dispatch({ type: CLOSE_EDIT_PROFILE })
+
+export const TOGGLE_DELETE_QUESTION_MODAL = 'TOGGLE_DELETE_QUESTION_MODAL'
+
+export const toggleDeleteQuestionModal = bool => dispatch =>
+  dispatch({ type: TOGGLE_DELETE_QUESTION_MODAL, payload: bool })

@@ -4,6 +4,7 @@ import {
   CLOSE_WORKFLOW_MODAL,
   TOGGLE_EDIT_PROFILE,
   CLOSE_EDIT_PROFILE,
+  TOGGLE_DELETE_QUESTION_MODAL,
 } from 'actions'
 
 const initialUiState = {
@@ -14,6 +15,7 @@ const initialUiState = {
   isSidebarOpen: false,
   isAddingNewWorkflow: false,
   isEditingProfile: false,
+  isDeleteQuestionModalOpen: false,
 }
 
 const uiReducer = (state = initialUiState, action) => {
@@ -32,6 +34,9 @@ const uiReducer = (state = initialUiState, action) => {
 
     case CLOSE_EDIT_PROFILE:
       return { ...state, isEditingProfile: false }
+
+    case TOGGLE_DELETE_QUESTION_MODAL:
+      return { ...state, isDeleteQuestionModalOpen: action.payload }
 
     default:
       return state
