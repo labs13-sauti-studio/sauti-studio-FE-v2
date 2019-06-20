@@ -451,3 +451,166 @@ export const Graphic3 = props => (
     </g>
   </svg>
 )
+
+// EXAMPLE OF THE MENU WITH OPTIONS
+export const Graphic4 = props => (
+  <svg width={315} height={297} {...props}>
+    <g fill="none" fillRule="evenodd">
+      <text
+        fontFamily="Roboto-Regular, Roboto"
+        fontSize={24}
+        letterSpacing={0.465}
+        fill="#202020"
+        transform="translate(-1 -4)"
+      >
+        <tspan x={117} y={22}>
+          {'Example: '}
+        </tspan>
+      </text>
+      <path
+        d="M105.174 108.368L38.435 66.155l.535-.845 66.739 42.213 2.138-3.38 5.2 8.613-10.011-1.007 2.138-3.381z"
+        fill="#F08D84"
+        fillRule="nonzero"
+      />
+      <path
+        d="M105.166 191H73.168v-1h31.998v-4l9 4.5-9 4.5v-4zM105.166 218H73.168v-1h31.998v-4l9 4.5-9 4.5v-4zM105.166 248H73.168v-1h31.998v-4l9 4.5-9 4.5v-4z"
+        fill="#87B0C5"
+        fillRule="nonzero"
+      />
+      <text
+        fontFamily="Roboto-Regular, Roboto"
+        fontSize={20}
+        letterSpacing={0.388}
+        fill="#F08D84"
+        transform="translate(-1 -4)"
+      >
+        <tspan x={6} y={64}>
+          {'Screen'}
+        </tspan>
+      </text>
+      <path stroke="#F6B9B4" strokeWidth={3} d="M118.5 69.5h194v196h-194z" />
+      <path stroke="#87B0C5" strokeWidth={2} d="M124 179h167v22H124z" />
+      <path
+        stroke="#88B1C5"
+        strokeWidth={2}
+        d="M124 207h167v22H124zM124 235h166v22H124z"
+      />
+      <text
+        fontFamily="Roboto-Regular, Roboto"
+        fontSize={18}
+        letterSpacing={0.349}
+        fill="#87B0C5"
+        transform="translate(-1 -4)"
+      >
+        <tspan x={0} y={200}>
+          {'Option 1'}
+        </tspan>
+      </text>
+      <text
+        fontFamily="Roboto-Regular, Roboto"
+        fontSize={18}
+        letterSpacing={0.349}
+        fill="#87B0C5"
+        transform="translate(-1 -4)"
+      >
+        <tspan x={0} y={228}>
+          {'Option 2'}
+        </tspan>
+      </text>
+      <text
+        fontFamily="Roboto-Regular, Roboto"
+        fontSize={19}
+        letterSpacing={0.368}
+        fill="#87B0C5"
+        transform="translate(-1 -4)"
+      >
+        <tspan x={0} y={257}>
+          {'Option 3'}
+        </tspan>
+      </text>
+      <path stroke="#202020" d="M116.5 39.5h198v257h-198z" />
+      <text
+        fontFamily="Roboto-Regular, Roboto"
+        fontSize={14}
+        letterSpacing={0.271}
+        fill="#202020"
+        transform="translate(-1 -4)"
+      >
+        <tspan x={130} y={98}>
+          {'Welcome to Sauti - '}
+        </tspan>
+        <tspan x={130} y={120}>
+          {'helping you trade legally, '}
+        </tspan>
+        <tspan x={130} y={142}>
+          {'safely & profitably '}
+        </tspan>
+        <tspan x={130} y={164}>
+          {'across borders. Text'}
+        </tspan>
+      </text>
+      <path
+        d="M117 68h196.5M117.25 268h197"
+        stroke="#202020"
+        strokeLinecap="square"
+      />
+      <text
+        fontFamily="Roboto-Regular, Roboto"
+        fontSize={14}
+        letterSpacing={0.271}
+        fill="#202020"
+        transform="translate(-1 -4)"
+      >
+        <tspan x={127} y={195}>
+          {'1. About Sauti'}
+        </tspan>
+      </text>
+      <text
+        fontFamily="Roboto-Regular, Roboto"
+        fontSize={14}
+        letterSpacing={0.271}
+        fill="#202020"
+        transform="translate(-1 -4)"
+      >
+        <tspan x={127} y={222}>
+          {'2. Help'}
+        </tspan>
+      </text>
+      <text
+        fontFamily="Roboto-Regular, Roboto"
+        fontSize={14}
+        letterSpacing={0.271}
+        fill="#202020"
+        transform="translate(-1 -4)"
+      >
+        <tspan x={127} y={250}>
+          {'3. Directory'}
+        </tspan>
+      </text>
+      <text
+        fontFamily="Roboto-Black, Roboto"
+        fontSize={18}
+        fontWeight={700}
+        letterSpacing={0.349}
+        fill="#202020"
+        transform="translate(-1 -4)"
+      >
+        <tspan x={124} y={66}>
+          {'To: Sauti East Africa'}
+        </tspan>
+      </text>
+      <text
+        fontFamily="Roboto-Black, Roboto"
+        fontSize={18}
+        fontWeight={700}
+        letterSpacing={0.349}
+        fill="#202020"
+        transform="translate(-1 -4)"
+      >
+        <tspan x={126} y={293}>
+          {'Send:'}
+        </tspan>
+      </text>
+    </g>
+  </svg>
+)
