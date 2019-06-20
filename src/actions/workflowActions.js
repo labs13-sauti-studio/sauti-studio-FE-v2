@@ -1,16 +1,26 @@
+/* eslint-disable no-use-before-define */
 import { axiosInstance } from 'helpers'
 import { loadUserWorkflows } from 'actions'
+import arrayMove from 'array-move'
+import store from 'src/store'
+
+export const ADD_NEW_QUESTION = 'ADD_NEW_QUESTION'
+
+export const addNewQuestion = question => dispatch => {
+  dispatch({ type: ADD_NEW_QUESTION, payload: question })
+}
 
 export const LOAD_WORKFLOW_START = 'LOAD_WORKFLOW_START'
 export const LOAD_WORKFLOW_SUCCESS = 'LOAD_WORKFLOW_SUCCESS'
 export const LOAD_WORKFLOW_FAILURE = 'LOAD_WORKFLOW_FAILURE'
 
-export const loadWorkflow = id => dispatch => {
+export const loadWorkflow = workflow_id => dispatch => {
   dispatch({ type: 'LOAD_WORKFLOW_START' })
 
   axiosInstance
-    .get(`/workflows/${id}`)
+    .get(`/workflows/${workflow_id}`)
     .then(res => dispatch({ type: 'LOAD_WORKFLOW_SUCCESS', payload: res.data }))
+    .then(() => dispatch(loadWorkflowQuestions(workflow_id)))
     .catch(err =>
       dispatch({
         type: 'LOAD_WORKFLOWS_FAILURE',
@@ -169,4 +179,15 @@ export const loadQuestionAnswers = question_id => dispatch => {
       dispatch({ type: LOAD_QUESTION_ANSWERS_SUCCESS, payload: data })
     })
     .catch(err => dispatch({ type: LOAD_QUESTION_ANSWERS_FAILURE }))
+}
+export const REORDER_QUESTIONS = 'REORDER_QUESTIONS'
+
+export const onSortEnd = ({ oldIndex, newIndex }) => dispatch => {
+  // this.setState(({ items }) => ({
+  //   items: arrayMove(items, oldIndex, newIndex),
+  // }))
+  dispatch({
+    type: REORDER_QUESTIONS,
+    payload: arrayMove(store.getState().workflow.questions, oldIndex, newIndex),
+  })
 }

@@ -46,6 +46,7 @@ questions,
 
 const QuestionCard = ({
   id,
+  index,
   clickedCardQuestion,
   deleteWorkflowQuestion,
   isDeleteQuestionModalOpen,
@@ -74,7 +75,7 @@ const QuestionCard = ({
         <DragHandle />
       </Flex>
       <Typography color="textSecondary" gutterBottom>
-        ID: {id}
+        Order: {JSON.stringify(index)}
       </Typography>
     </CardContent>
     <Divider />

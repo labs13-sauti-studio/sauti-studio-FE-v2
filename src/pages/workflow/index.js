@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-shadow */
 import {
   Button,
   Container,
@@ -18,6 +20,7 @@ import UserLayout from '@/userLayout'
 import {
   addQuestionAnswer,
   addWorkflowQuestion,
+  addNewQuestion,
   deleteWorkflowQuestion,
   loadQuestionAnswers,
   loadWorkflow,
@@ -38,7 +41,6 @@ class WorkflowPage extends Component {
       question_text: '',
       answer_text: '',
     }
-    this.handleMouseHover = this.handleMouseHover.bind(this)
   }
 
   componentDidMount() {
@@ -46,16 +48,15 @@ class WorkflowPage extends Component {
   }
 
   initialLoad = () => {
-    const { dispatch, '*': url } = this.props
+    const { '*': url, loadWorkflowQuestions, loadWorkflow } = this.props
     const workflow_id = url.replace('workflow/', '')
-    dispatch(loadWorkflow(workflow_id))
-    dispatch(loadWorkflowQuestions(workflow_id))
+    loadWorkflow(workflow_id)
   }
 
   clickedCardQuestion = question_id => {
     const { dispatch } = this.props
-    dispatch(setActiveQuestionId(question_id))
-    dispatch(loadQuestionAnswers(question_id))
+    setActiveQuestionId(question_id)
+    loadQuestionAnswers(question_id)
   }
 
   addQuestion = () => {
@@ -63,32 +64,28 @@ class WorkflowPage extends Component {
     const { dispatch, '*': url } = this.props
     const workflow_id = url.replace('workflow/', '')
     if (question_text === '') return
-    dispatch(addWorkflowQuestion(workflow_id, question_text))
+    addWorkflowQuestion(workflow_id, question_text)
     this.setState({ question_text: '' })
   }
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value })
 
   addAnswer = () => {
-    const { dispatch, question_id } = this.props
+    const { question_id } = this.props
     const { answer_text } = this.state
-    dispatch(addQuestionAnswer(answer_text, 1, 1, question_id))
+    addQuestionAnswer(answer_text, 1, 1, question_id)
   }
 
-  handleMouseHover = () => this.setState(this.toggleHoverState)
-
-  toggleHoverState = state => ({ isHovering: !state.isHovering })
-
   toggleDeleteModal = () => {
-    const { dispatch, isDeleteQuestionModalOpen } = this.props
-    dispatch(toggleDeleteQuestionModal(!isDeleteQuestionModalOpen))
+    const { isDeleteQuestionModalOpen } = this.props
+    toggleDeleteQuestionModal(!isDeleteQuestionModalOpen)
   }
 
   deleteQuestion = () => {
-    const { dispatch, question_id, id } = this.props
+    const { question_id, id } = this.props
     this.toggleDeleteModal()
-    dispatch(deleteWorkflowQuestion(question_id))
-    dispatch(loadWorkflowQuestions(id))
+    deleteWorkflowQuestion(question_id)
+    loadWorkflowQuestions(id)
   }
 
   render() {
@@ -99,8 +96,10 @@ class WorkflowPage extends Component {
       name,
       question_id,
       questions,
+      addNewQuestion,
     } = this.props
-    const { isHovering } = this.state
+
+    const { question_text } = this.state
     return (
       <UserLayout>
         <Container>
@@ -133,7 +132,9 @@ class WorkflowPage extends Component {
               color="primary"
               variant="contained"
               aria-label="Add"
-              onClick={this.addQuestion}
+              onClick={() =>
+                addNewQuestion({ question_text, order: questions.length + 1 })
+              }
             >
               Add
             </Button>
@@ -197,18 +198,30 @@ WorkflowPage.propTypes = {
   questions: PropTypes.array,
 }
 
-export default connect(state => ({
-  answers: state.workflow.answers,
-  area_code: state.workflow.area_code,
-  category: state.workflow.category,
-  id: state.workflow.id,
-  isDeleteQuestionModalOpen: state.ui.isDeleteQuestionModalOpen,
-  loadingAnswers: state.workflow.loadingAnswers,
-  loadingQuestions: state.workflow.loadingQuestions,
-  name: state.workflow.name,
-  question_id: state.workflow.question_id,
-  questions: state.workflow.questions,
-}))(WorkflowPage)
+export default connect(
+  state => ({
+    answers: state.workflow.answers,
+    area_code: state.workflow.area_code,
+    category: state.workflow.category,
+    id: state.workflow.id,
+    isDeleteQuestionModalOpen: state.ui.isDeleteQuestionModalOpen,
+    loadingAnswers: state.workflow.loadingAnswers,
+    loadingQuestions: state.workflow.loadingQuestions,
+    name: state.workflow.name,
+    question_id: state.workflow.question_id,
+    questions: state.workflow.questions,
+  }),
+  {
+    addQuestionAnswer,
+    addNewQuestion,
+    deleteWorkflowQuestion,
+    loadWorkflowQuestions,
+    toggleDeleteQuestionModal,
+    loadQuestionAnswers,
+    setActiveQuestionId,
+    loadWorkflow,
+  }
+)(WorkflowPage)
 
 const Box = styled.div`
   ${palette}
