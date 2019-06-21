@@ -64,17 +64,12 @@ export const ADD_WORKFLOW_QUESTION_SUCCESS = 'ADD_WORKFLOW_QUESTION_SUCCESS'
 export const ADD_WORKFLOW_QUESTION_FAILURE = 'ADD_WORKFLOW_QUESTION_FAILURE'
 
 // ADD NEW QUESTIONS TO WORKFLOW
-export const addWorkflowQuestion = (
-  question_text,
-  order,
-  workflow_id
-) => dispatch => {
+export const addWorkflowQuestion = options => dispatch => {
   dispatch({ type: ADD_WORKFLOW_QUESTION_START })
 
   axiosInstance
-    .post(`/questions/${workflow_id}`, {
-      workflow_id,
-      question_text,
+    .post(`/questions/${options.workflow_id}`, {
+      question_text: options.question_text,
     })
     .then(({ data }) =>
       dispatch({ type: ADD_WORKFLOW_QUESTION_SUCCESS, payload: data })
