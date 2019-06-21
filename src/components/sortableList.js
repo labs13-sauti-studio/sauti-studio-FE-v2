@@ -26,9 +26,9 @@ const SortableContainer = sortableContainer(({ children }) => (
   <div>{children}</div>
 ))
 
-const SortableList = ({ items, onSortEnd }) => (
+const SortableList = ({ questions, onSortEnd }) => (
   <SortableContainer onSortEnd={onSortEnd} useDragHandle>
-    {items.map((item, index) => (
+    {questions.map((item, index) => (
       <SortableItem key={`item-${index}`} index={index} item={item} />
     ))}
   </SortableContainer>

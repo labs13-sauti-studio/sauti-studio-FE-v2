@@ -32,7 +32,6 @@ import styled from 'styled-components'
 import { palette, spacing, borders } from '@material-ui/system'
 import StarBorder from '@material-ui/icons/StarBorder'
 import SortableList from '@/sortableList'
-import QuestionCard from '@/questionCard'
 
 class WorkflowPage extends Component {
   constructor(props) {
@@ -60,19 +59,18 @@ class WorkflowPage extends Component {
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value })
 
-  addQuestion = () => {
-    const { question_text } = this.state
-    const { dispatch, '*': url } = this.props
-    const workflow_id = url.replace('workflow/', '')
-    if (question_text === '') return
-    addWorkflowQuestion(workflow_id, question_text)
-    this.setState({ question_text: '' })
-  }
+  // addQuestion = () => {
+  //   const { question_text } = this.state
+  //   const { '*': url } = this.props
+  //   if (question_text === '') return
+  //   addWorkflowQuestion(question_text, question_text)
+  //   this.setState({ question_text: '' })
+  // }
 
   addAnswer = () => {
     const { question_id } = this.props
     const { answer_text } = this.state
-    addWorkflowQuestion(answer_text, 1, 1, question_id)
+    addQuestionAnswer(answer_text, 1, 1, question_id)
   }
 
   toggleDeleteModal = () => {
@@ -97,7 +95,7 @@ class WorkflowPage extends Component {
       questions,
     } = this.props
 
-    const { question_text } = this.state
+    const { question_text, answer_text } = this.state
     return (
       <UserLayout>
         <Container>
@@ -130,7 +128,9 @@ class WorkflowPage extends Component {
               color="primary"
               variant="contained"
               aria-label="Add"
-              onClick={this.addQuestion}
+              onClick={() =>
+                addWorkflowQuestion(question_text, 1, this.props.id)
+              }
             >
               Add
             </Button>
@@ -138,7 +138,7 @@ class WorkflowPage extends Component {
         </Container>
         <Container>
           <Grid>
-            <SortableList items={questions} />
+            <SortableList />
             <List
               component="nav"
               aria-labelledby="nested-list-subheader"
@@ -182,17 +182,6 @@ class WorkflowPage extends Component {
     )
   }
 }
-WorkflowPage.propTypes = {
-  '*': PropTypes.string.isRequired,
-  answers: PropTypes.array,
-  category: PropTypes.string,
-  dispatch: PropTypes.func.isRequired,
-  id: PropTypes.number,
-  isDeleteQuestionModalOpen: PropTypes.bool,
-  name: PropTypes.string,
-  question_id: PropTypes.number,
-  questions: PropTypes.array,
-}
 
 export default connect(
   state => ({
@@ -204,7 +193,7 @@ export default connect(
     loadingAnswers: state.workflow.loadingAnswers,
     loadingQuestions: state.workflow.loadingQuestions,
     name: state.workflow.name,
-    question_id: state.workflow.question_id,
+    question_id: state.workflow.id,
     questions: state.workflow.questions,
   }),
   {
@@ -214,7 +203,6 @@ export default connect(
     loadQuestionAnswers,
     loadWorkflow,
     loadWorkflowQuestions,
-    setActiveQuestionId,
     toggleDeleteQuestionModal,
   }
 )(WorkflowPage)
@@ -253,3 +241,15 @@ const Flex = styled.div`
   justify-content: space-between;
   align-items: center;
 `
+
+WorkflowPage.propTypes = {
+  '*': PropTypes.string.isRequired,
+  answers: PropTypes.array,
+  category: PropTypes.string,
+  dispatch: PropTypes.func,
+  id: PropTypes.number,
+  isDeleteQuestionModalOpen: PropTypes.bool,
+  name: PropTypes.string,
+  question_id: PropTypes.number,
+  questions: PropTypes.array,
+}
