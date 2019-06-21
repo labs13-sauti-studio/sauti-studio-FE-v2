@@ -59,12 +59,16 @@ export const loadWorkflowQuestions = id => dispatch => {
     })
 }
 
-export const ADD_WORKFLOW_QUESTION_START = 'ADD_WORKFLOW_QUESTIONS_START'
-export const ADD_WORKFLOW_QUESTION_SUCCESS = 'ADD_WORKFLOW_QUESTIONS_SUCCESS'
-export const ADD_WORKFLOW_QUESTION_FAILURE = 'ADD_WORKFLOW_QUESTIONS_FAILURE'
+export const ADD_WORKFLOW_QUESTION_START = 'ADD_WORKFLOW_QUESTION_START'
+export const ADD_WORKFLOW_QUESTION_SUCCESS = 'ADD_WORKFLOW_QUESTION_SUCCESS'
+export const ADD_WORKFLOW_QUESTION_FAILURE = 'ADD_WORKFLOW_QUESTION_FAILURE'
 
 // ADD NEW QUESTIONS TO WORKFLOW
-export const addWorkflowQuestion = (workflow_id, question_text) => dispatch => {
+export const addWorkflowQuestion = (
+  question_text,
+  order,
+  workflow_id
+) => dispatch => {
   dispatch({ type: ADD_WORKFLOW_QUESTION_START })
 
   axiosInstance

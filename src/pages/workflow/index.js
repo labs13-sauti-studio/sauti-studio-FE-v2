@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
 import {
@@ -20,7 +21,6 @@ import UserLayout from '@/userLayout'
 import {
   addQuestionAnswer,
   addWorkflowQuestion,
-  addNewQuestion,
   deleteWorkflowQuestion,
   loadQuestionAnswers,
   loadWorkflow,
@@ -48,16 +48,17 @@ class WorkflowPage extends Component {
   }
 
   initialLoad = () => {
-    const { '*': url, loadWorkflowQuestions, loadWorkflow } = this.props
-    const workflow_id = url.replace('workflow/', '')
+    const { loadWorkflow } = this.props
+    const workflow_id = this.props['*'].replace('workflow/', '')
     loadWorkflow(workflow_id)
   }
 
   clickedCardQuestion = question_id => {
-    const { dispatch } = this.props
     setActiveQuestionId(question_id)
     loadQuestionAnswers(question_id)
   }
+
+  handleChange = e => this.setState({ [e.target.name]: e.target.value })
 
   addQuestion = () => {
     const { question_text } = this.state
@@ -68,12 +69,10 @@ class WorkflowPage extends Component {
     this.setState({ question_text: '' })
   }
 
-  handleChange = e => this.setState({ [e.target.name]: e.target.value })
-
   addAnswer = () => {
     const { question_id } = this.props
     const { answer_text } = this.state
-    addQuestionAnswer(answer_text, 1, 1, question_id)
+    addWorkflowQuestion(answer_text, 1, 1, question_id)
   }
 
   toggleDeleteModal = () => {
@@ -96,7 +95,6 @@ class WorkflowPage extends Component {
       name,
       question_id,
       questions,
-      addNewQuestion,
     } = this.props
 
     const { question_text } = this.state
@@ -132,9 +130,7 @@ class WorkflowPage extends Component {
               color="primary"
               variant="contained"
               aria-label="Add"
-              onClick={() =>
-                addNewQuestion({ question_text, order: questions.length + 1 })
-              }
+              onClick={this.addQuestion}
             >
               Add
             </Button>
@@ -200,10 +196,10 @@ WorkflowPage.propTypes = {
 
 export default connect(
   state => ({
+    id: state.workflow.id,
     answers: state.workflow.answers,
     area_code: state.workflow.area_code,
     category: state.workflow.category,
-    id: state.workflow.id,
     isDeleteQuestionModalOpen: state.ui.isDeleteQuestionModalOpen,
     loadingAnswers: state.workflow.loadingAnswers,
     loadingQuestions: state.workflow.loadingQuestions,
@@ -213,13 +209,13 @@ export default connect(
   }),
   {
     addQuestionAnswer,
-    addNewQuestion,
+    addWorkflowQuestion,
     deleteWorkflowQuestion,
-    loadWorkflowQuestions,
-    toggleDeleteQuestionModal,
     loadQuestionAnswers,
-    setActiveQuestionId,
     loadWorkflow,
+    loadWorkflowQuestions,
+    setActiveQuestionId,
+    toggleDeleteQuestionModal,
   }
 )(WorkflowPage)
 

@@ -28,7 +28,7 @@ import {
   setActiveQuestionId,
   toggleDeleteQuestionModal,
 } from 'actions'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 
 const Flex = styled.div`
   width: 100%;
@@ -44,7 +44,105 @@ loadQuestionAnswers,
 questions,
 */
 
+/* const shit = {
+  id: 1,
+  name: 'My First Workflow',
+  area_code: null,
+  category: 'flows',
+  client_id: null,
+  question_id: null,
+  loading: false,
+  msg: 'Success',
+  error: null,
+  questions: [{ question_text: 'hello', order: 1 }],
+  answers: [],
+  order: 1,
+  loadingAnswers: false,
+  loadingQuestions: false,
+  isAddingQuestion: false,
+  user_id: 1,
+  service_code: '*384*39109#',
+} */
+// const { id, name, area_code, category } = useSelector(state => state.workflow)
+
 const QuestionCard = ({
+  id,
+  index,
+  question_text,
+  order,
+  workflow_id,
+  DragHandle,
+}) => (
+  <Card
+    // onMouseEnter={() => toggleQuestionHover(!isHoveringQuestion)}
+    // onMouseLeave={() => toggleQuestionHover(!isHoveringQuestion)}
+    style={{
+      marginBottom: '1rem',
+      // border: question_id === id ? '1.5px solid #035985' : '',
+    }}
+    // onClick={() => setActiveQuestionId(id)}
+  >
+    <CardContent
+    // onClick={() => clickedCardQuestion(id)}
+    >
+      <Flex>
+        <Typography variant="h5" component="h2">
+          {question_text}
+        </Typography>
+        <DragHandle />
+      </Flex>
+      <Typography color="textSecondary" gutterBottom>
+        Id: {id}
+        Order: {order}
+        Index: {index}
+      </Typography>
+    </CardContent>
+    <Divider />
+    <CardActions>
+      <Button size="small">Edit</Button>
+      {/* {isHoveringQuestion && question_id === id ? ( */}
+      <Button
+        size="small"
+        color="secondary"
+        // onClick={() => toggleDeleteQuestionModal(id)}
+      >
+        Delete
+      </Button>
+      {/* ) : null} */}
+      <Dialog
+        // open={isDeleteQuestionModalOpen}
+        // onClose={() => toggleDeleteQuestionModal(!isDeleteQuestionModalOpen)}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Delete Question</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this question and all the questions
+            attached to it?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            // onClick={() =>
+            //   toggleDeleteQuestionModal(!isDeleteQuestionModalOpen)
+            // }
+            color="primary"
+          >
+            Cancel
+          </Button>
+          <Button
+            /* onClick={() => deleteWorkflowQuestion(id)}  */ color="primary"
+          >
+            Delete Question
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </CardActions>
+  </Card>
+)
+export default QuestionCard
+
+const OldQuestionCard = ({
   id,
   index,
   clickedCardQuestion,
@@ -59,8 +157,8 @@ const QuestionCard = ({
   DragHandle,
 }) => (
   <Card
-    onMouseEnter={() => toggleQuestionHover(!isHoveringQuestion)}
-    onMouseLeave={() => toggleQuestionHover(!isHoveringQuestion)}
+    // onMouseEnter={() => toggleQuestionHover(!isHoveringQuestion)}
+    // onMouseLeave={() => toggleQuestionHover(!isHoveringQuestion)}
     style={{
       marginBottom: '1rem',
       border: question_id === id ? '1.5px solid #035985' : '',
@@ -81,15 +179,15 @@ const QuestionCard = ({
     <Divider />
     <CardActions>
       <Button size="small">Edit</Button>
-      {isHoveringQuestion && question_id === id ? (
-        <Button
-          size="small"
-          color="secondary"
-          onClick={() => toggleDeleteQuestionModal(id)}
-        >
-          Delete
-        </Button>
-      ) : null}
+      {/* {isHoveringQuestion && question_id === id ? ( */}
+      <Button
+        size="small"
+        color="secondary"
+        onClick={() => toggleDeleteQuestionModal(id)}
+      >
+        Delete
+      </Button>
+      {/* ) : null} */}
       <Dialog
         open={isDeleteQuestionModalOpen}
         onClose={() => toggleDeleteQuestionModal(!isDeleteQuestionModalOpen)}
@@ -146,7 +244,8 @@ const QuestionCard = ({
   toggleQuestionHover,
 }
 */
-export default connect(
+
+/* export default connect(
   state => ({
     isHoveringQuestion: state.ui.isHoveringQuestion,
     questions: state.workflow.questions,
@@ -165,4 +264,4 @@ export default connect(
     setActiveQuestionId,
     toggleDeleteQuestionModal,
   }
-)(QuestionCard)
+)(QuestionCard) */
