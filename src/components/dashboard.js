@@ -84,7 +84,7 @@ function Dashboard({ user, sideBarData, isSidebarOpen, children, dispatch }) {
           ))}
         </List>
         <Divider />
-        <List>
+        {/* <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
@@ -93,7 +93,7 @@ function Dashboard({ user, sideBarData, isSidebarOpen, children, dispatch }) {
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Drawer>
       <main
         className={clsx(classes.content, {
