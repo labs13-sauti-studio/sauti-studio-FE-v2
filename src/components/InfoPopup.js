@@ -38,7 +38,7 @@ const InfoIcon = styled.div`
   color: white;
   position: absolute;
   top: 40px;
-  left: 0px;
+  left: 1px;
   cursor: pointer;
   &:hover {
     background: #303030;

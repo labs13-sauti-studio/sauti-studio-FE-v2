@@ -33,7 +33,7 @@ class WorkflowsPage extends Component {
       <UserLayout>
         <Button variant="outlined" color="primary" onClick={toggleModal}>
           <InfoPopup
-            right="100px"
+            left="10px"
             style={{ position: 'relative' }}
             popOverText={
               <p>
