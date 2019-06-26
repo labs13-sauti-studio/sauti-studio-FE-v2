@@ -92,15 +92,6 @@ class WorkflowPage extends Component {
               onSortEnd={() => console.log('onSortEnd')}
             />
           )}
-          <ExpansionPanel disabled>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel3a-content"
-              id="panel3a-header"
-            >
-              <Typography>Disabled Expansion Panel</Typography>
-            </ExpansionPanelSummary>
-          </ExpansionPanel>
         </Container>
       </UserLayout>
     )

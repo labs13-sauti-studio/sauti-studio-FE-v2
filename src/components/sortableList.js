@@ -15,7 +15,7 @@ import { Flex } from '@/utility'
 
 export const DragHandle = sortableHandle(() => (
   <span style={{ cursor: 'grab' }}>
-    <Drag>XXXXX</Drag>
+    <Drag />
   </span>
 ))
 
