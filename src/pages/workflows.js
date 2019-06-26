@@ -6,6 +6,7 @@ import { loadUserWorkflows, toggleWorkflowModal } from 'actions'
 import Button from '@material-ui/core/Button'
 import AddUserWorkflow from '@/addUserWorkflow'
 import UserWorkflows from '@/userWorksflows'
+import InfoPopup from '@/InfoPopup'
 
 class WorkflowsPage extends Component {
   constructor(props) {
@@ -31,6 +32,15 @@ class WorkflowsPage extends Component {
     return (
       <UserLayout>
         <Button variant="outlined" color="primary" onClick={toggleModal}>
+          <InfoPopup
+            right="100px"
+            style={{ position: 'relative' }}
+            popOverText={
+              <p>
+                Create a workflow allows you to create a flow for your business.
+              </p>
+            }
+          />
           Create a new workflow
         </Button>
         <AddUserWorkflow />
