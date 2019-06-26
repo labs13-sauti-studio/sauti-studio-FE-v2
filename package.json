@@ -25,11 +25,6 @@
     "lint:fix": "eslint --ignore-path .gitignore . --fix",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint:fix"
-    }
-  },
   "dependencies": {
     "@material-ui/core": "^4.0.0-rc.0",
     "@material-ui/icons": "^4.2.0",
