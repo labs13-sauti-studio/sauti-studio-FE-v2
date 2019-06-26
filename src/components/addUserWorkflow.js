@@ -14,6 +14,7 @@ import {
   closeWorkflowModal,
   addUserWorkflow,
 } from 'actions'
+import InfoPopup from '@/InfoPopup'
 
 class NewWorkflowModel extends Component {
   constructor() {
@@ -55,6 +56,18 @@ class NewWorkflowModel extends Component {
           Create your new workflow
         </DialogTitle>
         <DialogContent>
+          <InfoPopup
+            left="90%"
+            top="20px"
+            style={{ position: 'relative' }}
+            popOverText={
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco
+              </p>
+            }
+          />
           <DialogContentText>
             To create your new workflow we just need some basic info.
           </DialogContentText>
