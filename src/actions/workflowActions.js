@@ -15,15 +15,14 @@ export const LOAD_WORKFLOW_SUCCESS = 'LOAD_WORKFLOW_SUCCESS'
 export const LOAD_WORKFLOW_FAILURE = 'LOAD_WORKFLOW_FAILURE'
 
 export const loadWorkflow = workflow_id => dispatch => {
-  dispatch({ type: 'LOAD_WORKFLOW_START' })
+  dispatch({ type: LOAD_WORKFLOW_START })
 
   axiosInstance
     .get(`/workflows/${workflow_id}`)
-    .then(res => dispatch({ type: 'LOAD_WORKFLOW_SUCCESS', payload: res.data }))
-    .then(() => dispatch(loadWorkflowQuestions(workflow_id)))
+    .then(res => dispatch({ type: LOAD_WORKFLOW_SUCCESS, payload: res.data }))
     .catch(err =>
       dispatch({
-        type: 'LOAD_WORKFLOWS_FAILURE',
+        type: LOAD_WORKFLOW_FAILURE,
         msg: err.message,
       })
     )

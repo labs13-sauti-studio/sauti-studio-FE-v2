@@ -18,84 +18,31 @@ import Typography from '@material-ui/core/Typography'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import UserLayout from '@/userLayout'
-import {
-  addQuestionAnswer,
-  addWorkflowQuestion,
-  deleteWorkflowQuestion,
-  loadQuestionAnswers,
-  loadWorkflow,
-  loadWorkflowQuestions,
-  setActiveQuestionId,
-  toggleDeleteQuestionModal,
-} from 'actions'
+import { loadWorkflow, fetchResponses } from 'actions'
 import styled from 'styled-components'
 import { palette, spacing, borders } from '@material-ui/system'
 import StarBorder from '@material-ui/icons/StarBorder'
 import SortableList from '@/sortableList'
+import ResponseCard from '@/responseCard'
+import { Flex } from '@/utility'
 
 class WorkflowPage extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      question_text: '',
-      answer_text: '',
-    }
+    this.state = {}
   }
 
   componentDidMount() {
-    this.initialLoad()
-  }
-
-  initialLoad = () => {
-    const { loadWorkflow } = this.props
-    const workflow_id = this.props['*'].replace('workflow/', '')
-    loadWorkflow(workflow_id)
-  }
-
-  clickedCardQuestion = question_id => {
-    setActiveQuestionId(question_id)
-    loadQuestionAnswers(question_id)
-  }
-
-  handleChange = e => this.setState({ [e.target.name]: e.target.value })
-
-  // addQuestion = () => {
-  //   const { question_text } = this.state
-  //   const { '*': url } = this.props
-  //   if (question_text === '') return
-  //   addWorkflowQuestion(question_text, question_text)
-  //   this.setState({ question_text: '' })
-  // }
-
-  addAnswer = () => {
-    const { question_id } = this.props
-    const { answer_text } = this.state
-    addQuestionAnswer(answer_text, 1, 1, question_id)
-  }
-
-  toggleDeleteModal = () => {
-    const { isDeleteQuestionModalOpen } = this.props
-    toggleDeleteQuestionModal(!isDeleteQuestionModalOpen)
-  }
-
-  deleteQuestion = () => {
-    const { question_id, id } = this.props
-    this.toggleDeleteModal()
-    deleteWorkflowQuestion(question_id)
-    loadWorkflowQuestions(id)
+    const workflow = this.props['*'].replace('workflow/', '')
+    this.props.loadWorkflow(workflow)
+    this.props.fetchResponses(workflow)
   }
 
   render() {
-    const {
-      answers,
-      category,
-      isDeleteQuestionModalOpen,
-      name,
-      question_id,
-      questions,
-    } = this.props
-
-    const { question_text, answer_text } = this.state
+    const { category, name, questions } = this.props
+    const items = console.log(
+      this.props.responses.filter(({ owner }) => owner === null)
+    )
     return (
       <UserLayout>
         <Container>
@@ -128,55 +75,20 @@ class WorkflowPage extends Component {
               color="primary"
               variant="contained"
               aria-label="Add"
-              onClick={() =>
-                addWorkflowQuestion(question_text, 1, this.props.id)
-              }
+              onClick={() => console.log('add')}
             >
               Add
             </Button>
           </InputWrapper>
         </Container>
         <Container>
-          <Grid>
-            <SortableList />
-            <List
-              component="nav"
-              aria-labelledby="nested-list-subheader"
-              subheader={
-                <ListSubheader component="div" id="nested-list-subheader">
-                  <InputWrapper style={{ width: '100%' }}>
-                    <TextField
-                      id="outlined-name"
-                      label="New Answer"
-                      name="answer_text"
-                      onChange={this.handleChange}
-                      margin="dense"
-                      variant="outlined"
-                      style={{ width: '100%' }}
-                    />
-                    <Button
-                      size="large"
-                      color="primary"
-                      variant="contained"
-                      aria-label="Add"
-                      onClick={this.addAnswer}
-                    >
-                      Add
-                    </Button>
-                  </InputWrapper>
-                </ListSubheader>
-              }
-            >
-              {answers.map((a, i) => (
-                <ListItem key={i} button>
-                  <ListItemIcon>
-                    <StarBorder />
-                  </ListItemIcon>
-                  <ListItemText primary={a.answer_text} />
-                </ListItem>
-              ))}
-            </List>
-          </Grid>
+          {this.props.isloadingResponses ? null : (
+            <SortableList
+              items={this.props.responses}
+              onSortEnd={() => console.log('onSortEnd')}
+            />
+          )}
+          <Grid></Grid>
         </Container>
       </UserLayout>
     )
@@ -186,24 +98,21 @@ class WorkflowPage extends Component {
 export default connect(
   state => ({
     id: state.workflow.id,
-    answers: state.workflow.answers,
-    area_code: state.workflow.area_code,
-    category: state.workflow.category,
-    isDeleteQuestionModalOpen: state.ui.isDeleteQuestionModalOpen,
-    loadingAnswers: state.workflow.loadingAnswers,
-    loadingQuestions: state.workflow.loadingQuestions,
     name: state.workflow.name,
-    question_id: state.workflow.id,
-    questions: state.workflow.questions,
+    category: state.workflow.category,
+    area_code: state.workflow.area_code,
+    responses: state.responses.unSaved,
+    isloadingResponses: state.responses.isloadingResponses,
+
+    // isDeleteQuestionModalOpen: state.ui.isDeleteQuestionModalOpen,
+    // loadingAnswers: state.workflow.loadingAnswers,
+    // loadingQuestions: state.workflow.loadingQuestions,
+    // question_id: state.workflow.id,
+    // questions: state.workflow.questions,
   }),
   {
-    addQuestionAnswer,
-    addWorkflowQuestion,
-    deleteWorkflowQuestion,
-    loadQuestionAnswers,
     loadWorkflow,
-    loadWorkflowQuestions,
-    toggleDeleteQuestionModal,
+    fetchResponses,
   }
 )(WorkflowPage)
 
@@ -233,13 +142,6 @@ const InputWrapper = styled.div`
   button {
     margin-left: 1rem;
   }
-`
-
-const Flex = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 `
 
 WorkflowPage.propTypes = {

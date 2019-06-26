@@ -6,35 +6,41 @@ import {
   sortableElement,
   sortableHandle,
 } from 'react-sortable-hoc'
-import { onSortEnd } from 'actions'
+import { onSortEnd } from 'actions/responsesActions'
 import { connect } from 'react-redux'
 import Icon from '@material-ui/core/Icon'
 import { Drag } from 'mdi-material-ui'
-import QuestionCard from './questionCard'
+import ResponseCard from './responseCard'
+import { Flex } from '@/utility'
 
-const DragHandle = sortableHandle(() => (
+export const DragHandle = sortableHandle(() => (
   <span style={{ cursor: 'grab' }}>
     <Drag>XXXXX</Drag>
   </span>
 ))
 
 const SortableItem = sortableElement(({ item, index }) => (
-  <QuestionCard {...item} index={index} DragHandle={DragHandle} />
+  <ResponseCard {...item} index={index} />
 ))
 
 const SortableContainer = sortableContainer(({ children }) => (
   <div>{children}</div>
 ))
 
-const SortableList = ({ questions, onSortEnd }) => (
-  <SortableContainer onSortEnd={onSortEnd} useDragHandle>
-    {questions.map((item, index) => (
-      <SortableItem key={`item-${index}`} index={index} item={item} />
-    ))}
-  </SortableContainer>
-)
+const SortableList = ({ items, onSortEnd }) => {
+  console.log(items)
+  return (
+    <SortableContainer onSortEnd={onSortEnd} useDragHandle>
+      {items.map((item, index) => (
+        // <Flex align="center" justify="start">
+        <SortableItem key={`item-${index}`} index={index} item={item} />
+        // </Flex>
+      ))}
+    </SortableContainer>
+  )
+}
 
 export default connect(
-  state => ({ questions: state.workflow.questions }),
+  null,
   { onSortEnd }
 )(SortableList)
