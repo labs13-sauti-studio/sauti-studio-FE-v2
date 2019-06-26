@@ -18,56 +18,74 @@ import {
   DialogContentText,
   DialogActions,
 } from '@material-ui/core'
+import IconButton from '@material-ui/core/IconButton'
+import AddIcon from '@material-ui/icons/Add'
+import DeleteIcon from '@material-ui/icons/Delete'
+import NavigationIcon from '@material-ui/icons/Navigation'
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 import styled from 'styled-components'
-import { clickedCardQuestion, toggleQuestionHover } from 'actions'
+import { clickedCardQuestion, toggleResponseHover } from 'actions'
 import { connect, useSelector } from 'react-redux'
 import { DragHandle } from '@/sortableList'
 import { Flex } from '@/utility'
+import Fab from '@material-ui/core/Fab'
+import Icon from '@material-ui/core/Icon'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-const ResponseCard = props => (
-  <Card
-    // onMouseEnter={() => toggleQuestionHover(!isHoveringQuestion)}
-    // onMouseLeave={() => toggleQuestionHover(!isHoveringQuestion)}
-    style={{
-      marginBottom: '1rem',
-      width: '100%',
-      // border: question_id === id ? '1.5px solid #035985' : '',
-    }}
-    // onClick={() => setActiveQuestionId(id)}
-  >
-    <CardContent onClick={() => clickedCardQuestion(props.id)}>
-      <Flex>
-        <DragHandle />
-        <Typography variant="h5" component="h2">
-          {props.text}
-        </Typography>
-        <Typography color="textSecondary" gutterBottom>
-          Order: {props.order}
-        </Typography>
-        <CardActions>
-          <Button size="small">Edit</Button>
-          {/* {isHoveringQuestion && question_id === id ? ( */}
-          <Button
-            size="small"
-            color="secondary"
-            onClick={() => console.log(`Delete: ${props.id}`)}
-          >
-            Delete
-          </Button>
-          {/* ) : null} */}
-        </CardActions>
-      </Flex>
-    </CardContent>
-    <Divider />
-  </Card>
-)
+const ResponseCard = ({
+  id,
+  text,
+  owner,
+  workflow,
+  index,
+  isHoveringQuestion,
+  responses,
+}) => {
+  const items = responses.filter(item => item.owner === id)
 
-/* eslint-disable no-shadow */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
+  return (
+    <Flex>
+      <DragHandle />
+      <ExpansionPanel>
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>{text}</Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <Flex column>
+            {items.map(item => (
+              <ExpansionPanel style={{ width: '100%' }}>
+                <ExpansionPanelSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>{item.text}</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  {items.map(item => (
+                    <Typography key={item.id}>{item.text}</Typography>
+                  ))}
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            ))}
+          </Flex>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    </Flex>
+  )
+}
 
 export default connect(
-  state => ({ isHoveringQuestion: state.ui.isHoveringQuestion }),
-  { clickedCardQuestion, toggleQuestionHover }
+  state => ({
+    isHoveringQuestion: state.ui.isHoveringQuestion,
+    responses: state.responses.unSaved,
+  }),
+  { clickedCardQuestion, toggleResponseHover }
 )(ResponseCard)
-// const QuestionCard = ({

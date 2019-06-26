@@ -29,6 +29,11 @@ import {
   toggleDeleteQuestionModal,
 } from 'actions'
 import { connect, useSelector } from 'react-redux'
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
+import Icon from '@material-ui/core/Icon'
+import DeleteIcon from '@material-ui/icons/Delete'
+import NavigationIcon from '@material-ui/icons/Navigation'
 
 const Flex = styled.div`
   width: 100%;
@@ -95,17 +100,21 @@ const QuestionCard = ({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={() =>
-              toggleDeleteQuestionModal(!isDeleteQuestionModalOpen)
-            }
-            color="primary"
-          >
-            Cancel
-          </Button>
-          <Button onClick={() => deleteWorkflowQuestion(id)} color="primary">
-            Delete Question
-          </Button>
+          <div>
+            <Fab color="primary" aria-label="Add">
+              <AddIcon />
+            </Fab>
+            <Fab color="secondary" aria-label="Edit">
+              <Icon>edit_icon</Icon>
+            </Fab>
+            <Fab variant="extended" aria-label="Delete">
+              <NavigationIcon />
+              Extended
+            </Fab>
+            <Fab disabled aria-label="Delete">
+              <DeleteIcon />
+            </Fab>
+          </div>
         </DialogActions>
       </Dialog>
     </CardActions>

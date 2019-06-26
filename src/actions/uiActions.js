@@ -35,7 +35,7 @@ export const clickedCardQuestion = question_id => dispatch => {
   dispatch(loadQuestionAnswers(question_id))
 }
 
-export const TOGGLE_QUESTION_HOVER = 'TOGGLE_QUESTION_HOVER'
+export const TOGGLE_RESPONSE_HOVER = 'TOGGLE_RESPONSE_HOVER'
 
-export const toggleQuestionHover = bool => dispatch =>
-  dispatch({ type: TOGGLE_QUESTION_HOVER, payload: bool })
+export const toggleResponseHover = bool => dispatch =>
+  dispatch({ type: TOGGLE_RESPONSE_HOVER, payload: bool })

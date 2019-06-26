@@ -25,6 +25,10 @@ import StarBorder from '@material-ui/icons/StarBorder'
 import SortableList from '@/sortableList'
 import ResponseCard from '@/responseCard'
 import { Flex } from '@/utility'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 class WorkflowPage extends Component {
   constructor(props) {
@@ -40,9 +44,8 @@ class WorkflowPage extends Component {
 
   render() {
     const { category, name, questions } = this.props
-    const items = console.log(
-      this.props.responses.filter(({ owner }) => owner === null)
-    )
+    const items = this.props.responses.filter(({ owner }) => owner === null)
+
     return (
       <UserLayout>
         <Container>
@@ -82,13 +85,22 @@ class WorkflowPage extends Component {
           </InputWrapper>
         </Container>
         <Container>
-          {this.props.isloadingResponses ? null : (
+          {this.props.isLoadingResponses ? null : (
             <SortableList
-              items={this.props.responses}
+              items={items}
+              responses={this.props.responses}
               onSortEnd={() => console.log('onSortEnd')}
             />
           )}
-          <Grid></Grid>
+          <ExpansionPanel disabled>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel3a-content"
+              id="panel3a-header"
+            >
+              <Typography>Disabled Expansion Panel</Typography>
+            </ExpansionPanelSummary>
+          </ExpansionPanel>
         </Container>
       </UserLayout>
     )
@@ -102,7 +114,7 @@ export default connect(
     category: state.workflow.category,
     area_code: state.workflow.area_code,
     responses: state.responses.unSaved,
-    isloadingResponses: state.responses.isloadingResponses,
+    isLoadingResponses: state.responses.isLoadingResponses,
 
     // isDeleteQuestionModalOpen: state.ui.isDeleteQuestionModalOpen,
     // loadingAnswers: state.workflow.loadingAnswers,

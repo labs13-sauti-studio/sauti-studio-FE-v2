@@ -9,7 +9,7 @@ import responsesReducer from './responsesReducer'
 export default combineReducers({
   user: userReducer,
   workflows: workflowsReducer,
+  workflow: workflowReducer,
   ui: uiReducer,
   responses: responsesReducer,
-  workflow: workflowReducer,
 })

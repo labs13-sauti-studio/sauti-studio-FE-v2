@@ -180,9 +180,9 @@ export const loadQuestionAnswers = question_id => dispatch => {
 }
 export const REORDER_QUESTIONS = 'REORDER_QUESTIONS'
 
-export const onSortEnd = ({ oldIndex, newIndex }) => dispatch => {
-  dispatch({
-    type: REORDER_QUESTIONS,
-    payload: arrayMove(store.getState().workflow.questions, oldIndex, newIndex),
-  })
-}
+// export const onSortEnd = ({ oldIndex, newIndex }) => dispatch => {
+//   dispatch({
+//     type: REORDER_QUESTIONS,
+//     payload: arrayMove(store.getState().workflow.questions, oldIndex, newIndex),
+//   })
+// }

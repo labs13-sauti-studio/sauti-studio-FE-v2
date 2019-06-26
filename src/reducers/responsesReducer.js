@@ -15,7 +15,7 @@ const initialState = {
   unSaved: [],
   error: false,
   message: null,
-  isloadingResponses: false,
+  isLoadingResponses: false,
 }
 
 const responsesReducer = (state = initialState, action) => {
@@ -26,7 +26,7 @@ const responsesReducer = (state = initialState, action) => {
     case FETCH_RESPONSES_SUCCESS:
       return {
         ...state,
-        loadingResponses: false,
+        isLoadingResponses: false,
         loaded: action.payload,
         unSaved: action.payload,
       }
