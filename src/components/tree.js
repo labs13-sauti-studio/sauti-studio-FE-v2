@@ -75,6 +75,7 @@ const SortableItem = connect(
       activeIndex,
       children,
       expanded,
+      subitems,
       handleChange,
       clickedResponse,
     }) => (
@@ -82,14 +83,18 @@ const SortableItem = connect(
         item={item}
         index={index}
         expanded={activeItem === item.id}
-        onClick={() => {
-          handleChange(item.id)
-          clickedResponse(item.id)
-        }}
       >
         <ExpansionPanelSummary
           aria-controls={`${item.id}-content`}
           id={`${item.id}-header`}
+          expandIcon={
+            <ExpandMoreIcon
+              onClick={() => {
+                handleChange(item.id)
+                clickedResponse(item.id)
+              }}
+            />
+          }
         >
           <Flex>
             <DragHandle />
@@ -97,10 +102,35 @@ const SortableItem = connect(
           </Flex>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Button size="small">Cancel</Button>
-          <Button size="small" color="primary">
-            Save
-          </Button>
+          <Flex column>
+            <Flex>
+              <div>
+                <Typography>Add new</Typography>
+              </div>
+              <div>
+                <Button size="small">Cancel</Button>
+                <Button size="small" color="primary">
+                  Save
+                </Button>
+              </div>
+            </Flex>
+            {activeItem !== null ? (
+              <SortableContainer useDragHandle>
+                {item.children
+                  ? item.children.map((child, index) => {
+                      console.log(activeItem, activeIndex)
+                      return (
+                        <SortableItem
+                          key={child.id + child.owner}
+                          index={index}
+                          item={child}
+                        />
+                      )
+                    })
+                  : null}
+              </SortableContainer>
+            ) : null}
+          </Flex>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     )
@@ -155,6 +185,7 @@ export default connect(
             item={item}
             expanded={activeItem === index}
             handleChange={handleChange}
+            subitems={item.children}
             onClick={() => {
               subitems = item.children
               console.log('TCL: item.children', item.children)
@@ -163,22 +194,6 @@ export default connect(
           ></SortableItem>
         ))}
       </SortableContainer>
-      {activeItem !== null ? (
-        <SortableContainer onSortEnd={onSortEnd} useDragHandle>
-          {items
-            .filter(subitem => subitem.id === activeItem)[0]
-            .children.map((child, index) => {
-              console.log(activeItem, activeIndex)
-              return (
-                <SortableItem
-                  key={child.id + child.owner}
-                  index={index}
-                  item={child}
-                />
-              )
-            })}
-        </SortableContainer>
-      ) : null}
     </>
   )
 })

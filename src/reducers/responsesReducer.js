@@ -34,6 +34,7 @@ const responsesReducer = (state = initialState, action) => {
         isLoadingResponses: false,
         loaded: action.payload,
         unSaved: action.payload,
+        activeItem: action.payload[0].id,
       }
 
     case FETCH_RESPONSES_FAILURE:
