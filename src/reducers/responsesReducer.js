@@ -4,6 +4,8 @@ import {
   FETCH_RESPONSES_FAILURE,
   ADD_NEW_RESPONSE,
   REORDER_RESPONSES,
+  FETCHED_FLAT_ARRAY,
+  CLICKED_RESPONSE,
 } from 'actions/responsesActions'
 
 const initialState = {
@@ -13,8 +15,11 @@ const initialState = {
   index: null,
   loaded: [],
   unSaved: [],
+  flattened: [],
   error: false,
   message: null,
+  activeItem: null,
+  activeIndex: 0,
   isLoadingResponses: false,
 }
 
@@ -39,6 +44,15 @@ const responsesReducer = (state = initialState, action) => {
 
     case REORDER_RESPONSES:
       return { ...state, unSaved: action.payload }
+
+    case FETCHED_FLAT_ARRAY:
+      return { ...state, flattened: action.payload }
+
+    case CLICKED_RESPONSE:
+      return {
+        ...state,
+        activeItem: action.payload,
+      }
 
     default:
       return state

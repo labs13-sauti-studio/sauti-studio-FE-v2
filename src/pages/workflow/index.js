@@ -1,18 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
-import {
-  Button,
-  Container,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
-  Paper,
-  TextField,
-} from '@material-ui/core'
+import { Button, Container, Divider, TextField } from '@material-ui/core'
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
 import { connect } from 'react-redux'
@@ -21,14 +10,7 @@ import UserLayout from '@/userLayout'
 import { loadWorkflow, fetchResponses } from 'actions'
 import styled from 'styled-components'
 import { palette, spacing, borders } from '@material-ui/system'
-import StarBorder from '@material-ui/icons/StarBorder'
-import SortableList from '@/sortableList'
-import ResponseCard from '@/responseCard'
-import { Flex } from '@/utility'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import SortableList from '@/tree'
 
 class WorkflowPage extends Component {
   constructor(props) {
@@ -43,8 +25,7 @@ class WorkflowPage extends Component {
   }
 
   render() {
-    const { category, name, questions } = this.props
-    const items = this.props.responses.filter(({ owner }) => owner === null)
+    const { category, name, responses, questions } = this.props
 
     return (
       <UserLayout>
@@ -55,11 +36,7 @@ class WorkflowPage extends Component {
           </Typography>
           <Divider style={{ margin: '1rem 0' }} />
           {!questions || questions.length < 1 ? (
-            <Paper>
-              <Box p={2}>
-                <Typography variant="h4">Add first question</Typography>
-              </Box>
-            </Paper>
+            <Typography variant="h4">Add first question</Typography>
           ) : null}
         </Container>
         <Container style={{ marginBottom: '1rem' }}>
@@ -86,11 +63,7 @@ class WorkflowPage extends Component {
         </Container>
         <Container>
           {this.props.isLoadingResponses ? null : (
-            <SortableList
-              items={items}
-              responses={this.props.responses}
-              onSortEnd={() => console.log('onSortEnd')}
-            />
+            <SortableList items={responses} />
           )}
         </Container>
       </UserLayout>
@@ -106,12 +79,6 @@ export default connect(
     area_code: state.workflow.area_code,
     responses: state.responses.unSaved,
     isLoadingResponses: state.responses.isLoadingResponses,
-
-    // isDeleteQuestionModalOpen: state.ui.isDeleteQuestionModalOpen,
-    // loadingAnswers: state.workflow.loadingAnswers,
-    // loadingQuestions: state.workflow.loadingQuestions,
-    // question_id: state.workflow.id,
-    // questions: state.workflow.questions,
   }),
   {
     loadWorkflow,
