@@ -23,6 +23,7 @@ import {
   DELETE_WF_ANSWER_SUCCESS,
   DELETE_WF_ANSWER_FAILURE,
   SET_QUESTION_ID,
+  REORDER_QUESTIONS,
 } from 'actions'
 
 const initialWorkflowState = {
@@ -129,6 +130,9 @@ const workflowReducer = (state = initialWorkflowState, action) => {
       return { ...state, question_id: action.payload }
 
     case SET_WORKFLOW_QUESTIONS:
+      return { ...state, questions: action.payload }
+
+    case REORDER_QUESTIONS:
       return { ...state, questions: action.payload }
 
     default:

@@ -1,19 +1,28 @@
+/* eslint-disable no-use-before-define */
 import { axiosInstance } from 'helpers'
 import { loadUserWorkflows } from 'actions'
+import arrayMove from 'array-move'
+import store from 'src/store'
+
+export const ADD_NEW_QUESTION = 'ADD_NEW_QUESTION'
+
+export const addNewQuestion = question => dispatch => {
+  dispatch({ type: ADD_NEW_QUESTION, payload: question })
+}
 
 export const LOAD_WORKFLOW_START = 'LOAD_WORKFLOW_START'
 export const LOAD_WORKFLOW_SUCCESS = 'LOAD_WORKFLOW_SUCCESS'
 export const LOAD_WORKFLOW_FAILURE = 'LOAD_WORKFLOW_FAILURE'
 
-export const loadWorkflow = id => dispatch => {
-  dispatch({ type: 'LOAD_WORKFLOW_START' })
+export const loadWorkflow = workflow_id => dispatch => {
+  dispatch({ type: LOAD_WORKFLOW_START })
 
   axiosInstance
-    .get(`/workflows/${id}`)
-    .then(res => dispatch({ type: 'LOAD_WORKFLOW_SUCCESS', payload: res.data }))
+    .get(`/workflows/${workflow_id}`)
+    .then(res => dispatch({ type: LOAD_WORKFLOW_SUCCESS, payload: res.data }))
     .catch(err =>
       dispatch({
-        type: 'LOAD_WORKFLOWS_FAILURE',
+        type: LOAD_WORKFLOW_FAILURE,
         msg: err.message,
       })
     )
@@ -49,18 +58,17 @@ export const loadWorkflowQuestions = id => dispatch => {
     })
 }
 
-export const ADD_WORKFLOW_QUESTION_START = 'ADD_WORKFLOW_QUESTIONS_START'
-export const ADD_WORKFLOW_QUESTION_SUCCESS = 'ADD_WORKFLOW_QUESTIONS_SUCCESS'
-export const ADD_WORKFLOW_QUESTION_FAILURE = 'ADD_WORKFLOW_QUESTIONS_FAILURE'
+export const ADD_WORKFLOW_QUESTION_START = 'ADD_WORKFLOW_QUESTION_START'
+export const ADD_WORKFLOW_QUESTION_SUCCESS = 'ADD_WORKFLOW_QUESTION_SUCCESS'
+export const ADD_WORKFLOW_QUESTION_FAILURE = 'ADD_WORKFLOW_QUESTION_FAILURE'
 
 // ADD NEW QUESTIONS TO WORKFLOW
-export const addWorkflowQuestion = (workflow_id, question_text) => dispatch => {
+export const addWorkflowQuestion = options => dispatch => {
   dispatch({ type: ADD_WORKFLOW_QUESTION_START })
 
   axiosInstance
-    .post(`/questions/${workflow_id}`, {
-      workflow_id,
-      question_text,
+    .post(`/questions/${options.workflow_id}`, {
+      question_text: options.question_text,
     })
     .then(({ data }) =>
       dispatch({ type: ADD_WORKFLOW_QUESTION_SUCCESS, payload: data })
@@ -170,3 +178,11 @@ export const loadQuestionAnswers = question_id => dispatch => {
     })
     .catch(err => dispatch({ type: LOAD_QUESTION_ANSWERS_FAILURE }))
 }
+export const REORDER_QUESTIONS = 'REORDER_QUESTIONS'
+
+// export const onSortEnd = ({ oldIndex, newIndex }) => dispatch => {
+//   dispatch({
+//     type: REORDER_QUESTIONS,
+//     payload: arrayMove(store.getState().workflow.questions, oldIndex, newIndex),
+//   })
+// }

@@ -25,11 +25,6 @@
     "lint:fix": "eslint --ignore-path .gitignore . --fix",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint:fix"
-    }
-  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-brands-svg-icons": "^5.9.0",
@@ -39,6 +34,8 @@
     "@material-ui/icons": "^4.2.0",
     "@material-ui/styles": "^4.0.1",
     "@material-ui/system": "^4.2.0",
+    "@mdi/font": "^3.6.95",
+    "array-move": "^2.1.0",
     "axios": "^0.19.0",
     "clsx": "^1.0.4",
     "cookie": "^0.4.0",
@@ -57,13 +54,17 @@
     "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-source-filesystem": "^2.0.37",
     "gatsby-transformer-sharp": "^2.1.20",
+    "mdi-material-ui": "^6.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-dnd": "^8.0.2",
+    "react-dnd-html5-backend": "^8.0.2",
     "react-dom": "^16.8.6",
     "react-google-login": "^5.0.4",
     "react-helmet": "^5.2.1",
     "react-redux": "^7.1.0",
     "react-social-login-buttons": "^2.3.1",
+    "react-sortable-hoc": "^1.9.1",
     "react-typography": "^0.16.19",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
@@ -72,7 +73,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
-    "eslint": "^5.14.1",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-config-wesbos": "0.0.19",

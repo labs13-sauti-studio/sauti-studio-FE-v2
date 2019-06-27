@@ -39,6 +39,8 @@
   ],
   "rules": {
     "camelcase": "off",
-    "import/no-cycle": "off"
+    "import/no-cycle": "off",
+    "no-shadow": "off",
+    "react/destructuring-assignment": "off"
   }
 }
