@@ -15,7 +15,7 @@ import {
   addUserWorkflow,
 } from 'actions'
 import InfoPopup from '@/InfoPopup'
-
+import FormDialog from '@/addEdit'
 class NewWorkflowModel extends Component {
   constructor() {
     super()
@@ -68,6 +68,7 @@ class NewWorkflowModel extends Component {
               </p>
             }
           />
+          <FormDialog />
           <DialogContentText>
             To create your new workflow we just need some basic info.
           </DialogContentText>
