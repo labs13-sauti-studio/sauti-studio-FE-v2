@@ -6,7 +6,8 @@ import {
   REORDER_RESPONSES,
   FETCHED_FLAT_ARRAY,
   CLICKED_RESPONSE,
-  HANDLE_RESPONSE_INPUT_CHANGE,
+  TOGGLE_RES_MODAL,
+  TOGGLE_DELETE_MODAL,
 } from 'actions/responsesActions'
 
 const initialState = {
@@ -23,10 +24,13 @@ const initialState = {
   activeIndex: 0,
   isLoadingResponses: false,
   isAddEditModalOpen: false,
-  new: {
+  isDeleteModalOpen: false,
+
+  modal: {
     text: '',
     owner: null,
     workflow: null,
+    edit: false,
   },
 }
 
@@ -61,8 +65,12 @@ const responsesReducer = (state = initialState, action) => {
         ...state,
         activeItem: action.payload,
       }
-    case HANDLE_RESPONSE_INPUT_CHANGE:
-      return { ...state, new: action.payload }
+    case TOGGLE_RES_MODAL:
+      return { ...state, isAddEditModalOpen: action.payload }
+
+    case TOGGLE_DELETE_MODAL:
+      return { ...state, isDeleteModalOpen: action.payload }
+
     default:
       return state
   }

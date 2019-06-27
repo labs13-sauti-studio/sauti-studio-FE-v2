@@ -46,8 +46,13 @@ export const clickedResponse = id => dispatch => {
   })
 }
 
-export const HANDLE_RESPONSE_INPUT_CHANGE = 'HANDLE_RESPONSE_INPUT_CHANGE'
+export const TOGGLE_RES_MODAL = 'TOGGLE_RES_MODAL'
 
-export const handleChange = value => dispatch => {
-  dispatch({ type: HANDLE_RESPONSE_INPUT_CHANGE, payload: value })
+export const toggleResModal = bool => dispatch => {
+  dispatch({ type: TOGGLE_RES_MODAL, payload: bool })
 }
+
+export const TOGGLE_DELETE_MODAL = 'TOGGLE_DELETE_MODAL'
+
+export const toggleDeleteModal = bool => dispatch =>
+  dispatch({ type: TOGGLE_DELETE_MODAL, payload: bool })
