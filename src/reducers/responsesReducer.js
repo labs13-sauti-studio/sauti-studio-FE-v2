@@ -6,6 +6,7 @@ import {
   REORDER_RESPONSES,
   FETCHED_FLAT_ARRAY,
   CLICKED_RESPONSE,
+  HANDLE_RESPONSE_INPUT_CHANGE,
 } from 'actions/responsesActions'
 
 const initialState = {
@@ -21,6 +22,12 @@ const initialState = {
   activeItem: null,
   activeIndex: 0,
   isLoadingResponses: false,
+  isAddEditModalOpen: false,
+  new: {
+    text: '',
+    owner: null,
+    workflow: null,
+  },
 }
 
 const responsesReducer = (state = initialState, action) => {
@@ -54,7 +61,8 @@ const responsesReducer = (state = initialState, action) => {
         ...state,
         activeItem: action.payload,
       }
-
+    case HANDLE_RESPONSE_INPUT_CHANGE:
+      return { ...state, new: action.payload }
     default:
       return state
   }

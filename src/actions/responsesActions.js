@@ -45,3 +45,9 @@ export const clickedResponse = id => dispatch => {
     payload: activeItem,
   })
 }
+
+export const HANDLE_RESPONSE_INPUT_CHANGE = 'HANDLE_RESPONSE_INPUT_CHANGE'
+
+export const handleChange = value => dispatch => {
+  dispatch({ type: HANDLE_RESPONSE_INPUT_CHANGE, payload: value })
+}

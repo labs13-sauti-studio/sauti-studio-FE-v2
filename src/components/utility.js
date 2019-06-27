@@ -7,3 +7,13 @@ export const Flex = styled.div`
   justify-content: ${props => props.justify};
   align-items: ${props => props.align};
 `
+
+export const InputWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: fit-content;
+  button {
+    margin-left: 1rem;
+  }
+`

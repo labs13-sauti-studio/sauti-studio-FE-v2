@@ -25,7 +25,7 @@ class WorkflowPage extends Component {
   }
 
   render() {
-    const { category, name, responses, questions } = this.props
+    const { category, name, responses } = this.props
 
     return (
       <UserLayout>
@@ -35,31 +35,6 @@ class WorkflowPage extends Component {
             {category}
           </Typography>
           <Divider style={{ margin: '1rem 0' }} />
-          {!questions || questions.length < 1 ? (
-            <Typography variant="h4">Add first question</Typography>
-          ) : null}
-        </Container>
-        <Container style={{ marginBottom: '1rem' }}>
-          <InputWrapper style={{ width: '50%' }}>
-            <TextField
-              id="outlined-name"
-              label="New Question"
-              name="question_text"
-              onChange={this.handleChange}
-              margin="dense"
-              variant="outlined"
-              style={{ width: '100%' }}
-            />
-            <Button
-              size="large"
-              color="primary"
-              variant="contained"
-              aria-label="Add"
-              onClick={() => console.log('add')}
-            >
-              Add
-            </Button>
-          </InputWrapper>
         </Container>
         <Container>
           {this.props.isLoadingResponses ? null : (
@@ -102,16 +77,6 @@ const Box = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-`
-
-const InputWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: fit-content;
-  button {
-    margin-left: 1rem;
-  }
 `
 
 WorkflowPage.propTypes = {

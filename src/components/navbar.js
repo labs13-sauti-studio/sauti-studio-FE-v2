@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Navbar = ({ loggedIn }) => {
+const Navbar = () => {
   const classes = useStyles()
   return (
     <AppBar position="static" color="secondary">
@@ -24,22 +24,12 @@ const Navbar = ({ loggedIn }) => {
         <Typography variant="h5" className={classes.title}>
           <Link to="/">Sauti Studio</Link>
         </Typography>
-        {!loggedIn ? (
-          <Link to="/login">
-            <Button color="primary">Login</Button>
-          </Link>
-        ) : (
-          <Link to="/profile">
-            <Button color="primary">Profile</Button>
-          </Link>
-        )}
+        <Link to="/login">
+          <Button color="primary">Profile</Button>
+        </Link>
       </Toolbar>
     </AppBar>
   )
-}
-
-Navbar.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
 }
 
 export default Navbar

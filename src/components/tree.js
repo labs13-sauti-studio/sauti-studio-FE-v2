@@ -1,20 +1,24 @@
+import {
+  sortableContainer,
+  sortableElement,
+  sortableHandle,
+} from 'react-sortable-hoc'
+import {
+  onSortEnd,
+  clickedResponse,
+  handleChange,
+} from 'actions/responsesActions'
 import React, { useState } from 'react'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider'
 import { Drag } from 'mdi-material-ui'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
-import {
-  sortableContainer,
-  sortableElement,
-  sortableHandle,
-} from 'react-sortable-hoc'
-import { onSortEnd, clickedResponse } from 'actions/responsesActions'
 import { connect } from 'react-redux'
-import { Flex } from '@/utility'
+import { Flex, InputWrapper } from '@/utility'
+import TextField from '@material-ui/core/TextField'
 
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel'
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
@@ -63,7 +67,6 @@ export const DragHandle = sortableHandle(() => (
 const SortableItem = connect(
   state => ({
     activeItem: state.responses.activeItem,
-    activeIndex: state.responses.activeIndex,
     unSaved: state.responses.unSaved,
     flattened: state.responses.flattened,
   }),
@@ -88,9 +91,19 @@ const SortableItem = connect(
             />
           }
         >
-          <Flex>
-            <DragHandle />
-            <Typography>{item.text}</Typography>
+          <Flex justify="space-between" align="center">
+            <span>
+              <DragHandle />
+              <Typography style={{ float: 'right' }}>{item.text}</Typography>
+            </span>
+            <div>
+              <Button size="small" style={{ marginRight: '.25rem' }}>
+                edit
+              </Button>
+              <Button color="primary" size="small">
+                Delete
+              </Button>
+            </div>
           </Flex>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
@@ -106,10 +119,8 @@ const SortableItem = connect(
                   {getChildCount(item)}
                 </Typography>
               </Typography>
-              <div>
-                <Button>Cancel</Button>
-                <Button color="primary">Delete</Button>
-              </div>
+              {/* ADD NEW RESPONSE */}
+              <AddNewResponse />
             </Flex>
             <Divider />
             <div style={{ paddingTop: '1rem' }}>
@@ -138,20 +149,37 @@ const SortableContainer = sortableContainer(({ children }) => (
   <div>{children}</div>
 ))
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0,
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-}))
+const AddNewResponse = connect(
+  state => ({
+    new: state.responses.new,
+    text: state.responses.new.text,
+    owner: state.responses.new.owner,
+    workflow: state.responses.new.workflow,
+    index: state.responses.new.index,
+  }),
+  { handleChange }
+)(({ handleChange }) => (
+  <InputWrapper style={{ width: '50%' }}>
+    <TextField
+      id="outlined-name"
+      label="New Question"
+      name="question_text"
+      onChange={handleChange}
+      margin="dense"
+      variant="outlined"
+      style={{ width: '100%' }}
+    />
+    <Button
+      size="large"
+      color="primary"
+      variant="contained"
+      aria-label="Add"
+      onClick={() => console.log('add')}
+    >
+      Add
+    </Button>
+  </InputWrapper>
+))
 
 export default connect(
   state => ({
@@ -166,30 +194,28 @@ export default connect(
 
   let subitems = []
   return (
-    <>
-      <SortableContainer
-        key={items.length}
-        onSortEnd={onSortEnd}
-        useDragHandle
-        expanded={expanded === activeItem}
-        onChange={handleChange(activeItem)}
-      >
-        {items.map((item, index) => (
-          <SortableItem
-            key={item.id}
-            index={index}
-            item={item}
-            expanded={activeItem === index}
-            handleChange={handleChange}
-            subitems={item.children}
-            onClick={() => {
-              subitems = item.children
-              console.log('TCL: item.children', item.children)
-              console.log('TCL: SortableList -> subitems', subitems)
-            }}
-          ></SortableItem>
-        ))}
-      </SortableContainer>
-    </>
+    <SortableContainer
+      key={items.length}
+      onSortEnd={onSortEnd}
+      useDragHandle
+      expanded={expanded === activeItem}
+      onChange={handleChange(activeItem)}
+    >
+      {items.map((item, index) => (
+        <SortableItem
+          key={item.id}
+          index={index}
+          item={item}
+          expanded={activeItem === index}
+          handleChange={handleChange}
+          subitems={item.children}
+          onClick={() => {
+            subitems = item.children
+            console.log('TCL: item.children', item.children)
+            console.log('TCL: SortableList -> subitems', subitems)
+          }}
+        ></SortableItem>
+      ))}
+    </SortableContainer>
   )
 })
