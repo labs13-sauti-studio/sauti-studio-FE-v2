@@ -6,7 +6,8 @@ import {
 import {
   onSortEnd,
   clickedResponse,
-  handleChange,
+  toggleResModal,
+  toggleDeleteModal,
 } from 'actions/responsesActions'
 import React, { useState } from 'react'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
@@ -15,11 +16,11 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider'
 import { Drag } from 'mdi-material-ui'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
-import { Flex, InputWrapper } from '@/utility'
-import TextField from '@material-ui/core/TextField'
-
+import { Flex } from '@/utility'
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel'
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 
@@ -68,12 +69,27 @@ const SortableItem = connect(
   state => ({
     activeItem: state.responses.activeItem,
     unSaved: state.responses.unSaved,
-    flattened: state.responses.flattened,
+    isAddEditModalOpen: state.responses.isAddEditModalOpen,
+    isDeleteModalOpen: state.responses.isDeleteModalOpen,
   }),
-  { clickedResponse }
+  {
+    clickedResponse,
+    toggleResModal,
+    toggleDeleteModal,
+  }
 )(
   sortableElement(
-    ({ item, index, activeItem, handleChange, clickedResponse }) => (
+    ({
+      item,
+      index,
+      activeItem,
+      handleChange,
+      clickedResponse,
+      toggleResModal,
+      toggleDeleteModal,
+      isAddEditModalOpen,
+      isDeleteModalOpen,
+    }) => (
       <ExpansionPanel
         item={item}
         index={index}
@@ -100,7 +116,11 @@ const SortableItem = connect(
               <Button size="small" style={{ marginRight: '.25rem' }}>
                 edit
               </Button>
-              <Button color="primary" size="small">
+              <Button
+                color="primary"
+                size="small"
+                onClick={() => toggleDeleteModal(!isDeleteModalOpen)}
+              >
                 Delete
               </Button>
             </div>
@@ -120,7 +140,15 @@ const SortableItem = connect(
                 </Typography>
               </Typography>
               {/* ADD NEW RESPONSE */}
-              <AddNewResponse />
+              {/* <AddNewResponse /> */}
+              <Fab
+                size="small"
+                color="secondary"
+                aria-label="Add"
+                onClick={() => toggleResModal(!isAddEditModalOpen)}
+              >
+                <AddIcon />
+              </Fab>
             </Flex>
             <Divider />
             <div style={{ paddingTop: '1rem' }}>
@@ -147,38 +175,6 @@ const SortableItem = connect(
 
 const SortableContainer = sortableContainer(({ children }) => (
   <div>{children}</div>
-))
-
-const AddNewResponse = connect(
-  state => ({
-    new: state.responses.new,
-    text: state.responses.new.text,
-    owner: state.responses.new.owner,
-    workflow: state.responses.new.workflow,
-    index: state.responses.new.index,
-  }),
-  { handleChange }
-)(({ handleChange }) => (
-  <InputWrapper style={{ width: '50%' }}>
-    <TextField
-      id="outlined-name"
-      label="New Question"
-      name="question_text"
-      onChange={handleChange}
-      margin="dense"
-      variant="outlined"
-      style={{ width: '100%' }}
-    />
-    <Button
-      size="large"
-      color="primary"
-      variant="contained"
-      aria-label="Add"
-      onClick={() => console.log('add')}
-    >
-      Add
-    </Button>
-  </InputWrapper>
 ))
 
 export default connect(
@@ -211,7 +207,6 @@ export default connect(
           subitems={item.children}
           onClick={() => {
             subitems = item.children
-            console.log('TCL: item.children', item.children)
             console.log('TCL: SortableList -> subitems', subitems)
           }}
         ></SortableItem>

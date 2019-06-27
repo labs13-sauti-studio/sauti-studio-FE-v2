@@ -8,9 +8,9 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import UserLayout from '@/userLayout'
 import { loadWorkflow, fetchResponses } from 'actions'
-import styled from 'styled-components'
-import { palette, spacing, borders } from '@material-ui/system'
 import SortableList from '@/tree'
+import DeleteWarningModal from '@/DeleteWarningModal'
+import { toggleDeleteModal } from 'actions/responsesActions'
 
 class WorkflowPage extends Component {
   constructor(props) {
@@ -29,6 +29,13 @@ class WorkflowPage extends Component {
 
     return (
       <UserLayout>
+        <DeleteWarningModal
+          open={this.props.isDeleteModalOpen}
+          title="Delete This Response"
+          subtitle="Are you sure?
+          This will delete all of the Responses following."
+          onClose={this.props.toggleDeleteModal}
+        ></DeleteWarningModal>
         <Container>
           <Typography variant="h3">{name}</Typography>
           <Typography variant="h6" color="textSecondary">
@@ -54,30 +61,14 @@ export default connect(
     area_code: state.workflow.area_code,
     responses: state.responses.unSaved,
     isLoadingResponses: state.responses.isLoadingResponses,
+    isDeleteModalOpen: state.responses.isDeleteModalOpen,
   }),
   {
+    toggleDeleteModal,
     loadWorkflow,
     fetchResponses,
   }
 )(WorkflowPage)
-
-const Box = styled.div`
-  ${palette}
-  ${spacing}
-  ${borders}
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: fit-content;
-  button {
-    margin-left: 1rem;
-  }
-`
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-`
 
 WorkflowPage.propTypes = {
   '*': PropTypes.string.isRequired,

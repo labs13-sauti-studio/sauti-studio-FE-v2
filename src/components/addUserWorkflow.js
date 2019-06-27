@@ -26,7 +26,8 @@ class NewWorkflowModel extends Component {
     }
   }
 
-  toggleModal = () => this.props.dispatch(toggleWorkflowModal(!this.props.open))
+  toggleResModal = () =>
+    this.props.dispatch(toggleWorkflowModal(!this.props.open))
 
   handleInput = e => {
     this.setState({ [e.target.name]: e.target.value })
@@ -43,13 +44,13 @@ class NewWorkflowModel extends Component {
   }
 
   render() {
-    const { toggleModal, handleSubmit, handleInput } = this
+    const { toggleResModal, handleSubmit, handleInput } = this
     const { open } = this.props
     const { name, category } = this.state
     return (
       <Dialog
         open={open}
-        onClose={toggleModal}
+        onClose={toggleResModal}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
@@ -92,7 +93,7 @@ class NewWorkflowModel extends Component {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={toggleModal} color="primary">
+          <Button onClick={toggleResModal} color="primary">
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary">

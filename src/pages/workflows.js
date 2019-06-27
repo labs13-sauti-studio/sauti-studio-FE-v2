@@ -21,17 +21,17 @@ class WorkflowsPage extends Component {
     dispatch(loadUserWorkflows())
   }
 
-  toggleModal = () => {
+  toggleResModal = () => {
     const { isAddingNewWorkflow, dispatch } = this.props
     dispatch(toggleWorkflowModal(!isAddingNewWorkflow))
   }
 
   render() {
-    const { toggleModal } = this
+    const { toggleResModal } = this
     const { workflows } = this.props
     return (
       <UserLayout>
-        <Button variant="outlined" color="primary" onClick={toggleModal}>
+        <Button variant="outlined" color="primary" onClick={toggleResModal}>
           <InfoPopup
             left="10px"
             style={{ position: 'relative' }}
