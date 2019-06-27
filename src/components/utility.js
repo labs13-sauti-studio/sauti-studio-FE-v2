@@ -7,3 +7,4 @@ export const Flex = styled.div`
   justify-content: ${props => props.justify};
   align-items: ${props => props.align};
 `
+
