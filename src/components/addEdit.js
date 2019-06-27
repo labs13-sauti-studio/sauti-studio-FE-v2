@@ -8,6 +8,13 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function FormDialog() {
+    // constructor() {
+    //     super()
+    
+    //     this.state = {
+    //       text: ''
+    //     }
+    //   }
   const [open, setOpen] = React.useState(false);
 
   function handleClickOpen() {
@@ -17,6 +24,15 @@ export default function FormDialog() {
   function handleClose() {
     setOpen(false);
   }
+//   function handleSubmit() {
+//       e.preventDefault()
+//       const {text} = this.state
+//       const obj = {text}
+//       const { diispatch } this.props
+
+//       dispatch(addResponse(obj))
+//       dispatch(closResponseModal())
+//   }
 
   return (
     <div>
