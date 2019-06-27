@@ -19,6 +19,8 @@ import { Flex } from '@/utility'
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel'
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 
+const getChildCount = item => (item.children ? item.children.length : null)
+
 const ExpansionPanel = withStyles({
   root: {
     border: '1px solid rgba(0, 0, 0, .125)',
@@ -68,17 +70,7 @@ const SortableItem = connect(
   { clickedResponse }
 )(
   sortableElement(
-    ({
-      item,
-      index,
-      activeItem,
-      activeIndex,
-      children,
-      expanded,
-      subitems,
-      handleChange,
-      clickedResponse,
-    }) => (
+    ({ item, index, activeItem, handleChange, clickedResponse }) => (
       <ExpansionPanel
         item={item}
         index={index}
@@ -103,33 +95,38 @@ const SortableItem = connect(
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Flex column>
-            <Flex>
+            <Flex
+              align="center"
+              justify="space-between"
+              style={{ margin: '1rem 0' }}
+            >
+              <Typography variant="h4">
+                Response Count:{' '}
+                <Typography variant="span" color="primary">
+                  {getChildCount(item)}
+                </Typography>
+              </Typography>
               <div>
-                <Typography>Add new</Typography>
-              </div>
-              <div>
-                <Button size="small">Cancel</Button>
-                <Button size="small" color="primary">
-                  Save
-                </Button>
+                <Button>Cancel</Button>
+                <Button color="primary">Delete</Button>
               </div>
             </Flex>
-            {activeItem !== null ? (
-              <SortableContainer useDragHandle>
-                {item.children
-                  ? item.children.map((child, index) => {
-                      console.log(activeItem, activeIndex)
-                      return (
+            <Divider />
+            <div style={{ paddingTop: '1rem' }}>
+              {activeItem !== null ? (
+                <SortableContainer useDragHandle>
+                  {item.children
+                    ? item.children.map((child, index) => (
                         <SortableItem
                           key={child.id + child.owner}
                           index={index}
                           item={child}
                         />
-                      )
-                    })
-                  : null}
-              </SortableContainer>
-            ) : null}
+                      ))
+                    : null}
+                </SortableContainer>
+              ) : null}
+            </div>
           </Flex>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -159,10 +156,9 @@ const useStyles = makeStyles(theme => ({
 export default connect(
   state => ({
     activeItem: state.responses.activeItem,
-    activeIndex: state.responses.activeIndex,
   }),
   { onSortEnd }
-)(({ items, activeItem, activeIndex, onSortEnd }) => {
+)(({ items, activeItem, onSortEnd }) => {
   const [expanded, setExpanded] = useState(activeItem)
 
   const handleChange = panel => (event, isExpanded) =>
