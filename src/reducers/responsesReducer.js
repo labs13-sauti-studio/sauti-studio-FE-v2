@@ -4,6 +4,9 @@ import {
   FETCH_RESPONSES_FAILURE,
   ADD_NEW_RESPONSE,
   REORDER_RESPONSES,
+  FETCHED_FLAT_ARRAY,
+  CLICKED_RESPONSE,
+  HANDLE_RESPONSE_INPUT_CHANGE,
 } from 'actions/responsesActions'
 
 const initialState = {
@@ -13,9 +16,18 @@ const initialState = {
   index: null,
   loaded: [],
   unSaved: [],
+  flattened: [],
   error: false,
   message: null,
+  activeItem: null,
+  activeIndex: 0,
   isLoadingResponses: false,
+  isAddEditModalOpen: false,
+  new: {
+    text: '',
+    owner: null,
+    workflow: null,
+  },
 }
 
 const responsesReducer = (state = initialState, action) => {
@@ -29,6 +41,7 @@ const responsesReducer = (state = initialState, action) => {
         isLoadingResponses: false,
         loaded: action.payload,
         unSaved: action.payload,
+        activeItem: action.payload[0].id,
       }
 
     case FETCH_RESPONSES_FAILURE:
@@ -40,6 +53,16 @@ const responsesReducer = (state = initialState, action) => {
     case REORDER_RESPONSES:
       return { ...state, unSaved: action.payload }
 
+    case FETCHED_FLAT_ARRAY:
+      return { ...state, flattened: action.payload }
+
+    case CLICKED_RESPONSE:
+      return {
+        ...state,
+        activeItem: action.payload,
+      }
+    case HANDLE_RESPONSE_INPUT_CHANGE:
+      return { ...state, new: action.payload }
     default:
       return state
   }

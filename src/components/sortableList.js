@@ -10,7 +10,6 @@ import { onSortEnd } from 'actions/responsesActions'
 import { connect } from 'react-redux'
 import Icon from '@material-ui/core/Icon'
 import { Drag } from 'mdi-material-ui'
-import ResponseCard from './responseCard'
 import { Flex } from '@/utility'
 
 export const DragHandle = sortableHandle(() => (
@@ -23,21 +22,15 @@ const SortableItem = sortableElement(({ item, index }) => (
   <ResponseCard {...item} index={index} />
 ))
 
-const SortableContainer = sortableContainer(({ children }) => (
-  <div>{children}</div>
-))
+const SortableContainer = sortableContainer(({ children }) => <>{children}</>)
 
-const SortableList = ({ items, onSortEnd }) => {
-  console.log(items)
-  return (
+const SortableList = ({ items, currentItems, onSortEnd }) => {
+  console.log(items, currentItems)
+  return currentItems.map((item, index) => (
     <SortableContainer onSortEnd={onSortEnd} useDragHandle>
-      {items.map((item, index) => (
-        // <Flex align="center" justify="start">
-        <SortableItem key={`item-${index}`} index={index} item={item} />
-        // </Flex>
-      ))}
+      <SortableItem key={`item-${index}`} index={index} item={item} />
     </SortableContainer>
-  )
+  ))
 }
 
 export default connect(

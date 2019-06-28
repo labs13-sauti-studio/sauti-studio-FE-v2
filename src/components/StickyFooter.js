@@ -4,8 +4,7 @@ import React from 'react'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
-import { Link } from 'gatsby'
-import PropTypes from 'prop-types'
+
 
 const useStyles = makeStyles(theme => ({
   menuButton: {
@@ -21,12 +20,6 @@ const Navbar = () => {
   return (
     <AppBar position="static" color="secondary">
       <Toolbar>
-        <Typography variant="h5" className={classes.title}>
-          <Link to="/">Sauti Studio</Link>
-        </Typography>
-        <Link to="/login">
-          <Button color="primary">Profile</Button>
-        </Link>
       </Toolbar>
     </AppBar>
   )
