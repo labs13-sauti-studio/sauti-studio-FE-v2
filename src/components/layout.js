@@ -10,9 +10,9 @@ import {
   faCoffee,
   faCheckCircle,
 } from '@fortawesome/free-solid-svg-icons'
+import StickyFooter from './StickyFooter'
 
 library.add(fab, faCheckSquare, faCoffee, faCheckCircle)
-import StickyFooter from '../components/StickyFooter'
 
 const Layout = ({ children }) => (
   <StaticQuery

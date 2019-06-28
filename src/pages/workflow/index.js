@@ -12,11 +12,12 @@ import SortableList from '@/tree'
 import DeleteWarningModal from '@/DeleteWarningModal'
 import { toggleDeleteModal, toggleResModal } from 'actions/responsesActions'
 import AddModal from '@/AddModal'
+
 class WorkflowPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      text:''
+      text: '',
     }
   }
 
@@ -24,13 +25,14 @@ class WorkflowPage extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    const { text} = this.state
+    const { text } = this.state
     const { dispatch } = this.props
-    const obj = { text}
+    const obj = { text }
 
     dispatch(updateUserInfo(obj))
     dispatch(closeEditProfileModal())
   }
+
   componentDidMount() {
     const workflow = this.props['*'].replace('workflow/', '')
     this.props.loadWorkflow(workflow)
@@ -42,13 +44,13 @@ class WorkflowPage extends Component {
 
     return (
       <UserLayout>
-
-        <AddModal open={this.props.isAddEditModalOpen}
+        <AddModal
+          open={this.props.isAddEditModalOpen}
           title="Delete This Response"
           subtitle="Are you sure?
           This will delete all of the Responses following."
-          onClose={this.props.toggleResModal}>
-        </AddModal>
+          onClose={this.props.toggleResModal}
+        ></AddModal>
 
         <DeleteWarningModal
           open={this.props.isDeleteModalOpen}
