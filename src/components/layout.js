@@ -12,6 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(fab, faCheckSquare, faCoffee, faCheckCircle)
+import StickyFooter from '../components/StickyFooter'
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -30,6 +31,7 @@ const Layout = ({ children }) => (
         <main style={{ padding: '1rem 0' }}>
           <Container>{children}</Container>
         </main>
+        <StickyFooter />
       </>
     )}
   />
