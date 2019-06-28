@@ -10,9 +10,9 @@ export const FETCHED_FLAT_ARRAY = 'FETCHED_FLAT_ARRAY'
 export const fetchResponses = workflow => dispatch => {
   dispatch({ type: FETCH_RESPONSES_START })
 
-  axiosInstance
-    .get(`/responses/${workflow}`)
-    .then(res => dispatch({ type: FETCHED_FLAT_ARRAY, payload: res.data }))
+  // axiosInstance
+  //   .get(`/responses/${workflow}`)
+  //   .then(res => dispatch({ type: FETCHED_FLAT_ARRAY, payload: res.data }))
   axiosInstance
     .get(`/responses/${workflow}?tree=true`)
     .then(res => dispatch({ type: FETCH_RESPONSES_SUCCESS, payload: res.data }))
@@ -25,7 +25,7 @@ export const fetchResponses = workflow => dispatch => {
 }
 
 export const REORDER_RESPONSES = 'REORDER_RESPONSES'
-export const onSortEnd = ({ step, oldIndex, newIndex }) => dispatch => {
+export const onSortEnd = ({ oldIndex, newIndex }) => dispatch => {
   dispatch({
     type: REORDER_RESPONSES,
     payload: arrayMove(store.getState().responses.unSaved, oldIndex, newIndex),
@@ -56,3 +56,27 @@ export const TOGGLE_DELETE_MODAL = 'TOGGLE_DELETE_MODAL'
 
 export const toggleDeleteModal = bool => dispatch =>
   dispatch({ type: TOGGLE_DELETE_MODAL, payload: bool })
+
+export const SET_ACTIVE_RES = 'SET_ACTIVE_RES'
+export const setActiveRes = response => dispatch =>
+  dispatch({ type: SET_ACTIVE_RES, payload: response })
+
+export const DELETE_RES_START = 'DELETE_RES_START'
+export const DELETE_RES_SUCCESS = 'DELETE_RES_SUCCESS'
+export const DELETE_RES_FAILURE = 'DELETE_RES_FAILURE'
+
+export const deleteResponse = () => dispatch => {
+  dispatch({ type: DELETE_RES_START })
+
+  axiosInstance
+    .delete(`/responses/${store.getState().responses.modal.id}`)
+    .then(res => {
+      dispatch({ type: DELETE_RES_SUCCESS, payload: res.data })
+    })
+    .catch(err =>
+      dispatch({
+        type: DELETE_RES_FAILURE,
+        msg: err.message,
+      })
+    )
+}

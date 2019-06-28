@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
-import { Button, Container, Divider, TextField } from '@material-ui/core'
+import { Container, Divider } from '@material-ui/core'
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
 import { connect } from 'react-redux'
@@ -56,6 +56,7 @@ class WorkflowPage extends Component {
           subtitle="Are you sure?
           This will delete all of the Responses following."
           onClose={this.props.toggleDeleteModal}
+          onConfirm={this.props.deleteResponse}
         ></DeleteWarningModal>
         <Container>
           <Typography variant="h3">{name}</Typography>
@@ -95,12 +96,6 @@ export default connect(
 
 WorkflowPage.propTypes = {
   '*': PropTypes.string.isRequired,
-  answers: PropTypes.array,
   category: PropTypes.string,
-  dispatch: PropTypes.func,
-  id: PropTypes.number,
-  isDeleteQuestionModalOpen: PropTypes.bool,
   name: PropTypes.string,
-  question_id: PropTypes.number,
-  questions: PropTypes.array,
 }

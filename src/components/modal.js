@@ -2,8 +2,10 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Modal from '@material-ui/core/Modal'
-import { FacebookLoginButton } from 'react-social-login-buttons'
-import { GoogleLoginButton } from 'react-social-login-buttons'
+import {
+  FacebookLoginButton,
+  GoogleLoginButton,
+} from 'react-social-login-buttons'
 
 function getModalStyle() {
   const top = 50
@@ -31,13 +33,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     borderRadius: '25px',
     color: 'white',
-    
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 200,
-  
   },
   dense: {
     marginTop: 19,
@@ -85,7 +85,8 @@ function LoginModal() {
             Sauti Studio
           </Typography>
 
-          <GoogleLoginButton style={loginButtonStyle}
+          <GoogleLoginButton
+            style={loginButtonStyle}
             onClick={() =>
               (window.location.href = `${process.env.GATSBY_API_URL}/auth/google`)
             }
@@ -104,11 +105,11 @@ function LoginModal() {
 }
 
 const loginButtonStyle = {
-  width: "90%",
-};
+  width: '90%',
+}
 
 const pageStyle = {
-  background: 'black'
+  background: 'black',
 }
 
 export default LoginModal

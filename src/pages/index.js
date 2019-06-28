@@ -1,5 +1,4 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import styled from 'styled-components'
@@ -11,6 +10,7 @@ import { media } from 'src/theme'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Phone from '../images/sautiphone.png'
 import Form from '../components/forms/Form'
+
 const Landing = styled.div`
   margin-top: 4rem;
   * {
@@ -67,33 +67,6 @@ const Section2 = styled.section`
 
     .list {
       text-align: center;
-    }
-   `}
-`
-
-const Section3 = styled.section`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  align-items: space-between;
-  /* text-align: center; */
-  h2 {
-    grid-column: 1/-1;
-  }
-  .sub-info {
-    text-align: right;
-    .start {
-      height: 100%;
-      text-align: center;
-      button {
-        margin-top: 4rem;
-      }
-    }
-  }
-  ${media.tablet`
-    grid-template-columns: 1fr;
-    button {
-      margin-bottom: 4rem;
     }
    `}
 `
@@ -177,9 +150,6 @@ const btnBG = {
   backgroundColor: '#E74C3D',
   color: 'white',
 }
-const BoldText = styled.section`
-  fontweight: 'bold';
-`
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
@@ -203,29 +173,29 @@ const IndexPage = () => (
 
       <Section2>
         <div>
-          <Typography varient="ul" className="list">
-            <Typography varient="li">
+          <Typography className="list">
+            <Typography>
               <FontAwesomeIcon icon="check-circle" /> No programming background
               needed
             </Typography>
-            <Typography varient="li">
+            <Typography>
               <FontAwesomeIcon icon="check-circle" /> Create, Update, save &
               delete flows
             </Typography>
-            <Typography varient="li">
+            <Typography>
               <FontAwesomeIcon icon="check-circle" /> Create, Update, save &
               delete flows
             </Typography>
-            <Typography varient="li">
-              <FontAwesomeIcon icon="check-circle" /> Simple & intuative visual
+            <Typography>
+              <FontAwesomeIcon icon="check-circle" /> Simple & intuitive visual
             </Typography>
-            <Typography varient="li">
+            <Typography>
               <FontAwesomeIcon icon="check-circle" /> Cloud-based tool
             </Typography>
-            <Typography varient="li">
+            <Typography>
               <FontAwesomeIcon icon="check-circle" /> Click through mockup view
             </Typography>
-            <Typography varient="li">
+            <Typography>
               <FontAwesomeIcon icon="check-circle" /> Cloud-based tool
             </Typography>
           </Typography>
@@ -248,6 +218,7 @@ const IndexPage = () => (
         </div>
         <VideoMedia>
           <iframe
+            title="demo"
             width="1280"
             height="720"
             src="https://www.youtube.com/embed/nFO9hyGIBrU"
@@ -267,18 +238,19 @@ const IndexPage = () => (
 
           <p>
             In Sauti Studio & Design, We offer a simple and easy tool for anyone
-            to create their own flow whether to promote a buisness or share
+            to create their own flow whether to promote a business or share
             essential information that can support their community. From bus
-            scheduals to a church event calendar, the weather or legal
+            schedules to a church event calendar, the weather or legal
             information. You can create any text-based app flow with our
             product.{' '}
           </p>
 
           <p>
             Our mission is to allow anyone to design their own text-based
-            applications, and share Knowledge that will stregthin the community.
-            Providing a simple tool to create (develop and deploy) empowering
-            solutions and quickly communicate ideas to address proverty.
+            applications, and share Knowledge that will strengthen the
+            community. Providing a simple tool to create (develop and deploy)
+            empowering solutions and quickly communicate ideas to address
+            property.
           </p>
         </div>
         <hr
@@ -301,7 +273,7 @@ const IndexPage = () => (
           </Typography>
         </div>
         <div>
-          <img src={Phone} />
+          <img src={Phone} alt="demo-img" />
         </div>
         <div>
           <Button
@@ -325,7 +297,7 @@ const IndexPage = () => (
       ></hr>
       {/* EXPLORE OUR FLOW SAMPLES SECTION */}
       <Section4>
-        <Typography variant="h3">Explor Our Flow Samples</Typography>
+        <Typography variant="h3">Explore Our Flow Samples</Typography>
         <div>
           <Graphic3 />
         </div>
@@ -334,17 +306,17 @@ const IndexPage = () => (
         style={{
           borderBottomColor: 'black',
           borderBottomWidth: 1,
-          margin: 20
+          margin: 20,
         }}
       ></hr>
       <Section4 style={contentCenter}>
-<FormStyle style={{ margin: '50px auto' }}>
-      <Typography variant="h3">Contact Us</Typography>
+        <FormStyle style={{ margin: '50px auto' }}>
+          <Typography variant="h3">Contact Us</Typography>
 
-    <div>
-    <Form/>
-  </div>
-</FormStyle>
+          <div>
+            <Form />
+          </div>
+        </FormStyle>
       </Section4>
     </Landing>
   </Layout>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 import styled from 'styled-components'
 
 export default function InfoPopup(props) {
@@ -12,10 +11,10 @@ export default function InfoPopup(props) {
           top: props.top,
           left: props.left,
         }}
-        onMouseEnter={e => {
+        onMouseEnter={() => {
           setHoverIconActive(true)
         }}
-        onMouseLeave={e => {
+        onMouseLeave={() => {
           setHoverIconActive(false)
         }}
       >
