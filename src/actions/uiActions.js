@@ -1,5 +1,3 @@
-import { setActiveQuestionId, loadQuestionAnswers } from 'actions'
-
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR'
 
 export const toggleSidebar = bool => dispatch =>
@@ -29,11 +27,6 @@ export const TOGGLE_DELETE_QUESTION_MODAL = 'TOGGLE_DELETE_QUESTION_MODAL'
 
 export const toggleDeleteQuestionModal = bool => dispatch =>
   dispatch({ type: TOGGLE_DELETE_QUESTION_MODAL, payload: bool })
-
-export const clickedCardQuestion = question_id => dispatch => {
-  dispatch(setActiveQuestionId(question_id))
-  dispatch(loadQuestionAnswers(question_id))
-}
 
 export const TOGGLE_RESPONSE_HOVER = 'TOGGLE_RESPONSE_HOVER'
 

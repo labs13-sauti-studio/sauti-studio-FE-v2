@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -12,7 +13,7 @@ const DeleteWarningModal = props => (
   <Dialog
     open={props.open}
     onClose={() => props.onClose(false)}
-    aria-labelledby="form-dialog-title"
+    aria-label="form-dialog-title"
   >
     <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
     <DialogContent>

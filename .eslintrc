@@ -41,6 +41,7 @@
     "camelcase": "off",
     "import/no-cycle": "off",
     "no-shadow": "off",
-    "react/destructuring-assignment": "off"
+    "react/destructuring-assignment": "off",
+    "react/prop-types": "off"
   }
 }

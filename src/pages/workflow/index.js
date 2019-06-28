@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
-import { Button, Container, Divider, TextField } from '@material-ui/core'
+import { Container, Divider } from '@material-ui/core'
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
 import { connect } from 'react-redux'
@@ -10,7 +10,7 @@ import UserLayout from '@/userLayout'
 import { loadWorkflow, fetchResponses } from 'actions'
 import SortableList from '@/tree'
 import DeleteWarningModal from '@/DeleteWarningModal'
-import { toggleDeleteModal, deleteResponse } from 'actions/responsesActions'
+import { toggleDeleteModal } from 'actions/responsesActions'
 
 class WorkflowPage extends Component {
   constructor(props) {
@@ -73,12 +73,6 @@ export default connect(
 
 WorkflowPage.propTypes = {
   '*': PropTypes.string.isRequired,
-  answers: PropTypes.array,
   category: PropTypes.string,
-  dispatch: PropTypes.func,
-  id: PropTypes.number,
-  isDeleteQuestionModalOpen: PropTypes.bool,
   name: PropTypes.string,
-  question_id: PropTypes.number,
-  questions: PropTypes.array,
 }

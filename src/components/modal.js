@@ -2,11 +2,10 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Modal from '@material-ui/core/Modal'
-// import Button from '@material-ui/core/Button'
-// import GoogleLoginButton from 'src/images/google-login-button.png'
-// import FacebookLoginButton from 'src/images/facebook-login-button.png'
-import { FacebookLoginButton } from 'react-social-login-buttons'
-import { GoogleLoginButton } from 'react-social-login-buttons'
+import {
+  FacebookLoginButton,
+  GoogleLoginButton,
+} from 'react-social-login-buttons'
 
 function getModalStyle() {
   const top = 50
