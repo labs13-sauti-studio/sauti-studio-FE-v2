@@ -8,6 +8,10 @@ import {
   CLICKED_RESPONSE,
   TOGGLE_RES_MODAL,
   TOGGLE_DELETE_MODAL,
+  SET_ACTIVE_RES,
+  DELETE_RES_START,
+  DELETE_RES_SUCCESS,
+  DELETE_RES_FAILURE,
 } from 'actions/responsesActions'
 
 const initialState = {
@@ -25,8 +29,8 @@ const initialState = {
   isLoadingResponses: false,
   isAddEditModalOpen: false,
   isDeleteModalOpen: false,
-
   modal: {
+    id: null,
     text: '',
     owner: null,
     workflow: null,
@@ -70,6 +74,22 @@ const responsesReducer = (state = initialState, action) => {
 
     case TOGGLE_DELETE_MODAL:
       return { ...state, isDeleteModalOpen: action.payload }
+
+    case SET_ACTIVE_RES:
+      return { ...state, modal: action.payload }
+
+    case DELETE_RES_START:
+      return { ...state }
+
+    case DELETE_RES_SUCCESS:
+      return {
+        ...state,
+        unSaved: action.payload.current,
+        message: action.payload.message,
+      }
+
+    case DELETE_RES_FAILURE:
+      return { ...state, error: true, message: action.payload }
 
     default:
       return state

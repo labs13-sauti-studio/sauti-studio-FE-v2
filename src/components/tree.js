@@ -8,6 +8,7 @@ import {
   clickedResponse,
   toggleResModal,
   toggleDeleteModal,
+  setActiveRes,
 } from 'actions/responsesActions'
 import React, { useState } from 'react'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
@@ -76,6 +77,7 @@ const SortableItem = connect(
     clickedResponse,
     toggleResModal,
     toggleDeleteModal,
+    setActiveRes,
   }
 )(
   sortableElement(
@@ -89,6 +91,7 @@ const SortableItem = connect(
       toggleDeleteModal,
       isAddEditModalOpen,
       isDeleteModalOpen,
+      setActiveRes,
     }) => (
       <ExpansionPanel
         item={item}
@@ -101,6 +104,7 @@ const SortableItem = connect(
           expandIcon={
             <ExpandMoreIcon
               onClick={() => {
+                setActiveRes(item)
                 handleChange(item.id)
                 clickedResponse(item.id)
               }}
@@ -113,13 +117,22 @@ const SortableItem = connect(
               <Typography style={{ float: 'right' }}>{item.text}</Typography>
             </span>
             <div>
-              <Button size="small" style={{ marginRight: '.25rem' }}>
+              <Button
+                size="small"
+                style={{ marginRight: '.25rem' }}
+                onClick={() => {
+                  setActiveRes(item)
+                }}
+              >
                 edit
               </Button>
               <Button
                 color="primary"
                 size="small"
-                onClick={() => toggleDeleteModal(!isDeleteModalOpen)}
+                onClick={() => {
+                  setActiveRes(item)
+                  toggleDeleteModal(!isDeleteModalOpen)
+                }}
               >
                 Delete
               </Button>
@@ -140,12 +153,14 @@ const SortableItem = connect(
                 </Typography>
               </Typography>
               {/* ADD NEW RESPONSE */}
-              {/* <AddNewResponse /> */}
               <Fab
                 size="small"
                 color="secondary"
                 aria-label="Add"
-                onClick={() => toggleResModal(!isAddEditModalOpen)}
+                onClick={() => {
+                  setActiveRes(item)
+                  toggleResModal(!isAddEditModalOpen)
+                }}
               >
                 <AddIcon />
               </Fab>
@@ -177,7 +192,7 @@ const SortableContainer = sortableContainer(({ children }) => (
   <div>{children}</div>
 ))
 
-export default connect(
+const SortableList = connect(
   state => ({
     activeItem: state.responses.activeItem,
   }),
@@ -214,3 +229,5 @@ export default connect(
     </SortableContainer>
   )
 })
+
+export default SortableList

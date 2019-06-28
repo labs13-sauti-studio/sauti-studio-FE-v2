@@ -10,7 +10,7 @@ import UserLayout from '@/userLayout'
 import { loadWorkflow, fetchResponses } from 'actions'
 import SortableList from '@/tree'
 import DeleteWarningModal from '@/DeleteWarningModal'
-import { toggleDeleteModal } from 'actions/responsesActions'
+import { toggleDeleteModal, deleteResponse } from 'actions/responsesActions'
 
 class WorkflowPage extends Component {
   constructor(props) {
@@ -35,6 +35,7 @@ class WorkflowPage extends Component {
           subtitle="Are you sure?
           This will delete all of the Responses following."
           onClose={this.props.toggleDeleteModal}
+          onConfirm={this.props.deleteResponse}
         ></DeleteWarningModal>
         <Container>
           <Typography variant="h3">{name}</Typography>
