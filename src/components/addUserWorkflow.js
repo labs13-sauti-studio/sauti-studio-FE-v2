@@ -15,7 +15,7 @@ import {
   addUserWorkflow,
 } from 'actions'
 import InfoPopup from '@/InfoPopup'
-import FormDialog from '@/addEdit'
+
 class NewWorkflowModel extends Component {
   constructor() {
     super()
@@ -26,8 +26,7 @@ class NewWorkflowModel extends Component {
     }
   }
 
-  toggleResModal = () =>
-    this.props.dispatch(toggleWorkflowModal(!this.props.open))
+  toggleModal = () => this.props.dispatch(toggleWorkflowModal(!this.props.open))
 
   handleInput = e => {
     this.setState({ [e.target.name]: e.target.value })
@@ -44,13 +43,13 @@ class NewWorkflowModel extends Component {
   }
 
   render() {
-    const { toggleResModal, handleSubmit, handleInput } = this
+    const { toggleModal, handleSubmit, handleInput } = this
     const { open } = this.props
     const { name, category } = this.state
     return (
       <Dialog
         open={open}
-        onClose={toggleResModal}
+        onClose={toggleModal}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
@@ -69,7 +68,6 @@ class NewWorkflowModel extends Component {
               </p>
             }
           />
-          <FormDialog />
           <DialogContentText>
             To create your new workflow we just need some basic info.
           </DialogContentText>
@@ -94,7 +92,7 @@ class NewWorkflowModel extends Component {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={toggleResModal} color="primary">
+          <Button onClick={toggleModal} color="primary">
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary">

@@ -10,12 +10,14 @@ import UserLayout from '@/userLayout'
 import { loadWorkflow, fetchResponses } from 'actions'
 import SortableList from '@/tree'
 import DeleteWarningModal from '@/DeleteWarningModal'
-import { toggleDeleteModal } from 'actions/responsesActions'
-
+import { toggleDeleteModal, toggleResModal } from 'actions/responsesActions'
+import AddModal from '@/AddModal'
 class WorkflowPage extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      text:''
+    }
   }
 
   componentDidMount() {
@@ -29,6 +31,14 @@ class WorkflowPage extends Component {
 
     return (
       <UserLayout>
+
+        <AddModal open={this.props.isAddEditModalOpen}
+          title="Delete This Response"
+          subtitle="Are you sure?
+          This will delete all of the Responses following."
+          onClose={this.props.toggleResModal}>
+        </AddModal>
+
         <DeleteWarningModal
           open={this.props.isDeleteModalOpen}
           title="Delete This Response"
@@ -61,10 +71,12 @@ export default connect(
     area_code: state.workflow.area_code,
     responses: state.responses.unSaved,
     isLoadingResponses: state.responses.isLoadingResponses,
+    isAddEditModalOpen: state.responses.isAddEditModalOpen,
     isDeleteModalOpen: state.responses.isDeleteModalOpen,
   }),
   {
     toggleDeleteModal,
+    toggleResModal,
     loadWorkflow,
     fetchResponses,
   }
