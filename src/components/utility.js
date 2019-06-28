@@ -8,6 +8,7 @@ export const Flex = styled.div`
   align-items: ${props => props.align};
 `
 
+
 export const InputWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -17,3 +18,4 @@ export const InputWrapper = styled.div`
     margin-left: 1rem;
   }
 `
+
