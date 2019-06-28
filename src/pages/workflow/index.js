@@ -8,16 +8,29 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import UserLayout from '@/userLayout'
 import { loadWorkflow, fetchResponses } from 'actions'
-import styled from 'styled-components'
-import { palette, spacing, borders } from '@material-ui/system'
 import SortableList from '@/tree'
-
+import DeleteWarningModal from '@/DeleteWarningModal'
+import { toggleDeleteModal, toggleResModal } from 'actions/responsesActions'
+import AddModal from '@/AddModal'
 class WorkflowPage extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      text:''
+    }
   }
 
+  handleInput = e => this.setState({ [e.target.name]: e.target.value })
+
+  handleSubmit = e => {
+    e.preventDefault()
+    const { text} = this.state
+    const { dispatch } = this.props
+    const obj = { text}
+
+    dispatch(updateUserInfo(obj))
+    dispatch(closeEditProfileModal())
+  }
   componentDidMount() {
     const workflow = this.props['*'].replace('workflow/', '')
     this.props.loadWorkflow(workflow)
@@ -29,6 +42,21 @@ class WorkflowPage extends Component {
 
     return (
       <UserLayout>
+
+        <AddModal open={this.props.isAddEditModalOpen}
+          title="Delete This Response"
+          subtitle="Are you sure?
+          This will delete all of the Responses following."
+          onClose={this.props.toggleResModal}>
+        </AddModal>
+
+        <DeleteWarningModal
+          open={this.props.isDeleteModalOpen}
+          title="Delete This Response"
+          subtitle="Are you sure?
+          This will delete all of the Responses following."
+          onClose={this.props.toggleDeleteModal}
+        ></DeleteWarningModal>
         <Container>
           <Typography variant="h3">{name}</Typography>
           <Typography variant="h6" color="textSecondary">
@@ -54,30 +82,16 @@ export default connect(
     area_code: state.workflow.area_code,
     responses: state.responses.unSaved,
     isLoadingResponses: state.responses.isLoadingResponses,
+    isAddEditModalOpen: state.responses.isAddEditModalOpen,
+    isDeleteModalOpen: state.responses.isDeleteModalOpen,
   }),
   {
+    toggleDeleteModal,
+    toggleResModal,
     loadWorkflow,
     fetchResponses,
   }
 )(WorkflowPage)
-
-const Box = styled.div`
-  ${palette}
-  ${spacing}
-  ${borders}
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: fit-content;
-  button {
-    margin-left: 1rem;
-  }
-`
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-`
 
 WorkflowPage.propTypes = {
   '*': PropTypes.string.isRequired,
