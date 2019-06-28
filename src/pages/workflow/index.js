@@ -20,6 +20,17 @@ class WorkflowPage extends Component {
     }
   }
 
+  handleInput = e => this.setState({ [e.target.name]: e.target.value })
+
+  handleSubmit = e => {
+    e.preventDefault()
+    const { text} = this.state
+    const { dispatch } = this.props
+    const obj = { text}
+
+    dispatch(updateUserInfo(obj))
+    dispatch(closeEditProfileModal())
+  }
   componentDidMount() {
     const workflow = this.props['*'].replace('workflow/', '')
     this.props.loadWorkflow(workflow)

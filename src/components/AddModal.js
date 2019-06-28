@@ -28,6 +28,18 @@ import DialogTitle from '@material-ui/core/DialogTitle';
             />
         </DialogContent>
         <DialogActions>
+        <Button
+           onClick={() => props.onClose(false)}
+           color="primary"
+           variant="outlined"
+          >
+            Cancel
+          </Button>
+          <Button onClick={() => console.log('ADD')}
+        color="primary"
+        variant="contained">
+            Add
+          </Button>
         </DialogActions>
       </Dialog>
       </div>
