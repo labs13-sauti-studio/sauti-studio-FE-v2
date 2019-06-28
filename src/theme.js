@@ -50,6 +50,7 @@ export const GlobalStyle = createGlobalStyle`
 a { all: unset; }
 a { :hover { cursor: pointer; } }
 html {max-width: 100vw;}
-body {width: 100%;}
+html {background: 'black';}
+body {width: 100%; min-height: 100vh;}
 svg {width: auto;}
 `

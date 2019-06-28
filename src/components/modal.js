@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     maxWidth: '300px',
     width: '100%',
-    backgroundColor: 'lightgrey',
+    backgroundColor: 'black',
     boxShadow: theme.shadows[10],
     padding: '40px 20px',
     outline: 'none',
@@ -31,6 +31,8 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: '25px',
+    color: 'white',
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -70,7 +72,7 @@ function LoginModal() {
   const classes = useStyles()
 
   return (
-    <div>
+    <div style={pageStyle}>
       {/* <Button onClick={handleOpen}>Open Modal</Button> */}
       <Modal
         aria-labelledby="simple-modal-title"
@@ -84,6 +86,7 @@ function LoginModal() {
           </Typography>
 
           <GoogleLoginButton
+            style={loginButtonStyle}
             onClick={() =>
               (window.location.href = `${process.env.GATSBY_API_URL}/auth/google`)
             }
@@ -99,6 +102,14 @@ function LoginModal() {
       </Modal>
     </div>
   )
+}
+
+const loginButtonStyle = {
+  width: '90%',
+}
+
+const pageStyle = {
+  background: 'black',
 }
 
 export default LoginModal
