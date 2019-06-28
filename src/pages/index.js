@@ -156,6 +156,7 @@ width: 340px;
 height: 440px;
 background: #F2F5F8;
 border-radius: 8px;
+outline: 1px solid black;
 box-shadow: 0 0 20px -10px #000;
 padding: 20px 30px;
 max-width: calc(100vw - 40px);
@@ -333,12 +334,11 @@ const IndexPage = () => (
         style={{
           borderBottomColor: 'black',
           borderBottomWidth: 1,
-          marginLeft: 5,
-          marginRight: 5,
+          margin: 20
         }}
       ></hr>
       <Section4 style={contentCenter}>
-<FormStyle style={{ margin: '0 auto' }}>
+<FormStyle style={{ margin: '50px auto' }}>
       <Typography variant="h3">Contact Us</Typography>
 
     <div>
