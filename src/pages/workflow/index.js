@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import UserLayout from '@/userLayout'
 import { loadWorkflow, fetchResponses } from 'actions'
-import SortableList from '@/tree'
+import SortableTree from '@/tree'
 import DeleteWarningModal from '@/DeleteWarningModal'
 import { toggleDeleteModal, toggleResModal } from 'actions/responsesActions'
 import AddModal from '@/AddModal'
@@ -68,9 +68,7 @@ class WorkflowPage extends Component {
           <Divider style={{ margin: '1rem 0' }} />
         </Container>
         <Container>
-          {this.props.isLoadingResponses ? null : (
-            <SortableList items={responses} />
-          )}
+          <SortableTree></SortableTree>
         </Container>
       </UserLayout>
     )

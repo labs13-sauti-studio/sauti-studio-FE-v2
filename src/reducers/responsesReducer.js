@@ -12,6 +12,7 @@ import {
   DELETE_RES_START,
   DELETE_RES_SUCCESS,
   DELETE_RES_FAILURE,
+  UPDATE_ARRAY,
 } from 'actions/responsesActions'
 
 const initialState = {
@@ -41,7 +42,7 @@ const initialState = {
 const responsesReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_RESPONSES_START:
-      return { ...state, loadingResponses: true }
+      return { ...state, isLoadingResponses: true }
 
     case FETCH_RESPONSES_SUCCESS:
       return {
@@ -58,7 +59,7 @@ const responsesReducer = (state = initialState, action) => {
     case ADD_NEW_RESPONSE:
       return { ...state, ...action.payload }
 
-    case REORDER_RESPONSES:
+    case UPDATE_ARRAY:
       return { ...state, unSaved: action.payload }
 
     case FETCHED_FLAT_ARRAY:

@@ -10,9 +10,6 @@ export const FETCHED_FLAT_ARRAY = 'FETCHED_FLAT_ARRAY'
 export const fetchResponses = workflow => dispatch => {
   dispatch({ type: FETCH_RESPONSES_START })
 
-  // axiosInstance
-  //   .get(`/responses/${workflow}`)
-  //   .then(res => dispatch({ type: FETCHED_FLAT_ARRAY, payload: res.data }))
   axiosInstance
     .get(`/responses/${workflow}?tree=true`)
     .then(res => dispatch({ type: FETCH_RESPONSES_SUCCESS, payload: res.data }))
@@ -25,11 +22,13 @@ export const fetchResponses = workflow => dispatch => {
 }
 
 export const REORDER_RESPONSES = 'REORDER_RESPONSES'
-export const onSortEnd = ({ oldIndex, newIndex }) => dispatch => {
-  dispatch({
-    type: REORDER_RESPONSES,
-    payload: arrayMove(store.getState().responses.unSaved, oldIndex, newIndex),
-  })
+export const onSortEnd = array => dispatch => {
+  dispatch({ type: REORDER_RESPONSES, payload: array })
+}
+
+export const UPDATE_ARRAY = 'UPDATE_ARRAY'
+export const updateArray = array => dispatch => {
+  dispatch({ type: UPDATE_ARRAY, payload: array })
 }
 
 export const ADD_NEW_RESPONSE = 'ADD_NEW_RESPONSE'
