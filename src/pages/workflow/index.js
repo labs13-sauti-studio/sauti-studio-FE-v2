@@ -8,30 +8,23 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import UserLayout from '@/userLayout'
 import { loadWorkflow, fetchResponses } from 'actions'
-import SortableTree from '@/tree'
+import SortableTree from '@/SortableTree'
 import DeleteWarningModal from '@/DeleteWarningModal'
 import { toggleDeleteModal, toggleResModal } from 'actions/responsesActions'
 import AddModal from '@/AddModal'
 
 class WorkflowPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      text: '',
-    }
-  }
+  // handleInput = e => this.setState({ [e.target.name]: e.target.value })
 
-  handleInput = e => this.setState({ [e.target.name]: e.target.value })
+  // handleSubmit = e => {
+  //   e.preventDefault()
+  //   const { text } = this.state
+  //   const { dispatch } = this.props
+  //   const obj = { text }
 
-  handleSubmit = e => {
-    e.preventDefault()
-    const { text } = this.state
-    const { dispatch } = this.props
-    const obj = { text }
-
-    dispatch(updateUserInfo(obj))
-    dispatch(closeEditProfileModal())
-  }
+  //   // dispatch(updateUserInfo(obj))
+  //   // dispatch(closeEditProfileModal())
+  // }
 
   componentDidMount() {
     const workflow = this.props['*'].replace('workflow/', '')
@@ -40,7 +33,7 @@ class WorkflowPage extends Component {
   }
 
   render() {
-    const { category, name, responses } = this.props
+    const { category, name, responses, loading } = this.props
 
     return (
       <UserLayout>
@@ -60,16 +53,12 @@ class WorkflowPage extends Component {
           onClose={this.props.toggleDeleteModal}
           onConfirm={this.props.deleteResponse}
         ></DeleteWarningModal>
-        <Container>
-          <Typography variant="h3">{name}</Typography>
-          <Typography variant="h6" color="textSecondary">
-            {category}
-          </Typography>
-          <Divider style={{ margin: '1rem 0' }} />
-        </Container>
-        <Container>
-          <SortableTree></SortableTree>
-        </Container>
+        <Typography variant="h3">{name}</Typography>
+        <Typography variant="h6" color="textSecondary">
+          {category}
+        </Typography>
+        <Divider style={{ margin: '1rem 0' }} />
+        {loading ? 'loading...' : <SortableTree items={responses} />}
       </UserLayout>
     )
   }
@@ -82,7 +71,7 @@ export default connect(
     category: state.workflow.category,
     area_code: state.workflow.area_code,
     responses: state.responses.unSaved,
-    isLoadingResponses: state.responses.isLoadingResponses,
+    loading: state.responses.isLoadingResponses,
     isAddEditModalOpen: state.responses.isAddEditModalOpen,
     isDeleteModalOpen: state.responses.isDeleteModalOpen,
   }),

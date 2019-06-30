@@ -11,7 +11,7 @@ export const fetchResponses = workflow => dispatch => {
   dispatch({ type: FETCH_RESPONSES_START })
 
   axiosInstance
-    .get(`/responses/${workflow}?tree=true`)
+    .get(`/responses/${workflow}`)
     .then(res => dispatch({ type: FETCH_RESPONSES_SUCCESS, payload: res.data }))
     .catch(err =>
       dispatch({

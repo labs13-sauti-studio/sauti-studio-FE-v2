@@ -7,9 +7,7 @@ import { connect } from 'react-redux'
 
 class UserLayout extends Component {
   componentDidMount() {
-    const { dispatch } = this.props
-
-    dispatch(loadUserInfo())
+    loadUserInfo()
   }
 
   render() {
@@ -20,11 +18,12 @@ class UserLayout extends Component {
 
 UserLayout.propTypes = {
   user: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
-}
-export default connect(state => ({
-  user: state.user,
-}))(UserLayout)
-UserLayout.propTypes = {
   children: PropTypes.node,
 }
+
+export default connect(
+  state => ({
+    user: state.user,
+  }),
+  { loadUserInfo }
+)(UserLayout)

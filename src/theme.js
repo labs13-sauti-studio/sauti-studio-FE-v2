@@ -2,6 +2,12 @@ import { createMuiTheme } from '@material-ui/core/styles'
 import { createGlobalStyle, css } from 'styled-components'
 
 export const theme = {
+  light: '#f2f5f8',
+  dark: '#303030',
+  grey: '#454545',
+  red: '#e74c3d',
+  blue: '#035985',
+  yellow: '#ffba29',
   colors: {
     light: '#f2f5f8',
     dark: '#303030',

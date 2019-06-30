@@ -1,46 +1,32 @@
 import axios from 'axios'
+import { getFlatDataFromTree, getTreeFromFlatData } from 'react-sortable-tree'
 
 export const axiosInstance = axios.create({
   baseURL: process.env.GATSBY_API_URL,
   withCredentials: true,
 })
 
-export const ifItemChildren = item => !!item.children
+export const plantTree = array =>
+  getTreeFromFlatData({
+    flatData: array.map(node => ({
+      ...node,
+      title: node.text,
+    })),
+    getKey: node => node.id, // resolve a node's key
+    getParentKey: node => node.parent, // resolve a node's parent's key
+    rootKey: null, // The value of the parent key when there is no parent (i.e., at root level)
+  })
 
-/* const SortableList = connect(
-  state => ({
-    activeItem: state.responses.activeItem,
-  }),
-  { onSortEnd }
-)(({ items, activeItem, onSortEnd }) => {
-  const [expanded, setExpanded] = useState(activeItem)
+export const chopTree = tree =>
+  getFlatDataFromTree({
+    treeData: tree,
+    getNodeKey: ({ node }) => node.id, // This ensures your "id" properties are exported in the path
+    ignoreCollapsed: false, // Makes sure you traverse every node in the tree, not just the visible ones
+  }).map(({ node, path }) => ({
+    id: node.id,
+    name: node.name,
 
-  const handleChange = panel => (event, isExpanded) =>
-    setExpanded(isExpanded ? panel : false)
-
-  let subitems = []
-  return (
-    <SortableContainer
-      key={items.length}
-      onSortEnd={onSortEnd}
-      useDragHandle
-      expanded={expanded === activeItem}
-      onChange={handleChange(activeItem)}
-    >
-      {items.map((item, index) => (
-        <SortableItem
-          key={item.id}
-          index={index}
-          item={item}
-          expanded={activeItem === index}
-          handleChange={handleChange}
-          subitems={item.children}
-          onClick={() => {
-            subitems = item.children
-          }}
-        ></SortableItem>
-      ))}
-    </SortableContainer>
-  )
-})
- */
+    // The last entry in the path is this node's key
+    // The second to last entry (accessed here) is the parent node's key
+    parent: path.length > 1 ? path[path.length - 2] : null,
+  }))
