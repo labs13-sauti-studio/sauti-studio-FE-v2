@@ -11,6 +11,7 @@ export const plantTree = array =>
     flatData: array.map(node => ({
       ...node,
       title: node.text,
+      workflow: node.workflow,
     })),
     getKey: node => node.id, // resolve a node's key
     getParentKey: node => node.parent, // resolve a node's parent's key

@@ -58,7 +58,11 @@ class WorkflowPage extends Component {
           {category}
         </Typography>
         <Divider style={{ margin: '1rem 0' }} />
-        {loading ? 'loading...' : <SortableTree items={responses} />}
+        {loading ? (
+          'loading...'
+        ) : (
+          <SortableTree items={responses} active={this.props.active} />
+        )}
       </UserLayout>
     )
   }
@@ -74,6 +78,7 @@ export default connect(
     loading: state.responses.isLoadingResponses,
     isAddEditModalOpen: state.responses.isAddEditModalOpen,
     isDeleteModalOpen: state.responses.isDeleteModalOpen,
+    active: state.responses.modal,
   }),
   {
     toggleDeleteModal,
