@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
-import { Container, Divider } from '@material-ui/core'
+import { Divider } from '@material-ui/core'
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
 import { connect } from 'react-redux'
@@ -75,6 +75,7 @@ export default connect(
     category: state.workflow.category,
     area_code: state.workflow.area_code,
     responses: state.responses.unSaved,
+    loaded: state.responses.loaded,
     loading: state.responses.isLoadingResponses,
     isAddEditModalOpen: state.responses.isAddEditModalOpen,
     isDeleteModalOpen: state.responses.isDeleteModalOpen,

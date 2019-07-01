@@ -63,7 +63,11 @@ svg {width: auto;}
 
 const { light, dark, grey, red, blue, yellow } = theme.colors
 export const TreeStyles = styled.div`
+  border-radius: 10px;
+  border: 2px solid black;
   height: 50vh;
+  max-width: 100%;
+  margin: 1rem 0;
   background: ${dark};
   /**
  * Extra class applied to VirtualScroll through className prop

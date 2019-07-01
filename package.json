@@ -54,6 +54,7 @@
     "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-source-filesystem": "^2.0.37",
     "gatsby-transformer-sharp": "^2.1.20",
+    "lodash": "^4.17.11",
     "mdi-material-ui": "^6.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",

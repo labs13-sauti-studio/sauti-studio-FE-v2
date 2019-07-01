@@ -10,8 +10,8 @@ export const plantTree = array =>
   getTreeFromFlatData({
     flatData: array.map(node => ({
       ...node,
-      title: node.text,
       workflow: node.workflow,
+      index: node.index,
     })),
     getKey: node => node.id, // resolve a node's key
     getParentKey: node => node.parent, // resolve a node's parent's key
@@ -25,9 +25,37 @@ export const chopTree = tree =>
     ignoreCollapsed: false, // Makes sure you traverse every node in the tree, not just the visible ones
   }).map(({ node, path }) => ({
     id: node.id,
-    name: node.name,
+    title: node.title,
+    index: node.index,
 
     // The last entry in the path is this node's key
     // The second to last entry (accessed here) is the parent node's key
     parent: path.length > 1 ? path[path.length - 2] : null,
   }))
+
+export const findNewBranches = treeData =>
+  chopTree(treeData).filter(item => !item.id)
+
+export const findChangedBranched = (unSaved, loaded) => [
+  // first find items who's title has changed
+  ...unSaved
+    .filter(obj => obj.id)
+    .filter(
+      obj2 => loaded.find(obj3 => obj3.id === obj2.id).title !== obj2.title
+    ),
+  // then find items who's parent has changed
+  ...unSaved
+    .filter(obj => obj.id)
+    .filter(
+      obj2 => loaded.find(obj3 => obj3.id === obj2.id).parent !== obj2.parent
+    ),
+]
+
+export const areTreesEqual = (unSaved, loaded) => ({
+  added: findNewBranches(unSaved, loaded),
+  changed: findChangedBranched(unSaved, loaded),
+})
+
+// export const saveTree = data => {
+//   console.log(data)
+// }

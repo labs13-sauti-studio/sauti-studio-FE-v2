@@ -2,8 +2,6 @@ import {
   FETCH_RESPONSES_START,
   FETCH_RESPONSES_SUCCESS,
   FETCH_RESPONSES_FAILURE,
-  ADD_NEW_RESPONSE,
-  REORDER_RESPONSES,
   FETCHED_FLAT_ARRAY,
   CLICKED_RESPONSE,
   TOGGLE_RES_MODAL,
@@ -13,6 +11,9 @@ import {
   DELETE_RES_SUCCESS,
   DELETE_RES_FAILURE,
   UPDATE_ARRAY,
+  SAVE_TREE_START,
+  SAVE_TREE_SUCCESS,
+  SAVE_TREE_FAILURE,
 } from 'actions/responsesActions'
 
 const initialState = {
@@ -30,6 +31,7 @@ const initialState = {
   isLoadingResponses: false,
   isAddEditModalOpen: false,
   isDeleteModalOpen: false,
+  hasBeenLoaded: false,
   modal: {
     id: null,
     text: '',
@@ -50,14 +52,26 @@ const responsesReducer = (state = initialState, action) => {
         isLoadingResponses: false,
         loaded: action.payload,
         unSaved: action.payload,
-        activeItem: action.payload[0].id,
+        hasBeenLoaded: true,
       }
 
     case FETCH_RESPONSES_FAILURE:
       return { ...state, error: true, message: action.payload }
 
-    case ADD_NEW_RESPONSE:
-      return { ...state, ...action.payload }
+    case SAVE_TREE_START:
+      return { ...state, isLoadingResponses: true }
+
+    case SAVE_TREE_SUCCESS:
+      return {
+        ...state,
+        isLoadingResponses: false,
+        // loaded: action.payload,
+        // unSaved: action.payload,
+        hasBeenLoaded: true,
+      }
+
+    case SAVE_TREE_FAILURE:
+      return { ...state, error: true, message: action.payload }
 
     case UPDATE_ARRAY:
       return { ...state, unSaved: action.payload }
