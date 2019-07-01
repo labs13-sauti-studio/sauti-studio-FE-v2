@@ -3,12 +3,13 @@ import React, { useState } from 'react'
 import {
   default as ReactSortableTree,
   addNodeUnderParent,
-  removeNodeAtPath,
   changeNodeAtPath,
   toggleExpandedForAll,
+  getTreeFromFlatData,
+  getNodeAtPath,
 } from 'react-sortable-tree'
 import { setActiveRes, saveTree } from 'actions/responsesActions'
-import { plantTree, chopTree, findNewBranches, areTreesEqual } from 'helpers'
+import { chopTree, areTreesEqual, axiosInstance } from 'helpers'
 import { TreeStyles } from 'theme'
 import { connect } from 'react-redux'
 import {
@@ -21,36 +22,53 @@ import AddIcon from '@material-ui/icons/Add'
 import EditIcon from '@material-ui/icons/Edit'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
+import { Flex } from '@/utility'
+
+const createTree = (rows, settings) =>
+  getTreeFromFlatData({
+    flatData: rows.map(node => ({
+      ...node,
+      ...settings,
+    })),
+    getKey: node => node.id,
+    getParentKey: node => node.parent,
+    rootKey: null,
+  })
 
 const SortableTree = props => {
-  const [expanded, setExpanded] = useState(false)
+  // User Settings
+  const [settings, setSettings] = useState({
+    expanded: true,
+    expandParent: true,
+    addAsFirstChild: true,
+  })
+
+  // Initial tree state
   const [treeData, setTreeData] = useState(
-    toggleExpandedForAll({ treeData: plantTree(props.items), expanded })
+    getTreeFromFlatData({
+      flatData: props.items.map(node => ({
+        ...node,
+        ...settings,
+      })),
+      getKey: node => node.id,
+      getParentKey: node => node.parent,
+      rootKey: null,
+    })
   )
-  const newBranches = findNewBranches(treeData)
   const getNodeKey = ({ treeIndex }) => treeIndex
   return (
     <section>
       <Button
-        variant="contained"
-        color="primary"
+        variant="outlined"
+        color="secondary"
         onClick={() => {
-          props.saveTree(
-            areTreesEqual(chopTree(treeData), props.responses.loaded)
+          setSettings({ ...settings, expanded: !settings.expanded })
+          setTreeData(
+            toggleExpandedForAll({ treeData, expanded: !settings.expanded })
           )
         }}
       >
-        Save
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          setExpanded(!expanded)
-          setTreeData(toggleExpandedForAll({ treeData, expanded }))
-        }}
-      >
-        {!expanded ? 'Collapse' : 'Expand'}
+        {settings.expanded ? 'Collapse' : 'Expand'}
       </Button>
       {props.responses.hasBeenLoaded ? (
         <TreeStyles>
@@ -71,49 +89,76 @@ const SortableTree = props => {
                             treeData,
                             path,
                             getNodeKey,
-                            newNode: { ...node, title: event.target.value },
+                            newNode: {
+                              ...node,
+                              title: event.target.value,
+                            },
                           })
                         )
                       }
                     />
                   ) : (
-                    <Typography>{node.title}</Typography>
+                    <Typography>
+                      {node.id} {node.title} {node.parent}
+                    </Typography>
                   ),
                 buttons: [
-                  // ADD BUTTON
+                  // Add new response
                   <IconButton
                     aria-label="Add"
-                    onClick={() => {
-                      setTreeData(
-                        addNodeUnderParent({
-                          treeData,
-                          parentKey: path[path.length - 1],
-                          expandParent: true,
-                          getNodeKey,
-                          newNode: { title: `New Response` },
-                        }).treeData
-                      )
-                    }}
+                    size="small"
+                    onClick={async () =>
+                      axiosInstance
+                        .post(`responses/${props.workflow.id}`, {
+                          title: 'new item',
+                          parent: getNodeAtPath({
+                            treeData,
+                            path,
+                            getNodeKey,
+                          }).node.id,
+                        })
+                        .then(({ data: newNode }) => {
+                          props.setActiveRes(newNode)
+                          setTreeData(
+                            addNodeUnderParent({
+                              treeData,
+                              parentKey: path[path.length - 1],
+                              getNodeKey,
+                              newNode,
+                              ...settings,
+                            }).treeData
+                          )
+                        })
+                    }
                   >
                     <AddIcon />
                   </IconButton>,
-                  // DELETE BUTTON
+                  // Edit clicked response
                   <IconButton
-                    aria-label="Delete"
-                    onClick={() => {
-                      props.setActiveRes(node)
-                      console.log(newBranches)
-                    }}
+                    aria-label="Edit"
+                    size="small"
+                    onClick={() => props.setActiveRes(node)}
                   >
                     <EditIcon />
                   </IconButton>,
-                  // EDIT BUTTON
+                  // Delete current response
                   <IconButton
-                    aria-label="Edit"
+                    aria-label="Delete"
+                    size="small"
                     onClick={() =>
-                      setTreeData(
-                        removeNodeAtPath({ treeData, path, getNodeKey })
-                      )
+                      axiosInstance
+                        .delete(
+                          `responses/${
+                            getNodeAtPath({
+                              treeData,
+                              path,
+                              getNodeKey,
+                            }).node.id
+                          }`
+                        )
+                        .then(({ data: { current } }) =>
+                          setTreeData(createTree(current, settings))
+                        )
                     }
                   >
                     <DeleteIcon />
@@ -126,12 +171,6 @@ const SortableTree = props => {
       ) : (
         <LinearProgress />
       )}
-      <div>
-        <Typography variant="h2">Workflow</Typography>
-        {/* {JSON.stringify(props.workflow)} */}
-        <Typography variant="h2">Responses</Typography>
-        {/* {JSON.stringify(props.responses)} */}
-      </div>
     </section>
   )
 }

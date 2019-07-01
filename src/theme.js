@@ -65,7 +65,7 @@ const { light, dark, grey, red, blue, yellow } = theme.colors
 export const TreeStyles = styled.div`
   border-radius: 10px;
   border: 2px solid black;
-  height: 50vh;
+  height: 79vh;
   /* max-width: 100%; */
   margin: 1rem 0;
   padding: 1rem;

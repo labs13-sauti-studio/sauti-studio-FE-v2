@@ -24,7 +24,7 @@ export const chopTree = tree =>
     getNodeKey: ({ node }) => node.id, // This ensures your "id" properties are exported in the path
     ignoreCollapsed: false, // Makes sure you traverse every node in the tree, not just the visible ones
   }).map(({ node, path }) => ({
-    id: node.id,
+    id: node.id !== null ? 1 : null,
     title: node.title,
     index: node.index,
 
