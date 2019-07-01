@@ -54,6 +54,7 @@ export const findChangedBranched = (unSaved, loaded) => [
 export const areTreesEqual = (unSaved, loaded) => ({
   added: findNewBranches(unSaved, loaded),
   changed: findChangedBranched(unSaved, loaded),
+  deleted: [],
 })
 
 // export const saveTree = data => {

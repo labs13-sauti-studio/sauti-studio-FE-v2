@@ -51,39 +51,70 @@ export const setActiveRes = response => dispatch =>
   dispatch({ type: SET_ACTIVE_RES, payload: response })
 
 export const SAVE_TREE_START = 'SAVE_TREE_START'
+
+export const SAVE_TREE_CHANGES_START = 'SAVE_TREE_CHANGES_START'
+export const SAVE_TREE_CHANGES_SUCCESS = 'SAVE_TREE_CHANGES_SUCCESS'
+export const SAVE_TREE_CHANGES_FAILURE = 'SAVE_TREE_CHANGES_FAILURE'
+
+export const SAVE_TREE_ADDED_START = 'SAVE_TREE_ADDED_START'
+export const SAVE_TREE_ADDED_SUCCESS = 'SAVE_TREE_ADDED_SUCCESS'
+export const SAVE_TREE_ADDED_FAILURE = 'SAVE_TREE_ADDED_FAILURE'
+
+export const SAVE_TREE_DELETED_START = 'SAVE_TREE_DELETED_START'
+export const SAVE_TREE_DELETED_SUCCESS = 'SAVE_TREE_DELETED_SUCCESS'
+export const SAVE_TREE_DELETED_FAILURE = 'SAVE_TREE_DELETED_FAILURE'
+
 export const SAVE_TREE_EQUAL = 'SAVE_TREE_EQUAL'
 export const SAVE_TREE_SUCCESS = 'SAVE_TREE_SUCCESS'
 export const SAVE_TREE_FAILURE = 'SAVE_TREE_FAILURE'
 
 export const saveTree = rows => dispatch => {
-  console.log('TCL: added', rows.added)
-  // console.log('TCL: changed', changed)
-  console.log('TCL: rows', store.getState().workflow.id)
+  const workflow = store.getState().workflow.id
+  // dispatch({ type: SAVE_TREE_START })
+
+  //! SAVE CHANGES
   if (rows.changed.length > 0) {
-    dispatch({ type: SAVE_TREE_START })
+    dispatch({ type: SAVE_TREE_CHANGES_START })
     axiosInstance
-      .put(`/responses/${store.getState().workflow.id}/save`, rows)
+      .put(`/responses/${workflow}/save`, rows)
       .then(res => {
-        dispatch({ type: SAVE_TREE_SUCCESS })
+        dispatch({ type: SAVE_TREE_CHANGES_SUCCESS })
       })
       .catch(err =>
         dispatch({
-          type: SAVE_TREE_FAILURE,
-          msg: err.message,
+          type: SAVE_TREE_CHANGES_FAILURE,
+          message: err.message,
         })
       )
   }
+
+  //! SAVE ADDED RESPONSES
   if (rows.added.length > 0) {
-    dispatch({ type: SAVE_TREE_START })
+    dispatch({ type: SAVE_TREE_ADDED_START })
     axiosInstance
-      .post(`/responses/${store.getState().workflow.id}/save`, rows)
+      .post(`/responses/${workflow}/save`, rows)
       .then(res => {
-        dispatch({ type: SAVE_TREE_SUCCESS })
+        dispatch({ type: SAVE_TREE_ADDED_SUCCESS })
       })
       .catch(err =>
         dispatch({
-          type: SAVE_TREE_FAILURE,
-          msg: err.message,
+          type: SAVE_TREE_ADDED_FAILURE,
+          message: err.message,
+        })
+      )
+  }
+  //! SAVE ADDED RESPONSES
+  if (rows.deleted.length > 0) {
+    dispatch({ type: SAVE_TREE_DELETED_START })
+    axiosInstance
+      .post(`/responses/${workflow}/save`, rows)
+      .then(res => {
+        dispatch({ type: SAVE_TREE_DELETED_SUCCESS })
+      })
+      .catch(err =>
+        dispatch({
+          type: SAVE_TREE_DELETED_FAILURE,
+          message: err.message,
         })
       )
   } else {

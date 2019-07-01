@@ -5,6 +5,7 @@ import {
   addNodeUnderParent,
   removeNodeAtPath,
   changeNodeAtPath,
+  toggleExpandedForAll,
 } from 'react-sortable-tree'
 import { setActiveRes, saveTree } from 'actions/responsesActions'
 import { plantTree, chopTree, findNewBranches, areTreesEqual } from 'helpers'
@@ -22,7 +23,10 @@ import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 const SortableTree = props => {
-  const [treeData, setTreeData] = useState(plantTree(props.items))
+  const [expanded, setExpanded] = useState(false)
+  const [treeData, setTreeData] = useState(
+    toggleExpandedForAll({ treeData: plantTree(props.items), expanded })
+  )
   const newBranches = findNewBranches(treeData)
   const getNodeKey = ({ treeIndex }) => treeIndex
   return (
@@ -30,82 +34,94 @@ const SortableTree = props => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() =>
+        onClick={() => {
           props.saveTree(
             areTreesEqual(chopTree(treeData), props.responses.loaded)
           )
-        }
+        }}
       >
         Save
       </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          setExpanded(!expanded)
+          setTreeData(toggleExpandedForAll({ treeData, expanded }))
+        }}
+      >
+        {!expanded ? 'Collapse' : 'Expand'}
+      </Button>
       {props.responses.hasBeenLoaded ? (
         <TreeStyles>
-          <ReactSortableTree
-            treeData={treeData}
-            onChange={treeData => setTreeData(treeData)}
-            generateNodeProps={({ node, path }) => ({
-              title:
-                node.id === props.active.id ? (
-                  <TextField
-                    id="standard-name"
-                    margin="normal"
-                    value={node.title}
-                    onChange={event =>
+          <div style={{ height: '100%' }}>
+            <ReactSortableTree
+              treeData={treeData}
+              onChange={treeData => setTreeData(treeData)}
+              generateNodeProps={({ node, path }) => ({
+                title:
+                  node.id === props.active.id ? (
+                    <TextField
+                      id="standard-name"
+                      margin="normal"
+                      value={node.title}
+                      onChange={event =>
+                        setTreeData(
+                          changeNodeAtPath({
+                            treeData,
+                            path,
+                            getNodeKey,
+                            newNode: { ...node, title: event.target.value },
+                          })
+                        )
+                      }
+                    />
+                  ) : (
+                    <Typography>{node.title}</Typography>
+                  ),
+                buttons: [
+                  // ADD BUTTON
+                  <IconButton
+                    aria-label="Add"
+                    onClick={() => {
                       setTreeData(
-                        changeNodeAtPath({
+                        addNodeUnderParent({
                           treeData,
-                          path,
+                          parentKey: path[path.length - 1],
+                          expandParent: true,
                           getNodeKey,
-                          newNode: { ...node, title: event.target.value },
-                        })
+                          newNode: { title: `New Response` },
+                        }).treeData
+                      )
+                    }}
+                  >
+                    <AddIcon />
+                  </IconButton>,
+                  // DELETE BUTTON
+                  <IconButton
+                    aria-label="Delete"
+                    onClick={() => {
+                      props.setActiveRes(node)
+                      console.log(newBranches)
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>,
+                  // EDIT BUTTON
+                  <IconButton
+                    aria-label="Edit"
+                    onClick={() =>
+                      setTreeData(
+                        removeNodeAtPath({ treeData, path, getNodeKey })
                       )
                     }
-                  />
-                ) : (
-                  <Typography>{node.title}</Typography>
-                ),
-              buttons: [
-                // ADD BUTTON
-                <IconButton
-                  aria-label="Add"
-                  onClick={() =>
-                    setTreeData(
-                      addNodeUnderParent({
-                        treeData,
-                        parentKey: path[path.length - 1],
-                        expandParent: true,
-                        getNodeKey,
-                        newNode: { title: `New Response` },
-                      }).treeData
-                    )
-                  }
-                >
-                  <AddIcon />
-                </IconButton>,
-                // DELETE BUTTON
-                <IconButton
-                  aria-label="Delete"
-                  onClick={() => {
-                    props.setActiveRes(node)
-                    console.log(newBranches)
-                  }}
-                >
-                  <EditIcon />
-                </IconButton>,
-                // EDIT BUTTON
-                <IconButton
-                  aria-label="Edit"
-                  onClick={() =>
-                    setTreeData(
-                      removeNodeAtPath({ treeData, path, getNodeKey })
-                    )
-                  }
-                >
-                  <DeleteIcon />
-                </IconButton>,
-              ],
-            })}
-          />
+                  >
+                    <DeleteIcon />
+                  </IconButton>,
+                ],
+              })}
+            />
+          </div>
         </TreeStyles>
       ) : (
         <LinearProgress />
