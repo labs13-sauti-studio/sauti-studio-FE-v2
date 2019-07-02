@@ -6,3 +6,4 @@
 
 // You can delete this file if you're not using it
 export { default as wrapRootElement } from './src/components/wrapRootElement'
+// require('react-sortable-tree/style.css')

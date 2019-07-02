@@ -5,7 +5,7 @@ import LoginModal from '@/modal'
 const LoginPage = () => <LoginModal style={pageStyle}></LoginModal>
 
 const pageStyle = {
-    backgroundColor: 'black'
+  backgroundColor: 'black',
 }
-  
+
 export default LoginPage

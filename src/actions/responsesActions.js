@@ -1,5 +1,4 @@
 import { axiosInstance } from 'helpers'
-import arrayMove from 'array-move'
 import store from 'src/store'
 
 export const FETCH_RESPONSES_START = 'FETCH_RESPONSES_START'
@@ -10,11 +9,8 @@ export const FETCHED_FLAT_ARRAY = 'FETCHED_FLAT_ARRAY'
 export const fetchResponses = workflow => dispatch => {
   dispatch({ type: FETCH_RESPONSES_START })
 
-  // axiosInstance
-  //   .get(`/responses/${workflow}`)
-  //   .then(res => dispatch({ type: FETCHED_FLAT_ARRAY, payload: res.data }))
   axiosInstance
-    .get(`/responses/${workflow}?tree=true`)
+    .get(`/responses/${workflow}`)
     .then(res => dispatch({ type: FETCH_RESPONSES_SUCCESS, payload: res.data }))
     .catch(err =>
       dispatch({
@@ -24,17 +20,10 @@ export const fetchResponses = workflow => dispatch => {
     )
 }
 
-export const REORDER_RESPONSES = 'REORDER_RESPONSES'
-export const onSortEnd = ({ oldIndex, newIndex }) => dispatch => {
-  dispatch({
-    type: REORDER_RESPONSES,
-    payload: arrayMove(store.getState().responses.unSaved, oldIndex, newIndex),
-  })
+export const UPDATE_ARRAY = 'UPDATE_ARRAY'
+export const updateArray = array => dispatch => {
+  dispatch({ type: UPDATE_ARRAY, payload: array })
 }
-
-export const ADD_NEW_RESPONSE = 'ADD_NEW_RESPONSE'
-export const addRes = res => dispatch =>
-  dispatch({ type: ADD_NEW_RESPONSE, payload: res })
 
 export const CLICKED_RESPONSE = 'CLICKED_RESPONSE'
 export const clickedResponse = id => dispatch => {
@@ -60,6 +49,81 @@ export const toggleDeleteModal = bool => dispatch =>
 export const SET_ACTIVE_RES = 'SET_ACTIVE_RES'
 export const setActiveRes = response => dispatch =>
   dispatch({ type: SET_ACTIVE_RES, payload: response })
+
+export const SAVE_TREE_START = 'SAVE_TREE_START'
+
+export const SAVE_TREE_CHANGES_START = 'SAVE_TREE_CHANGES_START'
+export const SAVE_TREE_CHANGES_SUCCESS = 'SAVE_TREE_CHANGES_SUCCESS'
+export const SAVE_TREE_CHANGES_FAILURE = 'SAVE_TREE_CHANGES_FAILURE'
+
+export const SAVE_TREE_ADDED_START = 'SAVE_TREE_ADDED_START'
+export const SAVE_TREE_ADDED_SUCCESS = 'SAVE_TREE_ADDED_SUCCESS'
+export const SAVE_TREE_ADDED_FAILURE = 'SAVE_TREE_ADDED_FAILURE'
+
+export const SAVE_TREE_DELETED_START = 'SAVE_TREE_DELETED_START'
+export const SAVE_TREE_DELETED_SUCCESS = 'SAVE_TREE_DELETED_SUCCESS'
+export const SAVE_TREE_DELETED_FAILURE = 'SAVE_TREE_DELETED_FAILURE'
+
+export const SAVE_TREE_EQUAL = 'SAVE_TREE_EQUAL'
+export const SAVE_TREE_SUCCESS = 'SAVE_TREE_SUCCESS'
+export const SAVE_TREE_FAILURE = 'SAVE_TREE_FAILURE'
+
+export const saveTree = ({ changed, added, deleted }) => dispatch => {
+  const workflow = store.getState().workflow.id
+  // dispatch({ type: SAVE_TREE_START })
+
+  //! SAVE CHANGES
+  if (changed.length > 0) {
+    dispatch({ type: SAVE_TREE_CHANGES_START })
+    axiosInstance
+      .put(`/responses/${workflow}/save`, changed)
+      .then(res => {
+        dispatch({ type: SAVE_TREE_CHANGES_SUCCESS })
+      })
+      .catch(err =>
+        dispatch({
+          type: SAVE_TREE_CHANGES_FAILURE,
+          message: err.message,
+        })
+      )
+  }
+
+  //! SAVE ADDED RESPONSES
+  if (added.length > 0) {
+    dispatch({ type: SAVE_TREE_ADDED_START })
+    axiosInstance
+      .post(`/responses/${workflow}/save`, added)
+      .then(res => {
+        dispatch({ type: SAVE_TREE_ADDED_SUCCESS })
+      })
+      .catch(err =>
+        dispatch({
+          type: SAVE_TREE_ADDED_FAILURE,
+          message: err.message,
+        })
+      )
+  }
+  //! SAVE ADDED RESPONSES
+  if (deleted.length > 0) {
+    dispatch({ type: SAVE_TREE_DELETED_START })
+    axiosInstance
+      .post(`/responses/${workflow}/save`, deleted)
+      .then(res => {
+        dispatch({ type: SAVE_TREE_DELETED_SUCCESS })
+      })
+      .catch(err =>
+        dispatch({
+          type: SAVE_TREE_DELETED_FAILURE,
+          message: err.message,
+        })
+      )
+  } else {
+    dispatch({
+      type: SAVE_TREE_EQUAL,
+      payload: 'States are equal',
+    })
+  }
+}
 
 export const DELETE_RES_START = 'DELETE_RES_START'
 export const DELETE_RES_SUCCESS = 'DELETE_RES_SUCCESS'
