@@ -64,21 +64,8 @@ Passport is authentication middleware for Node.js. Extremely flexible and modula
 
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
-    *  GOOGLE_CLIENT_ID=
-    *  GOOGLE_CLIENT_SECRET=
-    *  JWT_SECRET=
-    *  SESSION_COOKIE=
-    *  FRONTEND_URL=
-    *  DATABASE_URL=
-    *  REDIRECT_URL=
-    *  FACEBOOK_CLIENT_ID=
-    *  FACEBOOK_CLIENT_SECRET=
-    *  AT_API_KEY=
-    *  PUSHER_APP_ID=
-    *  PUSHER_KEY=
-    *  PUSHER_SECRET=
-    *  POSTGRES_URL=
-
+    *  GATSBY_API_URL=
+    
 # Installation Instructions
 
 `yarn install`
@@ -134,7 +121,6 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 ## Documentation
 
 See [Backend Documentation](https://github.com/labs13-sauti-studio/labs13-sauti-studio-BE/blob/master/README.md) for details on the backend of our project.
-
 ```
 
 ```
