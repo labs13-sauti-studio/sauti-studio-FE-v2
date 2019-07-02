@@ -58,11 +58,7 @@ class WorkflowPage extends Component {
           {category}
         </Typography>
         <Divider style={{ margin: '1rem 0' }} />
-        {loading ? (
-          'loading...'
-        ) : (
-          <SortableTree items={responses} active={this.props.active} />
-        )}
+        {loading ? 'loading...' : <SortableTree items={responses} />}
       </UserLayout>
     )
   }
