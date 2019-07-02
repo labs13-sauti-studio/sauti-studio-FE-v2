@@ -1,149 +1,85 @@
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline, feel free to add your own flare to it.
+# Sauti Design Studio
 
-🚫 The numbers 1️⃣ through 5️⃣ next to each item represent the week that part of the docs needs to be comepleted by. Make sure to delete the numbers by the end of Labs.
+You can find the deployed project at [Sauti Design Studio](https://sautistudio.netlify.com/).
 
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
+## Contributors
 
-# 1️⃣ Sauti Design Studio
-
-1️⃣ You can find the deployed project at [🚫Sauti Design Studio](🚫https://sautistudio.netlify.com/).
-
-## 4️⃣ Contributors
-
-🚫Add contributor info below, make sure add images and edit the social links for each member. Add to or delete these place-holders as needed
-
-|                                       [Juru Mugenzi](https://github.com/jurusteve)                                        |                                       [Tristan Grovender](https://github.com/tristangrovender)                                        |                                       [Garrett Weems](https://github.com/glweems)                                        |                                       [Tohm Lev](https://github.com/tohmlev)                                        |                                       [Adam McKenney](https://github.com/DaftBeowulf)                                        |
+|                                       [Juru Mugenzi](https://github.com/jurusteve)                                        |                                       [Tristan Grovender](https://github.com/tristangrovender)                                        |                                       [Garrett Weems](https://github.com/glweems)                                        |                                       [Tohm Lev](https://github.com/tohmlev)                                        |                                       [Alan Perez](https://github.com/alanperez)                                        |
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
 |                      [<img src="https://avatars1.githubusercontent.com/u/19935372?s=460&v=4" width = "200" />](https://github.com/)                       |                      [<img src="https://avatars0.githubusercontent.com/u/46428421?s=460&v=4" width = "200" />](https://github.com/)                       |                      [<img src="https://avatars1.githubusercontent.com/u/32476858?s=460&v=4" width = "200" />](https://github.com/)                       |                      [<img src="https://avatars1.githubusercontent.com/u/49999093?s=460&v=4" width = "200" />](https://github.com/)                       |                      [<img src="https://avatars3.githubusercontent.com/u/34550186?s=460&v=4" width = "200" />](https://github.com/)                       |
-|                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jurusteve)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tristangrovender)             |           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/glweems)            |          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tohmlev)           |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)             |
-| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jurustevemugenzi/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/tristan-grovender-440a54173/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/garrett-weems-ab2106164) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/tohm-lev-18666a67/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/adam-mckenney/) |
+|                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jurusteve)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tristangrovender)             |           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/glweems)            |          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tohmlev)           |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/alanperez)             |
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jurustevemugenzi/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/tristan-grovender-440a54173/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/garrett-weems-ab2106164) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/tohm-lev-18666a67/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/alan-perez-25a198185/) |
 
 <br>
 <br>
 
-
-🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
-
-![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
-![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
-![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)](netlify link goes in these parenthesis)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
-🚫 more info on using badges [here](https://github.com/badges/shields)
 
 ## Project Overview
 
-1️⃣ [Trello Board](🚫https://trello.com/b/Kt9QUwpw/labs13-sauti-studio)
+[Trello Board](https://trello.com/b/Kt9QUwpw/labs13-sauti-studio)
 
-1️⃣ [Product Canvas](🚫https://projects.invisionapp.com/share/YAS77O8SMTK#/screens)
+[Product Canvas](https://projects.invisionapp.com/share/YAS77O8SMTK#/screens)
 
-1️⃣ [UX Design files](🚫add link to design files here) - 🚫 delete if not applicable
+Sauti Studio + Design is a desktop product that aims to serve the East African communities by providing a simple tool that will allow individuals with no programming skills to build and customise a text based app to share information and knowledge. Sauti Studio + Design encourages anyone who experience the problems stemming from lack of information to take a stand and design their own solutions by laying out a USSD text-flow that can be accessed via simple phone.
 
-🚫 Replace lorem ipsum with a description of your project
+Essentially, Sauti Studio + Design is a digital tool that will provide a  UI for building APIs designed to handle SMS/USSD requests.  User's should be able to build a simplified "flow" which saves as a series of nodes and connections.  This will also require thinking about the resulting API, which when sent a text query (with Session ID), returns the appropriate response. This REST API can then be integrated into Sauti’s country specific USSD aggregator.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-### 4️⃣ Key Features
-
-- feature one
-- feature two
-- feature three
-- feature four
-- feature five
-
-## 1️⃣ Tech Stack
+## Tech Stack
 
 ### Front end built using:
 
 #### React/Gatsbyjs
 
-🚫 Why did you choose this framework?
+Why did you choose this framework?
 
 - Server-side rendering
 - Quick loading times
 - Industry standard
 - SEO
 
-🚫List the rest of the front end features and libraries in the same format as the framework above.
+#### Front end deployed to `Netlify`
 
-#### Front end deployed to `🚫Netlify`
+#### [Back end](https://github.com/labs13-sauti-studio/labs13-sauti-studio-BE) built using:
 
-#### [Back end](🚫https://github.com/labs13-sauti-studio/labs13-sauti-studio-BE) built using:
+#### Express JS
 
-#### 🚫 back end framework goes here
-
-- point one
-- point two
-- point three
-
-🚫 List the rest of the back end end features and libraries in the same format as the framework above
+- Express has a large community of users.
+- Express is the most matured framework for Node.js with 5+ years of use.
+- Express offers a quick and simple way to get a server up and running.
 
 # APIs
 
-## 2️⃣ Oauth
+### Africa's Talking
+- Africa's talking was a no-brainer since our stakeholder's company is already using it in production.
+- Africa's talking also works with the  ussd-menu-builder library which we are used to reduce workload.
+- Africa's talking services East Africa, which is our target audience.
 
-🚫Replace text below with a description of the API
+## Oauth
 
-Water's like me. It's laaazy ... Boy, it always looks for the easiest way to do things A little happy sunlight shining through there. Let all these little things happen. Don't fight them. Learn to use them. Even the worst thing we can do here is good.
+### Passport.js
 
-## 2️⃣ Payment API here
+Passport is authentication middleware for Node.js. Extremely flexible and modular, Passport can be unobtrusively dropped in to any Express-based web application. A comprehensive set of strategies support authentication using a username and password, Facebook, Twitter, and more.
 
-🚫Replace text below with a description of the API
-
-This is the way you take out your flustrations. Get away from those little Christmas tree things we used to make in school. Isn't it fantastic that you can change your mind and create all these happy things? Everything's not great in life, but we can still find beauty in it.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-You can do anything your heart can imagine. In life you need colors. This is where you take out all your hostilities and frustrations. It's better than kicking the puppy dog around and all that so. I'm sort of a softy, I couldn't shoot Bambi except with a camera. Trees get lonely too, so we'll give him a little friend. We'll lay all these little funky little things in there.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-When you do it your way you can go anywhere you choose. Let your heart take you to wherever you want to be. If I paint something, I don't want to have to explain what it is. A tree needs to be your friend if you're going to paint him. That's a son of a gun of a cloud. Even the worst thing we can do here is good.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-Volunteering your time; it pays you and your whole community fantastic dividends. Maybe there's a happy little waterfall happening over here. You can spend all day playing with mountains. We don't have to be committed. We are just playing here. You have freedom here. The only guide is your heart. It's cold, but it's beautiful.
-
-# 3️⃣ Environment Variables
+# Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
-🚫These are just examples, replace them with the specifics for your app
+    *  GOOGLE_CLIENT_ID=
+    *  GOOGLE_CLIENT_SECRET=
+    *  JWT_SECRET=
+    *  SESSION_COOKIE=
+    *  FRONTEND_URL=
+    *  DATABASE_URL=
+    *  REDIRECT_URL=
+    *  FACEBOOK_CLIENT_ID=
+    *  FACEBOOK_CLIENT_SECRET=
+    *  AT_API_KEY=
+    *  PUSHER_APP_ID=
+    *  PUSHER_KEY=
+    *  PUSHER_SECRET=
+    *  POSTGRES_URL=
 
-    *  REACT_APP_apiKey - this is your Google API key, which can be generated in the Google Cloud Console
-    *  REACT_APP_authDomain - when you set up your Firebase project, this information will be in the dashboard
-    *  REACT_APP_databaseURL - in the Firebase dashboard
-    *  REACT_APP_projectID - in the Firebase dashboard
-    *  REACT_APP_storageBucket - in the Firebase dashboard
-    *  REACT_APP_messagingSenderId - in the Firebase dashboard
-    *  REACT_APP_stripe_API - this is your public Stripe API key, generated in the Stripe dashboard
-    *  REACT_APP_backendURL - optional for your local development server
-    *  REACT_APP_clientid - this is the Stripe_connect clientID, generated in Stripe_connect settings
-    *  REACT_APP_stripe_plan - this is the ID for a second Stripe subscription plan, generated under Stripe products
-
-# 5️⃣ Content Licenses
-
-🚫For all content - images, icons, etc, use this table to document permission of use. Remove the two placeholders and add you content to this table
-
-| Image Filename | Source / Creator | License                                                                      |
-| -------------- | ---------------- | ---------------------------------------------------------------------------- |
-| doodles.png    | Nicole Bennett   | [Creative Commons](https://www.toptal.com/designers/subtlepatterns/doodles/) |
-| rings.svg      | Sam Herbert      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
-
-# 4️⃣ Testing
-
-🚫Document what you used for testing and why
-
-# 4️⃣ Installation Instructions
+# Installation Instructions
 
 `yarn install`
 or
@@ -151,11 +87,14 @@ or
 
 ## Other Scripts
 
-🚫replace these examples with your own
-_ build - creates a build of the application
-_ start - starts the production server after a build is created
-_ test - runs tests in **tests** directory \* eject - copy the configuration files and dependencies into the project so you have full control over them
-_ lint - runs eslint on your project and displays all linting errors \* lint:fix - runs eslint and fixes all fixable linting errors
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write src/**/*.{js,jsx}",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "lint": "eslint .",
+    "lint:fix": "eslint --ignore-path .gitignore . --fix",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
 
 # Contributing
 
