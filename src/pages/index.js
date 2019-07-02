@@ -50,7 +50,7 @@ const Section1 = styled.section`
     button {
       margin-bottom: 4rem;
     }
-   `}
+`}
 `
 const Section2 = styled.section`
   display: grid;
@@ -125,19 +125,19 @@ const VideoMedia = styled.section`
 `
 
 const FormStyle = styled.section`
-width: 340px;
-height: 440px;
-background: #F2F5F8;
-border-radius: 8px;
-outline: 1px solid black;
-box-shadow: 0 0 20px -10px #000;
-padding: 20px 30px;
-max-width: calc(100vw - 40px);
-box-sizing: border-box;
-font-family: 'Lato',sans-serif;
-position: relative;
-textAlign: center,
-margin: 0 auto,
+  width: 340px;
+  height: 440px;
+  background: #f2f5f8;
+  border-radius: 8px;
+  outline: 1px solid black;
+  box-shadow: 0 0 20px -10px #000;
+  padding: 20px 30px;
+  max-width: calc(100vw - 40px);
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+  position: relative;
+  text-align: center;
+  margin: 0 auto;
 `
 const contentCenter = {
   margin: '0 auto',

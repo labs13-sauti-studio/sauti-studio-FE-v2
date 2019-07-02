@@ -11,7 +11,7 @@ const initialUserState = {
   id: null,
   company_name: null,
   country: null,
-  display_name: 'Garrett Weems',
+  display_name: '',
   loading: false,
   error: null,
   msg: null,
