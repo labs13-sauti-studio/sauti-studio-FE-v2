@@ -10,7 +10,7 @@ const initialWorkflowState = {
   area_code: null,
   category: null,
   client_id: null,
-  question_id: null,
+  code: null,
   loading: false,
   msg: null,
   error: null,

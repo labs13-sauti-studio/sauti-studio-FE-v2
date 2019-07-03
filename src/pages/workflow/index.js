@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
-import { Divider } from '@material-ui/core'
+import { Divider, LinearProgress } from '@material-ui/core'
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
 import { connect } from 'react-redux'
@@ -14,18 +14,6 @@ import { toggleDeleteModal, toggleResModal } from 'actions/responsesActions'
 import AddModal from '@/AddModal'
 
 class WorkflowPage extends Component {
-  // handleInput = e => this.setState({ [e.target.name]: e.target.value })
-
-  // handleSubmit = e => {
-  //   e.preventDefault()
-  //   const { text } = this.state
-  //   const { dispatch } = this.props
-  //   const obj = { text }
-
-  //   // dispatch(updateUserInfo(obj))
-  //   // dispatch(closeEditProfileModal())
-  // }
-
   componentDidMount() {
     const workflow = this.props['*'].replace('workflow/', '')
     this.props.loadWorkflow(workflow)
@@ -33,32 +21,19 @@ class WorkflowPage extends Component {
   }
 
   render() {
-    const { category, name, responses, loading } = this.props
+    const { category, name, responses, code, loading } = this.props
 
     return (
       <UserLayout>
-        <AddModal
-          open={this.props.isAddEditModalOpen}
-          title="Delete This Response"
-          subtitle="Are you sure?
-          This will delete all of the Responses following."
-          onClose={this.props.toggleResModal}
-        ></AddModal>
-
-        <DeleteWarningModal
-          open={this.props.isDeleteModalOpen}
-          title="Delete This Response"
-          subtitle="Are you sure?
-          This will delete all of the Responses following."
-          onClose={this.props.toggleDeleteModal}
-          onConfirm={this.props.deleteResponse}
-        ></DeleteWarningModal>
         <Typography variant="h3">{name}</Typography>
         <Typography variant="h6" color="textSecondary">
           {category}
         </Typography>
+        <Typography variant="h6" color="textSecondary">
+          {code}
+        </Typography>
         <Divider style={{ margin: '1rem 0' }} />
-        {loading ? 'loading...' : <SortableTree items={responses} />}
+        {loading ? <LinearProgress /> : <SortableTree items={responses} />}
       </UserLayout>
     )
   }

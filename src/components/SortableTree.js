@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable import/no-named-default */
 import React, { useState } from 'react'
 import {
@@ -24,6 +25,15 @@ import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { Flex } from '@/utility'
 
+// Example Demo Workflow
+const exampleFlow = [
+  { id: 1, title: 'Company Info', parent: null, index: 1 },
+  { id: 2, title: 'Office Hours', parent: null, index: 2 },
+  { id: 3, title: 'Sauti Studio Design', parent: 1, index: 1 },
+  { id: 4, title: 'Monday - Friday 9AM-5PM', parent: 2, index: 1 },
+  { id: 5, title: 'Company Holidays', parent: 2, index: 2 },
+]
+
 const createTree = (rows, settings) =>
   getTreeFromFlatData({
     flatData: rows.map(node => ({
@@ -44,30 +54,78 @@ const SortableTree = props => {
   })
 
   // Initial tree state
-  const [treeData, setTreeData] = useState(createTree(props.items, settings))
+  const [treeData, setTreeData] = useState(
+    props.items.length === 0 ? [] : createTree(props.items, settings)
+  )
+  const [title, setTitle] = useState('')
   const getNodeKey = ({ treeIndex }) => treeIndex
   return (
     <section>
-      <Button
-        variant="outlined"
-        color="secondary"
-        onClick={() => {
-          setSettings({ ...settings, expanded: !settings.expanded })
-          setTreeData(
-            toggleExpandedForAll({ treeData, expanded: !settings.expanded })
-          )
-        }}
-      >
-        {settings.expanded ? 'Collapse' : 'Expand'}
-      </Button>
+      <Flex>
+        <div>
+          <TextField
+            id="standard-name"
+            variant="outlined"
+            margin="regular"
+            value={title}
+            onChange={event => setTitle(event.target.value)}
+            onKeyDown={event => {
+              if (event.keyCode === 13) {
+                axiosInstance.post(`/responses/${props.workflow.id}`, {
+                  title,
+                })
+                setActiveRes({ id: null })
+                setTitle('')
+              }
+            }}
+          />
+          <Button
+            variant="outlined"
+            color="primary"
+            style={{ marginLeft: '1rem' }}
+            onClick={() => {
+              axiosInstance
+                .post(`/responses/${props.workflow.id}`, {
+                  title,
+                })
+                .then(({ data: { total } }) => {
+                  setTreeData(createTree(total, settings))
+                  setTitle('')
+                })
+            }}
+          >
+            Add Root
+          </Button>
+        </div>
+        <div>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={() => {
+              setSettings({ ...settings, expanded: !settings.expanded })
+              setTreeData(
+                toggleExpandedForAll({ treeData, expanded: !settings.expanded })
+              )
+            }}
+          >
+            {settings.expanded ? 'Collapse' : 'Expand'}
+          </Button>
+        </div>
+      </Flex>
       {props.loading ? (
         <TreeStyles>
           <ReactSortableTree
             treeData={treeData}
-            onMoveNode={({ node }) =>
-              axiosInstance.put(`responses/${node.id}`, node)
-            }
-            onChange={treeData => setTreeData(treeData)}
+            onMoveNode={({ node, nextIndex }) => {
+              axiosInstance.put(`responses/${node.id}`, {
+                ...node,
+                index: nextIndex,
+              })
+            }}
+            onChange={treeData => {
+              // console.log(opts)
+              setTreeData(treeData)
+            }}
             generateNodeProps={({ node, path }) => ({
               title:
                 node.id === props.active.id ? (

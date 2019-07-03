@@ -3,7 +3,6 @@ import React from 'react'
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import List from '@material-ui/core/List'
@@ -22,7 +21,7 @@ import { connect } from 'react-redux'
 import { toggleSidebar } from 'actions'
 import PropTypes from 'prop-types'
 import Avatar from '@material-ui/core/Avatar'
-import { navigate } from '../../node_modules/gatsby-link/index'
+import { navigate } from 'gatsby'
 
 function Dashboard({ user, sideBarData, isSidebarOpen, children, dispatch }) {
   const classes = useStyles()
@@ -30,7 +29,6 @@ function Dashboard({ user, sideBarData, isSidebarOpen, children, dispatch }) {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -84,7 +82,7 @@ function Dashboard({ user, sideBarData, isSidebarOpen, children, dispatch }) {
           ))}
         </List>
         <Divider />
-        {/* <List>
+        <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
@@ -93,7 +91,12 @@ function Dashboard({ user, sideBarData, isSidebarOpen, children, dispatch }) {
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List> */}
+        </List>
+        <List>
+          <ListItem button>
+            <ListItemText primary="Keep sidebar open" />
+          </ListItem>
+        </List>
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -118,6 +121,7 @@ Dashboard.propTypes = {
 export default connect(state => ({
   sideBarData: state.ui.sideBarData,
   isSidebarOpen: state.ui.isSidebarOpen,
+  settings: state.user.settings,
 }))(Dashboard)
 
 const drawerWidth = 240
