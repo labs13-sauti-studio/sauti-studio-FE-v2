@@ -1,13 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import Home from './pages/home.js';
+import Header from './components/header';
+import Navbar from './components/navbar';
+import Contact from './components/contactForm';
+import Footer from './components/footer';
+
 
 import './App.css';
+
 
 function App() {
   return (
     <div className="App">
-      <Home /> 
+      <Home />
+      <Header />
+      <Navbar />
+      <Contact />
+      <Footer />
       
     </div>
   );
