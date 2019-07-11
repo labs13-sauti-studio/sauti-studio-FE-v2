@@ -1,37 +1,32 @@
-import React, { Component } from 'react';
-import '../App.css';
-
+import React, { Component } from "react"
+import "../App.css"
 
 import {
   BrowserRouter as Router,
   Route,
   Link,
   NavLink,
-  withRouter
-} from "react-router-dom";
-
-
+  withRouter,
+} from "react-router-dom"
 
 class TopRightContainer extends React.Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props)
 
-        this.state ={
-            
+    this.state = {}
+  }
 
-            }
-        }
+  render() {
+    console.log(this.props.reviewsey)
 
-    render(){
-
-        console.log(this.props.reviewsey);
-
-        return(
-            <div>
-                <Link to="/login">Login Thingy!</Link>
-            </div>
-        )
-    }
+    return (
+      <div>
+        <Link to="/login">Login Thingy!</Link>
+      </div>
+    )
+  }
 }
-  
-export default TopRightContainer;
+
+export default TopRightContainer
+
+
