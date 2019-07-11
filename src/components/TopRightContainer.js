@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import image1 from '../images/image1.svg';
-import image2 from '../images/image2.svg';
-import image3 from '../images/image3.svg';
+
 
 import {
   BrowserRouter as Router,
@@ -30,7 +28,7 @@ class TopRightContainer extends React.Component {
 
         return(
             <div>
-                <h1>Login Thingy</h1>
+                <Link to="/login">Login Thingy!</Link>
             </div>
         )
     }
