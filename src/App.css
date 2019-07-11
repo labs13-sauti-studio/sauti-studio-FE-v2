@@ -210,3 +210,8 @@ table {
     transform: rotate(360deg);
   }
 }
+
+.navbar-title {
+  text-decoration: none;
+  color: white;
+}
