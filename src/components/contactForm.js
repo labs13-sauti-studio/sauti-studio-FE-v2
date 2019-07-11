@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Contact = (props) => {
+const ContactForm = () => {
   return (
-    <h1>I is a Contact component</h1>
+    <h1>Contact Form Component</h1>
   )
 }
 
-export default Contact;
+export default ContactForm;
