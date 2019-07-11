@@ -1,4 +1,5 @@
 import React from 'react';
+import TopRightContainer from './TopRightContainer.js';
 
 const Header = (props) => {
   return (
@@ -7,7 +8,7 @@ const Header = (props) => {
         <h2>SAUTI DESIGN STUDIO</h2>
       </div>
       <div className="header2">
-        <h2>Login</h2>
+        <TopRightContainer />
       </div>
     </div>
   )
