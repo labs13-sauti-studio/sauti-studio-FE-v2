@@ -1,8 +1,17 @@
 import React from 'react';
+import ProfileLoginOut from './ProfileLoginOut.js';
+import { Link } from "react-router-dom";
 
-const Navbar = (props) => {
+const Navbar = () => {
   return (
-    <h1>I is a Navbar component</h1>
+    <div className="AppHead">
+      <div className="header1">
+        <h2 classname="header-title"><Link to="/">SAUTI DESIGN STUDIO</Link></h2>
+      </div>
+      <div className="header2">
+        <ProfileLoginOut />
+      </div>
+    </div>
   )
 }
 
