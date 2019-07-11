@@ -3,10 +3,10 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import {Route} from 'react-router-dom';
 
 import Home from './pages/home.js';
-import Header from './components/Header';
-import Navbar from './components/Navbar';
-import Contact from './components/ContactForm';
-import Footer from './components/Footer';
+import Header from './components/header';
+import Navbar from './components/navbar';
+import Contact from './components/contactForm';
+import Footer from './components/footer';
 import Login from './pages/login';
 
 import './App.css';
