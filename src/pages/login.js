@@ -1,37 +1,21 @@
-import React, { Component } from 'react';
-import '../App.css';
-
-
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  NavLink,
-  withRouter
-} from "react-router-dom";
-
-
+import React from "react"
+import "../App.css"
 
 class LoginPage extends React.Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
 
-        this.state ={
-            
+  render() {
+    console.log(this.props.reviewsey)
 
-            }
-        }
-
-    render(){
-
-        console.log(this.props.reviewsey);
-
-        return(
-            <div className="home1b">
-                <h1> Login Page Thing </h1>
-            </div>
-        )
-    }
+    return (
+      <div className="home1b">
+        <h1>Login Page</h1>
+      </div>
+    )
+  }
 }
-  
-export default LoginPage;
+
+export default LoginPage
