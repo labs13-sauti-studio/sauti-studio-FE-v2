@@ -103,6 +103,11 @@ table {
   
 }
 
+.textbig {
+  font-size: 3.5rem;
+  margin-left: 20px;
+}
+
 
 .flexcontainer {
   display: flex;

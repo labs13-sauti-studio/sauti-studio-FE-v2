@@ -28,7 +28,10 @@ class Home extends React.Component {
         return(
             <div>
                 <div className="home1">
-                    <h1>I is a Home component</h1> 
+                    <div className="textbig">
+                        <h1>Design Your Own Text-Based Flow</h1>
+                    </div>
+                    
                 </div>
                 
                 
