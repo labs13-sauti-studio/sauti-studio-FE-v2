@@ -17,8 +17,10 @@ function App() {
       <Header />
       
       <Home />
-      <Navbar />
-      <Contact />
+
+      {/* <Navbar />
+      <Contact /> */}
+      
       <Footer />
       
     </div>

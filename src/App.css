@@ -123,25 +123,64 @@ table {
 }
 
 .homesub {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   width: 40%;
   justify-content: flex-start;
   align-items: flex-start;
 
 }
 
-.homesub p {
+/* .homesub p {
   border: 12px;
   margin: 12px;
-}
-
-
+} */
 
 .textbig {
   font-size: 3.5rem;
   margin-left: 20px;
 }
 
+
+.home1b {
+  display: flex;
+  flex-direction: row;
+  /* width: 1200px; */
+  background-color: #fafafa;
+  height: 800px;
+  border: 1px solid red;
+  color:black;
+  justify-content: space-around;
+  align-items: center;
+  margin:20px;
+}
+
+.home1b h1 {
+  margin: 10px;
+  font-size: 3rem;
+}
+
+.home1c {
+  display: flex;
+  flex-direction: column;
+  /* width: 1200px; */
+  background-color: #fafafa;
+  height: 350px;
+  border: 1px solid red;
+  color:black;
+  justify-content: space-around;
+  align-items: center;
+  margin:20px;
+}
+
+.home1c h1 {
+  margin: 10px;
+  font-size: 3rem;
+}
+
+.home1c p {
+  margin: 10px;
+  font-size: 1.2rem;
+}
 
 .flexcontainer {
   display: flex;

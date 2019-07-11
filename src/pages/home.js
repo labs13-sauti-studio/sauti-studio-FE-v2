@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import image1 from '../images/image1.svg';
 import image2 from '../images/image2.svg';
+import image3 from '../images/image3.svg';
 
 import {
   BrowserRouter as Router,
@@ -72,6 +73,28 @@ class Home extends React.Component {
                     
                 </div>
                 
+                <div className="home1b">
+                    <h1>Video Placeholder !</h1>
+
+                </div>
+
+                <div className="home1c">
+                    <h1>Knowledge is Power - Sharing it is Powerful</h1>
+                    <p>Sauti Studio & Design is an online tool that allows people without any programming background to build their own text-based apps.</p>
+                    <p>In Sauti Studio & Design, We offer a simple and easy tool for anyone to create their own flow whether to promote a business or share essential information that can support their community. From bus schedules to a church event calendar, the weather or legal information. You can create any text-based app flow with our product.</p>
+                    <p>Our mission is to allow anyone to design their own text-based applications, and share Knowledge that will strengthen the community. Providing a simple tool to create (develop and deploy) empowering solutions and quickly communicate ideas to address property.</p>
+                </div>
+
+                <div className="home1b">
+                    <h1>TRY OUR DEMO! Placeholder !</h1>
+
+                </div>
+
+                <div className="home1b">
+                    <img src={image3}></img>
+
+
+                </div>
                 
                 
 
