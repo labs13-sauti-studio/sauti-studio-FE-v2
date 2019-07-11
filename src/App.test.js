@@ -13,13 +13,13 @@ import { MemoryRouter} from 'react-router-dom';
 import 'jest-dom/extend-expect';
 
 import  App from './App';
-import Header from './components/Header';
+import Navbar from './components/Navbar';
 
-describe('<Header />', () => {
+describe('<Navbar />', () => {
     it('should render', () => {
         const {getByText} = render(
           <MemoryRouter>
-            <Header />
+            <Navbar />
           </MemoryRouter>
         );
         expect(getByText(/SAUTI DESIGN STUDIO/i)).toBeInTheDocument();

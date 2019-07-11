@@ -2,8 +2,8 @@ import React from "react"
 import { Route } from "react-router-dom"
 
 import Home from "./pages/home.js"
-import Navbar from "./components/Navbar"
-import Footer from "./components/Footer"
+import Navbar from "./components/navbar"
+import Footer from "./components/footer"
 import Login from "./pages/login"
 import Profile from "./pages/profile"
 
