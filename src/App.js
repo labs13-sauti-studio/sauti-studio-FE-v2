@@ -1,20 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
+import {BrowserRouter as Router} from 'react-router-dom';
+import {Route} from 'react-router-dom';
+
+import Home from './pages/home.js';
+import Header from './components/Header';
+import Navbar from './components/Navbar';
+import Contact from './components/ContactForm';
+import Footer from './components/Footer';
+import Login from './pages/login';
+
 import './App.css';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div>
+
+      <div className="App">
         
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Header />
         
-      </header>
-      <body>
-        <p> Design your own Flow</p>
-      </body>
+        <div>
+        
+        <Route exact path="/" component={Home} />
+        
+        <Route path="/login" component={Login} />
+
+        {/* <Router path="/register" component={Register} /> */}
+
+      </div>
+        
+        <Footer />
+        
+      </div>
+      
+    
     </div>
   );
 }

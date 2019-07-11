@@ -12,7 +12,7 @@ import {
 
 
 
-class LoginPage extends React.Component {
+class TopRightContainer extends React.Component {
     constructor(props) {
         super(props)
 
@@ -27,11 +27,11 @@ class LoginPage extends React.Component {
         console.log(this.props.reviewsey);
 
         return(
-            <div className="home1b">
-                <h1> Login Page Thing </h1>
+            <div>
+                <Link to="/login">Login Thingy!</Link>
             </div>
         )
     }
 }
   
-export default LoginPage;
+export default TopRightContainer;
