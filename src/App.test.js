@@ -14,7 +14,11 @@ import Header from './components/Header';
 
 describe('<Header />', () => {
     it('should render', () => {
-        const {getByText} = render(<Header />);
+        const {getByText} = render(
+          <MemoryRouter>
+            <Header />
+          </MemoryRouter>
+        );
         expect(getByText(/SAUTI DESIGN STUDIO/i)).toBeInTheDocument();
     });
   
