@@ -3,18 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "jest": "^24.8.0",
+    "eslint": "^6.0.1",
+    "jest": "24.7.1",
+    "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
-    "react-testing-library": "^8.0.1"
+    "react-test-renderer": "^16.8.6"
+  },
+  "devDependencies": {
+    "jest-dom": "^3.1.2",
+    "react-testing-library": "^6.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --verbose",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
