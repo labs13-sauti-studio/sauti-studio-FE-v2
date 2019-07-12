@@ -144,7 +144,7 @@ table {
 .AppHead {
   display: flex;
   flex-direction: row;
-  background-color: rgb(3, 4, 15);
+  background-color: #1a1e23;
   height: 100px;
   color: white;
   justify-content: space-between;
@@ -314,4 +314,44 @@ table {
 .projects {
   width: 70%;
   border-left: 2px solid darkslategray;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  background-color: #1a1e23;
+  height: 100px;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0% 10%;
+}
+
+.copyright {
+  display: inline-block;
+}
+
+.copyright p {
+  display: inline-block;
+  font-size: 130%;
+}
+
+.red-text {
+  font-size: 130%;
+  color: red;
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+  font-size: 130%;
+}
+
+.red-text a:visited {
+  text-decoration-color: white;
+  text-decoration: none;
+}
+
+.footer img {
+  max-width: 25px;
 }
