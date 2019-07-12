@@ -321,7 +321,6 @@ table {
   padding: 5% 0%;
 }
 
-
 .folders-section {
   padding: 0% 3%;
   width: 35%;
@@ -407,4 +406,25 @@ table {
   height: 160px;
   border: 1px solid black;
   margin-top: 2em;
+}
+
+/* * * * * * * * * * * * * * * * * * */
+/* * * * CONTACT FORM SECTION  * * * */
+/* * * * * * * * * * * * * * * * * * */
+
+.contact-form-container {
+  display: flex;
+  justify-content: center;
+  padding: 5% 0%;
+  border: 1px solid red;
+}
+
+/* * * * * * * * * * * * * * * * * * */
+/* * * * NAVBAR LINKS SECTION  * * * */
+/* * * * * * * * * * * * * * * * * * */
+
+.navbar-links {
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
 }
