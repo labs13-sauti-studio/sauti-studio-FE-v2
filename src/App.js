@@ -22,6 +22,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/contact" component={ContactForm} />
           <Route path="/error" component={Error} />
+          <Route path="/workflows" component={Footer}/>
         </div>
         <Footer />
       </div>
