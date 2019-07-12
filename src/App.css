@@ -289,3 +289,29 @@ table {
   text-decoration: none;
   color: white;
 }
+
+.profile-page-container {
+  display: flex;
+  height: 900px;
+}
+
+.sidebar {
+  background-color: lightslategray;
+  width: 15%;
+  padding: 5% 0%;
+}
+
+.folders-projects {
+  display: flex;
+  width: 90%;
+  padding: 5% 0%;
+}
+
+.folders {
+  width: 30%;
+}
+
+.projects {
+  width: 70%;
+  border-left: 2px solid darkslategray;
+}
