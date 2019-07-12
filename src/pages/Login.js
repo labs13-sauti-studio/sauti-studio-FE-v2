@@ -1,5 +1,6 @@
 import React from "react"
 import "../App.css"
+import LoginModal from "../components/Modal";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class LoginPage extends React.Component {
 
     return (
       <div className="home1b">
-        <h1>Login Page</h1>
+        <LoginModal />
       </div>
     )
   }

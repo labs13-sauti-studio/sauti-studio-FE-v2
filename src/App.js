@@ -20,6 +20,7 @@ function App() {
           <Route path="/profile" component={Profile} />
           <Route path="/login" component={Login} />
           <Route path="/error" component={Error} />
+          <Route path="/workflows" component={Footer}/>
         </div>
         <Footer />
       </div>
