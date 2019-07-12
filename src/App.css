@@ -289,3 +289,82 @@ table {
   text-decoration: none;
   color: white;
 }
+
+/* * * * * * * * * * * * * * * * * * */
+/* * * * PROFILE PAGE SECTION  * * * */
+/* * * * * * * * * * * * * * * * * * */
+
+.profile-page-container {
+  display: flex;
+  min-height: 900px;
+}
+
+.profile-page-container h2 {
+  font-size: 250%;
+}
+
+.resources {
+  background-color: lightslategray;
+  width: 15%;
+  padding: 5% 0%;
+}
+
+.resources-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.folders-projects {
+  display: flex;
+  width: 90%;
+  padding: 5% 0%;
+}
+
+
+.folders-section {
+  padding: 0% 3%;
+  width: 35%;
+}
+
+.folders-section h2 {
+  text-align: left;
+}
+
+.folders-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.folder {
+  width: 150px;
+  height: 160px;
+  border: 1px solid black;
+  margin-top: 2em;
+}
+
+.projects-section {
+  padding: 0% 3%;
+  width: 65%;
+  border-left: 2px solid darkslategray;
+}
+
+.projects-section h2 {
+  text-align: left;
+}
+
+.projects-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.project {
+  width: 150px;
+  height: 160px;
+  border: 1px solid black;
+  margin-top: 2em;
+}
