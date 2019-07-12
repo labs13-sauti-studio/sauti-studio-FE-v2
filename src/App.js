@@ -7,8 +7,7 @@ import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import ContactForm from "./components/ContactForm.js";
-
-import "./App.css";
+import Error from "./pages/Error";
 
 import "./App.css";
 
@@ -22,6 +21,7 @@ function App() {
           <Route path="/profile" component={Profile} />
           <Route path="/login" component={Login} />
           <Route path="/contact" component={ContactForm} />
+          <Route path="/error" component={Error} />
         </div>
         <Footer />
       </div>
