@@ -304,6 +304,8 @@ table {
 }
 
 .resources {
+  display: flex;
+  justify-content: center;
   background-color: lightslategray;
   width: 15%;
   padding: 5% 0%;
@@ -426,5 +428,85 @@ table {
 .navbar-links {
   display: flex;
   justify-content: space-between;
-  width: 350px;
+  width: 500px;
+  text-decoration: none;
 }
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+}
+
+/* * * * * * * * * * * * * * * * * * */
+/* * * * APP DESIGNER SECTION  * * * */
+/* * * * * * * * * * * * * * * * * * */
+
+.title-taskbar-canvas {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.title-test-save-export {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0% 30px;
+  height: 100px;
+  background-color: rgb(160, 192, 218);
+}
+
+.test-save-export {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+}
+
+.title-test-save-export h1 {
+  font-size: 70px;
+}
+
+.test-save-export button {
+  border-radius: 5%;
+  width: 80px;
+  height: 50%;
+}
+
+.taskbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: lightgray;
+  height: 40px;
+  padding: 0% 1%;
+}
+
+.tasktest {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.taskbar-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-right: 2px solid darkslategray;
+  padding: 0% 15px;
+}
+
+.taskbar-section img {
+  max-width: 30px;
+  max-height: 70%;
+  padding: 0% 5px;
+}
+
+.canvas {
+  height: 100%;
+}
+
+/* * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * */
