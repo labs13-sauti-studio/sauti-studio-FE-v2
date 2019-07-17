@@ -304,6 +304,8 @@ table {
 }
 
 .resources {
+  display: flex;
+  justify-content: center;
   background-color: lightslategray;
   width: 15%;
   padding: 5% 0%;
