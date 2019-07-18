@@ -13,42 +13,10 @@ import Undo from '../images/icons/undo.png';
 import ZoomIn from '../images/icons/zoomIn.png';
 import ZoomOut from '../images/icons/zoomOut.png';
 
-const sidebar = [
-  {
-    id: 1,
-    title: "Tutorials",
-    backgroundImage: ''
-  },
-  {
-    id: 2,
-    title: "Templates",
-    backgroundImage: ''
-  },
-  {
-    id: 3,
-    title: "Contact Us",
-    backgroundImage: ''
-  }
-]
-
 const AppBuilder = (props) => {
   return (
     <div className="profile-page-container">
-      <section className="resources">
-        <div>
-          <h2>Resources</h2>
-          <div className="resources-list">
-            {sidebar.map(project => {
-              return <Project
-                key={project.id}
-                title={project.title}
-                bgImage={project.backgroundImage}
-              />
-            })}
-          </div>
-        </div>
-      </section>
-
+      
       <section className="title-taskbar-canvas">
 
         <section className="title-test-save-export">
