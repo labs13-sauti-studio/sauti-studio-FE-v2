@@ -13,6 +13,8 @@ import Undo from '../images/icons/undo.png';
 import ZoomIn from '../images/icons/zoomIn.png';
 import ZoomOut from '../images/icons/zoomOut.png';
 
+import Paper from '../components/Canvas.js';
+
 const sidebar = [
   {
     id: 1,
@@ -91,7 +93,7 @@ const AppBuilder = (props) => {
           </div>
         </section>
 
-        <section className="canvas">Canvas Area</section>
+        <Paper />
 
       </section>
     </div>
