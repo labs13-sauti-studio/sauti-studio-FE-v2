@@ -13,6 +13,26 @@ import Undo from '../images/icons/undo.png';
 import ZoomIn from '../images/icons/zoomIn.png';
 import ZoomOut from '../images/icons/zoomOut.png';
 
+import Paper from '../components/Canvas.js';
+
+const sidebar = [
+  {
+    id: 1,
+    title: "Tutorials",
+    backgroundImage: ''
+  },
+  {
+    id: 2,
+    title: "Templates",
+    backgroundImage: ''
+  },
+  {
+    id: 3,
+    title: "Contact Us",
+    backgroundImage: ''
+  }
+]
+
 const AppBuilder = (props) => {
   return (
     <div className="profile-page-container">
@@ -59,7 +79,7 @@ const AppBuilder = (props) => {
           </div>
         </section>
 
-        <section className="canvas">Canvas Area</section>
+        <Paper />
 
       </section>
     </div>
