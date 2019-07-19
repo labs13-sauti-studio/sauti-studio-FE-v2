@@ -6,6 +6,24 @@ import Project from '../components/Project';
 import blankFolder from '../images/FolderBlank.png';
 import blankProject from '../images/ProjectBlank.png';
 
+const sidebar = [
+  {
+    id: 1,
+    title: "Tutorials",
+    backgroundImage: blankFolder
+  },
+  {
+    id: 2,
+    title: "Templates",
+    backgroundImage: blankFolder
+  },
+  {
+    id: 3,
+    title: "Contact Us",
+    backgroundImage: blankFolder
+  }
+]
+
 const folders = [
   {
     id: 1,
@@ -69,11 +87,11 @@ const Profile = (props) => {
         <div>
           <h2>Resources</h2>
           <div className="resources-list">
-            {projects.map(project => {
+            {sidebar.map(item => {
               return <Project
-                key={project.id}
-                title={project.title}
-                bgImage={project.backgroundImage}
+                key={item.id}
+                title={item.title}
+                bgImage={item.backgroundImage}
               />
             })}
           </div>
