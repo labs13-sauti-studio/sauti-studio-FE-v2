@@ -1,8 +1,3 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
 html,
 body,
 div,
@@ -91,6 +86,7 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -105,17 +101,21 @@ nav,
 section {
   display: block;
 }
+
 body {
   line-height: 1;
 }
+
 ol,
 ul {
   list-style: none;
 }
+
 blockquote,
 q {
   quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -123,12 +123,11 @@ q:after {
   content: "";
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
-/* -- post css reset -- */
 
 .App {
   text-align: center;
@@ -170,7 +169,6 @@ table {
 .home1 {
   display: flex;
   flex-direction: row;
-
   background-color: #fafafa;
   height: 100px;
   border: 1px solid red;
@@ -209,7 +207,6 @@ table {
   border: 12px;
   margin: 12px;
 } */
-
 .textbig {
   font-size: 3.5rem;
   margin-left: 20px;
@@ -227,7 +224,6 @@ table {
   align-items: center;
   margin: 20px;
 }
-
 .home1b h1 {
   margin: 10px;
   font-size: 3rem;
@@ -245,12 +241,10 @@ table {
   align-items: center;
   margin: 20px;
 }
-
 .home1c h1 {
   margin: 10px;
   font-size: 3rem;
 }
-
 .home1c p {
   margin: 10px;
   font-size: 1.2rem;
@@ -276,23 +270,10 @@ table {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .header-title a {
   text-decoration: none;
   color: white;
 }
-
-/* * * * * * * * * * * * * * * * * * */
-/* * * * PROFILE PAGE SECTION  * * * */
-/* * * * * * * * * * * * * * * * * * */
 
 .profile-page-container {
   display: flex;
@@ -327,7 +308,6 @@ table {
   padding: 0% 3%;
   width: 35%;
 }
-
 .folders-section h2 {
   text-align: left;
 }
@@ -351,6 +331,9 @@ table {
   width: 65%;
   border-left: 2px solid darkslategray;
 }
+.projects-section h2 {
+  text-align: left;
+}
 
 .footer {
   display: flex;
@@ -362,11 +345,18 @@ table {
   align-items: center;
   padding: 0% 10%;
 }
+.footer a {
+  color: white;
+  text-decoration: none;
+  font-size: 130%;
+}
+.footer img {
+  max-width: 25px;
+}
 
 .copyright {
   display: inline-block;
 }
-
 .copyright p {
   display: inline-block;
   font-size: 130%;
@@ -376,24 +366,9 @@ table {
   font-size: 130%;
   color: red;
 }
-
-.footer a {
-  color: white;
-  text-decoration: none;
-  font-size: 130%;
-}
-
 .red-text a:visited {
   text-decoration-color: white;
   text-decoration: none;
-}
-
-.footer img {
-  max-width: 25px;
-}
-
-.projects-section h2 {
-  text-align: left;
 }
 
 .projects-list {
@@ -410,10 +385,6 @@ table {
   margin-top: 2em;
 }
 
-/* * * * * * * * * * * * * * * * * * */
-/* * * * CONTACT FORM SECTION  * * * */
-/* * * * * * * * * * * * * * * * * * */
-
 .contact-form-container {
   display: flex;
   justify-content: center;
@@ -421,25 +392,16 @@ table {
   border: 1px solid red;
 }
 
-/* * * * * * * * * * * * * * * * * * */
-/* * * * NAVBAR LINKS SECTION  * * * */
-/* * * * * * * * * * * * * * * * * * */
-
 .navbar-links {
   display: flex;
   justify-content: space-between;
   width: 500px;
   text-decoration: none;
 }
-
 .navbar-links a {
   color: white;
   text-decoration: none;
 }
-
-/* * * * * * * * * * * * * * * * * * */
-/* * * * APP DESIGNER SECTION  * * * */
-/* * * * * * * * * * * * * * * * * * */
 
 .title-taskbar-canvas {
   display: flex;
@@ -453,7 +415,10 @@ table {
   justify-content: space-between;
   padding: 0% 30px;
   height: 100px;
-  background-color: rgb(160, 192, 218);
+  background-color: #a0c0da;
+}
+.title-test-save-export h1 {
+  font-size: 70px;
 }
 
 .test-save-export {
@@ -462,11 +427,6 @@ table {
   align-items: center;
   width: 300px;
 }
-
-.title-test-save-export h1 {
-  font-size: 70px;
-}
-
 .test-save-export button {
   border-radius: 5%;
   width: 80px;
@@ -496,7 +456,6 @@ table {
   border-right: 2px solid darkslategray;
   padding: 0% 15px;
 }
-
 .taskbar-section img {
   max-width: 30px;
   max-height: 70%;
@@ -507,6 +466,4 @@ table {
   height: 100%;
 }
 
-/* * * * * * * * * * * * * * * * * * */
-/* * * * * * * * * * * * * * * * * * */
-/* * * * * * * * * * * * * * * * * * */
+/*# sourceMappingURL=App.css.map */
