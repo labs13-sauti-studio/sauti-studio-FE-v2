@@ -49,7 +49,15 @@ const Home = () => {
       </div>
 
       <div className="home1b">
-        <h1>Video Placeholder !</h1>
+      <iframe
+            title="demo"
+            width="1024"
+            height="576"
+            src="https://www.youtube.com/embed/nFO9hyGIBrU"
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
       </div>
 
       <div className="home1c">

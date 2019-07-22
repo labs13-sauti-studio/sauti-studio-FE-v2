@@ -9,21 +9,21 @@
 
 import React from 'react';
 import { render, fireEvent } from 'react-testing-library';
-import { MemoryRouter} from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import 'jest-dom/extend-expect';
 
-import  App from './App';
+import App from './App';
 import Navbar from './components/Navbar';
 
 describe('<Navbar />', () => {
-    it('should render', () => {
-        const {getByText} = render(
-          <MemoryRouter>
-            <Navbar />
-          </MemoryRouter>
-        );
-        expect(getByText(/SAUTI DESIGN STUDIO/i)).toBeInTheDocument();
-    });
-  
+  it('should render', () => {
+    const { getByText } = render(
+      <MemoryRouter>
+        <Navbar />
+      </MemoryRouter>
+    );
+    expect(getByText(/SAUTI DESIGN STUDIO/i)).toBeInTheDocument();
+  });
+
 })
 
