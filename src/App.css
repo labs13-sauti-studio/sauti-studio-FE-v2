@@ -171,7 +171,7 @@ table {
   flex-direction: row;
   background-color: #fafafa;
   height: 100px;
-  border: 1px solid red;
+  border: 1px;
   color: black;
   justify-content: space-between;
   align-items: center;
@@ -184,7 +184,7 @@ table {
   /* width: 1200px; */
   background-color: #fafafa;
   height: 450px;
-  border: 1px solid red;
+  border: 1px;
   color: black;
   justify-content: space-around;
   align-items: center;
@@ -217,8 +217,8 @@ table {
   flex-direction: row;
   /* width: 1200px; */
   background-color: #fafafa;
-  height: 800px;
-  border: 1px solid red;
+  height: 600px;
+  border: 1px;
   color: black;
   justify-content: space-around;
   align-items: center;
@@ -235,7 +235,7 @@ table {
   /* width: 1200px; */
   background-color: #fafafa;
   height: 350px;
-  border: 1px solid red;
+  border: 1px;
   color: black;
   justify-content: space-around;
   align-items: center;
@@ -389,7 +389,7 @@ table {
   display: flex;
   justify-content: center;
   padding: 5% 0%;
-  border: 1px solid red;
+  border: 1px;
 }
 
 .navbar-links {
