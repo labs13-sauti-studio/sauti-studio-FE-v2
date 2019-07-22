@@ -10,7 +10,7 @@ import ContactForm from "./components/ContactForm.js";
 import Error from "./pages/Error";
 import AppBuilder from "./pages/Workflows.js";
 
-import "./App.css";
+// import "./App.scss";
 
 function App() {
   return (
