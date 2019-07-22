@@ -1,0 +1,16 @@
+$font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+"Ubuntu", "Cantarell";
+
+$code-stack: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+monospace;
+
+$primary-color: black;
+
+body {
+    font: 100% $font-stack;
+    margin: 0;
+}
+
+code {
+    font: 100% $code-stack;
+}
