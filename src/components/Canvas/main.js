@@ -1,18 +1,13 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import "./main.css";
-import createEngine, {
+import {
   DefaultLinkModel,
   DiagramModel,
 	DiagramEngine,
-	BaseModel
 } from "@projectstorm/react-diagrams";
 import { JSCustomNodeFactory } from "./custom-node-js/JSCustomNodeFactory";
-// import { TSCustomNodeFactory } from "./custom-node-ts/TSCustomNodeFactory";
 import { JSCustomNodeModel } from "./custom-node-js/JSCustomNodeModel";
-// import {TSCustomNodeModel} from "./custom-node-ts/TSCustomNodeModel";
-import { BodyWidget } from "./BodyWidget";
-import { defer } from "q";
+import { BodyWidget } from "./BodyWidget.tsx";
 
 	// create an instance of the engine
   // const engine = createEngine();

@@ -1,38 +1,20 @@
 import React from 'react';
 
-import Project from '../components/Project';
+// import Project from '../components/Project';
 
-import Trashcan from '../images/icons/trash.png';
-import DocSettings from '../images/icons/docSettings.png';
-import Gear from '../images/icons/gear.png';
-import Lock from '../images/icons/lock.png';
-import PaintBucket from '../images/icons/paintBucket.png';
-import Plus from '../images/icons/plus.png';
-import Redo from '../images/icons/redo.png';
-import Undo from '../images/icons/undo.png';
-import ZoomIn from '../images/icons/zoomIn.png';
-import ZoomOut from '../images/icons/zoomOut.png';
-import Paper from '../components/Canvas/Canvas.js';
+// import Trashcan from '../images/icons/trash.png';
+// import DocSettings from '../images/icons/docSettings.png';
+// import Gear from '../images/icons/gear.png';
+// import Lock from '../images/icons/lock.png';
+// import PaintBucket from '../images/icons/paintBucket.png';
+// import Plus from '../images/icons/plus.png';
+// import Redo from '../images/icons/redo.png';
+// import Undo from '../images/icons/undo.png';
+// import ZoomIn from '../images/icons/zoomIn.png';
+// import ZoomOut from '../images/icons/zoomOut.png';
+// import Paper from '../components/Canvas/Canvas.js';
 import ProfileNav from '../components/ProfileNav';
-
-
-const sidebar = [
-  {
-    id: 1,
-    title: "Tutorials",
-    backgroundImage: ''
-  },
-  {
-    id: 2,
-    title: "Templates",
-    backgroundImage: ''
-  },
-  {
-    id: 3,
-    title: "Contact Us",
-    backgroundImage: ''
-  }
-]
+import CustomExample from '../components/Canvas/main.js';
 
 const AppBuilder = (props) => {
   return (
@@ -56,7 +38,18 @@ const AppBuilder = (props) => {
           </div>
         </section>
 
-        <section className="taskbar">
+      <CustomExample/>
+      </section>
+    </div>
+    </div>
+
+  )
+}
+
+export default AppBuilder;
+
+
+{/* <section className="taskbar">
           <div className="tasktest">
             <div className="taskbar-section">
               <img src={Plus} alt="alt text" />
@@ -79,21 +72,11 @@ const AppBuilder = (props) => {
             <div className="taskbar-section">
               <img src={ZoomOut} alt="alt text" />
               <img src={ZoomIn} alt="alt text" />
-              {/* <p className="zoom-percent-number">90%</p> */}
             </div>
             <div className="taskbar-section">
               <img src={DocSettings} alt="alt text" />
             </div>
           </div>
-        </section>
+        </section> 
 
-        <Paper />
-
-      </section>
-    </div>
-    </div>
-
-  )
-}
-
-export default AppBuilder;
+        <Paper /> */}
