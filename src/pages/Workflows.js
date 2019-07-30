@@ -12,8 +12,9 @@ import Redo from '../images/icons/redo.png';
 import Undo from '../images/icons/undo.png';
 import ZoomIn from '../images/icons/zoomIn.png';
 import ZoomOut from '../images/icons/zoomOut.png';
-
 import Paper from '../components/Canvas.js';
+import ProfileNav from '../components/ProfileNav';
+
 
 const sidebar = [
   {
@@ -35,12 +36,19 @@ const sidebar = [
 
 const AppBuilder = (props) => {
   return (
+    <div>
+    <ProfileNav/>
+
     <div className="profile-page-container">
       
       <section className="title-taskbar-canvas">
 
         <section className="title-test-save-export">
+          <div>       
           <h1>Project Title</h1>
+          <h1>Enter Title Here</h1>
+          </div>
+
           <div className="test-save-export">
             <button>Test</button>
             <button>Save</button>
@@ -83,6 +91,8 @@ const AppBuilder = (props) => {
 
       </section>
     </div>
+    </div>
+
   )
 }
 

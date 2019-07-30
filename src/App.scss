@@ -67,6 +67,23 @@
   .homeleft {
     font-size: 2.5rem;
     width: 40%;
+    button {
+      border: 3px solid rgb(0, 0, 0);
+      color: black;
+      width: 160px;
+      height: 48px;
+      background-color: inherit;
+      transition: 0.3s;
+      font-family: 'Libre Baskerville', serif;
+      font-family: 'Dosis', sans-serif;
+      font-family: 'Barlow', sans-serif;
+      font-weight: bold
+    }
+    button:hover { 
+      cursor: pointer;
+      background: black;
+      color: white;
+    }
   }
   
   .homesub {
@@ -154,6 +171,61 @@
         text-decoration: none;
         color: white;
     }
+  }
+
+
+  .menu{
+    position: fixed;
+    flex-direction: column;
+    display: flex;
+    margin-top: 45px;
+    right: 125px;
+
+    button {
+      border: 1px solid rgb(0, 0, 0);
+      color: black;
+      width: 120px;
+      height: 48px;
+      background-color: #f9f8f8;
+      transition: 0.3s;
+      font-family: 'Libre Baskerville', serif;
+      font-family: 'Dosis', sans-serif;
+      font-family: 'Barlow', sans-serif;
+      font-weight: bold;
+      }
+
+  button:hover { 
+      cursor: pointer;
+      background: black;
+      color: white;
+      }
+  }
+
+  .menu2{
+    position: fixed;
+    flex-direction: column;
+    display: flex;
+    margin-top: 45px;
+    right: 5px;
+
+    button {
+      border: 1px solid rgb(0, 0, 0);
+      color: black;
+      width: 120px;
+      height: 48px;
+      background-color: #f9f8f8;
+      transition: 0.3s;
+      font-family: 'Libre Baskerville', serif;
+      font-family: 'Dosis', sans-serif;
+      font-family: 'Barlow', sans-serif;
+      font-weight: bold;
+      }
+
+  button:hover { 
+      cursor: pointer;
+      background: black;
+      color: white;
+      }
   }
 
   
@@ -303,6 +375,20 @@
   }
 
 
+.navbar-options{
+  display: flex;
+    justify-content: space-between;
+    width: 165px;
+    text-decoration: none;
+    cursor: pointer;
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+}
+
+
 
 // APP DESIGN SECTION
 
@@ -321,7 +407,29 @@
     background-color: rgb(160, 192, 218);
 
     h1 {
-        font-size: 70px;
+
+      font-size: 20px;
+      margin-top: 10px;
+        }
+
+    button {
+        border: 3px solid rgb(0, 0, 0);
+        color: black;
+        width: 160px;
+        height: 48px;
+        background-color: inherit;
+        transition: 0.3s;
+        font-family: 'Libre Baskerville', serif;
+        font-family: 'Dosis', sans-serif;
+        font-family: 'Barlow', sans-serif;
+        font-weight: bold;
+        }
+
+    button:hover { 
+        cursor: pointer;
+        background: black;
+        color: white;
+
         }
 }
   

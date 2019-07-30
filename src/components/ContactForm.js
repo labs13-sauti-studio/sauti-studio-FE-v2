@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Navbar from "./Navbar";
+
 // import axios from 'axios' // For making client request.
 // import Button from '@material-ui/core/Button'
 
@@ -41,6 +43,8 @@ class ContactForm extends Component {
 
   render() {
     return (
+      <div>
+        <Navbar/>
       <div className="contact-form-container">
         <form onSubmit={this.handleForm}>
           <div style={divMarg}>
@@ -83,6 +87,7 @@ class ContactForm extends Component {
             Send
           </button>
         </form>
+      </div>
       </div>
     );
   }

@@ -3,10 +3,14 @@ import "../App.css"
 import image1 from "../images/image1.svg"
 import image2 from "../images/image2.svg"
 import image3 from "../images/image3.svg"
+import Navbar from "../components/Navbar";
+
 
 const Home = () => {
   return (
     <div>
+      <Navbar />
+
       <div className="home1">
         <div className="textbig">
           <h1>Design Your Own Text-Based Flow</h1>

@@ -5,6 +5,8 @@ import Project from '../components/Project';
 
 import blankFolder from '../images/FolderBlank.png';
 import blankProject from '../images/ProjectBlank.png';
+import Navbar from '../components/Navbar';
+
 
 const sidebar = [
   {
@@ -82,6 +84,9 @@ const projects = [
 
 const Profile = (props) => {
   return (
+    <div>
+      <Navbar/>
+
     <div className="profile-page-container">
       <section className="resources">
         <div>
@@ -125,6 +130,9 @@ const Profile = (props) => {
         </section>
       </section>
     </div>
+
+    </div>
+
   )
 }
 

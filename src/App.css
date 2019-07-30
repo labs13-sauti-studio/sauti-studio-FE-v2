@@ -196,6 +196,25 @@ table {
   width: 40%;
 }
 
+.homeleft button {
+  border: 3px solid black;
+  color: black;
+  width: 160px;
+  height: 48px;
+  background-color: inherit;
+  transition: 0.3s;
+  font-family: "Libre Baskerville", serif;
+  font-family: "Dosis", sans-serif;
+  font-family: "Barlow", sans-serif;
+  font-weight: bold;
+}
+.homeleft button:hover {
+  cursor: pointer;
+  background: black;
+  color: white;
+}
+
+
 .homesub {
   font-size: 1.3rem;
   width: 40%;
@@ -272,6 +291,56 @@ table {
 
 .header-title a {
   text-decoration: none;
+  color: white;
+}
+
+.menu {
+  position: fixed;
+  flex-direction: column;
+  display: flex;
+  margin-top: 45px;
+  right: 125px;
+}
+.menu button {
+  border: 1px solid black;
+  color: black;
+  width: 120px;
+  height: 48px;
+  background-color: #f9f8f8;
+  transition: 0.3s;
+  font-family: "Libre Baskerville", serif;
+  font-family: "Dosis", sans-serif;
+  font-family: "Barlow", sans-serif;
+  font-weight: bold;
+}
+.menu button:hover {
+  cursor: pointer;
+  background: black;
+  color: white;
+}
+
+.menu2 {
+  position: fixed;
+  flex-direction: column;
+  display: flex;
+  margin-top: 45px;
+  right: 5px;
+}
+.menu2 button {
+  border: 1px solid black;
+  color: black;
+  width: 120px;
+  height: 48px;
+  background-color: #f9f8f8;
+  transition: 0.3s;
+  font-family: "Libre Baskerville", serif;
+  font-family: "Dosis", sans-serif;
+  font-family: "Barlow", sans-serif;
+  font-weight: bold;
+}
+.menu2 button:hover {
+  cursor: pointer;
+  background: black;
   color: white;
 }
 
@@ -403,6 +472,19 @@ table {
   text-decoration: none;
 }
 
+
+.navbar-options {
+  display: flex;
+  justify-content: space-between;
+  width: 165px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.navbar-options a {
+  color: white;
+  text-decoration: none;
+}
+
 .title-taskbar-canvas {
   display: flex;
   flex-direction: column;
@@ -418,7 +500,26 @@ table {
   background-color: #a0c0da;
 }
 .title-test-save-export h1 {
-  font-size: 70px;
+
+  font-size: 20px;
+  margin-top: 10px;
+}
+.title-test-save-export button {
+  border: 3px solid black;
+  color: black;
+  width: 160px;
+  height: 48px;
+  background-color: inherit;
+  transition: 0.3s;
+  font-family: "Libre Baskerville", serif;
+  font-family: "Dosis", sans-serif;
+  font-family: "Barlow", sans-serif;
+  font-weight: bold;
+}
+.title-test-save-export button:hover {
+  cursor: pointer;
+  background: black;
+  color: white;
 }
 
 .test-save-export {
