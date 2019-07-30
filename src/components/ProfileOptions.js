@@ -1,7 +1,7 @@
 import "../App.css";
 
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 class ProfileOptions extends Component {
     constructor() {

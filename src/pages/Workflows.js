@@ -25,19 +25,6 @@ const AppBuilder = (props) => {
       
       <section className="title-taskbar-canvas">
 
-        <section className="title-test-save-export">
-          <div>       
-          <h1>Project Title</h1>
-          <h1>Enter Title Here</h1>
-          </div>
-
-          <div className="test-save-export">
-            <button>Test</button>
-            <button>Save</button>
-            <button>Export</button>
-          </div>
-        </section>
-
       <CustomExample/>
       </section>
     </div>

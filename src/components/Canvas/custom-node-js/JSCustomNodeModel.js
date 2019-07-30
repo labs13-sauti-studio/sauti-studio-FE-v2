@@ -1,4 +1,4 @@
-import {DefaultPortModel, NodeModel, DiagramEngine, Toolkit} from "@projectstorm/react-diagrams";
+import {DefaultPortModel, NodeModel, Toolkit} from "@projectstorm/react-diagrams";
 import * as _ from "lodash";
 /**
  * Example of a custom model using pure javascript

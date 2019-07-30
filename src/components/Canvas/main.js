@@ -8,6 +8,7 @@ import {
 import { JSCustomNodeFactory } from "./custom-node-js/JSCustomNodeFactory";
 import { JSCustomNodeModel } from "./custom-node-js/JSCustomNodeModel";
 import { BodyWidget } from "./BodyWidget.tsx";
+require("storm-react-diagrams/src/sass/main.scss");
 
 	// create an instance of the engine
   // const engine = createEngine();
@@ -79,8 +80,18 @@ class CustomExample extends React.Component {
 
 	render() {
 		return (
-			<div className="main-diagram-container">
-				<button
+      <>
+      <section className="title-test-save-export">
+          <div>       
+          <h1>Project Title</h1>
+          <h1>Enter Title Here</h1>
+          </div>
+
+          <div className="test-save-export">
+            <button>Test</button>
+            <button>Save</button>
+            <button>Export</button>
+            <button
 				onClick={() => {
 					console.log(cerealBox.serializeDiagram());
 				}}
@@ -94,10 +105,16 @@ class CustomExample extends React.Component {
 				>
 					Create Node +
 				</button>
+          </div>
+        </section>
+
+			<div className="main-diagram-container">
+				
 				<div className="bodywidget-container">
 					<BodyWidget engine={engine} />
 				</div>
 			</div>
+      </>
 		);
 	}
 }
