@@ -1,0 +1,566 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.App {
+  text-align: center;
+  background-color: #fafafa;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.AppHead {
+  display: flex;
+  flex-direction: row;
+  background-color: #1a1e23;
+  height: 100px;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header1 {
+  display: flex;
+  align-content: center;
+  border: 15px;
+  margin-left: 25px;
+  font-size: 1.5rem;
+}
+
+.header2 {
+  display: flex;
+  align-content: center;
+  border: 25px;
+  margin-right: 45px;
+  font-size: 1.5rem;
+}
+
+.home1 {
+  display: flex;
+  flex-direction: row;
+  background-color: #fafafa;
+  height: 100px;
+  border: 1px;
+  color: black;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+
+.home1a {
+  display: flex;
+  flex-direction: row;
+  /* width: 1200px; */
+  background-color: #fafafa;
+  height: 450px;
+  border: 1px;
+  color: black;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
+}
+
+.homeleft {
+  font-size: 2.5rem;
+  width: 40%;
+}
+.homeleft button {
+  border: 3px solid black;
+  color: black;
+  width: 160px;
+  height: 48px;
+  background-color: inherit;
+  transition: 0.3s;
+  font-family: "Libre Baskerville", serif;
+  font-family: "Dosis", sans-serif;
+  font-family: "Barlow", sans-serif;
+  font-weight: bold;
+}
+.homeleft button:hover {
+  cursor: pointer;
+  background: black;
+  color: white;
+}
+
+.homesub {
+  font-size: 1.3rem;
+  width: 40%;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/* .homesub p {
+  border: 12px;
+  margin: 12px;
+} */
+.textbig {
+  font-size: 3.5rem;
+  margin-left: 20px;
+}
+
+.home1b {
+  display: flex;
+  flex-direction: row;
+  /* width: 1200px; */
+  background-color: #fafafa;
+  height: 600px;
+  border: 1px;
+  color: black;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
+}
+.home1b h1 {
+  margin: 10px;
+  font-size: 3rem;
+}
+
+.home1c {
+  display: flex;
+  flex-direction: column;
+  /* width: 1200px; */
+  background-color: #fafafa;
+  height: 350px;
+  border: 1px;
+  color: black;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
+}
+.home1c h1 {
+  margin: 10px;
+  font-size: 3rem;
+}
+.home1c p {
+  margin: 10px;
+  font-size: 1.2rem;
+}
+
+.flexcontainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.App-header {
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: black;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.header-title a {
+  text-decoration: none;
+  color: white;
+}
+
+.menu {
+  position: fixed;
+  flex-direction: column;
+  display: flex;
+  margin-top: 45px;
+  right: 125px;
+}
+.menu button {
+  border: 1px solid black;
+  color: black;
+  width: 120px;
+  height: 48px;
+  background-color: #f9f8f8;
+  transition: 0.3s;
+  font-family: "Libre Baskerville", serif;
+  font-family: "Dosis", sans-serif;
+  font-family: "Barlow", sans-serif;
+  font-weight: bold;
+}
+.menu button:hover {
+  cursor: pointer;
+  background: black;
+  color: white;
+}
+
+.menu2 {
+  position: fixed;
+  flex-direction: column;
+  display: flex;
+  margin-top: 45px;
+  right: 5px;
+}
+.menu2 button {
+  border: 1px solid black;
+  color: black;
+  width: 120px;
+  height: 48px;
+  background-color: #f9f8f8;
+  transition: 0.3s;
+  font-family: "Libre Baskerville", serif;
+  font-family: "Dosis", sans-serif;
+  font-family: "Barlow", sans-serif;
+  font-weight: bold;
+}
+.menu2 button:hover {
+  cursor: pointer;
+  background: black;
+  color: white;
+}
+
+.profile-page-container {
+  display: flex;
+  min-height: 900px;
+}
+
+.profile-page-container h2 {
+  font-size: 250%;
+}
+
+.resources {
+  display: flex;
+  justify-content: center;
+  background-color: lightslategray;
+  width: 15%;
+  padding: 5% 0%;
+}
+
+.resources-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.folders-projects {
+  display: flex;
+  width: 90%;
+  padding: 5% 0%;
+}
+
+.folders-section {
+  padding: 0% 3%;
+  width: 35%;
+}
+.folders-section h2 {
+  text-align: left;
+}
+
+.folders-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.folder {
+  width: 150px;
+  height: 160px;
+  border: 1px solid black;
+  margin-top: 2em;
+}
+
+.projects-section {
+  padding: 0% 3%;
+  width: 65%;
+  border-left: 2px solid darkslategray;
+}
+.projects-section h2 {
+  text-align: left;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  background-color: #1a1e23;
+  height: 100px;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0% 10%;
+}
+.footer a {
+  color: white;
+  text-decoration: none;
+  font-size: 130%;
+}
+.footer img {
+  max-width: 25px;
+}
+
+.copyright {
+  display: inline-block;
+}
+.copyright p {
+  display: inline-block;
+  font-size: 130%;
+}
+
+.red-text {
+  font-size: 130%;
+  color: red;
+}
+.red-text a:visited {
+  text-decoration-color: white;
+  text-decoration: none;
+}
+
+.projects-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.project {
+  width: 150px;
+  height: 160px;
+  border: 1px solid black;
+  margin-top: 2em;
+}
+
+.contact-form-container {
+  display: flex;
+  justify-content: center;
+  padding: 5% 0%;
+  border: 1px;
+}
+
+.navbar-links {
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  text-decoration: none;
+}
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-options {
+  display: flex;
+  justify-content: space-between;
+  width: 165px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.navbar-options a {
+  color: white;
+  text-decoration: none;
+}
+
+.title-taskbar-canvas {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.title-test-save-export {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0% 30px;
+  height: 100px;
+  background-color: #a0c0da;
+}
+.title-test-save-export h1 {
+  font-size: 20px;
+  margin-top: 10px;
+}
+.title-test-save-export button {
+  border: 3px solid black;
+  color: black;
+  width: 160px;
+  height: 48px;
+  background-color: inherit;
+  transition: 0.3s;
+  font-family: "Libre Baskerville", serif;
+  font-family: "Dosis", sans-serif;
+  font-family: "Barlow", sans-serif;
+  font-weight: bold;
+}
+.title-test-save-export button:hover {
+  cursor: pointer;
+  background: black;
+  color: white;
+}
+
+.test-save-export {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+}
+.test-save-export button {
+  border-radius: 5%;
+  width: 80px;
+  height: 50%;
+}
+
+.taskbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: lightgray;
+  height: 40px;
+  padding: 0% 1%;
+}
+
+.tasktest {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.taskbar-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-right: 2px solid darkslategray;
+  padding: 0% 15px;
+}
+.taskbar-section img {
+  max-width: 30px;
+  max-height: 70%;
+  padding: 0% 5px;
+}
+
+.canvas {
+  height: 100%;
+}
+
+/*# sourceMappingURL=App.css.map */
