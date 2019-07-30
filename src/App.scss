@@ -67,7 +67,6 @@
   .homeleft {
     font-size: 2.5rem;
     width: 40%;
-
     button {
       border: 3px solid rgb(0, 0, 0);
       color: black;
@@ -174,6 +173,7 @@
     }
   }
 
+
   .menu{
     position: fixed;
     flex-direction: column;
@@ -227,6 +227,7 @@
       color: white;
       }
   }
+
   
 .profile-page-container {
     display: flex;
@@ -373,6 +374,7 @@
       }
   }
 
+
 .navbar-options{
   display: flex;
     justify-content: space-between;
@@ -385,6 +387,7 @@
       text-decoration: none;
     }
 }
+
 
 
 // APP DESIGN SECTION
@@ -404,6 +407,7 @@
     background-color: rgb(160, 192, 218);
 
     h1 {
+
       font-size: 20px;
       margin-top: 10px;
         }
@@ -425,6 +429,7 @@
         cursor: pointer;
         background: black;
         color: white;
+
         }
 }
   

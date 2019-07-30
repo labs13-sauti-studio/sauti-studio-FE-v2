@@ -195,6 +195,7 @@ table {
   font-size: 2.5rem;
   width: 40%;
 }
+
 .homeleft button {
   border: 3px solid black;
   color: black;
@@ -212,6 +213,7 @@ table {
   background: black;
   color: white;
 }
+
 
 .homesub {
   font-size: 1.3rem;
@@ -470,6 +472,7 @@ table {
   text-decoration: none;
 }
 
+
 .navbar-options {
   display: flex;
   justify-content: space-between;
@@ -497,6 +500,7 @@ table {
   background-color: #a0c0da;
 }
 .title-test-save-export h1 {
+
   font-size: 20px;
   margin-top: 10px;
 }

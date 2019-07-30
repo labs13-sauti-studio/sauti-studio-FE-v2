@@ -3,6 +3,7 @@ import "../App.css"
 import LoginModal from "../components/Modal";
 import Navbar from "../components/Navbar";
 
+
 class LoginPage extends React.Component {
   constructor(props) {
     super(props)
@@ -19,6 +20,7 @@ class LoginPage extends React.Component {
         <LoginModal />
       </div>
       </div>
+
     )
   }
 }

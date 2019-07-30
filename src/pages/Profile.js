@@ -7,6 +7,7 @@ import blankFolder from '../images/FolderBlank.png';
 import blankProject from '../images/ProjectBlank.png';
 import Navbar from '../components/Navbar';
 
+
 const sidebar = [
   {
     id: 1,
@@ -85,6 +86,7 @@ const Profile = (props) => {
   return (
     <div>
       <Navbar/>
+
     <div className="profile-page-container">
       <section className="resources">
         <div>
@@ -128,7 +130,9 @@ const Profile = (props) => {
         </section>
       </section>
     </div>
+
     </div>
+
   )
 }
 
