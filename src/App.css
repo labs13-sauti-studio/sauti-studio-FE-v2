@@ -129,8 +129,13 @@ table {
   border-spacing: 0;
 }
 
+#root {
+  height: 100vh;
+}
+
 .App {
   text-align: center;
+  height: 100%;
   background-color: #fafafa;
 }
 
@@ -144,7 +149,7 @@ table {
   display: flex;
   flex-direction: row;
   background-color: #1a1e23;
-  height: 100px;
+  height: 8%;
   color: white;
   justify-content: space-between;
   align-items: center;
@@ -195,7 +200,6 @@ table {
   font-size: 2.5rem;
   width: 40%;
 }
-
 .homeleft button {
   border: 3px solid black;
   color: black;
@@ -213,7 +217,6 @@ table {
   background: black;
   color: white;
 }
-
 
 .homesub {
   font-size: 1.3rem;
@@ -294,6 +297,11 @@ table {
   color: white;
 }
 
+.app-builder-container {
+  height: 100%;
+  background-color: red;
+}
+
 .menu {
   position: fixed;
   flex-direction: column;
@@ -346,6 +354,7 @@ table {
 
 .profile-page-container {
   display: flex;
+  height: 92%;
   min-height: 900px;
 }
 
@@ -472,7 +481,6 @@ table {
   text-decoration: none;
 }
 
-
 .navbar-options {
   display: flex;
   justify-content: space-between;
@@ -500,7 +508,6 @@ table {
   background-color: #a0c0da;
 }
 .title-test-save-export h1 {
-
   font-size: 20px;
   margin-top: 10px;
 }

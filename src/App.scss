@@ -1,7 +1,12 @@
 @import 'reset';
 
+#root {
+  height: 100vh;
+}
+
 .App {
     text-align: center;
+    height: 100%;
     background-color: #fafafa;
   }
   
@@ -15,7 +20,7 @@
     display: flex;
     flex-direction: row;
     background-color: #1a1e23;
-    height: 100px;
+    height: 8%;
     color: white;
     justify-content: space-between;
     align-items: center;
@@ -173,6 +178,10 @@
     }
   }
 
+  .app-builder-container {
+    height: 100%;
+    background-color: red;
+  }
 
   .menu{
     position: fixed;
@@ -231,6 +240,7 @@
   
 .profile-page-container {
     display: flex;
+    height: 92%;
     min-height: 900px;
   }
   

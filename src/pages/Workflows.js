@@ -18,16 +18,16 @@ import CustomExample from '../components/Canvas/main.js';
 
 const AppBuilder = (props) => {
   return (
-    <div>
-    <ProfileNav/>
+    <div className="app-builder-container">
+      <ProfileNav/>
 
-    <div className="profile-page-container">
-      
-      <section className="title-taskbar-canvas">
+      <div className="profile-page-container">
+        
+        <section className="title-taskbar-canvas">
 
-      <CustomExample/>
-      </section>
-    </div>
+        <CustomExample/>
+        </section>
+      </div>
     </div>
 
   )
