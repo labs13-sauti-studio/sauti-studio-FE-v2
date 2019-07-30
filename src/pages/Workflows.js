@@ -12,7 +12,7 @@ import Redo from '../images/icons/redo.png';
 import Undo from '../images/icons/undo.png';
 import ZoomIn from '../images/icons/zoomIn.png';
 import ZoomOut from '../images/icons/zoomOut.png';
-import Paper from '../components/Canvas.js';
+import Paper from '../components/Canvas/Canvas.js';
 import ProfileNav from '../components/ProfileNav';
 
 
