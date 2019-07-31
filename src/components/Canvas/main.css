@@ -1,20 +1,10 @@
-* {
-	margin: 0;
-	padding: 0;
-}
-
-html, body, #application {
-	height: 100%;
-}
-
-
 .main-diagram-container{
 		width: 100%;
 		height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start;
+		align-items: flex-start;
 }
 
 .bodywidget-container{
@@ -51,6 +41,8 @@ html, body, #application {
 
 .custom-node-nodeTitle h1 {
 	padding-left: 15px;
+	font-size: 2rem;
+	font-family: 'LiberationSansRegular';
 }
 
 .custom-node-screen {
@@ -80,6 +72,7 @@ html, body, #application {
 	overflow-y: hidden;
 	resize: none;
 	font-size: 210%;
+	font-family: 'LiberationSansRegular';
 }
 
 .custom-node-submenus {
@@ -95,6 +88,7 @@ html, body, #application {
 	line-height: 50px;
 	max-width: 400px;
 	background-color: white;
+	font-family: 'LiberationSansRegular';
 }
 
 .custom-node-submenus h2 {

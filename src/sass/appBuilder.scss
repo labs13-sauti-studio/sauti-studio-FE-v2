@@ -1,0 +1,66 @@
+.app-builder-container {
+  height: 100%;
+  background-color: red;
+}
+
+.profile-page-container {
+  display: flex;
+  height: 92%;
+  min-height: 900px;
+}
+
+.profile-page-container h2 {
+  font-size: 250%;
+}
+
+.title-taskbar-canvas {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.title-test-save-export {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0% 30px;
+  height: 100px;
+  background-color: rgb(160, 192, 218);
+
+  h1 {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  button {
+    border: 3px solid rgb(0, 0, 0);
+    color: black;
+    width: 160px;
+    height: 48px;
+    background-color: inherit;
+    transition: 0.3s;
+    font-family: "Libre Baskerville", serif;
+    font-family: "Dosis", sans-serif;
+    font-family: "Barlow", sans-serif;
+    font-weight: bold;
+  }
+
+  button:hover {
+    cursor: pointer;
+    background: black;
+    color: white;
+  }
+}
+
+.test-save-export {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+
+  button {
+    border-radius: 5%;
+    width: 80px;
+    height: 50%;
+  }
+}

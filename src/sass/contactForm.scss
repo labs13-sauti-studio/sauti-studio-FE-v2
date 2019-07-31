@@ -1,0 +1,13 @@
+.contact-form-container {
+    display: flex;
+    justify-content: center;
+    padding: 5% 0%;
+    border: 1px;
+    .forms-inputs{
+        margin: "15px";
+    };
+    .forms-btn{
+        background: "#E74C3D";
+        color: "white";
+    }
+  }

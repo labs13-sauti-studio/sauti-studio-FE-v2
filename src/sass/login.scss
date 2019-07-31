@@ -1,0 +1,17 @@
+.home1b {
+  display: flex;
+  flex-direction: row;
+  /* width: 1200px; */
+  background-color: #fafafa;
+  height: 600px;
+  border: 1px;
+  color: black;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
+
+  h1 {
+    margin: 10px;
+    font-size: 3rem;
+  }
+}

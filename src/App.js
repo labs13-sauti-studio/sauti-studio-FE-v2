@@ -6,9 +6,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import ContactForm from "./components/ContactForm.js";
 import Error from "./pages/Error";
-import AppBuilder from "./pages/Workflows.js";
-
-// import "./App.scss";
+import AppBuilder from "./pages/AppBuilder.js";
 
 function App() {
   return (
