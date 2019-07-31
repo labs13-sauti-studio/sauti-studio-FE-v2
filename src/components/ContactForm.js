@@ -4,13 +4,13 @@ import Navbar from "./Navbar";
 // import axios from 'axios' // For making client request.
 // import Button from '@material-ui/core/Button'
 
-const btnBG = {
-  backgroundColor: "#E74C3D",
-  color: "white",
-};
-const divMarg = {
-  margin: "15px",
-};
+// const btnBG = {
+//   backgroundColor: "#E74C3D",
+//   color: "white",
+// };
+// const divMarg = {
+//   margin: "15px",
+// };
 class ContactForm extends Component {
   constructor(props) {
     super(props);
@@ -47,7 +47,7 @@ class ContactForm extends Component {
         <Navbar/>
       <div className="contact-form-container">
         <form onSubmit={this.handleForm}>
-          <div style={divMarg}>
+          <div className="forms-inputs">
             <label htmlFor="name"></label>
             <input
               type="text"
@@ -58,7 +58,7 @@ class ContactForm extends Component {
             />
           </div>
 
-          <div style={divMarg}>
+          <div className="forms-inputs">
             <label htmlFor="email"></label>
             <input
               type="email"
@@ -68,7 +68,7 @@ class ContactForm extends Component {
               onChange={this.handleFields}
             />
           </div>
-          <div style={divMarg}>
+          <div className="forms-inputs">
             <label htmlFor="message"></label>
             <textarea
               name="message"
@@ -82,7 +82,7 @@ class ContactForm extends Component {
             type="submit"
             variant="outlined"
             color="primary"
-            style={btnBG}
+            className="forms-btn"
           >
             Send
           </button>

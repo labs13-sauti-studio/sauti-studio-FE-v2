@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "es6",
+      "dom.iterable",
+      "esnext"
+    ],
+    "suppressExcessPropertyErrors": true,
+    "outDir": "dist/@types",
+    "strictNullChecks": false,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "baseUrl": "./src",
+    "target": "es6",
+    "module": "esnext",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "./src"
+  ],
+  "compileOnSave": false,
+  "name": "storm-react-diagrams",
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "./dist"
+  ]
+}
+

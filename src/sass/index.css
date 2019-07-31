@@ -1,0 +1,344 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+html, body {
+  font-family: "Roboto", sans-serif;
+}
+
+h1, h2, h3, h4, h5, li {
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 3.2rem;
+  padding-bottom: 10px;
+}
+
+h4 {
+  font-size: 2.5rem;
+  padding-bottom: 10px;
+}
+
+p {
+  line-height: 1.5;
+  font-size: 1.6rem;
+  padding-bottom: 10px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+input, textarea {
+  font-family: "Roboto", sans-serif;
+}
+
+@font-color : @shark;
+@button-bg : @eastern-blue;
+@main-bg :  @white;
+@navigation-border : @silver;
+@footer-bg : @sandy-beach;
+@white : #FFFFFF;
+@silver : #C0C0C0;
+@shark : #212529;
+@eastern-blue : #17A2B8;
+@sandy-beach : #FFEBCD;
+@dark-slate : #1b242f;
+@orange : #f58a11;
+@dark-grey : #272727;
+@mobile : (max-width: 600px);
+@tablet : (max-width: 900px);
+.home1 {
+  display: flex;
+  flex-direction: row;
+  background-color: #fafafa;
+  height: 100px;
+  border: 1px;
+  color: black;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+
+.home1a {
+  display: flex;
+  flex-direction: row;
+  /* width: 1200px; */
+  background-color: #fafafa;
+  height: 450px;
+  border: 1px;
+  color: black;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
+}
+
+.homeleft {
+  font-size: 2.5rem;
+  width: 40%;
+}
+.homeleft button {
+  border: 3px solid black;
+  color: black;
+  width: 160px;
+  height: 48px;
+  background-color: inherit;
+  transition: 0.3s;
+  font-family: "Libre Baskerville", serif;
+  font-family: "Dosis", sans-serif;
+  font-family: "Barlow", sans-serif;
+  font-weight: bold;
+}
+.homeleft button:hover {
+  cursor: pointer;
+  background: black;
+  color: white;
+}
+
+.homesub {
+  font-size: 1.3rem;
+  width: 40%;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/* .homesub p {
+    border: 12px;
+    margin: 12px;
+  } */
+.textbig {
+  font-size: 3.5rem;
+  margin-left: 20px;
+}
+
+.home1b {
+  display: flex;
+  flex-direction: row;
+  /* width: 1200px; */
+  background-color: #fafafa;
+  height: 600px;
+  border: 1px;
+  color: black;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
+}
+.home1b h1 {
+  margin: 10px;
+  font-size: 3rem;
+}
+
+.home1c {
+  display: flex;
+  flex-direction: column;
+  /* width: 1200px; */
+  background-color: #fafafa;
+  height: 350px;
+  border: 1px;
+  color: black;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
+}
+.home1c h1 {
+  margin: 10px;
+  font-size: 3rem;
+}
+.home1c p {
+  margin: 10px;
+  font-size: 1.2rem;
+}
+
+.home1b {
+  display: flex;
+  flex-direction: row;
+  /* width: 1200px; */
+  background-color: #fafafa;
+  height: 600px;
+  border: 1px;
+  color: black;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
+}
+.home1b h1 {
+  margin: 10px;
+  font-size: 3rem;
+}
+
+.app-builder-container {
+  height: 100%;
+  background-color: red;
+}
+
+.profile-page-container {
+  display: flex;
+  height: 92%;
+  min-height: 900px;
+}
+
+.profile-page-container h2 {
+  font-size: 250%;
+}
+
+.title-taskbar-canvas {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.title-test-save-export {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0% 30px;
+  height: 100px;
+  background-color: #a0c0da;
+}
+.title-test-save-export h1 {
+  font-size: 20px;
+  margin-top: 10px;
+}
+.title-test-save-export button {
+  border: 3px solid black;
+  color: black;
+  width: 160px;
+  height: 48px;
+  background-color: inherit;
+  transition: 0.3s;
+  font-family: "Libre Baskerville", serif;
+  font-family: "Dosis", sans-serif;
+  font-family: "Barlow", sans-serif;
+  font-weight: bold;
+}
+.title-test-save-export button:hover {
+  cursor: pointer;
+  background: black;
+  color: white;
+}
+
+.test-save-export {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+}
+.test-save-export button {
+  border-radius: 5%;
+  width: 80px;
+  height: 50%;
+}
+
+.contact-form-container {
+  display: flex;
+  justify-content: center;
+  padding: 5% 0%;
+  border: 1px;
+}
+.contact-form-container .forms-inputs {
+  margin: "15px";
+}
+.contact-form-container .forms-btn {
+  background: "#E74C3D";
+  color: "white";
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  background-color: #1a1e23;
+  height: 100px;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0% 10%;
+}
+.footer a {
+  color: white;
+  text-decoration: none;
+  font-size: 130%;
+}
+.footer img {
+  max-width: 25px;
+}
+
+.copyright {
+  display: inline-block;
+}
+.copyright p {
+  display: inline-block;
+  font-size: 130%;
+}
+
+/*# sourceMappingURL=index.css.map */
