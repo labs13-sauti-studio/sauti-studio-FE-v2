@@ -2,8 +2,8 @@ import React from "react"
 import ReactDOM from "react-dom"
 import App from "./App"
 
-// import "./sass/index.css";
-import "./App.css";
+import "./sass/index.css";
+
 
 import { BrowserRouter as Router, withRouter } from "react-router-dom"
 

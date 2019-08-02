@@ -1,5 +1,5 @@
 import React from "react";
-import "../App.css";
+import "../sass/index.css"
 import LoginModal from "../components/Modal";
 import Navbar from "../components/Navbar";
 
@@ -15,7 +15,7 @@ class LoginPage extends React.Component {
     return (
       <div>
         <Navbar />
-        <div className="home1b">
+        <div className="home-content2">
           <LoginModal />
         </div>
       </div>
