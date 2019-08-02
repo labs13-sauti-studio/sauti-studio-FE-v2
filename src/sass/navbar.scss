@@ -1,0 +1,33 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    background-color: #1a1e23;
+    height: 85px;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+
+  .nav-title-box {
+    display: flex;
+    align-content: center;
+    border: 15px;
+    margin-left: 25px;
+    font-size: 1.5rem;
+
+    .nav-title-content {
+      a {
+          text-decoration: none;
+          color: white;
+      }
+    }
+  }
+  
+  .nav-options {
+    display: flex;
+    align-content: center;
+    border: 25px;
+    margin-right: 45px;
+    font-size: 1.5rem;
+  }
+}
+  

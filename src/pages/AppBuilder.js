@@ -1,5 +1,5 @@
 import React from 'react';
-
+import "../sass/index.css"
 // import Project from '../components/Project';
 
 // import Trashcan from '../images/icons/trash.png';

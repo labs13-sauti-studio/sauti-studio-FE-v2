@@ -119,7 +119,35 @@ input, textarea {
 @dark-grey : #272727;
 @mobile : (max-width: 600px);
 @tablet : (max-width: 900px);
-.home1 {
+.navbar {
+  display: flex;
+  flex-direction: row;
+  background-color: #1a1e23;
+  height: 85px;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar .nav-title-box {
+  display: flex;
+  align-content: center;
+  border: 15px;
+  margin-left: 25px;
+  font-size: 1.5rem;
+}
+.navbar .nav-title-box .nav-title-content a {
+  text-decoration: none;
+  color: white;
+}
+.navbar .nav-options {
+  display: flex;
+  align-content: center;
+  border: 25px;
+  margin-right: 45px;
+  font-size: 1.5rem;
+}
+
+.home-header {
   display: flex;
   flex-direction: row;
   background-color: #fafafa;
@@ -130,8 +158,12 @@ input, textarea {
   align-items: center;
   margin: 20px;
 }
+.home-header .header-content {
+  font-size: 3.5rem;
+  margin-left: 20px;
+}
 
-.home1a {
+.home-container {
   display: flex;
   flex-direction: row;
   /* width: 1200px; */
@@ -144,11 +176,11 @@ input, textarea {
   margin: 20px;
 }
 
-.homeleft {
+.home-content {
   font-size: 2.5rem;
   width: 40%;
 }
-.homeleft button {
+.home-content button {
   border: 3px solid black;
   color: black;
   width: 160px;
@@ -160,13 +192,13 @@ input, textarea {
   font-family: "Barlow", sans-serif;
   font-weight: bold;
 }
-.homeleft button:hover {
+.home-content button:hover {
   cursor: pointer;
   background: black;
   color: white;
 }
 
-.homesub {
+.home-list {
   font-size: 1.3rem;
   width: 40%;
   justify-content: flex-start;
@@ -177,12 +209,7 @@ input, textarea {
     border: 12px;
     margin: 12px;
   } */
-.textbig {
-  font-size: 3.5rem;
-  margin-left: 20px;
-}
-
-.home1b {
+.home-content2 {
   display: flex;
   flex-direction: row;
   /* width: 1200px; */
@@ -194,12 +221,12 @@ input, textarea {
   align-items: center;
   margin: 20px;
 }
-.home1b h1 {
+.home-content2 h1 {
   margin: 10px;
   font-size: 3rem;
 }
 
-.home1c {
+.home-info {
   display: flex;
   flex-direction: column;
   /* width: 1200px; */
@@ -211,16 +238,16 @@ input, textarea {
   align-items: center;
   margin: 20px;
 }
-.home1c h1 {
+.home-info h1 {
   margin: 10px;
   font-size: 3rem;
 }
-.home1c p {
+.home-info p {
   margin: 10px;
   font-size: 1.2rem;
 }
 
-.home1b {
+.home-content2 {
   display: flex;
   flex-direction: row;
   /* width: 1200px; */
@@ -232,7 +259,7 @@ input, textarea {
   align-items: center;
   margin: 20px;
 }
-.home1b h1 {
+.home-content2 h1 {
   margin: 10px;
   font-size: 3rem;
 }

@@ -1,5 +1,5 @@
 import React from "react"
-import "../App.css"
+import "../sass/index.css"
 import image1 from "../images/image1.svg"
 import image2 from "../images/image2.svg"
 import image3 from "../images/image3.svg"
@@ -11,18 +11,18 @@ const Home = () => {
     <div>
       <Navbar />
 
-      <div className="home1">
-        <div className="textbig">
+      <div className="home-header">
+        <div className="header-content">
           <h1>Design Your Own Text-Based Flow</h1>
         </div>
       </div>
 
-      <div className="home1a">
-        <div className="homeleft">
+      <div className="home-container">
+        <div className="home-content">
           <img src={image1} alt="placeholder alt text" />
         </div>
 
-        <div className="homeleft">
+        <div className="home-content">
           <h1>
             Sharing information made simple & easy with Sauti Design Studio
           </h1>
@@ -30,8 +30,8 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="home1a">
-        <div className="homesub">
+      <div className="home-container">
+        <div className="home-list">
           <p>No programming background needed</p>
           <br />
           <p>Create, Update, save & delete flows</p>
@@ -47,12 +47,12 @@ const Home = () => {
           <p>No Code Required</p>
         </div>
 
-        <div className="homeleft">
+        <div className="home-content">
           <img src={image2} alt="placeholder alt text" />
         </div>
       </div>
 
-      <div className="home1b">
+      <div className="home-content2">
       <iframe
             title="demo"
             width="1024"
@@ -64,7 +64,7 @@ const Home = () => {
           ></iframe>
       </div>
 
-      <div className="home1c">
+      <div className="home-info">
         <h1>Knowledge is Power - Sharing it is Powerful</h1>
         <p>
           Sauti Studio & Design is an online tool that allows people without any
@@ -85,11 +85,11 @@ const Home = () => {
         </p>
       </div>
 
-      <div className="home1b">
+      <div className="home-content2">
         <h1>TRY OUR DEMO! Placeholder !</h1>
       </div>
 
-      <div className="home1b">
+      <div className="home-content2">
         <img src={image3} alt="placeholder alt text" />
       </div>
     </div>

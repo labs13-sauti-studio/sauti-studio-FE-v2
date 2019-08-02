@@ -1,5 +1,5 @@
 
-  .home1 {
+  .home-header {
     display: flex;
     flex-direction: row;
   
@@ -10,9 +10,14 @@
     justify-content: space-between;
     align-items: center;
     margin: 20px;
+
+    .header-content {
+      font-size: 3.5rem;
+      margin-left: 20px;
+    }
   }
   
-  .home1a {
+  .home-container {
     display: flex;
     flex-direction: row;
     /* width: 1200px; */
@@ -23,9 +28,9 @@
     justify-content: space-around;
     align-items: center;
     margin: 20px;
+
   }
-  
-  .homeleft {
+  .home-content {
     font-size: 2.5rem;
     width: 40%;
     button {
@@ -47,7 +52,7 @@
     }
   }
   
-  .homesub {
+  .home-list {
     font-size: 1.3rem;
     width: 40%;
     justify-content: flex-start;
@@ -59,12 +64,9 @@
       margin: 12px;
     } */
   
-  .textbig {
-    font-size: 3.5rem;
-    margin-left: 20px;
-  }
+
   
-  .home1b {
+  .home-content2 {
     display: flex;
     flex-direction: row;
     /* width: 1200px; */
@@ -82,7 +84,7 @@
     }
   }
   
-  .home1c {
+  .home-info {
     display: flex;
     flex-direction: column;
     /* width: 1200px; */
