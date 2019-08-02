@@ -1,25 +1,22 @@
 import * as React from "react";
+// import * as ReactDOM from "react-dom";
 import "./main.css";
-import {
-  DefaultLinkModel,
+import createEngine, {
   DiagramModel,
-	DiagramEngine,
+  DefaultNodeFactory,
+  DefaultLinkFactory
 } from "@projectstorm/react-diagrams";
 import { JSCustomNodeFactory } from "./custom-node-js/JSCustomNodeFactory";
 import { JSCustomNodeModel } from "./custom-node-js/JSCustomNodeModel";
-import { BodyWidget } from "./BodyWidget.tsx";
-require("storm-react-diagrams/src/sass/main.scss");
+import { BodyWidget } from "./BodyWidget";
 
-	// create an instance of the engine
-  // const engine = createEngine();
-
-  //1) setup the diagram engine
-  var engine = new DiagramEngine();
-  engine.installDefaultFactories();
+  // create an instance of the engine
+  const engine = createEngine();
 
   // register the two engines
-  engine.registerNodeFactory(new JSCustomNodeFactory());
-  // engine.registerNodeFactory(new TSCustomNodeFactory());
+  engine.getNodeFactories().registerFactory(new JSCustomNodeFactory());
+  engine.getNodeFactories().registerFactory(new DefaultNodeFactory());
+  engine.getLinkFactories().registerFactory(new DefaultLinkFactory());
 
   // create a diagram model
   const model = new DiagramModel();
@@ -50,18 +47,8 @@ class CustomExample extends React.Component {
 
 	render() {
 		return (
-      <>
-      <section className="title-test-save-export">
-          <div>       
-          <h1>Project Title</h1>
-          <h1>Enter Title Here</h1>
-          </div>
-
-          <div className="test-save-export">
-            <button>Test</button>
-            <button>Save</button>
-            <button>Export</button>
-            <button
+			<div className="main-diagram-container">
+				<button
 				onClick={() => {
 					console.log(cerealBox.serializeDiagram());
 				}}
@@ -75,16 +62,10 @@ class CustomExample extends React.Component {
 				>
 					Create Node +
 				</button>
-          </div>
-        </section>
-
-			<div className="main-diagram-container">
-				
 				<div className="bodywidget-container">
 					<BodyWidget engine={engine} />
 				</div>
 			</div>
-      </>
 		);
 	}
 }

@@ -1,72 +1,76 @@
-import {DefaultPortModel, NodeModel, Toolkit} from "@projectstorm/react-diagrams";
-import * as _ from "lodash";
-/**
- * Example of a custom model using pure javascript
- */
-export class JSCustomNodeModel extends NodeModel {
-
+import {
+	DefaultPortModel,
+	NodeModel,
+	Toolkit
+  } from "@projectstorm/react-diagrams";
+  import * as _ from "lodash";
+  
+  export class JSCustomNodeModel extends NodeModel {
 	constructor(options = {}) {
-		super('js-custom-node');
-		// this.color = options.color || {options: 'red'};
-		// we made this
-		this.name = options.name;
-		this.description = options.description;
-		// ------------
-
-		// setup an in and out port
-		this.addPort(new DefaultPortModel(true,"in"));
+	  super({
+		...options,
+		type: "js-custom-node"
+	  });
+  
+	  this.color = options.color || { options: "red" };
+	  this.name = options.name;
+	  this.description = options.description;
+  
+	  this.addPort(
+		new DefaultPortModel({
+		  in: true,
+		  name: "in"
+		})
+	  );
 	}
-
-	// addOutPort(label: string) {
-	// 	return this.addPort(new DefaultPortModel(false, Toolkit.UID(), label));
-	// }
-
-
-	// serialize() {
-	// 	return {
-	// 		...super.serialize(),
-	// 		// color: this.options.color
-	// 	}
-	// }
-
+  
 	serialize() {
-		return _.merge(super.serialize(), {
-			name: this.name,
-			description: this.description
-		});
+	  return {
+		...super.serialize(),
+		color: this.options.color,
+		name: this.name,
+		description: this.description
+	  };
 	}
-
-	// deSerialize(ob, engine) {
-	// 	super.deSerialize(ob, engine);
-	// 	this.color = ob.color;
-	// }
-
-	deSerialize(object, engine) {
-		super.deSerialize(object, engine);
-		this.name = object.name;
-		this.description = object.description;
+  
+	deSerialize(ob, engine) {
+	  super.deSerialize(ob, engine);
+	  this.color = ob.color;
+	  this.name = ob.name;
+	  this.description = ob.description;
 	}
-
-	nameNode(name){
-		this.name = name;
+  
+	nameNode(name) {
+	  this.name = name;
 	}
-
-	provideDescription(description){
-		this.description = description;
+  
+	provideDescription(description) {
+	  this.description = description;
 	}
-
+  
 	addOutPort(label) {
-		return this.addPort(new DefaultPortModel(false, Toolkit.UID(), label));
+	  return this.addPort(
+		new DefaultPortModel({
+		  in: false,
+		  name: Toolkit.UID(),
+		  label: label
+		})
+	  );
 	}
-	
-	removePortAndLinks(port) {
-		//clear the parent node reference
-		if (this.ports[port.name]) {
-			_.forEach(port.getLinks(), link => {
-				link.remove();
-			});
-			this.ports[port.name].setParent(null);
-			delete this.ports[port.name];
-		}
+  
+	removePort(port) {
+	  console.log("port", port);
+	  console.log("this.ports", this.ports);
+	  console.log(port.getName());
+	  console.log(port.getLinks());
+	  //clear the parent node reference
+	  if (this.ports[port.getName()]) {
+		_.forEach(port.getLinks(), link => {
+		  link.remove();
+		});
+		this.ports[port.getName()].setParent(null);
+		delete this.ports[port.getName()];
+	  }
 	}
-}
+  }
+  
