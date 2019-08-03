@@ -180,3 +180,63 @@
 .hidden {
   display: none;
 }
+
+.title-and-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 70px;
+  padding: 0px 20px;
+  h1 {
+    line-height: 70px;
+  }
+  .project-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 370px;
+    button {
+      height: 45px;
+      width: 110px;
+      align-self: center;
+    }
+  }
+}
+
+.taskbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 50px;
+  background-color: lightgray;
+  .taskbar-left-section {
+    display: flex;
+    align-items: center;
+    img {
+      width: 45px;
+      padding: 0px 10px;
+    }
+    .taskbar-section {
+      display: flex;
+      flex-direction: row;
+      padding: 10px 5px;
+      height: 100%;
+      border-right: 2px solid gray;
+    }
+  }
+  .taskbar-right-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    img {
+      width: 45px;
+      padding: 0px 10px;
+    }
+    .taskbar-section {
+      display: flex;
+      flex-direction: row;
+      padding: 10px 5px;
+      height: 100%;
+      border-left: 2px solid gray;
+    }
+  }
+}
