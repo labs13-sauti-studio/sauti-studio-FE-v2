@@ -1,6 +1,4 @@
 import * as React from "react";
-// import * as ReactDOM from "react-dom";
-import "./main.css";
 import createEngine, {
   DiagramModel,
   DefaultNodeFactory,

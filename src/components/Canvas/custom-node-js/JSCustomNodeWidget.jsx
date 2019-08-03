@@ -152,7 +152,7 @@ export class JSCustomNodeWidget extends React.Component {
               event.stopPropagation();
             }}
             />
-            <div onClick={()=>this.deletePortAndLinks(obj[key])}>
+            <div onClick={()=>this.deletePortAndLinks(obj[key])} className="trash-icon">
               <img src={TrashCan} alt="trash icon"/>
             </div>
             <div className="line-out">
