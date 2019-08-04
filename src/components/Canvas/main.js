@@ -53,6 +53,24 @@ class CustomExample extends React.Component {
     this.forceUpdate();
   };
 
+  zoomOut = () => {
+    let zoomLevel = cerealBox.getZoomLevel()
+    console.log(zoomLevel);
+    zoomLevel += 10;
+    cerealBox.setZoomLevel(zoomLevel);
+    cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
+    this.forceUpdate();
+  };
+
+  zoomIn = () => {
+    let zoomLevel = cerealBox.getZoomLevel()
+    console.log(zoomLevel);
+    zoomLevel -= 10;
+    cerealBox.setZoomLevel(zoomLevel);
+    cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
+    this.forceUpdate();
+  };
+
   render() {
     return (
       <div>
@@ -110,8 +128,20 @@ class CustomExample extends React.Component {
 
           <div className="taskbar-right-section">
             <div className="taskbar-section">
-              <img src={ZoomOut} alt="alt text" />
-              <img src={ZoomIn} alt="alt text" />
+              <img 
+                src={ZoomOut} 
+                alt="alt text"
+                onClick={() => {
+                  this.zoomOut();
+                }}
+               />
+              <img 
+                src={ZoomIn} 
+                alt="alt text"
+                onClick={() => {
+                  this.zoomIn();
+                }}
+              />
             </div>
             <div className="taskbar-section">
               <img src={DocSettings} alt="alt text" />
