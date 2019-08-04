@@ -273,15 +273,73 @@ input, textarea {
   align-items: flex-start;
 }
 
+.title-and-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 5%;
+  padding: 0px 20px;
+}
+.title-and-buttons h1 {
+  line-height: 70px;
+}
+.title-and-buttons .project-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 370px;
+}
+.title-and-buttons .project-buttons button {
+  height: 45px;
+  width: 110px;
+  align-self: center;
+}
+
+.taskbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 5%;
+  background-color: lightgray;
+}
+.taskbar .taskbar-left-section {
+  display: flex;
+  align-items: center;
+}
+.taskbar .taskbar-left-section img {
+  width: 50px;
+  padding: 0px 10px;
+}
+.taskbar .taskbar-left-section .taskbar-section {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 5px;
+  height: 100%;
+  border-right: 2px solid gray;
+}
+.taskbar .taskbar-right-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.taskbar .taskbar-right-section img {
+  width: 50px;
+  padding: 0px 10px;
+}
+.taskbar .taskbar-right-section .taskbar-section {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 5px;
+  height: 100%;
+  border-left: 2px solid gray;
+}
+
 .bodywidget-container {
   width: 100%;
-  height: 100%;
 }
 
 .diagram-container {
-  background: black;
   width: 100%;
-  height: 100vh;
+  height: 87vh;
 }
 
 .custom-node {
@@ -445,66 +503,6 @@ input, textarea {
 
 .hidden {
   display: none;
-}
-
-.title-and-buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 70px;
-  padding: 0px 20px;
-}
-.title-and-buttons h1 {
-  line-height: 70px;
-}
-.title-and-buttons .project-buttons {
-  display: flex;
-  justify-content: space-between;
-  width: 370px;
-}
-.title-and-buttons .project-buttons button {
-  height: 45px;
-  width: 110px;
-  align-self: center;
-}
-
-.taskbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 50px;
-  background-color: lightgray;
-}
-.taskbar .taskbar-left-section {
-  display: flex;
-  align-items: center;
-}
-.taskbar .taskbar-left-section img {
-  width: 45px;
-  padding: 0px 10px;
-}
-.taskbar .taskbar-left-section .taskbar-section {
-  display: flex;
-  flex-direction: row;
-  padding: 10px 5px;
-  height: 100%;
-  border-right: 2px solid gray;
-}
-.taskbar .taskbar-right-section {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-.taskbar .taskbar-right-section img {
-  width: 45px;
-  padding: 0px 10px;
-}
-.taskbar .taskbar-right-section .taskbar-section {
-  display: flex;
-  flex-direction: row;
-  padding: 10px 5px;
-  height: 100%;
-  border-left: 2px solid gray;
 }
 
 .contact-form-container {

@@ -82,8 +82,9 @@ class CustomExample extends React.Component {
             </button>
           </div>
         </section>
+
         <section className="taskbar">
-          <div className="taskbar-left-Zsection">
+          <div className="taskbar-left-section">
             <div className="taskbar-section">
               <img
                 src={Plus}
@@ -93,10 +94,10 @@ class CustomExample extends React.Component {
                 }}
               />
             </div>
-            {/* <div className="taskbar-section">
+            <div className="taskbar-section">
               <img src={Undo} alt="alt text" />
               <img src={Redo} alt="alt text" />
-            </div> */}
+            </div>
             <div className="taskbar-section">
               <img src={PaintBucket} alt="alt text" />
               <img src={Lock} alt="alt text" />
@@ -117,11 +118,12 @@ class CustomExample extends React.Component {
             </div>
           </div>
         </section>
-        <div className="main-diagram-container">
+
+        <section className="main-diagram-container">
           <div className="bodywidget-container">
             <BodyWidget engine={engine} />
           </div>
-        </div>
+        </section>
       </div>
     );
   }
