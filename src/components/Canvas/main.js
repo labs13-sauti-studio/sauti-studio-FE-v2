@@ -1,92 +1,176 @@
 import * as React from "react";
-import "./main.css";
-import {
-  DefaultLinkModel,
+import Trashcan from "../../images/icons/trash.png";
+import DocSettings from "../../images/icons/docSettings.png";
+import Gear from "../../images/icons/gear.png";
+import Lock from "../../images/icons/lock.png";
+import PaintBucket from "../../images/icons/paintBucket.png";
+import Plus from "../../images/icons/plus.png";
+import Redo from "../../images/icons/redo.png";
+import Undo from "../../images/icons/undo.png";
+import ZoomIn from "../../images/icons/zoomIn.png";
+import ZoomOut from "../../images/icons/zoomOut.png";
+
+import createEngine, {
   DiagramModel,
-	DiagramEngine,
+  DefaultNodeFactory,
+  DefaultLinkFactory
 } from "@projectstorm/react-diagrams";
 import { JSCustomNodeFactory } from "./custom-node-js/JSCustomNodeFactory";
 import { JSCustomNodeModel } from "./custom-node-js/JSCustomNodeModel";
-import { BodyWidget } from "./BodyWidget.tsx";
-require("storm-react-diagrams/src/sass/main.scss");
+import { BodyWidget } from "./BodyWidget";
 
-	// create an instance of the engine
-  // const engine = createEngine();
+// create an instance of the engine
+const engine = createEngine();
 
-  //1) setup the diagram engine
-  var engine = new DiagramEngine();
-  engine.installDefaultFactories();
+// register the two engines
+engine.getNodeFactories().registerFactory(new JSCustomNodeFactory());
+engine.getNodeFactories().registerFactory(new DefaultNodeFactory());
+engine.getLinkFactories().registerFactory(new DefaultLinkFactory());
 
-  // register the two engines
-  engine.registerNodeFactory(new JSCustomNodeFactory());
-  // engine.registerNodeFactory(new TSCustomNodeFactory());
+// create a diagram model
+const model = new DiagramModel();
 
-  // create a diagram model
-  const model = new DiagramModel();
+// install the model into the engine
+engine.setDiagramModel(model);
 
-  // install the model into the engine
-  engine.setDiagramModel(model);
-	
-  //####################################################
-  // ------------- SERIALIZING ------------------
-  let str = JSON.stringify(model.serializeDiagram());
-	
-  // // !------------- DESERIALIZING ----------------
-  let cerealBox = new DiagramModel();
-  cerealBox.deSerializeDiagram(JSON.parse(str), engine);
-  engine.setDiagramModel(cerealBox);
-  cerealBox.serializeDiagram();
+//####################################################
+// ------------- SERIALIZING ------------------
+let str = JSON.stringify(model.serializeDiagram());
+
+// // !------------- DESERIALIZING ----------------
+let cerealBox = new DiagramModel();
+cerealBox.deSerializeDiagram(JSON.parse(str), engine);
+engine.setDiagramModel(cerealBox);
+cerealBox.serializeDiagram();
 
 class CustomExample extends React.Component {
-
   createNode = () => {
     let newItem = new JSCustomNodeModel();
     newItem.nameNode("Enter Node Name...");
     newItem.provideDescription("Enter Description...");
-		newItem.setPosition(0,0);
-		cerealBox.addNode(newItem);
-		this.forceUpdate();
-	}
+    newItem.setPosition(0, 0);
+    cerealBox.addNode(newItem);
+    this.forceUpdate();
+  };
 
-	render() {
-		return (
-      <>
-      <section className="title-test-save-export">
-          <div>       
-          <h1>Project Title</h1>
-          <h1>Enter Title Here</h1>
-          </div>
+  deleteNode = (node) => {
+    console.log(node);
+    cerealBox.getSelectedItems(node);
+    // cerealBox.deleteNode();
+    this.forceUpdate();
+  }
 
-          <div className="test-save-export">
-            <button>Test</button>
-            <button>Save</button>
-            <button>Export</button>
+  zoomOut = () => {
+    let zoomLevel = cerealBox.getZoomLevel()
+    console.log(zoomLevel);
+    zoomLevel += 10;
+    cerealBox.setZoomLevel(zoomLevel);
+    cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
+    this.forceUpdate();
+  };
+f
+  zoomIn = () => {
+    let zoomLevel = cerealBox.getZoomLevel()
+    console.log(zoomLevel);
+    zoomLevel -= 10;
+    cerealBox.setZoomLevel(zoomLevel);
+    cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
+    this.forceUpdate();
+  };
+
+  render() {
+    return (
+      <div>
+        <section className="title-and-buttons">
+          <h1>Enter Project Title...</h1>
+          <div className="project-buttons">
             <button
-				onClick={() => {
-					console.log(cerealBox.serializeDiagram());
-				}}
-				>
-					Serialize Graph
-				</button>
-				<button
-				onClick={() => {
-					this.createNode();
-				}}
-				>
-					Create Node +
-				</button>
+              onClick={() => {
+                console.log(cerealBox.serializeDiagram());
+              }}
+            >
+              Simulate App
+            </button>
+            <button
+              onClick={() => {
+                console.log(cerealBox.serializeDiagram());
+              }}
+            >
+              Save
+            </button>
+            <button
+              onClick={() => {
+                console.log(cerealBox.serializeDiagram());
+              }}
+            >
+              Publish
+            </button>
           </div>
         </section>
 
-			<div className="main-diagram-container">
-				
-				<div className="bodywidget-container">
-					<BodyWidget engine={engine} />
-				</div>
-			</div>
-      </>
-		);
-	}
+        <section className="taskbar">
+          <div className="taskbar-left-section">
+            <div className="taskbar-section">
+              <img
+                src={Plus}
+                alt="alt text"
+                onClick={() => {
+                  this.createNode();
+                }}
+              />
+            </div>
+            <div className="taskbar-section">
+              <img src={Undo} alt="alt text" />
+              <img src={Redo} alt="alt text" />
+            </div>
+            <div className="taskbar-section">
+              <img src={PaintBucket} alt="alt text" />
+              <img src={Lock} alt="alt text" />
+              <img src={Gear} alt="alt text" />
+            </div>
+            <div className="taskbar-section">
+              <img 
+                src={Trashcan} 
+                alt="alt text" 
+                onClick={(node) => {
+                  console.log('node', node);
+                  this.deleteNode(node);
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="taskbar-right-section">
+            <div className="taskbar-section">
+              <img 
+                src={ZoomOut} 
+                alt="alt text"
+                onClick={() => {
+                  this.zoomIn();
+                }}
+               />
+              <img 
+                src={ZoomIn} 
+                alt="alt text"
+                onClick={() => {
+                  this.zoomOut();
+                }}
+              />
+            </div>
+            <div className="taskbar-section">
+              <img src={DocSettings} alt="alt text" />
+            </div>
+          </div>
+        </section>
+
+        <section className="main-diagram-container">
+          <div className="bodywidget-container">
+            <BodyWidget engine={engine} />
+          </div>
+        </section>
+      </div>
+    );
+  }
 }
 
 export default CustomExample;

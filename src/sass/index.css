@@ -264,67 +264,245 @@ input, textarea {
   font-size: 3rem;
 }
 
-.app-builder-container {
+.main-diagram-container {
+  width: 100%;
   height: 100%;
-  background-color: red;
-}
-
-.profile-page-container {
-  display: flex;
-  height: 92%;
-  min-height: 900px;
-}
-
-.profile-page-container h2 {
-  font-size: 250%;
-}
-
-.title-taskbar-canvas {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.title-test-save-export {
+.title-and-buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0% 30px;
-  height: 100px;
-  background-color: #a0c0da;
+  height: 5%;
+  padding: 0px 20px;
 }
-.title-test-save-export h1 {
-  font-size: 20px;
-  margin-top: 10px;
+.title-and-buttons h1 {
+  line-height: 70px;
 }
-.title-test-save-export button {
-  border: 3px solid black;
-  color: black;
-  width: 160px;
-  height: 48px;
-  background-color: inherit;
-  transition: 0.3s;
-  font-family: "Libre Baskerville", serif;
-  font-family: "Dosis", sans-serif;
-  font-family: "Barlow", sans-serif;
-  font-weight: bold;
-}
-.title-test-save-export button:hover {
-  cursor: pointer;
-  background: black;
-  color: white;
-}
-
-.test-save-export {
+.title-and-buttons .project-buttons {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 300px;
+  width: 370px;
 }
-.test-save-export button {
-  border-radius: 5%;
-  width: 80px;
-  height: 50%;
+.title-and-buttons .project-buttons button {
+  height: 45px;
+  width: 110px;
+  align-self: center;
+}
+
+.taskbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 5%;
+  background-color: lightgray;
+}
+.taskbar .taskbar-left-section {
+  display: flex;
+  align-items: center;
+}
+.taskbar .taskbar-left-section img {
+  width: 50px;
+  padding: 0px 10px;
+}
+.taskbar .taskbar-left-section .taskbar-section {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 5px;
+  height: 100%;
+  border-right: 2px solid gray;
+}
+.taskbar .taskbar-right-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.taskbar .taskbar-right-section img {
+  width: 50px;
+  padding: 0px 10px;
+}
+.taskbar .taskbar-right-section .taskbar-section {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 5px;
+  height: 100%;
+  border-left: 2px solid gray;
+}
+
+.bodywidget-container {
+  width: 100%;
+}
+
+.diagram-container {
+  width: 100%;
+  height: 87vh;
+}
+
+.custom-node {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-node-nodeTitle {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  padding: 0 15px;
+  border: solid 2px #0c7cba;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #3aa6dd;
+  width: 400px;
+  height: 60px;
+  text-align: center;
+  line-height: 57px;
+  font-family: "LiberationSansRegular";
+}
+
+.custom-node-nodeTitle input {
+  font-size: 2.5rem;
+}
+
+.custom-node-nodeTitle h1 {
+  margin: 0;
+  padding-left: 15px;
+  font-size: 3rem;
+  font-family: "LiberationSansRegular";
+}
+
+.custom-node-screen {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  color: #999999;
+  border-left: 2px solid #0c7cba;
+  border-right: 2px solid #0c7cba;
+  border-bottom: 2px solid #0c7cba;
+  background-color: white;
+  width: 400px;
+  height: 300px;
+  text-align: center;
+  font-family: "LiberationSansRegular";
+}
+.custom-node-screen p {
+  font-size: 2.5rem;
+}
+
+.custom-node-screen textarea {
+  align-self: center;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  width: 400px;
+  height: 260px;
+  outline: 5;
+  box-shadow: none;
+  border: none;
+  box-sizing: content-box;
+  background-color: transparent;
+  overflow-y: hidden;
+  resize: none;
+  font-size: 2.5rem;
+  font-family: "LiberationSansRegular";
+}
+
+.custom-node-submenus {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  color: #999999;
+  padding: 0 15px;
+  border-left: solid 2px #0c7cba;
+  border-right: solid 2px #0c7cba;
+  border-bottom: solid 2px #0c7cba;
+  height: 50px;
+  line-height: 50px;
+  max-width: 400px;
+  background-color: white;
+  font-family: "LiberationSansRegular";
+}
+
+.custom-node-submenus h2 {
+  margin: 0;
+  flex-grow: 2;
+  font-style: italic;
+  font-family: "LiberationSansRegular";
+}
+
+.trash-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  width: 50px;
+  height: 100%;
+  padding: 0px;
+}
+
+.trash-icon img {
+  width: auto;
+  height: 55%;
+}
+
+.line-in {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  border: 2px solid #0c7cba;
+  background-color: white;
+  z-index: 1;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  border-radius: 20px;
+}
+
+.line-out {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  border: 2px solid #0c7cba;
+  z-index: 1;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  border-radius: 20px;
+}
+
+.custom-node-addMenuOption {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #0c7cba;
+  background-color: #99d2f2;
+  padding: 0 15px;
+  border-left: solid 2px #0c7cba;
+  border-right: solid 2px #0c7cba;
+  border-bottom: solid 2px #0c7cba;
+  height: 50px;
+  line-height: 50px;
+  max-width: 400px;
+  font-family: "LiberationSansRegular";
+}
+
+.custom-node-addMenuOption h2 {
+  margin: 0;
+  font-style: italic;
+  font-family: "LiberationSansRegular";
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.custom-node-addMenuOption img {
+  width: 30px;
+  filter: invert(100%);
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
 
 .contact-form-container {
