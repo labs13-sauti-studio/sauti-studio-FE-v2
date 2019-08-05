@@ -8,12 +8,7 @@ const AppBuilder = props => {
   return (
     <div className="app-builder-container">
       <ProfileNav />
-
-      <div className="profile-page-container">
-        <section className="title-taskbar-canvas">
-          <CustomExample />
-        </section>
-      </div>
+      <CustomExample />
     </div>
   );
 };

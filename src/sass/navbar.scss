@@ -2,32 +2,36 @@
     display: flex;
     flex-direction: row;
     background-color: #1a1e23;
-    height: 85px;
+    height: 70px;
     color: white;
     justify-content: space-between;
     align-items: center;
+    padding: 0% 2%;
 
   .nav-title-box {
     display: flex;
-    align-content: center;
+    align-items: center;
     border: 15px;
-    margin-left: 25px;
-    font-size: 1.5rem;
+    width: 40%;
 
     .nav-title-content {
       a {
-          text-decoration: none;
-          color: white;
+        font-size: 4rem;
+        text-decoration: none;
+        color: white;
       }
     }
   }
   
   .nav-options {
     display: flex;
-    align-content: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    width: 60%;
     border: 25px;
-    margin-right: 45px;
-    font-size: 1.5rem;
+    font-size-adjust: 1rem;
+    font-size: 3rem;
+    float: right;
   }
 }
-  
