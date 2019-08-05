@@ -53,6 +53,13 @@ class CustomExample extends React.Component {
     this.forceUpdate();
   };
 
+  deleteNode = (node) => {
+    console.log(node);
+    cerealBox.getSelectedItems(node);
+    // cerealBox.deleteNode();
+    this.forceUpdate();
+  }
+
   zoomOut = () => {
     let zoomLevel = cerealBox.getZoomLevel()
     console.log(zoomLevel);
@@ -122,7 +129,14 @@ class CustomExample extends React.Component {
               <img src={Gear} alt="alt text" />
             </div>
             <div className="taskbar-section">
-              <img src={Trashcan} alt="alt text" />
+              <img 
+                src={Trashcan} 
+                alt="alt text" 
+                onClick={(node) => {
+                  console.log('node', node);
+                  this.deleteNode(node);
+                }}
+              />
             </div>
           </div>
 
@@ -132,14 +146,14 @@ class CustomExample extends React.Component {
                 src={ZoomOut} 
                 alt="alt text"
                 onClick={() => {
-                  this.zoomOut();
+                  this.zoomIn();
                 }}
                />
               <img 
                 src={ZoomIn} 
                 alt="alt text"
                 onClick={() => {
-                  this.zoomIn();
+                  this.zoomOut();
                 }}
               />
             </div>
