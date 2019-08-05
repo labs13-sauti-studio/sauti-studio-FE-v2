@@ -81,7 +81,7 @@ f
 
   render() {
     return (
-      <div className="diagram-container">
+      <div className="diagram-page">
         <section className="title-and-buttons">
           <h1>Enter Project Title...</h1>
           <div className="project-buttons">
@@ -164,11 +164,7 @@ f
           </div>
         </section>
 
-        <section className="main-diagram-container">
-          <div className="bodywidget-container">
-            <BodyWidget engine={engine} />
-          </div>
-        </section>
+        <BodyWidget engine={engine} />
       </div>
     );
   }
