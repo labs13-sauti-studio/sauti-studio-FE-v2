@@ -68,7 +68,7 @@ class CustomExample extends React.Component {
     cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
     this.forceUpdate();
   };
-
+f
   zoomIn = () => {
     let zoomLevel = cerealBox.getZoomLevel()
     console.log(zoomLevel);
