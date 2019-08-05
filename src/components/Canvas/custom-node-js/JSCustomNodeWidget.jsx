@@ -134,10 +134,11 @@ export class JSCustomNodeWidget extends React.Component {
         }
         menus.push(
           <div key={key} className="custom-node-submenus">
+            <h2>{count}</h2>
             <h2
               className={this.state[id] ? "hidden" : ""}
               onDoubleClick={()=>this.handleEdit(mod)}>
-              {this.state[countName]} {this.state[mod]}
+              {this.state[mod]}
             </h2>
             <input
               name={mod}

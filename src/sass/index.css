@@ -123,7 +123,7 @@ input, textarea {
   display: flex;
   flex-direction: row;
   background-color: #1a1e23;
-  height: 85px;
+  height: 5%;
   color: white;
   justify-content: space-between;
   align-items: center;
@@ -262,6 +262,10 @@ input, textarea {
 .home-content2 h1 {
   margin: 10px;
   font-size: 3rem;
+}
+
+.app-builder-container {
+  height: 100vh;
 }
 
 .main-diagram-container {
@@ -429,6 +433,7 @@ input, textarea {
   flex-grow: 2;
   font-style: italic;
   font-family: "LiberationSansRegular";
+  overflow: hidden;
 }
 
 .trash-icon {

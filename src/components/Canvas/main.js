@@ -1,4 +1,5 @@
 import * as React from "react";
+import {Fragment} from "react";
 import Trashcan from "../../images/icons/trash.png";
 import DocSettings from "../../images/icons/docSettings.png";
 import Gear from "../../images/icons/gear.png";
@@ -80,7 +81,7 @@ f
 
   render() {
     return (
-      <div>
+      <div className="diagram-container">
         <section className="title-and-buttons">
           <h1>Enter Project Title...</h1>
           <div className="project-buttons">

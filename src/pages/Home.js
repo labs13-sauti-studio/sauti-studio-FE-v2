@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar";
 
 const Home = () => {
   return (
-    <div>
+    <>
       <Navbar />
 
       <div className="home-header">
@@ -92,7 +92,7 @@ const Home = () => {
       <div className="home-content2">
         <img src={image3} alt="placeholder alt text" />
       </div>
-    </div>
+    </>
   )
 }
 
