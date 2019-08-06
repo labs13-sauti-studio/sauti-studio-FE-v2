@@ -284,6 +284,7 @@ input, textarea {
     .taskbar .taskbar-left-section .taskbar-section {
       display: flex;
       flex-direction: row;
+      align-items: center;
       padding: 10px 5px;
       height: 100%;
       border-right: 2px solid gray; }
@@ -297,6 +298,7 @@ input, textarea {
     .taskbar .taskbar-right-section .taskbar-section {
       display: flex;
       flex-direction: row;
+      align-items: center;
       padding: 10px 5px;
       height: 100%;
       border-left: 2px solid gray; }
@@ -483,3 +485,20 @@ input, textarea {
   .copyright p {
     display: inline-block;
     font-size: 130%; }
+
+.swatches-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 161px;
+  height: 41px;
+  background-color: white;
+  border: 1px solid lightgray; }
+  .swatches-container .swatches-row {
+    display: flex;
+    flex-direction: row; }
+  .swatches-container .swatch {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black; }
