@@ -14,7 +14,9 @@ import ZoomOut from "../../images/icons/zoomOut.png";
 import createEngine, {
   DiagramModel,
   DefaultNodeFactory,
-  DefaultLinkFactory
+  DefaultLinkFactory,
+  DefaultLinkModel,
+  PointModel
 } from "@projectstorm/react-diagrams";
 import { JSCustomNodeFactory } from "./custom-node-js/JSCustomNodeFactory";
 import { JSCustomNodeModel } from "./custom-node-js/JSCustomNodeModel";
@@ -54,11 +56,48 @@ class CustomExample extends React.Component {
     this.forceUpdate();
   };
 
-  deleteNode = (node) => {
-    console.log(node);
-    cerealBox.getSelectedItems(node);
-    // cerealBox.deleteNode();
-    this.forceUpdate();
+  deleteItem = (item) => {
+    // Checks if a node or wire is selected
+    if (item.length !== 0) {
+      if (item[0] instanceof JSCustomNodeModel) {
+        // Delete Nodes
+        item[0].removePorts();
+        cerealBox.removeNode(item[0]);
+        this.forceUpdate();
+      } else if (item[0] instanceof PointModel) {
+        cerealBox.removeLink(item[0].parent);
+        engine.repaintCanvas();
+      } else if (item[0] instanceof DefaultLinkModel) {
+        // Delete Links
+        cerealBox.removeLink(item[0]);
+        engine.repaintCanvas();
+      }
+    } 
+  }
+
+  changeColor = (item) => {
+    // Checks if a node or wire is selected
+    console.log(item[0])
+    console.log('line 78: item[0].constructor.name', item[0].constructor.name)
+    if (item.length !== 0) {
+      if (item[0] instanceof JSCustomNodeModel) {
+        console.log('JSCustomNodeModel detected');
+        // Change Node Color
+        // item[0].removePorts();
+        // engine.repaintCanvas();
+      } else if (item[0] instanceof PointModel) {
+        console.log('PointModel detected');
+        // Change Link Color
+        console.log("----");
+        item[0].parent.setColor("red");
+        engine.repaintCanvas();
+      } else if (item[0] instanceof DefaultLinkModel) {
+        console.log('Link detected');
+        // Change Link Color
+        item[0].setColor("red");
+        engine.repaintCanvas();
+      }
+    } 
   }
 
   zoomOut = () => {
@@ -125,7 +164,14 @@ f
               <img src={Redo} alt="alt text" />
             </div>
             <div className="taskbar-section">
-              <img src={PaintBucket} alt="alt text" />
+              <img 
+                src={PaintBucket} 
+                alt="alt text" 
+                onClick={() => {
+                  let selectedItems = cerealBox.getSelectedItems();
+                  this.changeColor(selectedItems);
+                }}
+              />
               <img src={Lock} alt="alt text" />
               <img src={Gear} alt="alt text" />
             </div>
@@ -133,9 +179,9 @@ f
               <img 
                 src={Trashcan} 
                 alt="alt text" 
-                onClick={(node) => {
-                  console.log('node', node);
-                  this.deleteNode(node);
+                onClick={() => {
+                  let selectedItems = cerealBox.getSelectedItems();
+                  this.deleteItem(selectedItems);
                 }}
               />
             </div>
