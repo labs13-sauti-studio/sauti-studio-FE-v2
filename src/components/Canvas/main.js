@@ -53,7 +53,7 @@ class CustomExample extends React.Component {
     newItem.provideDescription("Enter Description...");
     newItem.setPosition(0, 0);
     cerealBox.addNode(newItem);
-    this.forceUpdate();
+    engine.repaintCanvas();
   };
 
   deleteItem = (item) => {
@@ -63,7 +63,7 @@ class CustomExample extends React.Component {
         // Delete Nodes
         item[0].removePorts();
         cerealBox.removeNode(item[0]);
-        this.forceUpdate();
+        engine.repaintCanvas();
       } else if (item[0] instanceof PointModel) {
         cerealBox.removeLink(item[0].parent);
         engine.repaintCanvas();
@@ -106,7 +106,7 @@ class CustomExample extends React.Component {
     zoomLevel += 10;
     cerealBox.setZoomLevel(zoomLevel);
     cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
-    this.forceUpdate();
+    engine.repaintCanvas();
   };
 f
   zoomIn = () => {
@@ -115,7 +115,7 @@ f
     zoomLevel -= 10;
     cerealBox.setZoomLevel(zoomLevel);
     cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
-    this.forceUpdate();
+    engine.repaintCanvas();
   };
 
   render() {
