@@ -53,6 +53,7 @@
     .taskbar-section {
       display: flex;
       flex-direction: row;
+      align-items: center;
       padding: 10px 5px;
       height: 100%;
       border-right: 2px solid gray;
@@ -69,6 +70,7 @@
     .taskbar-section {
       display: flex;
       flex-direction: row;
+      align-items: center;
       padding: 10px 5px;
       height: 100%;
       border-left: 2px solid gray;

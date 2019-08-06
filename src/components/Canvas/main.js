@@ -6,8 +6,6 @@ import Gear from "../../images/icons/gear.png";
 import Lock from "../../images/icons/lock.png";
 import PaintBucket from "../../images/icons/paintBucket.png";
 import Plus from "../../images/icons/plus.png";
-import Redo from "../../images/icons/redo.png";
-import Undo from "../../images/icons/undo.png";
 import ZoomIn from "../../images/icons/zoomIn.png";
 import ZoomOut from "../../images/icons/zoomOut.png";
 
@@ -21,6 +19,8 @@ import createEngine, {
 import { JSCustomNodeFactory } from "./custom-node-js/JSCustomNodeFactory";
 import { JSCustomNodeModel } from "./custom-node-js/JSCustomNodeModel";
 import { BodyWidget } from "./BodyWidget";
+
+import Swatches from '../Swatches/Swatches';
 
 // create an instance of the engine
 const engine = createEngine();
@@ -160,10 +160,6 @@ f
               />
             </div>
             <div className="taskbar-section">
-              <img src={Undo} alt="alt text" />
-              <img src={Redo} alt="alt text" />
-            </div>
-            <div className="taskbar-section">
               <img 
                 src={PaintBucket} 
                 alt="alt text" 
@@ -172,6 +168,9 @@ f
                   this.changeColor(selectedItems);
                 }}
               />
+              <Swatches />
+            </div>
+            <div className="taskbar-section">
               <img src={Lock} alt="alt text" />
               <img src={Gear} alt="alt text" />
             </div>

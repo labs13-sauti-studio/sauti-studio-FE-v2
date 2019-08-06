@@ -1,0 +1,19 @@
+.swatches-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 161px;
+  height: 41px;
+  background-color: white;
+  border: 1px solid lightgray;
+  .swatches-row {
+    display: flex;
+    flex-direction: row;
+  }
+  .swatch {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+  }
+}
