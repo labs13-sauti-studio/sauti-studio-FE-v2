@@ -47,6 +47,16 @@ engine.setDiagramModel(cerealBox);
 cerealBox.serializeDiagram();
 
 class CustomExample extends React.Component {
+  state = {
+    selectedColor: "#B80000"
+  }
+
+  updateSelectedColor = selectedColor => {
+    let selectedItems = cerealBox.getSelectedItems();
+ 
+    this.setState({selectedColor}, () => this.changeColor(selectedItems))
+  }
+
   createNode = () => {
     let newItem = new JSCustomNodeModel();
     newItem.nameNode("Enter Node Name...");
@@ -89,12 +99,12 @@ class CustomExample extends React.Component {
         console.log('PointModel detected');
         // Change Link Color
         console.log("----");
-        item[0].parent.setColor("red");
+        item[0].parent.setColor(this.state.selectedColor);
         engine.repaintCanvas();
       } else if (item[0] instanceof DefaultLinkModel) {
         console.log('Link detected');
         // Change Link Color
-        item[0].setColor("red");
+        item[0].setColor("#FCCB00");
         engine.repaintCanvas();
       }
     } 
@@ -163,12 +173,13 @@ f
               <img 
                 src={PaintBucket} 
                 alt="alt text" 
-                onClick={() => {
-                  let selectedItems = cerealBox.getSelectedItems();
-                  this.changeColor(selectedItems);
-                }}
+                // onClick={() => {
+                //   let selectedItems = cerealBox.getSelectedItems();
+                //   console.log('SELECTED ITEM', selectedItems)
+                //   this.changeColor(selectedItems);
+                // }}
               />
-              <Swatches />
+              <Swatches cerealBox={cerealBox} changeColor={this.changeColor} updateSelectedColor={this.updateSelectedColor} />
             </div>
             <div className="taskbar-section">
               <img src={Lock} alt="alt text" />
