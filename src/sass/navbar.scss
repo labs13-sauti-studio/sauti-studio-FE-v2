@@ -22,16 +22,32 @@
       }
     }
   }
+    .navbar-options {
+      font-size-adjust: 1rem;
+      font-size: 3rem;
+      display: flex;
+      justify-content: space-between;
+
+      .app-options{
+        width: 185px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+  .navbar-links {
+      display: flex;
+      justify-content: space-between;
+      width: 530px;
+      text-decoration: none;
   
-  .nav-options {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    width: 60%;
-    border: 25px;
-    font-size-adjust: 1rem;
-    font-size: 3rem;
-    float: right;
+      a {
+          color: white;
+          text-decoration: none;
+        }
+    }
+
   }
 }
+
+ 
+

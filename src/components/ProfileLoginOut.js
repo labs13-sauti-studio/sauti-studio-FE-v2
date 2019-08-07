@@ -8,7 +8,7 @@ const ProfileLoginOut = () => {
       <Link to="/workflows">App Builder</Link>
       <Link to="/contact">Contact</Link>
       <Link to="/profile">Profile</Link>
-      <Link to="/login">Login Thingy!</Link>
+      <Link to="/login">Login</Link>
     </div>
   );
 };
