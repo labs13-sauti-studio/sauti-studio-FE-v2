@@ -119,7 +119,6 @@ export class JSCustomNodeWidget extends React.Component {
         }else{
           count = count + ".";
         }
-        console.log("count",count);
 				let id = obj[key].options.id;
         let mod = id + "a";
         let countName = count + mod;

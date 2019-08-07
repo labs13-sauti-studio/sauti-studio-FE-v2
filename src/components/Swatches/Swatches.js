@@ -21,28 +21,29 @@ const colors = [
   '#D4C4FB'
 ]
 
-const Swatches = () => {  
+const Swatches = (props) => {  
+  console.log(props);
   return (
     <div className="swatches-container">
       <div class="swatches-row">
-        <Swatch color={'#B80000'}/>
-        <Swatch color={'#DB3E00'}/>
-        <Swatch color={'#FCCB00'}/>
-        <Swatch color={'#008B02'}/>
-        <Swatch color={'#006B76'}/>
-        <Swatch color={'#1273DE'}/>
-        <Swatch color={'#004DCF'}/>
-        <Swatch color={'#5300EB'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#B80000'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#DB3E00'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#FCCB00'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#008B02'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#006B76'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#1273DE'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#004DCF'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#5300EB'}/>
       </div>
       <div class="swatches-row">
-        <Swatch color={'#EB9694'}/>
-        <Swatch color={'#FAD0C3'}/>
-        <Swatch color={'#FEF3BD'}/>
-        <Swatch color={'#C1E1C5'}/>
-        <Swatch color={'#BEDADC'}/>
-        <Swatch color={'#C4DEF6'}/>
-        <Swatch color={'#BED3F3'}/>
-        <Swatch color={'#D4C4FB'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#EB9694'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#FAD0C3'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#FEF3BD'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#C1E1C5'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#BEDADC'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#C4DEF6'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#BED3F3'}/>
+        <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#D4C4FB'}/>
       </div>
     </div>
   )
