@@ -53,7 +53,8 @@ html {
   scroll-behavior: smooth; }
 
 html, body {
-  font-family: 'Roboto', sans-serif; }
+  font-family: 'Roboto', sans-serif;
+  margin: 0; }
 
 h1, h2, h3, h4, h5, li {
   font-family: 'Roboto', sans-serif; }
@@ -232,6 +233,157 @@ input, textarea {
   .home-content2 h1 {
     margin: 10px;
     font-size: 3rem; }
+
+.profile-page-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: calc(100vh - 70px); }
+  .profile-page-container .resources-section {
+    width: 20rem;
+    height: 100%;
+    background: #575a88;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    .profile-page-container .resources-section h2 {
+      padding: 0;
+      margin-top: 2rem;
+      margin-bottom: 2rem; }
+    .profile-page-container .resources-section .resources-list {
+      overflow-y: auto;
+      scrollbar-width: none;
+      /* Firefox */
+      -ms-overflow-style: none;
+      /* IE 10+ */ }
+      .profile-page-container .resources-section .resources-list::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+        /* Chrome/Safari/Webkit */ }
+      .profile-page-container .resources-section .resources-list .resource {
+        width: 15rem;
+        height: 15rem;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        cursor: pointer; }
+        .profile-page-container .resources-section .resources-list .resource .title-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          height: 5rem;
+          width: 100%; }
+          .profile-page-container .resources-section .resources-list .resource .title-container h3 {
+            font-size: 2rem;
+            text-align: center;
+            margin: 0 0; }
+  .profile-page-container .folders-section {
+    width: 20rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    .profile-page-container .folders-section h2 {
+      padding: 0;
+      margin-top: 2rem;
+      margin-bottom: 2rem; }
+    .profile-page-container .folders-section .folders-list {
+      overflow-y: auto;
+      scrollbar-width: none;
+      /* Firefox */
+      -ms-overflow-style: none;
+      /* IE 10+ */ }
+      .profile-page-container .folders-section .folders-list::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+        /* Chrome/Safari/Webkit */ }
+      .profile-page-container .folders-section .folders-list .folder {
+        width: 15rem;
+        height: 15rem;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        cursor: pointer; }
+        .profile-page-container .folders-section .folders-list .folder .title-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          height: 5rem;
+          width: 100%; }
+          .profile-page-container .folders-section .folders-list .folder .title-container h3 {
+            font-size: 2rem;
+            text-align: center;
+            margin: 0 0; }
+  .profile-page-container .projects-section {
+    width: calc(100% - 40rem);
+    height: 100%;
+    border-left: .25rem solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 0 2.5rem; }
+    .profile-page-container .projects-section .projects-title-add {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 2rem;
+      margin-bottom: 2rem; }
+      .profile-page-container .projects-section .projects-title-add h2 {
+        padding: 0; }
+      .profile-page-container .projects-section .projects-title-add .btn {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        margin-left: 2rem;
+        cursor: pointer;
+        background: #575a88;
+        border-radius: 50%; }
+        .profile-page-container .projects-section .projects-title-add .btn img {
+          height: auto;
+          width: 2rem; }
+        .profile-page-container .projects-section .projects-title-add .btn:hover {
+          transition: 0.25s;
+          background: #fe5043; }
+    .profile-page-container .projects-section .projects-list {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      overflow-y: auto;
+      scrollbar-width: none;
+      /* Firefox */
+      -ms-overflow-style: none;
+      /* IE 10+ */ }
+      .profile-page-container .projects-section .projects-list::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+        /* Chrome/Safari/Webkit */ }
+      .profile-page-container .projects-section .projects-list .project {
+        width: 15rem;
+        height: 15rem;
+        margin-bottom: 2rem;
+        margin-right: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        cursor: pointer; }
+        .profile-page-container .projects-section .projects-list .project .title-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          height: 5rem;
+          width: 100%; }
+          .profile-page-container .projects-section .projects-list .project .title-container h3 {
+            font-size: 2rem;
+            text-align: center;
+            margin: 0 0; }
 
 .app-builder-container {
   height: 100vh;
