@@ -1,5 +1,4 @@
 import * as React from "react";
-import {Fragment} from "react";
 import Trashcan from "../../images/icons/trash.png";
 import DocSettings from "../../images/icons/docSettings.png";
 import Gear from "../../images/icons/gear.png";
@@ -8,7 +7,6 @@ import PaintBucket from "../../images/icons/paintBucket.png";
 import Plus from "../../images/icons/plus.png";
 import ZoomIn from "../../images/icons/zoomIn.png";
 import ZoomOut from "../../images/icons/zoomOut.png";
-import axios from "axios";
 import { connect } from "react-redux";
 import { saveCanvas, getCanvasById } from "../../actions";
 

@@ -1,13 +1,12 @@
-import React, {Fragment} from 'react';
+import React from 'react';
+import { connect } from "react-redux";
 
-import Folder from '../components/Folder';
-import Project from '../components/Project';
+import { getProjectsByUserId,addProjectByUserId } from "../actions";
+import Navbar from '../components/Navbar';
 
 import blankFolder from '../images/FolderBlank.png';
 import blankProject from '../images/ProjectBlank.png';
 import addSign from '../images/icons/plus.png';
-import Navbar from '../components/Navbar';
-
 
 const sidebar = [
   {
@@ -406,13 +405,35 @@ const projects = [
 ]
 
 class Profile extends React.Component {
-  constructor(props){
-    super(props);
+  state={
+    projects: []
   }
+
+  componentDidMount(){
+    if(this.props.user_id !== null){
+      this.props.getProjectsByUserId(this.props.user_id);
+    }
+  }
+
+  componentDidUpdate(prevProps){
+    console.log("get there -------------------");
+    if(this.props.projects !== prevProps.projects){
+      console.log("get there -------------------2");
+      this.forceUpdate();
+      // this.props.getProjectsByUserId(this.props.user_id);
+      // cerealBox.deSerializeDiagram(this.props.graph_json, engine);
+      // engine.setDiagramModel(cerealBox);
+    }
+  }
+
   render(){
-  return (
-    <>
+      return (
+        <>
       <Navbar/>
+      {
+        (this.props.fetching || this.props.projects === null)?(
+          <p>duh</p>
+          ):(
       <div className="profile-page-container">
         <section className="resources-section">
             <h2>Resources</h2>
@@ -460,12 +481,19 @@ class Profile extends React.Component {
             <div 
               className="btn"
               title="Add Project"
+              onClick={()=>this.props.addProjectByUserId(
+                {
+                  project_title: "Enter Title...",
+                  graph_json: null,
+                  user_id: this.props.user_id
+                }
+              )}
             >
             <img src={addSign} alt="Add Project"/>
             </div>
           </div>
           <div className="projects-list">
-            {projects.map(project => {
+            {this.props.projects.map(project => {
               return <div 
               style={{
                 backgroundImage: `url(${blankFolder})`,
@@ -476,16 +504,34 @@ class Profile extends React.Component {
               key={project.id}
               >
               <div className="title-container">
-                <h3>{ project.title }</h3>
+                <h3>{ project.project_title }</h3>
               </div>
             </div>
             })}
           </div>
         </section>
       </div>
+        )
+      }
     </>
   )
 }
 }
 
-export default Profile;
+// export default Profile;
+
+const mapStateToProps = state => ({
+  user_id: state.user_id,
+  projects: state.projects,
+  project_id: state.project_id,
+  project_title: state.project_title,
+  graph_json: state.graph_json,
+  fetching: state.fetching,
+  error: state.error,
+  loggedIn: state.loggedIn
+});
+
+export default connect(
+  mapStateToProps,
+  { getProjectsByUserId, addProjectByUserId }
+  )(Profile); 
