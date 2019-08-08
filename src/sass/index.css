@@ -325,10 +325,31 @@ input, textarea {
     display: flex;
     flex-direction: column;
     padding: 0 2.5rem; }
-    .profile-page-container .projects-section h2 {
-      padding: 0;
+    .profile-page-container .projects-section .projects-title-add {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
       margin-top: 2rem;
       margin-bottom: 2rem; }
+      .profile-page-container .projects-section .projects-title-add h2 {
+        padding: 0; }
+      .profile-page-container .projects-section .projects-title-add .btn {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        margin-left: 2rem;
+        cursor: pointer;
+        background: #575a88;
+        border-radius: 50%; }
+        .profile-page-container .projects-section .projects-title-add .btn img {
+          height: auto;
+          width: 2rem; }
+        .profile-page-container .projects-section .projects-title-add .btn:hover {
+          transition: 0.25s;
+          background: #fe5043; }
     .profile-page-container .projects-section .projects-list {
       display: flex;
       flex-direction: row;

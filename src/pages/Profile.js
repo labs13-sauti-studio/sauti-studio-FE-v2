@@ -457,9 +457,12 @@ class Profile extends React.Component {
         <section className="projects-section">
           <div className="projects-title-add">
             <h2>Projects</h2>
-            <button>
-              addSign
-            </button>
+            <div 
+              className="btn"
+              title="Add Project"
+            >
+            <img src={addSign} alt="Add Project"/>
+            </div>
           </div>
           <div className="projects-list">
             {projects.map(project => {
