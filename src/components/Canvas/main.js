@@ -8,6 +8,9 @@ import PaintBucket from "../../images/icons/paintBucket.png";
 import Plus from "../../images/icons/plus.png";
 import ZoomIn from "../../images/icons/zoomIn.png";
 import ZoomOut from "../../images/icons/zoomOut.png";
+import axios from "axios";
+import { connect } from "react-redux";
+import { saveCanvas, getCanvasById } from "../../actions";
 
 import createEngine, {
   DiagramModel,
@@ -44,11 +47,24 @@ let str = JSON.stringify(model.serializeDiagram());
 let cerealBox = new DiagramModel();
 cerealBox.deSerializeDiagram(JSON.parse(str), engine);
 engine.setDiagramModel(cerealBox);
-cerealBox.serializeDiagram();
+// cerealBox.serializeDiagram();
 
 class CustomExample extends React.Component {
   state = {
-    selectedColor: "#B80000"
+    selectedColor: "#B80000",
+  }
+
+  componentDidMount(){
+    this.getCanvas();
+  }
+
+  componentDidUpdate(prevProps){
+    console.log("get there -------------------");
+    if(this.props.graph_json !== prevProps.graph_json){
+      console.log("this.props.graph_json",this.props.graph_json);
+      // cerealBox.deSerializeDiagram(this.props.graph_json, engine);
+      // engine.setDiagramModel(cerealBox);
+    }
   }
 
   updateSelectedColor = selectedColor => {
@@ -118,7 +134,7 @@ class CustomExample extends React.Component {
     cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
     engine.repaintCanvas();
   };
-f
+
   zoomIn = () => {
     let zoomLevel = cerealBox.getZoomLevel()
     console.log(zoomLevel);
@@ -127,6 +143,22 @@ f
     cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
     engine.repaintCanvas();
   };
+
+  getCanvas = () => {
+    this.props.getCanvasById(this.props.project_id);
+  }
+
+  saveCanvas1 = (event) => {
+    event.preventDefault();
+    let savedCanvas = cerealBox.serializeDiagram();
+    const objUpdate = {
+        "project_title": this.props.project_title,
+        "graph_json": savedCanvas,
+        "user_id": this.props.user_id
+    }
+    console.log("objUpdate",objUpdate);
+    this.props.saveCanvas(objUpdate, this.props.project_id);
+  }
 
   render() {
     return (
@@ -142,8 +174,8 @@ f
               Simulate App
             </button>
             <button
-              onClick={() => {
-                console.log(cerealBox.serializeDiagram());
+              onClick={(event) => {
+                this.saveCanvas1(event);
               }}
             >
               Save
@@ -226,4 +258,17 @@ f
   }
 }
 
-export default CustomExample;
+const mapStateToProps = state => ({
+  user_id: state.user_id,
+  project_id: state.project_id,
+  project_title: state.project_title,
+  graph_json: state.graph_json,
+  fetching: state.fetching,
+  error: state.error,
+  loggedIn: state.loggedIn
+});
+
+export default connect(
+  mapStateToProps,
+  { saveCanvas, getCanvasById }
+  )(CustomExample); 
