@@ -10,7 +10,7 @@ const ProfileNav = () => {
           <Link to="/">SAUTI DESIGN STUDIO</Link>
         </h2>
       </div>
-      <div className="nav-options">
+      <div className="navbar-options">
         <ProfileOptions />
       </div>
     </div>

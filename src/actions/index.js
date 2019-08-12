@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const GET_CANVAS_START = "SAVE_CANVAS_START";
-export const GET_CANVAS_SUCCESS = "SAVE_CANVAS_SUCCESS";
-export const GET_CANVAS_FAILURE = "SAVE_CANVAS_FAILURE";
+export const GET_CANVAS_BY_ID_START = "GET_CANVAS_BY_ID_START";
+export const GET_CANVAS_BY_ID_SUCCESS = "GET_CANVAS_BY_ID_SUCCESS";
+export const GET_CANVAS_BY_ID_FAILURE = "GET_CANVAS_BY_ID_FAILURE";
 
 export const SAVE_CANVAS_START = "SAVE_CANVAS_START";
 export const SAVE_CANVAS_SUCCESS = "SAVE_CANVAS_SUCCESS";
@@ -54,7 +54,7 @@ export const setProjectId = ( project_id) => dispatch => {
 };
 
 export const getCanvasById = (project_id1) => dispatch => {
-  dispatch({ type: GET_CANVAS_START });
+  dispatch({ type: GET_CANVAS_BY_ID_START });
   let endpoint1;
   if(productionServer){
     endpoint1 = `${productionServer}/projects/${project_id1}`;
@@ -68,9 +68,9 @@ export const getCanvasById = (project_id1) => dispatch => {
     )
     .then(response => {
       console.log("response",response);
-      dispatch({ type: GET_CANVAS_SUCCESS, payload: response.data.graph_json});
+      dispatch({ type: GET_CANVAS_BY_ID_SUCCESS, payload: response.data});
     })
-    .catch(err => dispatch({ type: GET_CANVAS_FAILURE, payload: err }));
+    .catch(err => dispatch({ type: GET_CANVAS_BY_ID_FAILURE, payload: err }));
 };
 
 export const saveCanvas = (objUpdate, project_id) => dispatch => {

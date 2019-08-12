@@ -2,9 +2,9 @@ import {
   SAVE_CANVAS_START,
   SAVE_CANVAS_SUCCESS,
   SAVE_CANVAS_FAILURE,
-  GET_CANVAS_START,
-  GET_CANVAS_SUCCESS,
-  GET_CANVAS_FAILURE,
+  GET_CANVAS_BY_ID_START,
+  GET_CANVAS_BY_ID_SUCCESS,
+  GET_CANVAS_BY_ID_FAILURE,
   GET_PROJECTS_BY_ID_START,
   GET_PROJECTS_BY_ID_SUCCESS,
   GET_PROJECTS_BY_ID_FAILURE,
@@ -19,13 +19,14 @@ import {
     user_id: 1,
     projects: null,
     project_id: 1,
-    project_title: "title",
+    project_title: null,
     graph_json: null,
     fetching: false,
     added_project: false,
     error: null,
     loggedIn: false,
-    fetchingProjectId: false
+    fetchingProjectId: false,
+    saving_canvas: false
   };
   
   const Reducer = (state = initialState, action) => {
@@ -33,33 +34,34 @@ import {
       case SAVE_CANVAS_START:
         return {
           ...state,
-          fetching: true
+          saving_canvas: true
         };
       case SAVE_CANVAS_SUCCESS:
         return {
           ...state,
-          fetching: false,
+          saving_canvas: false,
           error: false
         };
       case SAVE_CANVAS_FAILURE:
         return {
           ...state,
-          fetching: false,
+          saving_canvas: false,
           error: action.payload
         };
-      case GET_CANVAS_START:
+      case GET_CANVAS_BY_ID_START:
         return {
           ...state,
           fetching: true
         };
-      case GET_CANVAS_SUCCESS:
+      case GET_CANVAS_BY_ID_SUCCESS:
         return {
           ...state,
           error: null,
           fetching: false,
-          graph_json: action.payload
+          graph_json: action.payload.graph_json,
+          project_title: action.payload.project_title
         };
-      case GET_CANVAS_FAILURE:
+      case GET_CANVAS_BY_ID_FAILURE:
         return {
           ...state,
           fetching: false,

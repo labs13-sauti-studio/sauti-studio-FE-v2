@@ -24,7 +24,7 @@ import { BodyWidget } from "./BodyWidget";
 import Swatches from '../Swatches/Swatches';
 
 // create an instance of the engine
-const engine = createEngine();
+let engine = createEngine();
 
 // register the two engines
 engine.getNodeFactories().registerFactory(new JSCustomNodeFactory());
@@ -50,25 +50,37 @@ engine.setDiagramModel(cerealBox);
 class CustomExample extends React.Component {
   state = {
     selectedColor: "#B80000",
+    canvas_stop: false
   }
 
   componentDidMount(){
     this.getCanvas();
   }
 
-  componentDidUpdate(prevProps){
-    console.log("get there -------------------");
-    if(this.props.graph_json !== prevProps.graph_json){
-      console.log("this.props.graph_json",this.props.graph_json);
-      console.log("get there -------------------222222222222");
-      // cerealBox.deSerializeDiagram(this.props.graph_json, engine);
-      // engine.setDiagramModel(cerealBox);
+  componentDidUpdate(prevProps, prevState){
+    
+    if(this.props.saving_canvas !== prevProps.saving_canvas && this.props.saving_canvas === false){
+      this.getCanvas();
+    }
+    // else if(){
+    //   this.setState({
+    //     ...this.state,
+    //     canvas_stop: false
+    //   });
+    // }
+    else if(this.props.fetching !== prevProps.fetching && (this.props.graph_json !== null ) && this.props.saving_canvas === prevProps.saving_canvas){
+      cerealBox.deSerializeDiagram(this.props.graph_json, engine);
+      engine.setDiagramModel(cerealBox);
+      engine.repaintCanvas();
+    }
+    else{
+      engine.setDiagramModel(model);
+      engine.repaintCanvas();
     }
   }
 
   updateSelectedColor = selectedColor => {
     let selectedItems = cerealBox.getSelectedItems();
- 
     this.setState({selectedColor}, () => this.changeColor(selectedItems))
   }
 
@@ -155,6 +167,10 @@ class CustomExample extends React.Component {
         "graph_json": savedCanvas,
         "user_id": this.props.user_id
     }
+    // this.setState({
+    //   ...this.state,
+    //   canvas_stop: true
+    // });
     console.log("objUpdate",objUpdate);
     this.props.saveCanvas(objUpdate, this.props.project_id);
   }
@@ -163,7 +179,7 @@ class CustomExample extends React.Component {
     return (
       <div className="diagram-page">
         <section className="title-and-buttons">
-          <h1>Enter Project Title...</h1>
+          <h1>{this.props.project_title}</h1>
           <div className="project-buttons">
             <button
               onClick={() => {
@@ -250,8 +266,16 @@ class CustomExample extends React.Component {
             </div>
           </div>
         </section>
+        {
+          (
+            this.state.canvas_stop === true  
+          )?(
+            <p>waiting</p>
+          ):(
 
         <BodyWidget engine={engine} />
+          )
+        }
       </div>
     );
   }
@@ -264,7 +288,8 @@ const mapStateToProps = state => ({
   graph_json: state.graph_json,
   fetching: state.fetching,
   error: state.error,
-  loggedIn: state.loggedIn
+  loggedIn: state.loggedIn,
+  saving_canvas: state.saving_canvas
 });
 
 export default connect(
