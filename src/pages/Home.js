@@ -26,7 +26,7 @@ const Home = () => {
           <h1>
             Sharing information made simple & easy with Sauti Design Studio
           </h1>
-          <button>STAR A NEW FLOW</button>
+          <button className="flow-button">STAR A NEW FLOW</button>
         </div>
       </div>
 

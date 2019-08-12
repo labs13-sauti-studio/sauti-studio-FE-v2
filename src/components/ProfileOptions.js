@@ -13,8 +13,10 @@ class ProfileOptions extends Component {
     render() {
   return (
     <div className="navbar-options">
+      <div className="app-options">
       <div onClick = {this.showMenu} >Help</div>
       <div onClick = {this.showMenu2} >Name</div>
+      </div>
     </div>
   );
  }

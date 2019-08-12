@@ -45,10 +45,16 @@
       font-family: "Barlow", sans-serif;
       font-weight: bold;
     }
+
     button:hover {
       cursor: pointer;
       background: black;
       color: white;
+    }
+
+    
+    .flow-button{
+      margin-top: 20px;
     }
   }
   
@@ -57,12 +63,10 @@
     width: 40%;
     justify-content: flex-start;
     align-items: flex-start;
+    p{
+     font-size: 2.2rem;
+    }
   }
-  
-  /* .homesub p {
-      border: 12px;
-      margin: 12px;
-    } */
   
 
   
@@ -87,7 +91,6 @@
   .home-info {
     display: flex;
     flex-direction: column;
-    /* width: 1200px; */
     background-color: #fafafa;
     height: 350px;
     border: 1px;
@@ -103,6 +106,6 @@
   
     p {
       margin: 10px;
-      font-size: 1.2rem;
+      font-size: 2.0rem;
     }
   }
