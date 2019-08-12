@@ -1,25 +1,12 @@
-import React, { Component } from 'react';
-// import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from "react-router-dom";
 
-class ProfileOptions extends Component {
-    constructor() {
-      super();
-
-      this.state = {}
-
-    }
-    
-  
-    render() {
+const ProfileOptions = () => {
   return (
-    <div className="navbar-options">
-      <div className="app-options">
-      <div onClick = {this.showMenu} >Help</div>
-      <div onClick = {this.showMenu2} >Name</div>
-      </div>
+    <div className="navbar-links-2">
+      <Link to="/profile">Profile</Link>
     </div>
   );
- }
 };
 
 export default ProfileOptions;
