@@ -6,10 +6,11 @@ import Gear from "../../images/icons/gear.png";
 import Lock from "../../images/icons/lock.png";
 import PaintBucket from "../../images/icons/paintBucket.png";
 import Plus from "../../images/icons/plus.png";
-import Redo from "../../images/icons/redo.png";
-import Undo from "../../images/icons/undo.png";
 import ZoomIn from "../../images/icons/zoomIn.png";
 import ZoomOut from "../../images/icons/zoomOut.png";
+import axios from "axios";
+import { connect } from "react-redux";
+import { saveCanvas, getCanvasById } from "../../actions";
 
 import createEngine, {
   DiagramModel,
@@ -21,6 +22,8 @@ import createEngine, {
 import { JSCustomNodeFactory } from "./custom-node-js/JSCustomNodeFactory";
 import { JSCustomNodeModel } from "./custom-node-js/JSCustomNodeModel";
 import { BodyWidget } from "./BodyWidget";
+
+import Swatches from '../Swatches/Swatches';
 
 // create an instance of the engine
 const engine = createEngine();
@@ -44,16 +47,39 @@ let str = JSON.stringify(model.serializeDiagram());
 let cerealBox = new DiagramModel();
 cerealBox.deSerializeDiagram(JSON.parse(str), engine);
 engine.setDiagramModel(cerealBox);
-cerealBox.serializeDiagram();
+// cerealBox.serializeDiagram();
 
 class CustomExample extends React.Component {
+  state = {
+    selectedColor: "#B80000",
+  }
+
+  componentDidMount(){
+    this.getCanvas();
+  }
+
+  componentDidUpdate(prevProps){
+    console.log("get there -------------------");
+    if(this.props.graph_json !== prevProps.graph_json){
+      console.log("this.props.graph_json",this.props.graph_json);
+      // cerealBox.deSerializeDiagram(this.props.graph_json, engine);
+      // engine.setDiagramModel(cerealBox);
+    }
+  }
+
+  updateSelectedColor = selectedColor => {
+    let selectedItems = cerealBox.getSelectedItems();
+ 
+    this.setState({selectedColor}, () => this.changeColor(selectedItems))
+  }
+
   createNode = () => {
     let newItem = new JSCustomNodeModel();
     newItem.nameNode("Enter Node Name...");
     newItem.provideDescription("Enter Description...");
     newItem.setPosition(0, 0);
     cerealBox.addNode(newItem);
-    this.forceUpdate();
+    engine.repaintCanvas();
   };
 
   deleteItem = (item) => {
@@ -63,7 +89,7 @@ class CustomExample extends React.Component {
         // Delete Nodes
         item[0].removePorts();
         cerealBox.removeNode(item[0]);
-        this.forceUpdate();
+        engine.repaintCanvas();
       } else if (item[0] instanceof PointModel) {
         cerealBox.removeLink(item[0].parent);
         engine.repaintCanvas();
@@ -89,12 +115,12 @@ class CustomExample extends React.Component {
         console.log('PointModel detected');
         // Change Link Color
         console.log("----");
-        item[0].parent.setColor("red");
+        item[0].parent.setColor(this.state.selectedColor);
         engine.repaintCanvas();
       } else if (item[0] instanceof DefaultLinkModel) {
         console.log('Link detected');
         // Change Link Color
-        item[0].setColor("red");
+        item[0].setColor("#FCCB00");
         engine.repaintCanvas();
       }
     } 
@@ -106,17 +132,33 @@ class CustomExample extends React.Component {
     zoomLevel += 10;
     cerealBox.setZoomLevel(zoomLevel);
     cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
-    this.forceUpdate();
+    engine.repaintCanvas();
   };
-f
+
   zoomIn = () => {
     let zoomLevel = cerealBox.getZoomLevel()
     console.log(zoomLevel);
     zoomLevel -= 10;
     cerealBox.setZoomLevel(zoomLevel);
     cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
-    this.forceUpdate();
+    engine.repaintCanvas();
   };
+
+  getCanvas = () => {
+    this.props.getCanvasById(this.props.project_id);
+  }
+
+  saveCanvas1 = (event) => {
+    event.preventDefault();
+    let savedCanvas = cerealBox.serializeDiagram();
+    const objUpdate = {
+        "project_title": this.props.project_title,
+        "graph_json": savedCanvas,
+        "user_id": this.props.user_id
+    }
+    console.log("objUpdate",objUpdate);
+    this.props.saveCanvas(objUpdate, this.props.project_id);
+  }
 
   render() {
     return (
@@ -132,8 +174,8 @@ f
               Simulate App
             </button>
             <button
-              onClick={() => {
-                console.log(cerealBox.serializeDiagram());
+              onClick={(event) => {
+                this.saveCanvas1(event);
               }}
             >
               Save
@@ -160,18 +202,18 @@ f
               />
             </div>
             <div className="taskbar-section">
-              <img src={Undo} alt="alt text" />
-              <img src={Redo} alt="alt text" />
-            </div>
-            <div className="taskbar-section">
               <img 
                 src={PaintBucket} 
                 alt="alt text" 
-                onClick={() => {
-                  let selectedItems = cerealBox.getSelectedItems();
-                  this.changeColor(selectedItems);
-                }}
+                // onClick={() => {
+                //   let selectedItems = cerealBox.getSelectedItems();
+                //   console.log('SELECTED ITEM', selectedItems)
+                //   this.changeColor(selectedItems);
+                // }}
               />
+              <Swatches cerealBox={cerealBox} changeColor={this.changeColor} updateSelectedColor={this.updateSelectedColor} />
+            </div>
+            <div className="taskbar-section">
               <img src={Lock} alt="alt text" />
               <img src={Gear} alt="alt text" />
             </div>
@@ -216,4 +258,17 @@ f
   }
 }
 
-export default CustomExample;
+const mapStateToProps = state => ({
+  user_id: state.user_id,
+  project_id: state.project_id,
+  project_title: state.project_title,
+  graph_json: state.graph_json,
+  fetching: state.fetching,
+  error: state.error,
+  loggedIn: state.loggedIn
+});
+
+export default connect(
+  mapStateToProps,
+  { saveCanvas, getCanvasById }
+  )(CustomExample); 

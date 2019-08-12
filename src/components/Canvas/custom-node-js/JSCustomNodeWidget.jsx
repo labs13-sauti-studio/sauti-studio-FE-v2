@@ -54,7 +54,7 @@ export class JSCustomNodeWidget extends React.Component {
     });
   }
 
-  handleSubmit = (event, countName) => {
+  handleSubmit = (event) => {
     var val = this.state[event.target.name];
     if (val) {
       if (event.target.name === "description") {
@@ -80,10 +80,11 @@ export class JSCustomNodeWidget extends React.Component {
           [id]: !this.state[id]
         });
         let obj = this.props.node.ports;
+        console.log('obj', obj);
         for (let key in obj) {
-          if (obj[key].id === id) {
-            obj[key].label = this.state[event.target.name];
-            // obj[key].number = this.state[countName];
+          if (obj[key].options.id === id) {
+            console.log('if got called');
+            obj[key].options.label = this.state[event.target.name];
           }
         }
       }
@@ -98,14 +99,12 @@ export class JSCustomNodeWidget extends React.Component {
 
   addSubMenu = () => {
     this.props.node.addOutPort("Edit Menu Option..");
-    this.forceUpdate();
+    this.props.engine.repaintCanvas();
   };
 
   deletePortAndLinks = (port) =>{
     this.props.node.removePort(port);
-    // this.props.node.serialize();
     this.props.engine.repaintCanvas();
-    // this.forceUpdate();
   }
 
   subMenuGenerator = () => {
@@ -120,7 +119,6 @@ export class JSCustomNodeWidget extends React.Component {
         }else{
           count = count + ".";
         }
-        console.log("count",count);
 				let id = obj[key].options.id;
         let mod = id + "a";
         let countName = count + mod;
