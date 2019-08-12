@@ -60,6 +60,7 @@ class CustomExample extends React.Component {
     console.log("get there -------------------");
     if(this.props.graph_json !== prevProps.graph_json){
       console.log("this.props.graph_json",this.props.graph_json);
+      console.log("get there -------------------222222222222");
       // cerealBox.deSerializeDiagram(this.props.graph_json, engine);
       // engine.setDiagramModel(cerealBox);
     }

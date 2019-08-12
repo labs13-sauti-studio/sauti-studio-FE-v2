@@ -94,7 +94,8 @@
         }
     }
     .projects-section{
-        width: calc(100% - 40rem);
+        // width: calc(100% - 40rem);
+        width: 100%;
         height: 100%;
         border-left: .25rem solid black;
         display: flex;
