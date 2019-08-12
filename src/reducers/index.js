@@ -4,17 +4,28 @@ import {
   SAVE_CANVAS_FAILURE,
   GET_CANVAS_START,
   GET_CANVAS_SUCCESS,
-  GET_CANVAS_FAILURE
+  GET_CANVAS_FAILURE,
+  GET_PROJECTS_BY_ID_START,
+  GET_PROJECTS_BY_ID_SUCCESS,
+  GET_PROJECTS_BY_ID_FAILURE,
+  ADD_PROJECT_START,
+  ADD_PROJECT_SUCCESS,
+  ADD_PROJECT_FAILURE,
+  SET_PROJECT_BY_ID_START,
+  SET_PROJECT_BY_ID_SUCCESS
   } from "../actions";
   
   const initialState = {
     user_id: 1,
+    projects: null,
     project_id: 1,
     project_title: "title",
     graph_json: null,
     fetching: false,
+    added_project: false,
     error: null,
-    loggedIn: false
+    loggedIn: false,
+    fetchingProjectId: false
   };
   
   const Reducer = (state = initialState, action) => {
@@ -54,25 +65,56 @@ import {
           fetching: false,
           error: action.payload
         };
-      // case FETCH_NOTES_START:
-      //   return {
-      //     ...state,
-      //     fetching: true
-      //   };
-      // case FETCH_NOTES_SUCCESS:
-      //   return {
-      //     ...state,
-      //     error: null,
-      //     fetching: false,
-      //     entries: action.payload
-      //   };
-      // case FETCH_NOTES_FAILURE:
-      //   return {
-      //     ...state,
-      //     fetching: false,
-      //     error: action.payload,
-      //     entries: []
-      //   };
+      case GET_PROJECTS_BY_ID_START:
+        return {
+          ...state,
+          fetching: true
+        };
+      case GET_PROJECTS_BY_ID_SUCCESS:
+        return {
+          ...state,
+          error: null,
+          fetching: false,
+          projects: action.payload
+        };
+      case GET_PROJECTS_BY_ID_FAILURE:
+        return {
+          ...state,
+          fetching: false,
+          error: action.payload,
+          projects: null
+        };
+      case ADD_PROJECT_START:
+        return {
+          ...state,
+          added_project: true,
+          fetching: true,
+        };
+      case ADD_PROJECT_SUCCESS:
+        return {
+          ...state,
+          added_project: false,
+          fetching: false,
+          error: false
+        };
+      case ADD_PROJECT_FAILURE:
+        return {
+          ...state,
+          added_project: false,
+          fetching: false,
+          error: action.payload
+        };
+      case SET_PROJECT_BY_ID_START:
+        return {
+          ...state,
+          fetchingProjectId: true
+        };
+      case SET_PROJECT_BY_ID_SUCCESS:
+        return {
+          ...state,
+          fetchingProjectId: false,
+          project_id: action.payload
+        };
       // case FETCH_NOTES_BY_SORT_START:
       //   return {
       //     ...state,
@@ -104,23 +146,6 @@ import {
       //     note: action.payload
       //   };
       // case FETCH_NOTES_BY_ID_FAILURE:
-      //   return {
-      //     ...state,
-      //     fetching: false,
-      //     error: action.payload
-      //   };
-      // case ADD_NOTE_START:
-      //   return {
-      //     ...state,
-      //     fetching: true
-      //   };
-      // case ADD_NOTE_SUCCESS:
-      //   return {
-      //     ...state,
-      //     fetching: false,
-      //     error: false
-      //   };
-      // case ADD_NOTE_FAILURE:
       //   return {
       //     ...state,
       //     fetching: false,

@@ -1,13 +1,12 @@
-import React, {Fragment} from 'react';
+import React from 'react';
+import { connect } from "react-redux";
 
-import Folder from '../components/Folder';
-import Project from '../components/Project';
+import { getProjectsByUserId,addProjectByUserId,setProjectId } from "../actions";
+import Navbar from '../components/Navbar';
 
 import blankFolder from '../images/FolderBlank.png';
 import blankProject from '../images/ProjectBlank.png';
 import addSign from '../images/icons/plus.png';
-import Navbar from '../components/Navbar';
-
 
 const sidebar = [
   {
@@ -26,17 +25,17 @@ const sidebar = [
     backgroundImage: blankFolder
   },
   {
-    id: 1,
+    id: 4,
     title: "Tutorials",
     backgroundImage: blankFolder
   },
   {
-    id: 2,
+    id: 5,
     title: "Templates",
     backgroundImage: blankFolder
   },
   {
-    id: 3,
+    id: 6,
     title: "Contact Us",
     backgroundImage: blankFolder
   }
@@ -406,15 +405,72 @@ const projects = [
 ]
 
 class Profile extends React.Component {
-  constructor(props){
-    super(props);
+  state={
+    projects: null
   }
+
+  componentDidMount(){
+    if(this.props.user_id !== null){
+      this.props.getProjectsByUserId(this.props.user_id);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    // console.log("get there -------------------");
+    console.log("prevProps.fetchingProjectId", prevState.fetchingProjectId);
+    console.log("prevProps.fetchingProjectId", prevProps.fetchingProjectId);
+    console.log("this.props.fetchingProjectId", this.props.fetchingProjectId);
+    console.log("this.props.project_id", this.props.project_id);
+
+    if(this.props.added_project !== prevProps.added_project && !this.props.added_project){
+      this.props.getProjectsByUserId(this.props.user_id);
+    }
+    else if(this.props.projects !== prevProps.projects && !this.props.fetching){
+        this.setState({
+          ...this.state,
+          projects: this.props.projects
+        });
+    }
+    else if(this.props.fetchingProjectId !== prevProps.fetchingProjectId && this.props.fetchingProjectId === false){
+      console.log("workflows --------");
+      this.props.history.push("/workflows");
+    }
+  }
+  
+  addProject = (obj) => {
+    let {project_title, graph_json, user_id} = obj;
+    let projectsArray = this.state.projects;
+    projectsArray.push({
+      add: "Adding Project"
+    });
+    this.setState({
+      ...this.state,
+      projects: projectsArray
+    });
+    this.props.addProjectByUserId(
+      {
+        project_title,
+        graph_json,
+        user_id
+      }
+    )
+  }
+
   render(){
-  return (
-    <>
+    if(this.props.projects !== null && this.state.projects == null){
+      this.setState({
+        projects: this.props.projects
+      });
+    }
+      return (
+        <>
       <Navbar/>
+      {
+        (this.props.fetching || this.props.projects === null || this.state.projects === null)?(
+          <p>duh</p>
+          ):(
       <div className="profile-page-container">
-        <section className="resources-section">
+        {/* <section className="resources-section">
             <h2>Resources</h2>
             <div className="resources-list">
               {sidebar.map(item => {
@@ -453,19 +509,34 @@ class Profile extends React.Component {
               </div>
               })}
             </div>
-        </section>
+        </section> */}
         <section className="projects-section">
           <div className="projects-title-add">
             <h2>Projects</h2>
             <div 
               className="btn"
               title="Add Project"
+              onClick={()=>this.addProject(
+                {
+                  project_title: "Enter Title...",
+                  graph_json: null,
+                  user_id: this.props.user_id
+                }
+              )}
             >
             <img src={addSign} alt="Add Project"/>
             </div>
           </div>
           <div className="projects-list">
-            {projects.map(project => {
+            {this.state.projects.map(project => {
+              if(project.add !== undefined){
+                return <div 
+              >
+              <div className="title-container">
+                <h3>{ project.add }</h3>
+              </div>
+            </div>
+              }else{
               return <div 
               style={{
                 backgroundImage: `url(${blankFolder})`,
@@ -474,18 +545,41 @@ class Profile extends React.Component {
                 }}
               className="project"
               key={project.id}
+              onClick={
+                ()=> this.props.setProjectId(project.id)
+              }
               >
               <div className="title-container">
-                <h3>{ project.title }</h3>
+                <h3>{ project.project_title }</h3>
               </div>
             </div>
+              }
             })}
           </div>
         </section>
       </div>
+        )
+      }
     </>
   )
 }
 }
 
-export default Profile;
+
+const mapStateToProps = state => ({
+  user_id: state.user_id,
+  projects: state.projects,
+  project_id: state.project_id,
+  added_project: state.added_project,
+  project_title: state.project_title,
+  graph_json: state.graph_json,
+  fetching: state.fetching,
+  error: state.error,
+  loggedIn: state.loggedIn,
+  fetchingProjectId: state.fetchingProjectId
+});
+
+export default connect(
+  mapStateToProps,
+  { getProjectsByUserId, addProjectByUserId, setProjectId }
+  )(Profile); 

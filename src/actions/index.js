@@ -8,9 +8,50 @@ export const SAVE_CANVAS_START = "SAVE_CANVAS_START";
 export const SAVE_CANVAS_SUCCESS = "SAVE_CANVAS_SUCCESS";
 export const SAVE_CANVAS_FAILURE = "SAVE_CANVAS_FAILURE";
 
+export const GET_PROJECTS_BY_ID_START = "GET_PROJECTS_BY_ID_START";
+export const GET_PROJECTS_BY_ID_SUCCESS = "GET_PROJECTS_BY_ID_SUCCESS";
+export const GET_PROJECTS_BY_ID_FAILURE = "GET_PROJECTS_BY_ID_FAILURE";
+
+export const ADD_PROJECT_START = "ADD_PROJECT_START";
+export const ADD_PROJECT_SUCCESS = "ADD_PROJECT_SUCCESS";
+export const ADD_PROJECT_FAILURE = "ADD_PROJECT_FAILURE";
+
+export const SET_PROJECT_BY_ID_START = "SET_PROJECT_BY_ID_START";
+export const SET_PROJECT_BY_ID_SUCCESS = "SET_PROJECT_BY_ID_SUCCESS";
+
 
 let productionServer = process.env.REACT_APP_BE_API_URL;
 
+
+export const getProjectsByUserId = (user_id) => dispatch => {
+  dispatch({ type: GET_PROJECTS_BY_ID_START });
+  let endpoint;
+  if(productionServer){
+    endpoint = `${productionServer}/projects/user/${user_id}`;
+  }else{
+    endpoint = `http://localhost:5000/projects/user/${user_id}`;
+  } 
+  console.log("endpoint1",endpoint);
+  axios
+    .get(
+      endpoint,
+    )
+    .then(response => {
+      console.log("response",response);
+      dispatch({ type: GET_PROJECTS_BY_ID_SUCCESS, payload: response.data});
+    })
+    .catch(err => dispatch({ type: GET_PROJECTS_BY_ID_FAILURE, payload: err }));
+};
+
+
+export const setProjectId = ( project_id) => dispatch => {
+  let promise = new Promise(function(resolve, reject) {
+      resolve(dispatch({ type: SET_PROJECT_BY_ID_START }));
+  });
+  promise.then(function() {
+    dispatch({ type: SET_PROJECT_BY_ID_SUCCESS, payload: project_id});
+  });
+};
 
 export const getCanvasById = (project_id1) => dispatch => {
   dispatch({ type: GET_CANVAS_START });
@@ -53,8 +94,31 @@ export const saveCanvas = (objUpdate, project_id) => dispatch => {
     })
     .catch(err => dispatch({ type: SAVE_CANVAS_FAILURE, payload: err }));
 };
-// export const addNote = (userID, item) => dispatch => {
-//   dispatch({ type: ADD_NOTE_START });
+export const addProjectByUserId = (item) => dispatch => {
+  dispatch({ type: ADD_PROJECT_START });
+  let endpoint;
+  if(productionServer){
+    endpoint = `${productionServer}/projects/`;
+  }else{
+    endpoint = `http://localhost:5000/projects/`;
+  }
+  axios
+    .post(
+      endpoint,
+      item
+    )
+    .then(response => {
+      console.log(response);
+      dispatch({
+        type: ADD_PROJECT_SUCCESS,
+        payload: response.data
+      });
+    })
+    .catch(err => dispatch({ type: ADD_PROJECT_FAILURE, payload: err }));
+};
+
+// export const addProjectByUserId = (item) => dispatch => {
+//   dispatch({ type: ADD_PROJECT_START });
 //   const token = localStorage.getItem("jwt");
 //   const options = {
 //     headers: {
