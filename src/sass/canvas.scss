@@ -4,6 +4,7 @@
 
 .diagram-container {
   height: calc(100vh - 180px);
+  z-index: 0;
 }
 
 .main-diagram-container {
@@ -21,17 +22,21 @@
   align-items: center;
   height: 60px;
   padding: 0px 20px;
-  h1 {
+  h2 {
     align-self: center;
     line-height: 70px;
+    padding: 0;
+  }
+  input{
+    font-size: 3.2rem;
   }
   .project-buttons {
     display: flex;
     justify-content: space-between;
-    width: 340px;
+    width: 400px;
     button {
       height: 35px;
-      width: 100px;
+      width: 23%;
       align-self: center;
     }
   }
@@ -244,4 +249,8 @@
 
 .hidden {
   display: none;
+}
+
+.cursor{
+  cursor: pointer;
 }

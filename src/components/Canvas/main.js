@@ -8,7 +8,9 @@ import Plus from "../../images/icons/plus.png";
 import ZoomIn from "../../images/icons/zoomIn.png";
 import ZoomOut from "../../images/icons/zoomOut.png";
 import { connect } from "react-redux";
-import { saveCanvas, getCanvasById } from "../../actions";
+import { saveCanvas, getCanvasById, deleteProject, setDeleteState } from "../../actions";
+import DeleteModal from "../DeleteModal.js";
+import { Redirect } from 'react-router'
 
 import createEngine, {
   DiagramModel,
@@ -48,9 +50,16 @@ engine.setDiagramModel(cerealBox);
 // cerealBox.serializeDiagram();
 
 class CustomExample extends React.Component {
-  state = {
-    selectedColor: "#B80000",
-    canvas_stop: false
+  constructor(props){
+    super(props);
+    this.ENTER_KEY = 13;
+    this.state = {
+      selectedColor: "#B80000",
+      canvas_stop: false,
+      project_title: null,
+      project_title_class: false,
+      delete_project: false
+    }
   }
 
   componentDidMount(){
@@ -68,7 +77,7 @@ class CustomExample extends React.Component {
     //     canvas_stop: false
     //   });
     // }
-    else if(this.props.fetching !== prevProps.fetching && (this.props.graph_json !== null ) && this.props.saving_canvas === prevProps.saving_canvas){
+    if(this.props.fetching !== prevProps.fetching && (this.props.graph_json !== null )){
       cerealBox.deSerializeDiagram(this.props.graph_json, engine);
       engine.setDiagramModel(cerealBox);
       engine.repaintCanvas();
@@ -77,12 +86,60 @@ class CustomExample extends React.Component {
       engine.setDiagramModel(model);
       engine.repaintCanvas();
     }
+    // Handle Project title update on initial load
+    if((this.state.project_title !== this.props.project_title && this.state.project_title === null) || prevProps.project_title !== this.props.project_title){
+      this.setState({
+        ...this.state,
+        project_title: this.props.project_title
+      });
+    }
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      ...this.state,
+      [event.target.name]: event.target.value
+    });
+  }
+
+  handleEdit = (name) => {
+    if (name === "project_title") {
+      this.setState({
+        ...this.state,
+        project_title_class: !this.state.project_title_class
+      });
+  }
+  }
+
+  handleKeyDown = (event) => {
+    if (event.which === this.ENTER_KEY) {
+      this.handleSubmit(event);
+    }
+  }
+
+  handleSubmit = (event) => {
+  if (event.target.name === "project_title") {
+    this.setState({
+      ...this.state,
+      project_title: this.state[event.target.name],
+      project_title_class: !this.state.project_title_class
+    });
+    // this.props.node.description = this.state[event.target.name];
+    this.updateTitle();
+  }
+  }
+
+  updateTitle = () => {
+    const objUpdate = {
+        "project_title": this.state.project_title,
+    }
+    this.props.saveCanvas(objUpdate, this.props.project_id);
   }
 
   updateSelectedColor = selectedColor => {
     let selectedItems = cerealBox.getSelectedItems();
     this.setState({selectedColor}, () => this.changeColor(selectedItems))
-  }
+  };
 
   createNode = () => {
     let newItem = new JSCustomNodeModel();
@@ -110,32 +167,32 @@ class CustomExample extends React.Component {
         engine.repaintCanvas();
       }
     } 
-  }
+  };
 
   changeColor = (item) => {
     // Checks if a node or wire is selected
-    console.log(item[0])
-    console.log('line 78: item[0].constructor.name', item[0].constructor.name)
+    // console.log(item[0])
+    // console.log('line 78: item[0].constructor.name', item[0].constructor.name)
     if (item.length !== 0) {
       if (item[0] instanceof JSCustomNodeModel) {
-        console.log('JSCustomNodeModel detected');
+        // console.log('JSCustomNodeModel detected');
         // Change Node Color
         // item[0].removePorts();
         // engine.repaintCanvas();
       } else if (item[0] instanceof PointModel) {
-        console.log('PointModel detected');
+        // console.log('PointModel detected');
         // Change Link Color
-        console.log("----");
+        // console.log("----");
         item[0].parent.setColor(this.state.selectedColor);
         engine.repaintCanvas();
       } else if (item[0] instanceof DefaultLinkModel) {
-        console.log('Link detected');
+        // console.log('Link detected');
         // Change Link Color
         item[0].setColor("#FCCB00");
         engine.repaintCanvas();
       }
     } 
-  }
+  };
 
   zoomOut = () => {
     let zoomLevel = cerealBox.getZoomLevel()
@@ -178,9 +235,36 @@ class CustomExample extends React.Component {
   render() {
     return (
       <div className="diagram-page">
+        <DeleteModal props={this.props.props}/>
         <section className="title-and-buttons">
-          <h1>{this.props.project_title}</h1>
+          <h2
+              className={this.state.project_title_class ? "hidden" : ""}
+              onDoubleClick={()=>this.handleEdit("project_title")}>
+              {this.state.project_title}
+            </h2>
+            <input
+              name="project_title"
+              placeholder="Enter something..."
+              className={this.state.project_title_class ? "" : "hidden"}
+              value={this.state.project_title}
+              onChange={this.handleChange}
+              onKeyDown={(event)=>{
+                this.handleKeyDown(event)
+                }}
+              onKeyUp={(event) => {
+              event.stopPropagation()
+            }}
+            />
           <div className="project-buttons">
+            <button
+              className="cursor"
+              onClick={() => {
+                this.props.setDeleteState(this.props.delete_project);
+                
+              }}
+            >
+              Delete Project
+            </button>
             <button
               onClick={() => {
                 console.log(cerealBox.serializeDiagram());
@@ -189,6 +273,7 @@ class CustomExample extends React.Component {
               Simulate App
             </button>
             <button
+              className="cursor"
               onClick={(event) => {
                 this.saveCanvas1(event);
               }}
@@ -210,6 +295,8 @@ class CustomExample extends React.Component {
             <div className="taskbar-section">
               <img
                 src={Plus}
+                className="cursor"
+                title="Add Screen"
                 alt="alt text"
                 onClick={() => {
                   this.createNode();
@@ -235,7 +322,9 @@ class CustomExample extends React.Component {
             <div className="taskbar-section">
               <img 
                 src={Trashcan} 
+                className="cursor"
                 alt="alt text" 
+                title="Delete"
                 onClick={() => {
                   let selectedItems = cerealBox.getSelectedItems();
                   this.deleteItem(selectedItems);
@@ -247,14 +336,18 @@ class CustomExample extends React.Component {
           <div className="taskbar-right-section">
             <div className="taskbar-section">
               <img 
+                className="cursor"
                 src={ZoomOut} 
                 alt="alt text"
+                title="Zoom Out"
                 onClick={() => {
                   this.zoomIn();
                 }}
                />
               <img 
+                className="cursor"
                 src={ZoomIn} 
+                title="Zoom In"
                 alt="alt text"
                 onClick={() => {
                   this.zoomOut();
@@ -267,14 +360,11 @@ class CustomExample extends React.Component {
           </div>
         </section>
         {
-          (
-            this.state.canvas_stop === true  
-          )?(
-            <p>waiting</p>
-          ):(
-
+        (this.props.delete_project)?(
+          <></>
+        ):(
         <BodyWidget engine={engine} />
-          )
+        )
         }
       </div>
     );
@@ -289,10 +379,11 @@ const mapStateToProps = state => ({
   fetching: state.fetching,
   error: state.error,
   loggedIn: state.loggedIn,
-  saving_canvas: state.saving_canvas
+  saving_canvas: state.saving_canvas,
+  delete_project: state.delete_project
 });
 
 export default connect(
   mapStateToProps,
-  { saveCanvas, getCanvasById }
+  { saveCanvas, getCanvasById, deleteProject, setDeleteState }
   )(CustomExample); 

@@ -19,9 +19,13 @@ export const ADD_PROJECT_FAILURE = "ADD_PROJECT_FAILURE";
 export const SET_PROJECT_BY_ID_START = "SET_PROJECT_BY_ID_START";
 export const SET_PROJECT_BY_ID_SUCCESS = "SET_PROJECT_BY_ID_SUCCESS";
 
+export const DELETE_PROJECT_START = "DELETE_PROJECT_START";
+export const DELETE_PROJECT_SUCCESS = "DELETE_PROJECT_SUCCESS";
+export const DELETE_PROJECT_FAILURE = "DELETE_PROJECT_FAILURE";
+
+export const SET_DELETE_STATE_SUCCESS = "SET_DELETE_STATE_SUCCESS";
 
 let productionServer = process.env.REACT_APP_BE_API_URL;
-
 
 export const getProjectsByUserId = (user_id) => dispatch => {
   dispatch({ type: GET_PROJECTS_BY_ID_START });
@@ -115,6 +119,32 @@ export const addProjectByUserId = (item) => dispatch => {
       });
     })
     .catch(err => dispatch({ type: ADD_PROJECT_FAILURE, payload: err }));
+};
+
+export const setDeleteState = (delete_project) => dispatch => {
+    dispatch({ type: SET_DELETE_STATE_SUCCESS, payload: !delete_project});
+};
+
+export const deleteProject = (project_id, props) => dispatch => {
+  dispatch({ type: DELETE_PROJECT_START });
+  let endpoint;
+  if(productionServer){
+    endpoint = `${productionServer}/projects/${project_id}`;
+  }else{
+    endpoint = `http://localhost:5000/projects/${project_id}`;
+  }
+  axios
+    .delete(
+      endpoint,
+    )
+    .then(response => {
+      dispatch({
+        type: DELETE_PROJECT_SUCCESS,
+        payload: response.data
+      });
+      props.history.push("/profile");
+    })
+    .catch(err => dispatch({ type: DELETE_PROJECT_FAILURE, payload: err }));
 };
 
 // export const addProjectByUserId = (item) => dispatch => {

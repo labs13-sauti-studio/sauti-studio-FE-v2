@@ -12,9 +12,13 @@ import {
   ADD_PROJECT_SUCCESS,
   ADD_PROJECT_FAILURE,
   SET_PROJECT_BY_ID_START,
-  SET_PROJECT_BY_ID_SUCCESS
+  SET_PROJECT_BY_ID_SUCCESS,
+  DELETE_PROJECT_START,
+  DELETE_PROJECT_SUCCESS,
+  DELETE_PROJECT_FAILURE,
+  SET_DELETE_STATE_SUCCESS
   } from "../actions";
-  
+
   const initialState = {
     user_id: 1,
     projects: null,
@@ -26,7 +30,8 @@ import {
     error: null,
     loggedIn: false,
     fetchingProjectId: false,
-    saving_canvas: false
+    saving_canvas: false,
+    delete_project: false
   };
   
   const Reducer = (state = initialState, action) => {
@@ -116,6 +121,29 @@ import {
           ...state,
           fetchingProjectId: false,
           project_id: action.payload
+        };
+      case SET_DELETE_STATE_SUCCESS:
+        return {
+          ...state,
+          delete_project: action.payload
+        };
+      case DELETE_PROJECT_START:
+        return {
+          ...state,
+          fetching: true
+        };
+      case DELETE_PROJECT_SUCCESS:
+        return {
+          ...state,
+          fetching: false,
+          delete_project: false,
+          error: false
+        };
+      case DELETE_PROJECT_FAILURE:
+        return {
+          ...state,
+          fetching: false,
+          error: action.payload
         };
       // case FETCH_NOTES_BY_SORT_START:
       //   return {
