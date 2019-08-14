@@ -67,32 +67,72 @@ class CustomExample extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    
+    // If canvas is Saved retrieve new canvas
     if(this.props.saving_canvas !== prevProps.saving_canvas && this.props.saving_canvas === false){
       this.getCanvas();
     }
-    // else if(){
-    //   this.setState({
-    //     ...this.state,
-    //     canvas_stop: false
-    //   });
+
+    // If delete_project is called and returned without deletion
+    // if(this.props.delete_project !== prevProps.delete_project && this.props.delete_project === false){
+    //   setTimeout(()=>{
+    //     cerealBox.deSerializeDiagram(this.props.graph_json, engine);
+    //     engine.setDiagramModel(cerealBox);
+    //     engine.repaintCanvas();
+    //   },0);
     // }
-    if(this.props.fetching !== prevProps.fetching && (this.props.graph_json !== null )){
-      cerealBox.deSerializeDiagram(this.props.graph_json, engine);
-      engine.setDiagramModel(cerealBox);
-      engine.repaintCanvas();
-    }
-    else{
-      engine.setDiagramModel(model);
-      engine.repaintCanvas();
-    }
+
     // Handle Project title update on initial load
-    if((this.state.project_title !== this.props.project_title && this.state.project_title === null) || prevProps.project_title !== this.props.project_title){
-      this.setState({
-        ...this.state,
-        project_title: this.props.project_title
-      });
+    if(((this.state.project_title !== this.props.project_title && this.state.project_title === null) || prevProps.project_title !== this.props.project_title)){
+        this.setState({
+          ...this.state,
+          project_title: this.props.project_title
+        });
+      }
+
+    // Handle Project canvas update on initial load
+    if(this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
+      console.log("if ---------- 1");
+      setTimeout(()=>{
+        cerealBox = new DiagramModel();
+        cerealBox.deSerializeDiagram(this.props.graph_json, engine);
+        engine.setDiagramModel(cerealBox);
+        engine.repaintCanvas();
+      },0);
     }
+    // else{
+    //   engine.setDiagramModel(model);
+    //   engine.repaintCanvas();
+    // }
+        // Handle Project canvas update on initial load
+        if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
+          console.log("if ---------- 1");
+          setTimeout(()=>{
+            cerealBox = new DiagramModel();
+            cerealBox.deSerializeDiagram(this.props.graph_json, engine);
+            engine.setDiagramModel(cerealBox);
+            engine.repaintCanvas();
+          },0);
+        }
+
+        // Handle Project canvas update on initial load
+        if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
+          console.log("if ---------- 1");
+          setTimeout(()=>{
+            cerealBox = new DiagramModel();
+            cerealBox.deSerializeDiagram(this.props.graph_json, engine);
+            engine.setDiagramModel(cerealBox);
+            engine.repaintCanvas();
+          },0);
+        }
+
+        if(this.props.graph_json === null){
+          cerealBox = new DiagramModel();
+          engine.setDiagramModel(cerealBox);
+          engine.repaintCanvas();
+        }
+
+
+
   }
 
   handleChange = (event) => {
@@ -224,11 +264,6 @@ class CustomExample extends React.Component {
         "graph_json": savedCanvas,
         "user_id": this.props.user_id
     }
-    // this.setState({
-    //   ...this.state,
-    //   canvas_stop: true
-    // });
-    console.log("objUpdate",objUpdate);
     this.props.saveCanvas(objUpdate, this.props.project_id);
   }
 
@@ -267,7 +302,7 @@ class CustomExample extends React.Component {
             </button>
             <button
               onClick={() => {
-                console.log(cerealBox.serializeDiagram());
+                console.log("Simulate");
               }}
             >
               Simulate App
@@ -282,7 +317,7 @@ class CustomExample extends React.Component {
             </button>
             <button
               onClick={() => {
-                console.log(cerealBox.serializeDiagram());
+                console.log("Publish");
               }}
             >
               Publish
@@ -387,3 +422,18 @@ export default connect(
   mapStateToProps,
   { saveCanvas, getCanvasById, deleteProject, setDeleteState }
   )(CustomExample); 
+
+
+      // Handle Project canvas update on initial load not the same json object
+    // if(this.props.graph_json !== prevProps.graph_json && this.props.graph_json !== null){
+    //   console.log("if ---------- 2");
+    //   setTimeout(()=>{
+    //     cerealBox.deSerializeDiagram(this.props.graph_json, engine);
+    //     engine.setDiagramModel(cerealBox);
+    //     engine.repaintCanvas();
+    //   },0);
+    // }
+    // else{
+    //   engine.setDiagramModel(model);
+    //   engine.repaintCanvas();
+    // }
