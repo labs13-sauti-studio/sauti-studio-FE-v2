@@ -406,7 +406,8 @@ input, textarea {
   width: 100%; }
 
 .diagram-container {
-  height: calc(100vh - 180px); }
+  height: calc(100vh - 180px);
+  z-index: 0; }
 
 .main-diagram-container {
   display: flex;
@@ -422,16 +423,19 @@ input, textarea {
   align-items: center;
   height: 60px;
   padding: 0px 20px; }
-  .title-and-buttons h1 {
+  .title-and-buttons h2 {
     align-self: center;
-    line-height: 70px; }
+    line-height: 70px;
+    padding: 0; }
+  .title-and-buttons input {
+    font-size: 3.2rem; }
   .title-and-buttons .project-buttons {
     display: flex;
     justify-content: space-between;
-    width: 340px; }
+    width: 400px; }
     .title-and-buttons .project-buttons button {
       height: 35px;
-      width: 100px;
+      width: 23%;
       align-self: center; }
 
 .taskbar {
@@ -617,6 +621,75 @@ input, textarea {
 
 .hidden {
   display: none; }
+
+.cursor {
+  cursor: pointer; }
+
+.delete-true {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(216, 216, 216, 0.99);
+  width: 100vw;
+  height: 100vh; }
+  .delete-true .delete-container {
+    z-index: 1;
+    margin: 0 auto;
+    background-color: #272727;
+    border-radius: 4rem;
+    width: 45rem;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center; }
+    .delete-true .delete-container h3 {
+      font-weight: bold;
+      color: white;
+      font-size: 2rem;
+      line-height: 2.6rem;
+      margin: 0 8rem;
+      text-align: center; }
+    .delete-true .delete-container .delete-btn-yes {
+      width: 15rem;
+      height: 5rem;
+      cursor: pointer;
+      margin-bottom: 1.25rem;
+      background-color: #ca001a;
+      border: 1px solid #ca001a;
+      color: #fbffff;
+      font-size: 1.6rem;
+      border-radius: 0.3rem;
+      margin-right: 2rem;
+      z-index: 4; }
+    .delete-true .delete-container .delete-btn-no {
+      width: 15rem;
+      height: 5rem;
+      cursor: pointer;
+      margin-bottom: 1.25rem;
+      background-color: #00e600;
+      border: 1px solid #00e600;
+      color: black;
+      font-size: 1.6rem;
+      border-radius: 0.3rem;
+      z-index: 4; }
+  @media (max-width: 600px) {
+    .delete-true .delete-container {
+      width: 90%; } }
+
+.delete-false {
+  display: none; }
+
+@media (max-width: 600px) {
+  .delete-container h3 {
+    padding: 0 2rem; }
+  .delete-btn-yes {
+    width: 40%; }
+  .delete-btn-no {
+    width: 40%; } }
 
 .contact-form-container {
   display: flex;

@@ -8,7 +8,7 @@ const AppBuilder = props => {
   return (
     <div className="app-builder-container">
       <ProfileNav />
-      <CustomExample />
+      <CustomExample props={props}/>
     </div>
   );
 };
