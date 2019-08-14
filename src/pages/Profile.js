@@ -36,7 +36,7 @@ class Profile extends React.Component {
   
   addProject = (obj) => {
     let {project_title, graph_json, user_id} = obj;
-    let projectsArray = this.state.projects;
+    let projectsArray = this.state.projects || [];
     projectsArray.push({
       add: "Adding Project"
     });

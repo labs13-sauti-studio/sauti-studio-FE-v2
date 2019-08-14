@@ -47,7 +47,6 @@ export const getProjectsByUserId = (user_id) => dispatch => {
     .catch(err => dispatch({ type: GET_PROJECTS_BY_ID_FAILURE, payload: err }));
 };
 
-
 export const setProjectId = ( project_id) => dispatch => {
   let promise = new Promise(function(resolve, reject) {
       resolve(dispatch({ type: SET_PROJECT_BY_ID_START }));
@@ -98,6 +97,7 @@ export const saveCanvas = (objUpdate, project_id) => dispatch => {
     })
     .catch(err => dispatch({ type: SAVE_CANVAS_FAILURE, payload: err }));
 };
+
 export const addProjectByUserId = (item) => dispatch => {
   dispatch({ type: ADD_PROJECT_START });
   let endpoint;
@@ -120,6 +120,7 @@ export const addProjectByUserId = (item) => dispatch => {
     })
     .catch(err => dispatch({ type: ADD_PROJECT_FAILURE, payload: err }));
 };
+
 
 export const setDeleteState = (delete_project) => dispatch => {
     dispatch({ type: SET_DELETE_STATE_SUCCESS, payload: !delete_project});

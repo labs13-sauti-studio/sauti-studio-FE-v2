@@ -145,6 +145,9 @@ import {
           fetching: false,
           error: action.payload
         };
+
+
+
       // case FETCH_NOTES_BY_SORT_START:
       //   return {
       //     ...state,
