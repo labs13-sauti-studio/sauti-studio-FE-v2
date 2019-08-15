@@ -98,8 +98,17 @@ export class JSCustomNodeWidget extends React.Component {
   }
 
   addSubMenu = () => {
-    this.props.node.addOutPort("Edit Menu Option..");
-    this.props.engine.repaintCanvas();
+    console.log("--------------", this.props);
+    let x = this.props.node.addOutPort("Edit Menu Option..");
+    let promise = new Promise(function(resolve, reject) {
+        resolve(x);
+    });
+    promise.then(()=>{
+      this.props.engine.repaintCanvas();
+      
+    });
+    // this.props.node.addOutPort("Edit Menu Option..");
+    // this.props.engine.repaintCanvas();
   };
 
   deletePortAndLinks = (port) =>{
@@ -190,7 +199,6 @@ export class JSCustomNodeWidget extends React.Component {
           />
         </div>
 
-        {/* <NodeScreen /> */}
         <div className="custom-node-screen">
           <p
             className={this.state.editingDesc ? "hidden" : ""}
