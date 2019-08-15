@@ -125,13 +125,21 @@ class CustomExample extends React.Component {
           },0);
         }
 
+        if(this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
+          console.log("if ---------- 1");
+          setTimeout(()=>{
+            cerealBox = new DiagramModel();
+            cerealBox.deSerializeDiagram(this.props.graph_json, engine);
+            engine.setDiagramModel(cerealBox);
+            engine.repaintCanvas();
+          },0);
+        }
+
         if(this.props.graph_json === null){
           cerealBox = new DiagramModel();
           engine.setDiagramModel(cerealBox);
           engine.repaintCanvas();
         }
-
-
 
   }
 
@@ -259,10 +267,23 @@ class CustomExample extends React.Component {
   saveCanvas1 = (event) => {
     event.preventDefault();
     let savedCanvas = cerealBox.serializeDiagram();
-    const objUpdate = {
-        "project_title": this.props.project_title,
-        "graph_json": savedCanvas,
-        "user_id": this.props.user_id
+    console.log("savedCanvas------------", savedCanvas);
+    let objUpdate;
+    if(savedCanvas.nodes.length === 0){
+      objUpdate = {
+        project_title: this.props.project_title,
+        graph_json: savedCanvas,
+        user_id: this.props.user_id,
+        initial_node_id: null 
+      }
+    }
+    else if(savedCanvas.nodes.length > 0 && savedCanvas.nodes[0].id !== undefined){
+      objUpdate = {
+          project_title: this.props.project_title,
+          graph_json: savedCanvas,
+          user_id: this.props.user_id,
+          initial_node_id: savedCanvas.nodes[0].id 
+      }
     }
     this.props.saveCanvas(objUpdate, this.props.project_id);
   }
