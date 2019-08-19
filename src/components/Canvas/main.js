@@ -41,7 +41,11 @@ var node1 = new DefaultNodeModel('Node 1', 'rgb(0,192,255)');
 var port1 = node1.addOutPort('Out');
 node1.setPosition(100, 100);
 
-model.addAll(node1);
+var node2 = new DefaultNodeModel('Node 2', 'rgb(0,192,255)');
+var port2 = node2.addInPort('Out');
+node2.setPosition(100, 200);
+
+model.addAll(node1, node2);
 
 // install the model into the engine
 // engine.setDiagramModel(model);
@@ -55,7 +59,6 @@ let str = JSON.stringify(model.serialize());
 let cerealBox = new DiagramModel();
 cerealBox.deserializeModel(JSON.parse(str), engine);
 engine.setModel(cerealBox);
-// cerealBox.serializeDiagram();
 
 class CustomExample extends React.Component {
   constructor(props){

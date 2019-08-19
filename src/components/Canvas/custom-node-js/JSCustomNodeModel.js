@@ -3,6 +3,7 @@ import {
   NodeModel,
   Toolkit
 } from "@projectstorm/react-diagrams";
+
 import * as _ from "lodash";
 
 export class JSCustomNodeModel extends NodeModel {
@@ -11,7 +12,8 @@ export class JSCustomNodeModel extends NodeModel {
       ...options,
       type: "js-custom-node"
     });
-
+    
+    this.outPortCount = 0;
     this.color = options.color || { options: "red" };
     this.name = options.name;
     this.description = options.description;
@@ -48,12 +50,14 @@ export class JSCustomNodeModel extends NodeModel {
     this.description = description;
   }
 
-  addOutPort(label) {
+  addOutPort(label, name) {
+    this.outPortCount++;
     return this.addPort(
       new DefaultPortModel({
         in: false,
-        name: Toolkit.UID(),
-        label: label
+        // name: Toolkit.UID(),
+        label: label,
+        name: name
       })
     );
   }

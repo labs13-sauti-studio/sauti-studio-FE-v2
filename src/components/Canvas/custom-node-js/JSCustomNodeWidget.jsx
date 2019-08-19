@@ -55,6 +55,8 @@ export class JSCustomNodeWidget extends React.Component {
   }
 
   handleSubmit = (event) => {
+    console.log("this.props", this.props);
+    console.log("this.props.node.getPort('in')",this.props.node.getPort('in'));
     var val = this.state[event.target.name];
     if (val) {
       if (event.target.name === "description") {
@@ -96,16 +98,16 @@ export class JSCustomNodeWidget extends React.Component {
   }
 
   addSubMenu = () => {
-    let x = this.props.node.addOutPort("Edit Menu Option..");
-    let promise = new Promise(function(resolve, reject) {
-        resolve(x);
-    });
-    promise.then(()=>{
-      this.props.engine.repaintCanvas();
+    let x = this.props.node.addOutPort("Edit Menu Option..", `out-${this.props.node.outPortCount + 1}`);
+    // let promise = new Promise(function(resolve, reject) {
+    //     resolve(x);
+    // });
+    // promise.then(()=>{
+    //   this.props.engine.repaintCanvas();
       
-    });
+    // });
     // this.props.node.addOutPort("Edit Menu Option..");
-    // this.props.engine.repaintCanvas();
+    this.props.engine.repaintCanvas();
   };
 
   deletePortAndLinks = (port) =>{
@@ -176,11 +178,13 @@ export class JSCustomNodeWidget extends React.Component {
   };
 
 	render() {
+    
 		return (
 			<div className="custom-node">
         <div className="custom-node-nodeTitle">
           <div className="line-in">
-						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')} />
+						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')}>
+            </PortWidget>
           </div>
           <h1
             className={this.state.editing ? "hidden" : ""}
