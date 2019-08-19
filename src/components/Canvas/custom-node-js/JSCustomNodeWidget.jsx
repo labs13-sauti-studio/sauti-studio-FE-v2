@@ -80,10 +80,8 @@ export class JSCustomNodeWidget extends React.Component {
           [id]: !this.state[id]
         });
         let obj = this.props.node.ports;
-        console.log('obj', obj);
         for (let key in obj) {
           if (obj[key].options.id === id) {
-            console.log('if got called');
             obj[key].options.label = this.state[event.target.name];
           }
         }
@@ -98,7 +96,6 @@ export class JSCustomNodeWidget extends React.Component {
   }
 
   addSubMenu = () => {
-    console.log("--------------", this.props);
     let x = this.props.node.addOutPort("Edit Menu Option..");
     let promise = new Promise(function(resolve, reject) {
         resolve(x);
@@ -112,8 +109,13 @@ export class JSCustomNodeWidget extends React.Component {
   };
 
   deletePortAndLinks = (port) =>{
-    this.props.node.removePort(port);
-    this.props.engine.repaintCanvas();
+    let x = this.props.node.removePort(port);
+    let promise = new Promise(function(resolve, reject) {
+        resolve(x);
+    });
+    promise.then(()=>{
+      this.props.engine.repaintCanvas();
+    });
   }
 
   subMenuGenerator = () => {

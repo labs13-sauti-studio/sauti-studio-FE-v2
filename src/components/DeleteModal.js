@@ -11,7 +11,6 @@ class DeleteModal extends React.Component {
     }
 
     componentDidMount(){
-        console.log("delete 2");
         this.setState({
             ...this.state,
             delete_project: this.props.delete_project
@@ -21,7 +20,6 @@ class DeleteModal extends React.Component {
     componentDidUpdate(prevProps, prevState){
         // Handle Project title update on initial load
         if(this.state.delete_project !== this.props.delete_project || prevProps.delete_project !== this.props.delete_project){
-            console.log("delete 3");
             this.setState({
                 ...this.state,
                 delete_project: this.props.delete_project

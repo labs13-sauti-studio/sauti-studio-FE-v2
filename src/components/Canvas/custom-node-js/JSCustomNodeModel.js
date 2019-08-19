@@ -61,8 +61,8 @@ export class JSCustomNodeModel extends NodeModel {
   removePort(port) {
     console.log("port", port);
     console.log("this.ports", this.ports);
-    console.log(port.getName());
-    console.log(port.getLinks());
+    // console.log(port.getName());
+    // console.log(port.getLinks());
     //clear the parent node reference
     if (this.ports[port.getName()]) {
       _.forEach(port.getLinks(), link => {
@@ -70,7 +70,14 @@ export class JSCustomNodeModel extends NodeModel {
       });
       this.ports[port.getName()].setParent(null);
       delete this.ports[port.getName()];
+      // _.forEach(this.ports, port => {
+      //   _.forEach(port.links, link => {
+      //     link.getSVGPath();
+      //   });
+      // });
     }
+    console.log("port", port);
+    console.log("this.ports", this.ports);
   }
 
   removePorts() {

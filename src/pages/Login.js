@@ -10,7 +10,7 @@ class LoginPage extends React.Component {
   }
 
   render() {
-    console.log(this.props.reviewsey);
+    // console.log(this.props.reviewsey);
 
     return (
       <div>

@@ -22,7 +22,6 @@ const colors = [
 ]
 
 const Swatches = (props) => {  
-  console.log(props);
   return (
     <div className="swatches-container">
       <div class="swatches-row">

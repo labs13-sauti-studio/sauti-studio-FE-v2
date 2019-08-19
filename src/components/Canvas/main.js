@@ -17,7 +17,8 @@ import createEngine, {
   DefaultNodeFactory,
   DefaultLinkFactory,
   DefaultLinkModel,
-  PointModel
+  PointModel,
+  DefaultNodeModel
 } from "@projectstorm/react-diagrams";
 import { JSCustomNodeFactory } from "./custom-node-js/JSCustomNodeFactory";
 import { JSCustomNodeModel } from "./custom-node-js/JSCustomNodeModel";
@@ -36,17 +37,24 @@ engine.getLinkFactories().registerFactory(new DefaultLinkFactory());
 // create a diagram model
 const model = new DiagramModel();
 
+var node1 = new DefaultNodeModel('Node 1', 'rgb(0,192,255)');
+var port1 = node1.addOutPort('Out');
+node1.setPosition(100, 100);
+
+model.addAll(node1);
+
 // install the model into the engine
-engine.setDiagramModel(model);
+// engine.setDiagramModel(model);
+engine.setModel(model);
 
 //####################################################
 // ------------- SERIALIZING ------------------
-let str = JSON.stringify(model.serializeDiagram());
+let str = JSON.stringify(model.serialize());
 
 // // !------------- DESERIALIZING ----------------
 let cerealBox = new DiagramModel();
-cerealBox.deSerializeDiagram(JSON.parse(str), engine);
-engine.setDiagramModel(cerealBox);
+cerealBox.deserializeModel(JSON.parse(str), engine);
+engine.setModel(cerealBox);
 // cerealBox.serializeDiagram();
 
 class CustomExample extends React.Component {
@@ -62,86 +70,87 @@ class CustomExample extends React.Component {
     }
   }
 
-  componentDidMount(){
-    this.getCanvas();
-  }
+  // componentDidMount(){
+  //   this.getCanvas();
+  // }
 
-  componentDidUpdate(prevProps, prevState){
-    // If canvas is Saved retrieve new canvas
-    if(this.props.saving_canvas !== prevProps.saving_canvas && this.props.saving_canvas === false){
-      this.getCanvas();
-    }
+  // componentDidUpdate(prevProps, prevState){
+  //   let x = false;
+  //   // If canvas is Saved retrieve new canvas
+  //   if(this.props.saving_canvas !== prevProps.saving_canvas && this.props.saving_canvas === false){
+  //     this.getCanvas();
+  //     engine.repaintCanvas();
+  //   }
 
-    // If delete_project is called and returned without deletion
-    // if(this.props.delete_project !== prevProps.delete_project && this.props.delete_project === false){
-    //   setTimeout(()=>{
-    //     cerealBox.deSerializeDiagram(this.props.graph_json, engine);
-    //     engine.setDiagramModel(cerealBox);
-    //     engine.repaintCanvas();
-    //   },0);
-    // }
+  //   // Handle Project title update on initial load
+  //   if(((this.state.project_title !== this.props.project_title && this.state.project_title === null) || prevProps.project_title !== this.props.project_title)){
+  //       this.setState({
+  //         ...this.state,
+  //         project_title: this.props.project_title
+  //       });
+  //     }
 
-    // Handle Project title update on initial load
-    if(((this.state.project_title !== this.props.project_title && this.state.project_title === null) || prevProps.project_title !== this.props.project_title)){
-        this.setState({
-          ...this.state,
-          project_title: this.props.project_title
-        });
-      }
+  //   // Handle Project canvas update on initial load
+  //   if(this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
+  //     setTimeout(()=>{
+  //       cerealBox = new DiagramModel();
+  //       cerealBox.deserializeModel(this.props.graph_json, engine);
+  //       // engine.setDiagramModel(cerealBox);
+  //       engine.setModel(cerealBox);
+  //       engine.repaintCanvas();
+  //     },0);
+  //   }
+  //       // Handle Project canvas update on initial load
+  //       if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
+  //         setTimeout(()=>{
+  //           cerealBox = new DiagramModel();
+  //           cerealBox.deserializeModel(this.props.graph_json, engine);
+  //           // engine.setDiagramModel(cerealBox);
+  //           engine.setModel(cerealBox);
+  //           engine.repaintCanvas();
+  //         },0);
+  //       }
 
-    // Handle Project canvas update on initial load
-    if(this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
-      console.log("if ---------- 1");
-      setTimeout(()=>{
-        cerealBox = new DiagramModel();
-        cerealBox.deSerializeDiagram(this.props.graph_json, engine);
-        engine.setDiagramModel(cerealBox);
-        engine.repaintCanvas();
-      },0);
-    }
-    // else{
-    //   engine.setDiagramModel(model);
-    //   engine.repaintCanvas();
-    // }
-        // Handle Project canvas update on initial load
-        if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
-          console.log("if ---------- 1");
-          setTimeout(()=>{
-            cerealBox = new DiagramModel();
-            cerealBox.deSerializeDiagram(this.props.graph_json, engine);
-            engine.setDiagramModel(cerealBox);
-            engine.repaintCanvas();
-          },0);
-        }
+  //       // Handle Project canvas update on initial load
+  //       if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
+  //         setTimeout(()=>{
+  //           cerealBox = new DiagramModel();
+  //           cerealBox.deserializeModel(this.props.graph_json, engine);
+  //           // engine.setDiagramModel(cerealBox);
+  //           engine.setModel(cerealBox);
+  //           engine.repaintCanvas();
+  //         },0);
+  //       }
 
-        // Handle Project canvas update on initial load
-        if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
-          console.log("if ---------- 1");
-          setTimeout(()=>{
-            cerealBox = new DiagramModel();
-            cerealBox.deSerializeDiagram(this.props.graph_json, engine);
-            engine.setDiagramModel(cerealBox);
-            engine.repaintCanvas();
-          },0);
-        }
+  //       if(this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
+  //         setTimeout(()=>{
+  //           cerealBox = new DiagramModel();
+  //           cerealBox.deserializeModel(this.props.graph_json, engine);
+  //           // engine.setDiagramModel(cerealBox);
+  //           engine.setModel(cerealBox);
+  //           engine.repaintCanvas();
+  //         },0);
+  //       }
 
-        if(this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
-          console.log("if ---------- 1");
-          setTimeout(()=>{
-            cerealBox = new DiagramModel();
-            cerealBox.deSerializeDiagram(this.props.graph_json, engine);
-            engine.setDiagramModel(cerealBox);
-            engine.repaintCanvas();
-          },0);
-        }
-
-        if(this.props.graph_json === null){
-          cerealBox = new DiagramModel();
-          engine.setDiagramModel(cerealBox);
-          engine.repaintCanvas();
-        }
-
-  }
+  //       if(this.props.graph_json === null){
+  //         cerealBox = new DiagramModel();
+  //         // engine.setDiagramModel(cerealBox);
+  //         engine.setModel(cerealBox);
+  //         engine.repaintCanvas();
+  //       }
+  //       // on save fix links
+  //       setTimeout(()=>{
+  //         engine.repaintCanvas();
+  //       },0);
+  //       // let promise = new Promise(function(resolve, reject) {
+  //       //   if(){
+  //       //     resolve();
+  //       //   }
+  //       // });
+  //       // promise.then(()=>{
+  //       //   engine.repaintCanvas();
+  //       // });
+  // }
 
   handleChange = (event) => {
     this.setState({
@@ -264,28 +273,33 @@ class CustomExample extends React.Component {
     this.props.getCanvasById(this.props.project_id);
   }
 
+  repaint = () => {
+    console.log(engine.repaintCanvas());
+  }
+
   saveCanvas1 = (event) => {
     event.preventDefault();
-    let savedCanvas = cerealBox.serializeDiagram();
+    // let savedCanvas = cerealBox.serializeDiagram();
+    let savedCanvas = cerealBox.serialize();
     console.log("savedCanvas------------", savedCanvas);
-    let objUpdate;
-    if(savedCanvas.nodes.length === 0){
-      objUpdate = {
-        project_title: this.props.project_title,
-        graph_json: savedCanvas,
-        user_id: this.props.user_id,
-        initial_node_id: null 
-      }
-    }
-    else if(savedCanvas.nodes.length > 0 && savedCanvas.nodes[0].id !== undefined){
-      objUpdate = {
-          project_title: this.props.project_title,
-          graph_json: savedCanvas,
-          user_id: this.props.user_id,
-          initial_node_id: savedCanvas.nodes[0].id 
-      }
-    }
-    this.props.saveCanvas(objUpdate, this.props.project_id);
+    // let objUpdate;
+    // if(savedCanvas.nodes.length === 0){
+    //   objUpdate = {
+    //     project_title: this.props.project_title,
+    //     graph_json: savedCanvas,
+    //     user_id: this.props.user_id,
+    //     initial_node_id: null 
+    //   }
+    // }
+    // else if(savedCanvas.nodes.length > 0 && savedCanvas.nodes[0].id !== undefined){
+    //   objUpdate = {
+    //       project_title: this.props.project_title,
+    //       graph_json: savedCanvas,
+    //       user_id: this.props.user_id,
+    //       initial_node_id: savedCanvas.nodes[0].id 
+    //   }
+    // }
+    // this.props.saveCanvas(objUpdate, this.props.project_id);
   }
 
   render() {
@@ -323,7 +337,7 @@ class CustomExample extends React.Component {
             </button>
             <button
               onClick={() => {
-                console.log("Simulate");
+                this.repaint();
               }}
             >
               Simulate App
