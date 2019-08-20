@@ -37,26 +37,14 @@ engine.getLinkFactories().registerFactory(new DefaultLinkFactory());
 // create a diagram model
 const model = new DiagramModel();
 
-// var node1 = new DefaultNodeModel('Node 1', 'rgb(0,192,255)');
-// var port1 = node1.addOutPort('Out');
-// node1.setPosition(100, 100);
-
-// var node2 = new DefaultNodeModel('Node 2', 'rgb(0,192,255)');
-// var port2 = node2.addInPort('Out');
-// node2.setPosition(100, 200);
-
-// model.addAll(node1, node2);
-
 // install the model into the engine
-// engine.setDiagramModel(model);
 engine.setModel(model);
 engine.setMaxNumberPointsPerLink(0);
 
-//####################################################
 // ------------- SERIALIZING ------------------
 let str = JSON.stringify(model.serialize());
 
-// // !------------- DESERIALIZING ----------------
+// ------------- DESERIALIZING ----------------
 let cerealBox = new DiagramModel();
 cerealBox.deserializeModel(JSON.parse(str), engine);
 engine.setModel(cerealBox);
@@ -79,11 +67,9 @@ class CustomExample extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    let x = false;
     // If canvas is Saved retrieve new canvas
     if(this.props.saving_canvas !== prevProps.saving_canvas && this.props.saving_canvas === false){
       this.getCanvas();
-      engine.repaintCanvas();
     }
 
     // Handle Project title update on initial load
@@ -99,9 +85,7 @@ class CustomExample extends React.Component {
       setTimeout(()=>{
         cerealBox = new DiagramModel();
         cerealBox.deserializeModel(this.props.graph_json, engine);
-        // engine.setDiagramModel(cerealBox);
         engine.setModel(cerealBox);
-        // engine.repaintCanvas();
       },0);
     }
   //       // Handle Project canvas update on initial load
@@ -116,25 +100,21 @@ class CustomExample extends React.Component {
   //       }
 
   //       // Handle Project canvas update on initial load
-  //       if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
-  //         setTimeout(()=>{
-  //           cerealBox = new DiagramModel();
-  //           cerealBox.deserializeModel(this.props.graph_json, engine);
-  //           // engine.setDiagramModel(cerealBox);
-  //           engine.setModel(cerealBox);
-  //           engine.repaintCanvas();
-  //         },0);
-  //       }
+        if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
+          setTimeout(()=>{
+            cerealBox = new DiagramModel();
+            cerealBox.deserializeModel(this.props.graph_json, engine);
+            engine.setModel(cerealBox);
+          },0);
+        }
 
-  //       if(this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
-  //         setTimeout(()=>{
-  //           cerealBox = new DiagramModel();
-  //           cerealBox.deserializeModel(this.props.graph_json, engine);
-  //           // engine.setDiagramModel(cerealBox);
-  //           engine.setModel(cerealBox);
-  //           engine.repaintCanvas();
-  //         },0);
-  //       }
+        if(this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
+          setTimeout(()=>{
+            cerealBox = new DiagramModel();
+            cerealBox.deserializeModel(this.props.graph_json, engine);
+            engine.setModel(cerealBox);
+          },0);
+        }
 
         if(this.props.graph_json === null){
           cerealBox = new DiagramModel();
@@ -171,7 +151,6 @@ class CustomExample extends React.Component {
       project_title: this.state[event.target.name],
       project_title_class: !this.state.project_title_class
     });
-    // this.props.node.description = this.state[event.target.name];
     this.updateTitle();
   }
   }
@@ -194,26 +173,44 @@ class CustomExample extends React.Component {
     newItem.provideDescription("Enter Description...");
     newItem.setPosition(0, 0);
     cerealBox.addNode(newItem);
-    engine.repaintCanvas();
+    this.saveCanvas();
+
   };
 
   deleteItem = (item) => {
     // Checks if a node or wire is selected
-    console.log("deleted ------- item",item);
     if (item.length !== 0) {
       for(let i = 0; i < item.length; i++){
         if (item[i] instanceof JSCustomNodeModel) {
           // Delete Nodes
-          item[i].removePorts();
-          cerealBox.removeNode(item[i]);
-          engine.repaintCanvas();
+          let promise = new Promise((resolve, reject)=>{
+            resolve(item[i].removePorts(engine));
+          });
+          promise.then(()=>{
+            cerealBox.removeNode(item[i]);
+          });
+          promise.then(()=>{
+            engine.repaintCanvas();
+          });
         } else if (item[i] instanceof PointModel) {
-          cerealBox.removeLink(item[i].parent);
-          engine.repaintCanvas();
+          // cerealBox.removeLink(item[i].parent);
+          // engine.repaintCanvas();
+          let promise = new Promise((resolve, reject)=>{
+            resolve(cerealBox.removeLink(item[i].parent));
+          });
+          promise.then(()=>{
+            engine.repaintCanvas();
+          });
         } else if (item[i] instanceof DefaultLinkModel) {
           // Delete Links
-          cerealBox.removeLink(item[i]);
-          engine.repaintCanvas();
+          
+          // engine.repaintCanvas();
+          let promise = new Promise((resolve, reject)=>{
+            resolve(cerealBox.removeLink(item[i]));
+          });
+          promise.then(()=>{
+            engine.repaintCanvas();
+          });
         }
       }
     } 
@@ -246,7 +243,6 @@ class CustomExample extends React.Component {
 
   zoomOut = () => {
     let zoomLevel = cerealBox.getZoomLevel()
-    console.log(zoomLevel);
     zoomLevel += 10;
     cerealBox.setZoomLevel(zoomLevel);
     cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
@@ -255,7 +251,6 @@ class CustomExample extends React.Component {
 
   zoomIn = () => {
     let zoomLevel = cerealBox.getZoomLevel()
-    console.log(zoomLevel);
     zoomLevel -= 10;
     cerealBox.setZoomLevel(zoomLevel);
     cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
@@ -266,20 +261,13 @@ class CustomExample extends React.Component {
     this.props.getCanvasById(this.props.project_id);
   }
 
-  repaint = () => {
-    console.log(engine.repaintCanvas());
-  }
-
-  saveCanvas1 = (event) => {
-    event.preventDefault();
-    // let savedCanvas = cerealBox.serializeDiagram();
+  saveCanvas = () => {
     let savedCanvas = cerealBox.serialize();
     console.log("savedCanvas------------", savedCanvas);
     let count = 0, key, objUpdate;
     for (key in savedCanvas.layers[1].models) {
       if (savedCanvas.layers[1].models.hasOwnProperty(key)) count++;
     }
-    console.log("count",count);
     if(count === 0){
       objUpdate = {
         project_title: this.props.project_title,
@@ -300,6 +288,7 @@ class CustomExample extends React.Component {
   }
 
   render() {
+    engine.repaintCanvas();
     return (
       <div className="diagram-page">
         <DeleteModal props={this.props.props}/>
@@ -334,7 +323,7 @@ class CustomExample extends React.Component {
             </button>
             <button
               onClick={() => {
-                this.repaint();
+                return;
               }}
             >
               Simulate App
@@ -342,7 +331,7 @@ class CustomExample extends React.Component {
             <button
               className="cursor"
               onClick={(event) => {
-                this.saveCanvas1(event);
+                this.saveCanvas(event);
               }}
             >
               Save

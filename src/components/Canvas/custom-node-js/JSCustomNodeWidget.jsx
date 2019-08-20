@@ -19,7 +19,6 @@ export class JSCustomNodeWidget extends React.Component {
 	
 
   componentDidMount() {
-    console.log("this.props", this.props);
     this.setState({
       ...this.state,
       nodeTitle: this.props.node.options.name,
@@ -57,8 +56,6 @@ export class JSCustomNodeWidget extends React.Component {
   }
 
   handleSubmit = (event) => {
-    console.log("this.props", this.props);
-    console.log("this.props.node.getPort('in')",this.props.node.getPort('in'));
     var val = this.state[event.target.name];
     if (val) {
       if (event.target.name === "description") {
@@ -74,10 +71,7 @@ export class JSCustomNodeWidget extends React.Component {
           [event.target.name]: val,
 					editing: !this.state.editing
         });
-        console.log("Got here------");
         this.props.node.options.name = this.state[event.target.name];
-        console.log("this.props.node.options.name",this.props.node.name);
-        console.log("this.props.node",this.props.node);
       } else {
         let mod = event.target.name;
         let id = mod.slice(0,-1);
@@ -105,19 +99,16 @@ export class JSCustomNodeWidget extends React.Component {
   addSubMenu = (event) => {
     event.stopPropagation();
     let x = this.props.node.addOutPort("Edit Menu Option..", `out-${this.props.node.options.id + this.props.node.outPortCount + 1}`);
-    // let promise = new Promise(function(resolve, reject) {
-    //     resolve(x);
-    // });
-    // promise.then(()=>{
-    //   this.props.engine.repaintCanvas();
-      
-    // });
-    // this.props.node.addOutPort("Edit Menu Option..");
-    this.props.engine.repaintCanvas();
+    let promise = new Promise(function(resolve, reject) {
+        resolve(x);
+    });
+    promise.then(()=>{
+      this.props.engine.repaintCanvas();
+    });
   };
 
   deletePortAndLinks = (port) =>{
-    let x = this.props.node.removePort(port);
+    let x = this.props.node.removePort(port, this.props.engine);
     let promise = new Promise(function(resolve, reject) {
         resolve(x);
     });

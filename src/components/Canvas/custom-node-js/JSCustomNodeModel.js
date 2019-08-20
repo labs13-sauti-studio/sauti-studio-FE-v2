@@ -4,15 +4,12 @@ import {
 } from "@projectstorm/react-diagrams";
 
 import * as _ from "lodash";
-
 export class JSCustomNodeModel extends NodeModel {
   constructor(options = {}) {
     super({
       ...options,
       type: "js-custom-node"
     });
-    console.log("this",this);
-    console.log("options",options);
     this.outPortCount = 0;
     this.color = this.color || { options: "red" };
     this.name = this.options.name;
@@ -25,22 +22,6 @@ export class JSCustomNodeModel extends NodeModel {
       })
     );
   }
-
-  // serialize() {
-  //   return {
-  //     ...super.serialize(),
-  //     color: this.options.color,
-  //     name: this.name,
-  //     description: this.description
-  //   };
-  // }
-
-  // deSerialize(ob, engine) {
-  //   super.deSerialize(ob, engine);
-  //   this.color = ob.color;
-  //   this.name = ob.name;
-  //   this.description = ob.description;
-  // }
 
   deserialize(event) {
 		super.deserialize(event);
@@ -77,33 +58,23 @@ export class JSCustomNodeModel extends NodeModel {
     );
   }
 
-  removePort(port) {
-    console.log("port", port);
-    console.log("this.ports", this.ports);
-    // console.log(port.getName());
-    // console.log(port.getLinks());
-    //clear the parent node reference
-    if (this.ports[port.getName()]) {
-      _.forEach(port.getLinks(), link => {
-        link.remove();
-      });
-      this.ports[port.getName()].setParent(null);
-      delete this.ports[port.getName()];
-      // _.forEach(this.ports, port => {
-      //   _.forEach(port.links, link => {
-      //     link.getSVGPath();
-      //   });
-      // });
+  removePort(port, engine) {
+    let model = engine.getModel();
+    let links = port.getLinks();
+    for(let key in links){
+      model.removeLink(links[key]);
     }
-    console.log("port", port);
-    console.log("this.ports", this.ports);
+    super.removePort(port);
   }
 
-  removePorts() {
+  removePorts(engine) {
+    let model = engine.getModel();
     _.forEach(this.ports, port => {
-      _.forEach(port.getLinks(), link => {
-        link.remove();
-      });
+      let links = port.getLinks();
+      for(let key in links){
+        model.removeLink(links[key]);
+      }
+      super.removePort(port);
     });
   }
 }
