@@ -199,6 +199,9 @@
   width: 50px;
   height: 100%;
   padding: 0px;
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 .trash-icon img {

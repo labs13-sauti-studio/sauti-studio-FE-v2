@@ -571,6 +571,8 @@ input, textarea {
   width: 50px;
   height: 100%;
   padding: 0px; }
+  .trash-icon:hover {
+    cursor: pointer; }
 
 .trash-icon img {
   width: auto;

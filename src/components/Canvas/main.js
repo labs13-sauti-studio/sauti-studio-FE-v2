@@ -156,21 +156,21 @@ class CustomExample extends React.Component {
   //       // });
   // }
 
-  handleChange = (event) => {
-    this.setState({
-      ...this.state,
-      [event.target.name]: event.target.value
-    });
-  }
+  // handleChange = (event) => {
+  //   this.setState({
+  //     ...this.state,
+  //     [event.target.name]: event.target.value
+  //   });
+  // }
 
-  handleEdit = (name) => {
-    if (name === "project_title") {
-      this.setState({
-        ...this.state,
-        project_title_class: !this.state.project_title_class
-      });
-  }
-  }
+  // handleEdit = (name) => {
+  //   if (name === "project_title") {
+  //     this.setState({
+  //       ...this.state,
+  //       project_title_class: !this.state.project_title_class
+  //     });
+  // }
+  // }
 
   handleKeyDown = (event) => {
     if (event.which === this.ENTER_KEY) {
@@ -289,8 +289,13 @@ class CustomExample extends React.Component {
     // let savedCanvas = cerealBox.serializeDiagram();
     let savedCanvas = cerealBox.serialize();
     console.log("savedCanvas------------", savedCanvas);
-    // let objUpdate;
-    // if(savedCanvas.nodes.length === 0){
+    // console.log("savedCanvas.layers[1].models.length",savedCanvas.layers[1].models.valueOf());
+    // let count = 0, key, objUpdate;
+    // for (key in savedCanvas.layers[1].models) {
+    //   if (savedCanvas.layers[1].models.hasOwnProperty(key)) count++;
+    // }
+    // console.log("count",count);
+    // if(count === 0){
     //   objUpdate = {
     //     project_title: this.props.project_title,
     //     graph_json: savedCanvas,
@@ -298,12 +303,12 @@ class CustomExample extends React.Component {
     //     initial_node_id: null 
     //   }
     // }
-    // else if(savedCanvas.nodes.length > 0 && savedCanvas.nodes[0].id !== undefined){
+    // else if(count > 0 /* &&savedCanvas.layers[1].models[0].id*/){
     //   objUpdate = {
     //       project_title: this.props.project_title,
     //       graph_json: savedCanvas,
     //       user_id: this.props.user_id,
-    //       initial_node_id: savedCanvas.nodes[0].id 
+    //       initial_node_id: null
     //   }
     // }
     // this.props.saveCanvas(objUpdate, this.props.project_id);
