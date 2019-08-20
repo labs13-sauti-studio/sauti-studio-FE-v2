@@ -22,8 +22,8 @@ export class JSCustomNodeWidget extends React.Component {
     console.log("this.props", this.props);
     this.setState({
       ...this.state,
-      nodeTitle: this.props.node.name,
-			description: this.props.node.description
+      nodeTitle: this.props.node.options.name,
+			description: this.props.node.options.description
     });
   }
 
@@ -67,14 +67,17 @@ export class JSCustomNodeWidget extends React.Component {
           [event.target.name]: val,
           editingDesc: !this.state.editingDesc
         });
-        this.props.node.description = this.state[event.target.name];
+        this.props.node.options.description = this.state[event.target.name];
       } else if (event.target.name === "nodeTitle") {
         this.setState({
           ...this.state,
           [event.target.name]: val,
 					editing: !this.state.editing
         });
-        this.props.node.name = this.state[event.target.name];
+        console.log("Got here------");
+        this.props.node.options.name = this.state[event.target.name];
+        console.log("this.props.node.options.name",this.props.node.name);
+        console.log("this.props.node",this.props.node);
       } else {
         let mod = event.target.name;
         let id = mod.slice(0,-1);

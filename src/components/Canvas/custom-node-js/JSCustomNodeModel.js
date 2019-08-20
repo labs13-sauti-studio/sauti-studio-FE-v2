@@ -6,16 +6,17 @@ import {
 import * as _ from "lodash";
 
 export class JSCustomNodeModel extends NodeModel {
-  constructor(options) {
+  constructor(options = {}) {
     super({
       ...options,
       type: "js-custom-node"
     });
     console.log("this",this);
+    console.log("options",options);
     this.outPortCount = 0;
     this.color = this.color || { options: "red" };
-    this.name = this.name;
-    this.description = this.description;
+    this.name = this.options.name;
+    this.description = this.options.description;
 
     this.addPort(
       new DefaultPortModel({
@@ -25,29 +26,44 @@ export class JSCustomNodeModel extends NodeModel {
     );
   }
 
-  serialize() {
-    
-    return {
-      ...super.serialize(),
-      color: this.options.color,
-      name: this.name,
-      description: this.description
-    };
-  }
+  // serialize() {
+  //   return {
+  //     ...super.serialize(),
+  //     color: this.options.color,
+  //     name: this.name,
+  //     description: this.description
+  //   };
+  // }
 
-  deSerialize(ob, engine) {
-    super.deSerialize(ob, engine);
-    this.color = ob.color;
-    this.name = ob.name;
-    this.description = ob.description;
-  }
+  // deSerialize(ob, engine) {
+  //   super.deSerialize(ob, engine);
+  //   this.color = ob.color;
+  //   this.name = ob.name;
+  //   this.description = ob.description;
+  // }
+
+  deserialize(event) {
+		super.deserialize(event);
+		this.options.name = event.data.name;
+    this.options.color = event.data.color;
+    this.options.description = event.data.description;
+	}
+
+	serialize(){
+		return {
+			...super.serialize(),
+			name: this.options.name,
+      color: this.options.color,
+      description: this.options.description
+		};
+	}
 
   nameNode(name) {
-    this.name = name;
+    this.options.name = name;
   }
 
   provideDescription(description) {
-    this.description = description;
+    this.options.description = description;
   }
 
   addOutPort(label, name) {
