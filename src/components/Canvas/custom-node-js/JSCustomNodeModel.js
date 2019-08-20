@@ -1,22 +1,21 @@
 import {
   DefaultPortModel,
-  NodeModel,
-  Toolkit
+  NodeModel
 } from "@projectstorm/react-diagrams";
 
 import * as _ from "lodash";
 
 export class JSCustomNodeModel extends NodeModel {
-  constructor(options = {}) {
+  constructor(options) {
     super({
       ...options,
       type: "js-custom-node"
     });
-    
+    console.log("this",this);
     this.outPortCount = 0;
-    this.color = options.color || { options: "red" };
-    this.name = options.name;
-    this.description = options.description;
+    this.color = this.color || { options: "red" };
+    this.name = this.name;
+    this.description = this.description;
 
     this.addPort(
       new DefaultPortModel({
@@ -27,6 +26,7 @@ export class JSCustomNodeModel extends NodeModel {
   }
 
   serialize() {
+    
     return {
       ...super.serialize(),
       color: this.options.color,
@@ -55,7 +55,6 @@ export class JSCustomNodeModel extends NodeModel {
     return this.addPort(
       new DefaultPortModel({
         in: false,
-        // name: Toolkit.UID(),
         label: label,
         name: name
       })

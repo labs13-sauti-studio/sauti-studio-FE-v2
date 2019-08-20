@@ -19,6 +19,7 @@ export class JSCustomNodeWidget extends React.Component {
 	
 
   componentDidMount() {
+    console.log("this.props", this.props);
     this.setState({
       ...this.state,
       nodeTitle: this.props.node.name,
