@@ -481,6 +481,11 @@ input, textarea {
   display: flex;
   flex-direction: column; }
 
+.selected-true {
+  border: solid 4px #00c0ff;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px; }
+
 .custom-node-nodeTitle {
   display: flex;
   flex-direction: row;

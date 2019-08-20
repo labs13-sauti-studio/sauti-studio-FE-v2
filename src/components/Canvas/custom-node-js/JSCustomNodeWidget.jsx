@@ -13,6 +13,7 @@ export class JSCustomNodeWidget extends React.Component {
       nodeTitle: "",
       editing: false,
       editingDesc: false,
+      selected: false
     };
 	}
 	
@@ -97,8 +98,9 @@ export class JSCustomNodeWidget extends React.Component {
     }
   }
 
-  addSubMenu = () => {
-    let x = this.props.node.addOutPort("Edit Menu Option..", `out-${this.props.node.outPortCount + 1}`);
+  addSubMenu = (event) => {
+    event.stopPropagation();
+    let x = this.props.node.addOutPort("Edit Menu Option..", `out-${this.props.node.options.id + this.props.node.outPortCount + 1}`);
     // let promise = new Promise(function(resolve, reject) {
     //     resolve(x);
     // });
@@ -117,6 +119,13 @@ export class JSCustomNodeWidget extends React.Component {
     });
     promise.then(()=>{
       this.props.engine.repaintCanvas();
+    });
+  }
+
+  selectNode = () => {
+    this.setState({
+      ...this.state,
+      selected: !this.state.selected
     });
   }
 
@@ -180,7 +189,9 @@ export class JSCustomNodeWidget extends React.Component {
 	render() {
     
 		return (
-			<div className="custom-node">
+			<div 
+      className={`custom-node selected-${this.props.node.isSelected()}`} 
+      >
         <div className="custom-node-nodeTitle">
           <div className="line-in">
 						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')}>
@@ -232,8 +243,8 @@ export class JSCustomNodeWidget extends React.Component {
           <h2>Add menu option...</h2>
           <img
             className="button-add-port"
-            onClick={() => {
-              this.addSubMenu();
+            onClick={(event) => {
+              this.addSubMenu(event);
             }}
             src="https://image.flaticon.com/icons/svg/32/32339.svg"
             alt="plus sign"

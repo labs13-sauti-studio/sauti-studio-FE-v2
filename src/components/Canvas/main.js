@@ -50,6 +50,7 @@ model.addAll(node1, node2);
 // install the model into the engine
 // engine.setDiagramModel(model);
 engine.setModel(model);
+engine.setMaxNumberPointsPerLink(0);
 
 //####################################################
 // ------------- SERIALIZING ------------------
@@ -212,19 +213,22 @@ class CustomExample extends React.Component {
 
   deleteItem = (item) => {
     // Checks if a node or wire is selected
+    console.log("deleted ------- item",item);
     if (item.length !== 0) {
-      if (item[0] instanceof JSCustomNodeModel) {
-        // Delete Nodes
-        item[0].removePorts();
-        cerealBox.removeNode(item[0]);
-        engine.repaintCanvas();
-      } else if (item[0] instanceof PointModel) {
-        cerealBox.removeLink(item[0].parent);
-        engine.repaintCanvas();
-      } else if (item[0] instanceof DefaultLinkModel) {
-        // Delete Links
-        cerealBox.removeLink(item[0]);
-        engine.repaintCanvas();
+      for(let i = 0; i < item.length; i++){
+        if (item[i] instanceof JSCustomNodeModel) {
+          // Delete Nodes
+          item[i].removePorts();
+          cerealBox.removeNode(item[i]);
+          engine.repaintCanvas();
+        } else if (item[i] instanceof PointModel) {
+          cerealBox.removeLink(item[i].parent);
+          engine.repaintCanvas();
+        } else if (item[i] instanceof DefaultLinkModel) {
+          // Delete Links
+          cerealBox.removeLink(item[i]);
+          engine.repaintCanvas();
+        }
       }
     } 
   };
@@ -376,7 +380,7 @@ class CustomExample extends React.Component {
                 }}
               />
             </div>
-            <div className="taskbar-section">
+            {/* <div className="taskbar-section">
               <img 
                 src={PaintBucket} 
                 alt="alt text" 
@@ -391,15 +395,17 @@ class CustomExample extends React.Component {
             <div className="taskbar-section">
               <img src={Lock} alt="alt text" />
               <img src={Gear} alt="alt text" />
-            </div>
+            </div> */}
             <div className="taskbar-section">
               <img 
                 src={Trashcan} 
                 className="cursor"
                 alt="alt text" 
-                title="Delete"
+                title="Delete Selected Items"
                 onClick={() => {
-                  let selectedItems = cerealBox.getSelectedItems();
+                  console.log("cerealBox",cerealBox);
+                  let model = engine.getModel();
+                  let selectedItems = model.getSelectedEntities();
                   this.deleteItem(selectedItems);
                 }}
               />
