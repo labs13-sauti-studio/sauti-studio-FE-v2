@@ -77,6 +77,7 @@ class Profile extends React.Component {
                   user_id: this.props.user_id,
                   initial_node_id: null
                 }
+                
               )}
             >
             <i class="fas fa-plus-square"></i>
