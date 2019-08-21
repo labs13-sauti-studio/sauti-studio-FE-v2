@@ -13,6 +13,7 @@ export class JSCustomNodeWidget extends React.Component {
       nodeTitle: "",
       editing: false,
       editingDesc: false,
+      selected: false
     };
 	}
 	
@@ -20,8 +21,8 @@ export class JSCustomNodeWidget extends React.Component {
   componentDidMount() {
     this.setState({
       ...this.state,
-      nodeTitle: this.props.node.name,
-			description: this.props.node.description
+      nodeTitle: this.props.node.options.name,
+			description: this.props.node.options.description
     });
   }
 
@@ -63,14 +64,14 @@ export class JSCustomNodeWidget extends React.Component {
           [event.target.name]: val,
           editingDesc: !this.state.editingDesc
         });
-        this.props.node.description = this.state[event.target.name];
+        this.props.node.options.description = this.state[event.target.name];
       } else if (event.target.name === "nodeTitle") {
         this.setState({
           ...this.state,
           [event.target.name]: val,
 					editing: !this.state.editing
         });
-        this.props.node.name = this.state[event.target.name];
+        this.props.node.options.name = this.state[event.target.name];
       } else {
         let mod = event.target.name;
         let id = mod.slice(0,-1);
@@ -80,10 +81,8 @@ export class JSCustomNodeWidget extends React.Component {
           [id]: !this.state[id]
         });
         let obj = this.props.node.ports;
-        console.log('obj', obj);
         for (let key in obj) {
           if (obj[key].options.id === id) {
-            console.log('if got called');
             obj[key].options.label = this.state[event.target.name];
           }
         }
@@ -97,23 +96,32 @@ export class JSCustomNodeWidget extends React.Component {
     }
   }
 
-  addSubMenu = () => {
-    console.log("--------------", this.props);
-    let x = this.props.node.addOutPort("Edit Menu Option..");
+  addSubMenu = (event) => {
+    event.stopPropagation();
+    let x = this.props.node.addOutPort("Edit Menu Option..", `out-${this.props.node.options.id + this.props.node.outPortCount + 1}`);
     let promise = new Promise(function(resolve, reject) {
         resolve(x);
     });
     promise.then(()=>{
       this.props.engine.repaintCanvas();
-      
     });
-    // this.props.node.addOutPort("Edit Menu Option..");
-    // this.props.engine.repaintCanvas();
   };
 
   deletePortAndLinks = (port) =>{
-    this.props.node.removePort(port);
-    this.props.engine.repaintCanvas();
+    let x = this.props.node.removePort(port, this.props.engine);
+    let promise = new Promise(function(resolve, reject) {
+        resolve(x);
+    });
+    promise.then(()=>{
+      this.props.engine.repaintCanvas();
+    });
+  }
+
+  selectNode = () => {
+    this.setState({
+      ...this.state,
+      selected: !this.state.selected
+    });
   }
 
   subMenuGenerator = () => {
@@ -141,10 +149,13 @@ export class JSCustomNodeWidget extends React.Component {
         }
         menus.push(
           <div key={key} className="custom-node-submenus">
-            <h2>{count}</h2>
+            <div className="submenu-text-container">
+            <h2 className="number">{count}</h2>
             <h2
-              className={this.state[id] ? "hidden" : ""}
-              onDoubleClick={()=>this.handleEdit(mod)}>
+              className={this.state[id] ? "hidden" : "option-text"}
+              onDoubleClick={()=>this.handleEdit(mod)}
+              title="Double Click to Edit"
+              >
               {this.state[mod]}
             </h2>
             <input
@@ -160,8 +171,12 @@ export class JSCustomNodeWidget extends React.Component {
               event.stopPropagation();
             }}
             />
+            </div>
             <div onClick={()=>this.deletePortAndLinks(obj[key])} className="trash-icon">
-              <img src={TrashCan} alt="trash icon"/>
+              <i 
+                className="fas fa-trash-alt"
+                title="Delete Option"
+              ></i>
             </div>
             <div className="line-out">
 							<PortWidget engine={this.props.engine} port={this.props.node.getPort(obj[key].options.name)} />
@@ -174,11 +189,15 @@ export class JSCustomNodeWidget extends React.Component {
   };
 
 	render() {
+    
 		return (
-			<div className="custom-node">
+			<div 
+      className={`custom-node selected-${this.props.node.isSelected()}`} 
+      >
         <div className="custom-node-nodeTitle">
           <div className="line-in">
-						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')} />
+						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')}>
+            </PortWidget>
           </div>
           <h1
             className={this.state.editing ? "hidden" : ""}
@@ -224,14 +243,21 @@ export class JSCustomNodeWidget extends React.Component {
         <div>{this.subMenuGenerator()}</div>
         <div className="custom-node-addMenuOption">
           <h2>Add menu option...</h2>
-          <img
+          {/* <img
             className="button-add-port"
-            onClick={() => {
-              this.addSubMenu();
+            onClick={(event) => {
+              this.addSubMenu(event);
             }}
             src="https://image.flaticon.com/icons/svg/32/32339.svg"
             alt="plus sign"
-          />
+          /> */}
+          <i 
+                className="fas fa-plus-square"
+                title="Add Screen"
+                onClick={(event) => {
+              this.addSubMenu(event);
+            }}
+          ></i>
         </div>
       </div>
 		);

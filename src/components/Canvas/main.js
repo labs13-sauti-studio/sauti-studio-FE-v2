@@ -1,16 +1,16 @@
 import * as React from "react";
-import Trashcan from "../../images/icons/trash.png";
-import DocSettings from "../../images/icons/docSettings.png";
-import Gear from "../../images/icons/gear.png";
-import Lock from "../../images/icons/lock.png";
-import PaintBucket from "../../images/icons/paintBucket.png";
-import Plus from "../../images/icons/plus.png";
-import ZoomIn from "../../images/icons/zoomIn.png";
-import ZoomOut from "../../images/icons/zoomOut.png";
+// import Trashcan from "../../images/icons/trash.png";
+// import DocSettings from "../../images/icons/docSettings.png";
+// import Gear from "../../images/icons/gear.png";
+// import Lock from "../../images/icons/lock.png";
+// import PaintBucket from "../../images/icons/paintBucket.png";
+// import Plus from "../../images/icons/plus.png";
+// import ZoomIn from "../../images/icons/zoomIn.png";
+// import ZoomOut from "../../images/icons/zoomOut.png";
 import { connect } from "react-redux";
-import { saveCanvas, getCanvasById, deleteProject, setDeleteState } from "../../actions";
+import { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState } from "../../actions";
 import DeleteModal from "../DeleteModal.js";
-import { Redirect } from 'react-router'
+import SimulationModal from "../SimulationModal.js";
 
 import createEngine, {
   DiagramModel,
@@ -37,17 +37,16 @@ engine.getLinkFactories().registerFactory(new DefaultLinkFactory());
 const model = new DiagramModel();
 
 // install the model into the engine
-engine.setDiagramModel(model);
+engine.setModel(model);
+engine.setMaxNumberPointsPerLink(0);
 
-//####################################################
 // ------------- SERIALIZING ------------------
-let str = JSON.stringify(model.serializeDiagram());
+let str = JSON.stringify(model.serialize());
 
-// // !------------- DESERIALIZING ----------------
+// ------------- DESERIALIZING ----------------
 let cerealBox = new DiagramModel();
-cerealBox.deSerializeDiagram(JSON.parse(str), engine);
-engine.setDiagramModel(cerealBox);
-// cerealBox.serializeDiagram();
+cerealBox.deserializeModel(JSON.parse(str), engine);
+engine.setModel(cerealBox);
 
 class CustomExample extends React.Component {
   constructor(props){
@@ -58,7 +57,8 @@ class CustomExample extends React.Component {
       canvas_stop: false,
       project_title: null,
       project_title_class: false,
-      delete_project: false
+      delete_project: false,
+      simulate_project: false
     }
   }
 
@@ -72,15 +72,6 @@ class CustomExample extends React.Component {
       this.getCanvas();
     }
 
-    // If delete_project is called and returned without deletion
-    // if(this.props.delete_project !== prevProps.delete_project && this.props.delete_project === false){
-    //   setTimeout(()=>{
-    //     cerealBox.deSerializeDiagram(this.props.graph_json, engine);
-    //     engine.setDiagramModel(cerealBox);
-    //     engine.repaintCanvas();
-    //   },0);
-    // }
-
     // Handle Project title update on initial load
     if(((this.state.project_title !== this.props.project_title && this.state.project_title === null) || prevProps.project_title !== this.props.project_title)){
         this.setState({
@@ -91,56 +82,44 @@ class CustomExample extends React.Component {
 
     // Handle Project canvas update on initial load
     if(this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
-      console.log("if ---------- 1");
       setTimeout(()=>{
         cerealBox = new DiagramModel();
-        cerealBox.deSerializeDiagram(this.props.graph_json, engine);
-        engine.setDiagramModel(cerealBox);
-        engine.repaintCanvas();
+        cerealBox.deserializeModel(this.props.graph_json, engine);
+        engine.setModel(cerealBox);
       },0);
     }
-    // else{
-    //   engine.setDiagramModel(model);
-    //   engine.repaintCanvas();
-    // }
-        // Handle Project canvas update on initial load
-        if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
-          console.log("if ---------- 1");
-          setTimeout(()=>{
-            cerealBox = new DiagramModel();
-            cerealBox.deSerializeDiagram(this.props.graph_json, engine);
-            engine.setDiagramModel(cerealBox);
-            engine.repaintCanvas();
-          },0);
-        }
+  //       // Handle Project canvas update on initial load
+  //       if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
+  //         setTimeout(()=>{
+  //           cerealBox = new DiagramModel();
+  //           cerealBox.deserializeModel(this.props.graph_json, engine);
+  //           // engine.setDiagramModel(cerealBox);
+  //           engine.setModel(cerealBox);
+  //           engine.repaintCanvas();
+  //         },0);
+  //       }
 
-        // Handle Project canvas update on initial load
+  //       // Handle Project canvas update on initial load
         if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
-          console.log("if ---------- 1");
           setTimeout(()=>{
             cerealBox = new DiagramModel();
-            cerealBox.deSerializeDiagram(this.props.graph_json, engine);
-            engine.setDiagramModel(cerealBox);
-            engine.repaintCanvas();
+            cerealBox.deserializeModel(this.props.graph_json, engine);
+            engine.setModel(cerealBox);
           },0);
         }
 
         if(this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
-          console.log("if ---------- 1");
           setTimeout(()=>{
             cerealBox = new DiagramModel();
-            cerealBox.deSerializeDiagram(this.props.graph_json, engine);
-            engine.setDiagramModel(cerealBox);
-            engine.repaintCanvas();
+            cerealBox.deserializeModel(this.props.graph_json, engine);
+            engine.setModel(cerealBox);
           },0);
         }
 
         if(this.props.graph_json === null){
           cerealBox = new DiagramModel();
-          engine.setDiagramModel(cerealBox);
-          engine.repaintCanvas();
+          engine.setModel(cerealBox);
         }
-
   }
 
   handleChange = (event) => {
@@ -172,7 +151,6 @@ class CustomExample extends React.Component {
       project_title: this.state[event.target.name],
       project_title_class: !this.state.project_title_class
     });
-    // this.props.node.description = this.state[event.target.name];
     this.updateTitle();
   }
   }
@@ -195,24 +173,45 @@ class CustomExample extends React.Component {
     newItem.provideDescription("Enter Description...");
     newItem.setPosition(0, 0);
     cerealBox.addNode(newItem);
-    engine.repaintCanvas();
+    this.saveCanvas();
+
   };
 
   deleteItem = (item) => {
     // Checks if a node or wire is selected
     if (item.length !== 0) {
-      if (item[0] instanceof JSCustomNodeModel) {
-        // Delete Nodes
-        item[0].removePorts();
-        cerealBox.removeNode(item[0]);
-        engine.repaintCanvas();
-      } else if (item[0] instanceof PointModel) {
-        cerealBox.removeLink(item[0].parent);
-        engine.repaintCanvas();
-      } else if (item[0] instanceof DefaultLinkModel) {
-        // Delete Links
-        cerealBox.removeLink(item[0]);
-        engine.repaintCanvas();
+      for(let i = 0; i < item.length; i++){
+        if (item[i] instanceof JSCustomNodeModel) {
+          // Delete Nodes
+          let promise = new Promise((resolve, reject)=>{
+            resolve(item[i].removePorts(engine));
+          });
+          promise.then(()=>{
+            cerealBox.removeNode(item[i]);
+          });
+          promise.then(()=>{
+            engine.repaintCanvas();
+          });
+        } else if (item[i] instanceof PointModel) {
+          // cerealBox.removeLink(item[i].parent);
+          // engine.repaintCanvas();
+          let promise = new Promise((resolve, reject)=>{
+            resolve(cerealBox.removeLink(item[i].parent));
+          });
+          promise.then(()=>{
+            engine.repaintCanvas();
+          });
+        } else if (item[i] instanceof DefaultLinkModel) {
+          // Delete Links
+          
+          // engine.repaintCanvas();
+          let promise = new Promise((resolve, reject)=>{
+            resolve(cerealBox.removeLink(item[i]));
+          });
+          promise.then(()=>{
+            engine.repaintCanvas();
+          });
+        }
       }
     } 
   };
@@ -244,7 +243,6 @@ class CustomExample extends React.Component {
 
   zoomOut = () => {
     let zoomLevel = cerealBox.getZoomLevel()
-    console.log(zoomLevel);
     zoomLevel += 10;
     cerealBox.setZoomLevel(zoomLevel);
     cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
@@ -253,7 +251,6 @@ class CustomExample extends React.Component {
 
   zoomIn = () => {
     let zoomLevel = cerealBox.getZoomLevel()
-    console.log(zoomLevel);
     zoomLevel -= 10;
     cerealBox.setZoomLevel(zoomLevel);
     cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
@@ -264,12 +261,14 @@ class CustomExample extends React.Component {
     this.props.getCanvasById(this.props.project_id);
   }
 
-  saveCanvas1 = (event) => {
-    event.preventDefault();
-    let savedCanvas = cerealBox.serializeDiagram();
+  saveCanvas = () => {
+    let savedCanvas = cerealBox.serialize();
     console.log("savedCanvas------------", savedCanvas);
-    let objUpdate;
-    if(savedCanvas.nodes.length === 0){
+    let count = 0, key, objUpdate;
+    for (key in savedCanvas.layers[1].models) {
+      if (savedCanvas.layers[1].models.hasOwnProperty(key)) count++;
+    }
+    if(count === 0){
       objUpdate = {
         project_title: this.props.project_title,
         graph_json: savedCanvas,
@@ -277,27 +276,30 @@ class CustomExample extends React.Component {
         initial_node_id: null 
       }
     }
-    else if(savedCanvas.nodes.length > 0 && savedCanvas.nodes[0].id !== undefined){
+    else if(count > 0 /* &&savedCanvas.layers[1].models[0].id*/){
       objUpdate = {
           project_title: this.props.project_title,
           graph_json: savedCanvas,
           user_id: this.props.user_id,
-          initial_node_id: savedCanvas.nodes[0].id 
+          initial_node_id: null
       }
     }
     this.props.saveCanvas(objUpdate, this.props.project_id);
   }
 
   render() {
+    engine.repaintCanvas();
     return (
       <div className="diagram-page">
         <DeleteModal props={this.props.props}/>
+        <SimulationModal props={this.props.props}/>
         <section className="title-and-buttons">
           <h2
-              className={this.state.project_title_class ? "hidden" : ""}
-              onDoubleClick={()=>this.handleEdit("project_title")}>
-              {this.state.project_title}
-            </h2>
+            title="Double Click to Edit Title"
+            className={this.state.project_title_class ? "hidden" : ""}
+            onDoubleClick={()=>this.handleEdit("project_title")}>
+            {this.state.project_title}
+          </h2>
             <input
               name="project_title"
               placeholder="Enter something..."
@@ -314,27 +316,19 @@ class CustomExample extends React.Component {
           <div className="project-buttons">
             <button
               className="cursor"
-              onClick={() => {
-                this.props.setDeleteState(this.props.delete_project);
-                
-              }}
-            >
-              Delete Project
-            </button>
-            <button
-              onClick={() => {
-                console.log("Simulate");
-              }}
-            >
-              Simulate App
-            </button>
-            <button
-              className="cursor"
               onClick={(event) => {
-                this.saveCanvas1(event);
+                this.saveCanvas(event);
               }}
             >
               Save
+            </button>
+            <button
+              className="cursor"
+              onClick={() => {
+                this.props.setSimulationState(this.props.simulate_project);
+              }}
+            >
+              Simulate App
             </button>
             <button
               onClick={() => {
@@ -343,80 +337,63 @@ class CustomExample extends React.Component {
             >
               Publish
             </button>
+            <button
+              className="cursor"
+              onClick={() => {
+                this.props.setDeleteState(this.props.delete_project);
+              }}
+            >
+              Delete Project
+            </button>
           </div>
         </section>
 
         <section className="taskbar">
-          <div className="taskbar-left-section">
+        <div className="taskbar-container">
             <div className="taskbar-section">
-              <img
-                src={Plus}
-                className="cursor"
+              <i 
+                className="fas fa-plus-square"
                 title="Add Screen"
-                alt="alt text"
                 onClick={() => {
                   this.createNode();
                 }}
-              />
+              ></i>
             </div>
-            <div className="taskbar-section">
-              <img 
-                src={PaintBucket} 
-                alt="alt text" 
-                // onClick={() => {
-                //   let selectedItems = cerealBox.getSelectedItems();
-                //   console.log('SELECTED ITEM', selectedItems)
-                //   this.changeColor(selectedItems);
-                // }}
-              />
-              <Swatches cerealBox={cerealBox} changeColor={this.changeColor} updateSelectedColor={this.updateSelectedColor} />
-            </div>
-            <div className="taskbar-section">
-              <img src={Lock} alt="alt text" />
-              <img src={Gear} alt="alt text" />
-            </div>
-            <div className="taskbar-section">
-              <img 
-                src={Trashcan} 
-                className="cursor"
-                alt="alt text" 
-                title="Delete"
+               <div className="taskbar-section">
+              <i 
+                className="fas fa-search-plus"
+                title="Zoom In"
                 onClick={() => {
-                  let selectedItems = cerealBox.getSelectedItems();
-                  this.deleteItem(selectedItems);
+                  this.zoomOut();
                 }}
-              />
+              ></i>
             </div>
-          </div>
-
-          <div className="taskbar-right-section">
             <div className="taskbar-section">
-              <img 
-                className="cursor"
-                src={ZoomOut} 
-                alt="alt text"
+               <i 
+                className="fas fa-search-minus"
                 title="Zoom Out"
                 onClick={() => {
                   this.zoomIn();
                 }}
-               />
-              <img 
-                className="cursor"
-                src={ZoomIn} 
-                title="Zoom In"
-                alt="alt text"
-                onClick={() => {
-                  this.zoomOut();
-                }}
-              />
-            </div>
+               ></i>
+               </div>
             <div className="taskbar-section">
-              <img src={DocSettings} alt="alt text" />
+              <i 
+                className="fas fa-trash-alt"
+                title="Delete Selected Items"
+                onClick={() => {
+                  let model = engine.getModel();
+                  let selectedItems = model.getSelectedEntities();
+                  this.deleteItem(selectedItems);
+                }}
+              ></i>
             </div>
-          </div>
+            </div>
+
         </section>
+        
         {
-        (this.props.delete_project)?(
+        (this.props.delete_project || this.props.fetching)?(
           <></>
         ):(
         <BodyWidget engine={engine} />
@@ -436,12 +413,13 @@ const mapStateToProps = state => ({
   error: state.error,
   loggedIn: state.loggedIn,
   saving_canvas: state.saving_canvas,
-  delete_project: state.delete_project
+  delete_project: state.delete_project,
+  simulate_project: state.simulate_project
 });
 
 export default connect(
   mapStateToProps,
-  { saveCanvas, getCanvasById, deleteProject, setDeleteState }
+  { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState }
   )(CustomExample); 
 
 
@@ -458,3 +436,24 @@ export default connect(
     //   engine.setDiagramModel(model);
     //   engine.repaintCanvas();
     // }
+
+    // {/* <div className="taskbar-section">
+    //           <img 
+    //             src={PaintBucket} 
+    //             alt="alt text" 
+    //             // onClick={() => {
+    //             //   let selectedItems = cerealBox.getSelectedItems();
+    //             //   console.log('SELECTED ITEM', selectedItems)
+    //             //   this.changeColor(selectedItems);
+    //             // }}
+    //           />
+    //           <Swatches cerealBox={cerealBox} changeColor={this.changeColor} updateSelectedColor={this.updateSelectedColor} />
+    //         </div>
+    //         <div className="taskbar-section">
+    //           <img src={Lock} alt="alt text" />
+    //           <img src={Gear} alt="alt text" />
+    //         </div> */}
+
+    // {/* <div className="taskbar-section">
+    //           <img src={DocSettings} alt="alt text" />
+    //         </div> */}

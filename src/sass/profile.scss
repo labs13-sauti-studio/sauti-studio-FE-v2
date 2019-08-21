@@ -1,7 +1,6 @@
 .profile-page-container{
     display: flex;
     flex-direction: row;
-    // justify-content: space-between;
     width: 100%;
     height: calc(100vh - 70px);
     .resources-section{
@@ -37,9 +36,10 @@
                     flex-direction: row;
                     justify-content: center;
                     align-items: center;
+                    flex-wrap: none;
                     height: 5rem;
                     width: 100%;
-                    // border: 1px solid red;
+                    
                     h3{
                         font-size: 2rem;
                         text-align: center;
@@ -83,24 +83,25 @@
                     align-items: center;
                     height: 5rem;
                     width: 100%;
-                    // border: 1px solid red;
+
                     h3{
                         font-size: 2rem;
                         text-align: center;
                         margin: 0 0;
+                        
                     }
                 }
             }
         }
     }
     .projects-section{
-        // width: calc(100% - 40rem);
         width: 100%;
         height: 100%;
         border-left: .25rem solid black;
         display: flex;
         flex-direction: column;
         padding: 0 2.5rem;
+        background: $snow;
         .projects-title-add{
             display: flex;
             flex-direction: row;
@@ -109,6 +110,7 @@
             margin-bottom: 2rem;
             h2{
                 padding: 0;
+                font-weight: bold;
             }
             .btn{
                 display: flex;
@@ -119,15 +121,12 @@
                 height: 3rem;
                 margin-left: 2rem;
                 cursor:pointer;
-                background: #575a88;
-                border-radius: 50%;
-                img{
-                    height: auto;
-                    width: 2rem;
-                }
+                color: $darkslateblue;
+                font-size: 3rem;
                 &:hover{
-                    transition: 0.25s;
-                    background: #fe5043;
+                    transition: 0.5s;
+                    color: $tomato;
+                    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
                 }
             }
         }
@@ -137,6 +136,10 @@
             justify-content: flex-start;
             flex-wrap: wrap;
             overflow-y: auto;
+            border-top: 0.5rem solid black;
+            border-bottom: 0.5rem solid black;
+            margin-bottom: 2rem;
+            padding-top: 2rem; 
             scrollbar-width: none; /* Firefox */
             -ms-overflow-style: none;  /* IE 10+ */
             &::-webkit-scrollbar {
@@ -144,29 +147,62 @@
                 background: transparent; /* Chrome/Safari/Webkit */
             }
             .project{
-                width:15rem;
-                height:15rem;
+                width:100%;
+                height:auto;
                 margin-bottom: 2rem;
-                margin-right: 2rem;
                 display: flex;
                 justify-content: center;
                 align-items: flex-end;
-                cursor:pointer;
+                @include custom-btn(100%, auto, $darkslateblue, #fbffff, 1.6rem);
                 .title-container{
                     display: flex;
                     flex-direction: row;
-                    justify-content: center;
+                    justify-content: flex-start;
+                    margin-left: 2rem;
                     align-items: center;
                     height: 5rem;
                     width: 100%;
-                    // border: 1px solid red;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
                     h3{
                         font-size: 2rem;
                         text-align: center;
                         margin: 0 0;
+                        white-space: nowrap; 
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        margin-right: 2rem;
                     }
                 }
             }
+            // .project{
+            //     width:15rem;
+            //     height:15rem;
+            //     margin-bottom: 2rem;
+            //     margin-right: 2rem;
+            //     display: flex;
+            //     justify-content: center;
+            //     align-items: flex-end;
+            //     cursor:pointer;
+            //     .title-container{
+            //         display: flex;
+            //         flex-direction: row;
+            //         justify-content: center;
+            //         align-items: center;
+            //         height: 5rem;
+            //         width: 100%;
+            //         // border: 1px solid red;
+            //         text-overflow: ellipsis;
+            //         white-space: nowrap;
+            //         overflow: hidden;
+            //         h3{
+            //             font-size: 2rem;
+            //             text-align: center;
+            //             margin: 0 0;
+            //         }
+            //     }
+            // }
         }
     }
 }

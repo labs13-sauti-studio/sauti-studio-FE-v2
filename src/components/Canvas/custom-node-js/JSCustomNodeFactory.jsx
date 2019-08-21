@@ -1,5 +1,6 @@
 import * as React from "react";
-import { AbstractReactFactory } from '@projectstorm/react-diagrams';
+// import { AbstractReactFactory } from '@projectstorm/react-diagrams';
+import { AbstractReactFactory } from '@projectstorm/react-canvas-core';
 import {JSCustomNodeModel} from "./JSCustomNodeModel";
 import {JSCustomNodeWidget} from "./JSCustomNodeWidget";
 export class JSCustomNodeFactory extends AbstractReactFactory {

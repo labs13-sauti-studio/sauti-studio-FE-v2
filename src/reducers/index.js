@@ -16,7 +16,8 @@ import {
   DELETE_PROJECT_START,
   DELETE_PROJECT_SUCCESS,
   DELETE_PROJECT_FAILURE,
-  SET_DELETE_STATE_SUCCESS
+  SET_DELETE_STATE_SUCCESS,
+  SET_SIMULATE_STATE_SUCCESS
   } from "../actions";
 
   const initialState = {
@@ -31,7 +32,8 @@ import {
     loggedIn: false,
     fetchingProjectId: false,
     saving_canvas: false,
-    delete_project: false
+    delete_project: false,
+    simulate_project: false
   };
   
   const Reducer = (state = initialState, action) => {
@@ -126,6 +128,11 @@ import {
         return {
           ...state,
           delete_project: action.payload
+        };
+      case SET_SIMULATE_STATE_SUCCESS:
+        return {
+          ...state,
+          simulate_project: action.payload
         };
       case DELETE_PROJECT_START:
         return {

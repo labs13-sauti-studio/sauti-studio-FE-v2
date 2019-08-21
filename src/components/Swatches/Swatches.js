@@ -22,10 +22,9 @@ const colors = [
 ]
 
 const Swatches = (props) => {  
-  console.log(props);
   return (
     <div className="swatches-container">
-      <div class="swatches-row">
+      <div className="swatches-row">
         <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#B80000'}/>
         <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#DB3E00'}/>
         <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#FCCB00'}/>
@@ -35,7 +34,7 @@ const Swatches = (props) => {
         <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#004DCF'}/>
         <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#5300EB'}/>
       </div>
-      <div class="swatches-row">
+      <div className="swatches-row">
         <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#EB9694'}/>
         <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#FAD0C3'}/>
         <Swatch changeColor={props.changeColor} updateSelectedColor={props.updateSelectedColor} color={'#FEF3BD'}/>
