@@ -39,7 +39,10 @@
     padding: 0;
     cursor: pointer;
     width: calc(100% - 600px);
-    // border: 1px solid red;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+
   }
   input{
     font-size: 3rem;
@@ -114,100 +117,150 @@
 .custom-node-nodeTitle {
   display: flex;
   flex-direction: row;
+  align-items: center;
   color: white;
   padding: 0 15px;
-  border: solid 2px #0c7cba;
+  border: solid 2px $darkslateblue;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: #3aa6dd;
+  background-color: $darkslateblue;
   width: 400px;
   height: 60px;
   text-align: center;
   line-height: 57px;
   font-family: "LiberationSansRegular";
+  input {
+    margin-left: 15px;
+    font-size: 3rem;
+    font-family: "LiberationSansRegular";
+    width: 90%;
+    height: 4rem;
+  }
+  h1 {
+    width: 90%;
+      margin: 0;
+      padding-left: 15px;
+      font-size: 3rem;
+      font-family: "LiberationSansRegular";
+      white-space: nowrap; 
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: start;
+    }
 }
 
-.custom-node-nodeTitle input {
-  font-size: 2.5rem;
-}
 
-.custom-node-nodeTitle h1 {
-  margin: 0;
-  padding-left: 15px;
-  font-size: 3rem;
-  font-family: "LiberationSansRegular";
-}
 
 .custom-node-screen {
   display: flex;
   align-content: center;
   justify-content: center;
   color: #999999;
-  border-left: 2px solid #0c7cba;
-  border-right: 2px solid #0c7cba;
-  border-bottom: 2px solid #0c7cba;
+  border-left: 2px solid $darkslateblue;
+  border-right: 2px solid $darkslateblue;
+  border-bottom: 2px solid $darkslateblue;
   background-color: white;
   width: 400px;
   height: 300px;
   text-align: center;
   font-family: "LiberationSansRegular";
   p {
+    width: 100%;
+    align-content: left;
     font-size: 2.5rem;
+    text-align: left;
+    padding: 2rem;
+  }
+ textarea {
+    align-self: center;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    width: 400px;
+    height: 26rem;
+    outline: none;
+    padding: 2rem;
+    box-shadow: none;
+    border: none;
+    box-sizing: content-box;
+    background-color: transparent;
+    overflow-y: hidden;
+    resize: none;
+    font-size: 2.5rem;
+    line-height: 3.8rem;
+    font-family: "LiberationSansRegular";
   }
 }
 
-.custom-node-screen textarea {
-  align-self: center;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  width: 400px;
-  height: 260px;
-  outline: 5;
-  box-shadow: none;
-  border: none;
-  box-sizing: content-box;
-  background-color: transparent;
-  overflow-y: hidden;
-  resize: none;
-  font-size: 2.5rem;
-  font-family: "LiberationSansRegular";
-}
 
 .custom-node-submenus {
   display: flex;
   align-content: center;
   flex-direction: row;
+  align-items: center;
   color: #999999;
   padding: 0 15px;
-  border-left: solid 2px #0c7cba;
-  border-right: solid 2px #0c7cba;
-  border-bottom: solid 2px #0c7cba;
+  border-left: solid 2px $darkslateblue;
+  border-right: solid 2px $darkslateblue;
+  border-bottom: solid 2px $darkslateblue;
   height: 50px;
   line-height: 50px;
   max-width: 400px;
   background-color: white;
   font-family: "LiberationSansRegular";
-}
-
-.custom-node-submenus h2 {
-  margin: 0;
-  flex-grow: 2;
-  font-style: italic;
-  font-family: "LiberationSansRegular";
-  overflow: hidden;
-}
-
-.trash-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  width: 50px;
-  height: 100%;
-  padding: 0px;
-  &:hover{
-    cursor: pointer;
+  .submenu-text-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+    .number{
+      width: 17%;
+      padding: 0;
+      font-style: italic;
+      font-family: "LiberationSansRegular";
+    }
+    .option-text{
+      width: 83%;
+      padding: 0;
+      padding-left: 1rem;
+      font-size: 2.6rem;
+      font-style: italic;
+      font-family: "LiberationSansRegular";
+      white-space: nowrap; 
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+    input{
+      width: 83%;
+      font-size: 2.8rem;
+      padding-left: 1rem;
+      font-style: italic;
+      font-family: "LiberationSansRegular";
+      outline: none;
+    }
+  }
+  .trash-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 50px;
+    height: 100%;
+    padding: 0px;
+    i{
+      transition: 0.5s;
+      cursor: pointer;
+      font-size: 2.4rem;
+      color: black;
+      &:hover{
+        color: tomato;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      }
+    }
   }
 }
+
+
 
 .trash-icon img {
   width: auto;
@@ -218,7 +271,7 @@
   display: flex;
   align-self: center;
   justify-content: center;
-  border: 2px solid #0c7cba;
+  border: 2px solid $darkslateblue;
   background-color: white;
   z-index: 1;
   position: relative;
@@ -229,7 +282,7 @@
     width: 100%;
     height: 100%;
     &:hover{
-      background: lime;
+      background: tomato;
       border-radius: 50%;
     }
   }
@@ -239,7 +292,7 @@
   display: flex;
   align-self: center;
   justify-content: center;
-  border: 2px solid #0c7cba;
+  border: 2px solid $darkslateblue;
   z-index: 1;
   position: relative;
   width: 25px;
@@ -249,7 +302,7 @@
     width: 100%;
     height: 100%;
     &:hover{
-      background: lime;
+      background: tomato;
       border-radius: 50%;
     }
   }
@@ -259,31 +312,37 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  color: #0c7cba;
-  background-color: #99d2f2;
+  align-items: center;
+  color: white;
+  background-color: lighten($darkslateblue, 20%);
   padding: 0 15px;
-  border-left: solid 2px #0c7cba;
-  border-right: solid 2px #0c7cba;
-  border-bottom: solid 2px #0c7cba;
+  border-left: solid 2px $darkslateblue;
+  border-right: solid 2px $darkslateblue;
+  border-bottom: solid 2px $darkslateblue;
   height: 50px;
   line-height: 50px;
   max-width: 400px;
   font-family: "LiberationSansRegular";
+  h2 {
+    margin: 0;
+    font-style: italic;
+    font-family: "LiberationSansRegular";
+    text-align: center;
+    font-size: 2.5rem;
+    padding: 0;
+  }
+
+  i{
+    transition: 0.5s;
+    cursor: pointer;
+    font-size: 3rem;
+    &:hover{
+      color: tomato;
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    }
+  }
 }
 
-.custom-node-addMenuOption h2 {
-  margin: 0;
-  font-style: italic;
-  font-family: "LiberationSansRegular";
-  text-align: center;
-  font-size: 2.5rem;
-}
-
-.custom-node-addMenuOption img {
-  width: 30px;
-  filter: invert(100%);
-  cursor: pointer;
-}
 
 .hidden {
   display: none;

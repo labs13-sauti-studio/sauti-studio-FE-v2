@@ -149,10 +149,13 @@ export class JSCustomNodeWidget extends React.Component {
         }
         menus.push(
           <div key={key} className="custom-node-submenus">
-            <h2>{count}</h2>
+            <div className="submenu-text-container">
+            <h2 className="number">{count}</h2>
             <h2
-              className={this.state[id] ? "hidden" : ""}
-              onDoubleClick={()=>this.handleEdit(mod)}>
+              className={this.state[id] ? "hidden" : "option-text"}
+              onDoubleClick={()=>this.handleEdit(mod)}
+              title="Double Click to Edit"
+              >
               {this.state[mod]}
             </h2>
             <input
@@ -168,8 +171,12 @@ export class JSCustomNodeWidget extends React.Component {
               event.stopPropagation();
             }}
             />
+            </div>
             <div onClick={()=>this.deletePortAndLinks(obj[key])} className="trash-icon">
-              <img src={TrashCan} alt="trash icon"/>
+              <i 
+                className="fas fa-trash-alt"
+                title="Delete Option"
+              ></i>
             </div>
             <div className="line-out">
 							<PortWidget engine={this.props.engine} port={this.props.node.getPort(obj[key].options.name)} />
@@ -236,14 +243,21 @@ export class JSCustomNodeWidget extends React.Component {
         <div>{this.subMenuGenerator()}</div>
         <div className="custom-node-addMenuOption">
           <h2>Add menu option...</h2>
-          <img
+          {/* <img
             className="button-add-port"
             onClick={(event) => {
               this.addSubMenu(event);
             }}
             src="https://image.flaticon.com/icons/svg/32/32339.svg"
             alt="plus sign"
-          />
+          /> */}
+          <i 
+                className="fas fa-plus-square"
+                title="Add Screen"
+                onClick={(event) => {
+              this.addSubMenu(event);
+            }}
+          ></i>
         </div>
       </div>
 		);
