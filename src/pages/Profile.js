@@ -79,7 +79,7 @@ class Profile extends React.Component {
                 }
               )}
             >
-            <img src={addSign} alt="Add Project"/>
+            <i class="fas fa-plus-square"></i>
             </div>
           </div>
       {
@@ -97,11 +97,6 @@ class Profile extends React.Component {
             </div>
               }else{
               return <div 
-              style={{
-                backgroundImage: `url(${blankProject})`,
-                backgroundPosition: "0 0",
-                backgroundSize: "cover"
-                }}
               className="project"
               key={project.id}
               onClick={
@@ -183,3 +178,21 @@ export default connect(
               })}
             </div>
         </section> */}
+
+
+// return <div 
+// style={{
+//   backgroundImage: `url(${blankProject})`,
+//   backgroundPosition: "0 0",
+//   backgroundSize: "cover"
+//   }}
+// className="project"
+// key={project.id}
+// onClick={
+//   ()=> this.props.setProjectId(project.id)
+// }
+// >
+// <div className="title-container">
+//   <h3>{ project.project_title }</h3>
+// </div>
+// </div>

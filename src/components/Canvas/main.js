@@ -1,24 +1,23 @@
 import * as React from "react";
-import Trashcan from "../../images/icons/trash.png";
-import DocSettings from "../../images/icons/docSettings.png";
-import Gear from "../../images/icons/gear.png";
-import Lock from "../../images/icons/lock.png";
-import PaintBucket from "../../images/icons/paintBucket.png";
-import Plus from "../../images/icons/plus.png";
-import ZoomIn from "../../images/icons/zoomIn.png";
-import ZoomOut from "../../images/icons/zoomOut.png";
+// import Trashcan from "../../images/icons/trash.png";
+// import DocSettings from "../../images/icons/docSettings.png";
+// import Gear from "../../images/icons/gear.png";
+// import Lock from "../../images/icons/lock.png";
+// import PaintBucket from "../../images/icons/paintBucket.png";
+// import Plus from "../../images/icons/plus.png";
+// import ZoomIn from "../../images/icons/zoomIn.png";
+// import ZoomOut from "../../images/icons/zoomOut.png";
 import { connect } from "react-redux";
-import { saveCanvas, getCanvasById, deleteProject, setDeleteState } from "../../actions";
+import { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState } from "../../actions";
 import DeleteModal from "../DeleteModal.js";
-import { Redirect } from 'react-router'
+import SimulationModal from "../SimulationModal.js";
 
 import createEngine, {
   DiagramModel,
   DefaultNodeFactory,
   DefaultLinkFactory,
   DefaultLinkModel,
-  PointModel,
-  DefaultNodeModel
+  PointModel
 } from "@projectstorm/react-diagrams";
 import { JSCustomNodeFactory } from "./custom-node-js/JSCustomNodeFactory";
 import { JSCustomNodeModel } from "./custom-node-js/JSCustomNodeModel";
@@ -58,7 +57,8 @@ class CustomExample extends React.Component {
       canvas_stop: false,
       project_title: null,
       project_title_class: false,
-      delete_project: false
+      delete_project: false,
+      simulate_project: false
     }
   }
 
@@ -292,12 +292,14 @@ class CustomExample extends React.Component {
     return (
       <div className="diagram-page">
         <DeleteModal props={this.props.props}/>
+        <SimulationModal props={this.props.props}/>
         <section className="title-and-buttons">
           <h2
-              className={this.state.project_title_class ? "hidden" : ""}
-              onDoubleClick={()=>this.handleEdit("project_title")}>
-              {this.state.project_title}
-            </h2>
+            title="Double Click to Edit Title"
+            className={this.state.project_title_class ? "hidden" : ""}
+            onDoubleClick={()=>this.handleEdit("project_title")}>
+            {this.state.project_title}
+          </h2>
             <input
               name="project_title"
               placeholder="Enter something..."
@@ -314,27 +316,19 @@ class CustomExample extends React.Component {
           <div className="project-buttons">
             <button
               className="cursor"
-              onClick={() => {
-                this.props.setDeleteState(this.props.delete_project);
-                
-              }}
-            >
-              Delete Project
-            </button>
-            <button
-              onClick={() => {
-                return;
-              }}
-            >
-              Simulate App
-            </button>
-            <button
-              className="cursor"
               onClick={(event) => {
                 this.saveCanvas(event);
               }}
             >
               Save
+            </button>
+            <button
+              className="cursor"
+              onClick={() => {
+                this.props.setSimulationState(this.props.simulate_project);
+              }}
+            >
+              Simulate App
             </button>
             <button
               onClick={() => {
@@ -343,82 +337,63 @@ class CustomExample extends React.Component {
             >
               Publish
             </button>
+            <button
+              className="cursor"
+              onClick={() => {
+                this.props.setDeleteState(this.props.delete_project);
+              }}
+            >
+              Delete Project
+            </button>
           </div>
         </section>
 
         <section className="taskbar">
-          <div className="taskbar-left-section">
+        <div className="taskbar-container">
             <div className="taskbar-section">
-              <img
-                src={Plus}
-                className="cursor"
+              <i 
+                className="fas fa-plus-square"
                 title="Add Screen"
-                alt="alt text"
                 onClick={() => {
                   this.createNode();
                 }}
-              />
+              ></i>
             </div>
-            {/* <div className="taskbar-section">
-              <img 
-                src={PaintBucket} 
-                alt="alt text" 
-                // onClick={() => {
-                //   let selectedItems = cerealBox.getSelectedItems();
-                //   console.log('SELECTED ITEM', selectedItems)
-                //   this.changeColor(selectedItems);
-                // }}
-              />
-              <Swatches cerealBox={cerealBox} changeColor={this.changeColor} updateSelectedColor={this.updateSelectedColor} />
-            </div>
-            <div className="taskbar-section">
-              <img src={Lock} alt="alt text" />
-              <img src={Gear} alt="alt text" />
-            </div> */}
-            <div className="taskbar-section">
-              <img 
-                src={Trashcan} 
-                className="cursor"
-                alt="alt text" 
-                title="Delete Selected Items"
+               <div className="taskbar-section">
+              <i 
+                className="fas fa-search-plus"
+                title="Zoom In"
                 onClick={() => {
-                  console.log("cerealBox",cerealBox);
-                  let model = engine.getModel();
-                  let selectedItems = model.getSelectedEntities();
-                  this.deleteItem(selectedItems);
+                  this.zoomOut();
                 }}
-              />
+              ></i>
             </div>
-          </div>
-
-          <div className="taskbar-right-section">
             <div className="taskbar-section">
-              <img 
-                className="cursor"
-                src={ZoomOut} 
-                alt="alt text"
+               <i 
+                className="fas fa-search-minus"
                 title="Zoom Out"
                 onClick={() => {
                   this.zoomIn();
                 }}
-               />
-              <img 
-                className="cursor"
-                src={ZoomIn} 
-                title="Zoom In"
-                alt="alt text"
-                onClick={() => {
-                  this.zoomOut();
-                }}
-              />
-            </div>
+               ></i>
+               </div>
             <div className="taskbar-section">
-              <img src={DocSettings} alt="alt text" />
+              <i 
+                className="fas fa-trash-alt"
+                title="Delete Selected Items"
+                onClick={() => {
+                  let model = engine.getModel();
+                  let selectedItems = model.getSelectedEntities();
+                  this.deleteItem(selectedItems);
+                }}
+              ></i>
             </div>
-          </div>
+            </div>
+
         </section>
+        
         {
-        (this.props.delete_project)?(
+        (this.props.delete_project || this.props.fetching)?(
           <></>
         ):(
         <BodyWidget engine={engine} />
@@ -438,12 +413,13 @@ const mapStateToProps = state => ({
   error: state.error,
   loggedIn: state.loggedIn,
   saving_canvas: state.saving_canvas,
-  delete_project: state.delete_project
+  delete_project: state.delete_project,
+  simulate_project: state.simulate_project
 });
 
 export default connect(
   mapStateToProps,
-  { saveCanvas, getCanvasById, deleteProject, setDeleteState }
+  { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState }
   )(CustomExample); 
 
 
@@ -460,3 +436,24 @@ export default connect(
     //   engine.setDiagramModel(model);
     //   engine.repaintCanvas();
     // }
+
+    // {/* <div className="taskbar-section">
+    //           <img 
+    //             src={PaintBucket} 
+    //             alt="alt text" 
+    //             // onClick={() => {
+    //             //   let selectedItems = cerealBox.getSelectedItems();
+    //             //   console.log('SELECTED ITEM', selectedItems)
+    //             //   this.changeColor(selectedItems);
+    //             // }}
+    //           />
+    //           <Swatches cerealBox={cerealBox} changeColor={this.changeColor} updateSelectedColor={this.updateSelectedColor} />
+    //         </div>
+    //         <div className="taskbar-section">
+    //           <img src={Lock} alt="alt text" />
+    //           <img src={Gear} alt="alt text" />
+    //         </div> */}
+
+    // {/* <div className="taskbar-section">
+    //           <img src={DocSettings} alt="alt text" />
+    //         </div> */}

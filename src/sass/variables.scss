@@ -1,24 +1,20 @@
 
 // Color assignments 
-@font-color: @shark;
-@button-bg: @eastern-blue;
-@main-bg:  @white;
-@navigation-border: @silver;
-@footer-bg: @sandy-beach;
+// $font-color: $shark;
+// $button-bg: $eastern-blue;
+// $main-bg:  $white;
+// $navigation-border: $silver;
+// $footer-bg: $sandy-beach;
 
 // Colors
-@white: #FFFFFF;
-@silver: #C0C0C0;
-@shark: #212529;
-@eastern-blue: #17A2B8;
-@sandy-beach: #FFEBCD;
-@dark-slate: #1b242f;
-@orange: #f58a11;
-@dark-grey: #272727;
+$darkslateblue: #575a88;
+$tomato: tomato;
+$darkslategray: darkslategray;
+$snow: snow;
 
 // Mobile
-@mobile: (max-width: 600px);
+$mobile: (max-width: 600px);
 
 // Tablet
-@tablet: (max-width: 900px);
+$tablet: (max-width: 900px);
 

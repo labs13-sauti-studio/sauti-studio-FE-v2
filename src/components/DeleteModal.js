@@ -32,7 +32,7 @@ class DeleteModal extends React.Component {
             <>
                 <div className={`delete-${this.state.delete_project}`}>
                     <div className="delete-container">
-                        <h3>Are you sure you want to delete this Project?</h3>
+                        <h3>Confirm Project Deletion</h3>
                         <div className="btn-container">
                         <button
                             onClick={() => {

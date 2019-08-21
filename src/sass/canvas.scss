@@ -3,7 +3,7 @@
 }
 
 .diagram-container {
-  height: calc(100vh - 180px);
+  height: calc(100vh - 130px);
   z-index: 0;
   svg{
 
@@ -29,64 +29,69 @@
   justify-content: space-between;
   align-items: center;
   height: 60px;
-  padding: 0px 20px;
+  padding: 0px 2%;
+  background: $snow;
+  border-bottom: 1px solid gainsboro;
   h2 {
     align-self: center;
-    line-height: 70px;
+    line-height: auto;
+    font-weight: bold;
     padding: 0;
+    cursor: pointer;
+    width: calc(100% - 600px);
+    // border: 1px solid red;
   }
   input{
-    font-size: 3.2rem;
+    font-size: 3rem;
+    width: calc(100% - 600px);
   }
   .project-buttons {
     display: flex;
     justify-content: space-between;
-    width: 400px;
+    width: 550px;
     button {
-      height: 35px;
-      width: 23%;
       align-self: center;
+      @include custom-btn(23%, 35px, $darkslateblue, #fbffff, 1.4rem);
     }
   }
 }
-
 .taskbar {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  height: 50px;
-  background-color: lightgray;
-  .taskbar-left-section {
+  justify-content: flex-end;
+  height: 0px;
+  
+  .taskbar-container{
+    position: absolute;
+    right: 0rem;
+    top: 140px;
     display: flex;
-    align-items: center;
-    img {
-      width: 50px;
-      padding: 0px 10px;
-    }
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 1rem;
+    padding: 0 1rem;
+    margin-right: 2%;
+    width: 200px;
+    background: $darkslateblue;
+    z-index: 1;
+    height: 4rem;
     .taskbar-section {
       display: flex;
-      flex-direction: row;
+      justify-content: center;
       align-items: center;
-      padding: 10px 5px;
-      height: 100%;
-      border-right: 2px solid gray;
-    }
-  }
-  .taskbar-right-section {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    img {
-      width: 50px;
-      padding: 0px 10px;
-    }
-    .taskbar-section {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding: 10px 5px;
-      height: 100%;
-      border-left: 2px solid gray;
+      height: auto;
+      width: auto;
+      font-size: 2.6rem;
+      color: white;
+      z-index: 2;
+      i{
+        transition: 0.5s;
+        cursor: pointer;
+        &:hover{
+          color: tomato;
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+        }
+      }
     }
   }
 }

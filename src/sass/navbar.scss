@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     border: 15px;
-    width: 40%;
+    width: auto;
 
     .nav-title-content {
       padding: 0;
@@ -20,6 +20,10 @@
         font-size: 4rem;
         text-decoration: none;
         color: white;
+        &:hover{
+          transition: 0.5s;
+          color: $tomato;
+        }
       }
     }
   }
@@ -28,7 +32,7 @@
       font-size: 3rem;
       display: flex;
       justify-content: space-between;
-      width: 30%;
+      width: auto;
 
       .navbar-links {
           display: flex;
@@ -39,6 +43,11 @@
           a {
               color: white;
               text-decoration: none;
+              margin-left: 2rem;
+              &:hover{
+                transition: 0.5s;
+                color: $tomato;
+              }
             }
         }
         .navbar-links-2 {
@@ -50,6 +59,10 @@
           a {
               color: white;
               text-decoration: none;
+              &:hover{
+                transition: 0.5s;
+                color: $tomato;
+              }
             }
         }
   }

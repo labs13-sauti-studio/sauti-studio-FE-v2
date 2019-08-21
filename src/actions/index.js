@@ -24,6 +24,7 @@ export const DELETE_PROJECT_SUCCESS = "DELETE_PROJECT_SUCCESS";
 export const DELETE_PROJECT_FAILURE = "DELETE_PROJECT_FAILURE";
 
 export const SET_DELETE_STATE_SUCCESS = "SET_DELETE_STATE_SUCCESS";
+export const SET_SIMULATE_STATE_SUCCESS = "SET_SIMULATE_STATE_SUCCESS";
 
 let productionServer = process.env.REACT_APP_BE_API_URL;
 
@@ -121,9 +122,12 @@ export const addProjectByUserId = (item) => dispatch => {
     .catch(err => dispatch({ type: ADD_PROJECT_FAILURE, payload: err }));
 };
 
-
 export const setDeleteState = (delete_project) => dispatch => {
-    dispatch({ type: SET_DELETE_STATE_SUCCESS, payload: !delete_project});
+  dispatch({ type: SET_DELETE_STATE_SUCCESS, payload: !delete_project});
+};
+
+export const setSimulationState = (simulate_project) => dispatch => {
+  dispatch({ type: SET_SIMULATE_STATE_SUCCESS, payload: !simulate_project});
 };
 
 export const deleteProject = (project_id, props) => dispatch => {

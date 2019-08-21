@@ -1,20 +1,19 @@
-
-  
-  .delete-true {
+.delete-true {
     display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
     top: 0px;
     left: 0px;
-    background-color: rgba(216, 216, 216, 0.99);
+    background-color: rgba(0, 0, 0, 0.6);
     width: 100vw;
     height: 100vh;
+    z-index: 2;
     .delete-container {
-      z-index: 1;
+      z-index: 2;
       margin: 0 auto;
       // margin-top: 10rem;
-      background-color: #272727; 
+      background-color: black; 
       border-radius: 4rem;
       width: 45rem;
       height: 20rem;
@@ -29,37 +28,34 @@
         line-height: 2.6rem;
         margin: 0 8rem;
         text-align: center;
+        @media (max-width: 600px) {
+          margin: 1.25rem 4rem;
+        }
       }
-      .delete-btn-yes {
-        width: 15rem;
-        height: 5rem;
-        cursor: pointer;
-        margin-bottom: 1.25rem;
-        background-color: rgb(202, 0, 26);
-        border: 1px solid rgb(202, 0, 26);
-        color:#fbffff;
-        font-size: 1.6rem;
-        border-radius: 0.3rem;
-        margin-right: 2rem;
-        z-index: 4;
+      .btn-container{
+        display: flex;
+        .delete-btn-yes {
+          margin-right: 2rem;
+          @include custom-btn(15rem, 5rem, rgb(202, 0, 26), #fbffff, 1.6rem);
+          margin-bottom: 1.25rem;
+          z-index: 4;
+          @media (max-width: 600px) {
+            margin-right: 0;
+          }
+        }
+        
+        .delete-btn-no {
+          @include custom-btn(15rem, 5rem, #00e600, black, 1.6rem);
+          margin-bottom: 1.25rem;
+          z-index: 4;
+        }
+        @media (max-width: 600px) {
+        flex-direction: column;
+        }
       }
-      
-      .delete-btn-no {
-        width: 15rem;
-        height: 5rem;
-        cursor: pointer;
-        margin-bottom: 1.25rem;
-        background-color: #00e600;
-        border: 1px solid #00e600;
-        color: black;
-        font-size: 1.6rem;
-        border-radius: 0.3rem;
-        z-index: 4;
-      }
-    }
-    @media (max-width: 600px) {
-      .delete-container {
-        width: 90%;
+      @media (max-width: 600px) {
+          width: 90%;
+          height: auto;
       }
     }
   }
