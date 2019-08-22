@@ -41,7 +41,7 @@
         .simulation-screen-container{
             width: 80%;
             height: 60%;
-            background: snow;
+            background: $snow;
             .to-container{
                 border: 1px solid grey; 
                 height: 4rem;
@@ -86,7 +86,7 @@
                 width: 30%;
                 height: 20%;
                 border-radius: 6rem;
-                background: snow;
+                background: $snow;
             }
         }
       }
@@ -94,7 +94,6 @@
           width: 100%;
       }
     }
-  
   .simulation-false {
     display: none;
   }

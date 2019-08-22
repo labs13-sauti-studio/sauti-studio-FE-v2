@@ -10,18 +10,6 @@ import { Provider } from "react-redux";
 import rootReducer from "./reducers";
 
 import "./sass/index.css";
-// import { BrowserRouter as Router, withRouter } from "react-router-dom"
-
-
-
-// const AppWithRouter = withRouter(App)
-// const rootElement = document.getElementById("root")
-// ReactDOM.render(
-//   <Router>
-//     <AppWithRouter />
-//   </Router>,
-//   rootElement
-// )
 
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 

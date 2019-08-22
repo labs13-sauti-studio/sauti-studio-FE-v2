@@ -2,38 +2,40 @@ import React from 'react';
 import { connect } from "react-redux";
 
 import { getProjectsByUserId,addProjectByUserId,setProjectId } from "../actions";
+
 import Navbar from '../components/Navbar';
-
-import blankFolder from '../images/FolderBlank.png';
-import blankProject from '../images/ProjectBlank.png';
-import addSign from '../images/icons/plus.png';
-
 class Profile extends React.Component {
   state={
+    // local State Projects
     projects: null
   }
 
   componentDidMount(){
+    // On page load request users projects 
     if(this.props.user_id !== null){
       this.props.getProjectsByUserId(this.props.user_id);
     }
   }
 
   componentDidUpdate(prevProps, prevState){
+    // On Create New Project: request projects
     if(this.props.added_project !== prevProps.added_project && !this.props.added_project){
       this.props.getProjectsByUserId(this.props.user_id);
     }
+    // Update project state on modification of props projects
     else if(this.props.projects !== prevProps.projects && !this.props.fetching){
         this.setState({
           ...this.state,
           projects: this.props.projects
         });
     }
+    // On selection of a project an ID is place on redux state and then update routing to project page
     else if(this.props.fetchingProjectId !== prevProps.fetchingProjectId && this.props.fetchingProjectId === false){
       this.props.history.push("/workflows");
     }
   }
   
+  // Create New Project
   addProject = (obj) => {
     let {project_title, graph_json, user_id, initial_node_id} = obj;
     let projectsArray = this.state.projects || [];
@@ -55,72 +57,68 @@ class Profile extends React.Component {
   }
 
   render(){
-    if(this.props.projects !== null && this.state.projects == null){
-      this.setState({
-        projects: this.props.projects
-      });
-    }
       return (
         <>
-      <Navbar/>
-      <div className="profile-page-container">
-        <section className="projects-section">
-          <div className="projects-title-add">
-            <h2>Projects</h2>
-            <div 
-              className="btn"
-              title="Add Project"
-              onClick={()=>this.addProject(
-                {
-                  project_title: "Enter Title...",
-                  graph_json: null,
-                  user_id: this.props.user_id,
-                  initial_node_id: null
-                }
-                
-              )}
-            >
-            <i class="fas fa-plus-square"></i>
-            </div>
-          </div>
-      {
-        (this.props.fetching || this.props.projects === null || this.state.projects === null)?(
-          <p>Loading Projects...</p>
-          ):(
-          <div className="projects-list">
-            {this.state.projects.map(project => {
-              if(project.add !== undefined){
-                return <div 
+        <Navbar/>
+        <div className="profile-page-container">
+          <section className="projects-section">
+            <div className="projects-title-add">
+              <h2>Projects</h2>
+              <div 
+                className="btn"
+                title="Add Project"
+                onClick={()=>this.addProject(
+                  {
+                    project_title: "Enter Title...",
+                    graph_json: null,
+                    user_id: this.props.user_id,
+                    initial_node_id: null
+                  }
+                )}
               >
-              <div className="title-container">
-                <h3>{ project.add }</h3>
+                <i className="fas fa-plus-square"></i>
               </div>
             </div>
-              }else{
-              return <div 
-              className="project"
-              key={project.id}
-              onClick={
-                ()=> this.props.setProjectId(project.id)
-              }
-              >
-              <div className="title-container">
-                <h3>{ project.project_title }</h3>
-              </div>
-            </div>
-              }
-            })}
-          </div>
-        )
-      }
-        </section>
-      </div>
-    </>
-  )
-}
+            {
+              (this.props.fetching || this.props.projects === null || this.state.projects === null)?(
+                // On Loading Provide Temporary Loading Screen 
+                <p>Loading Projects...</p>
+                ):(
+                // Loading False
+                <div className="projects-list">
+                  {this.state.projects.map(project => {
+                    if(project.add !== undefined){
+                      return <div 
+                    >
+                    <div className="title-container">
+                      <h3>{ project.add }</h3>
+                    </div>
+                  </div>
+                    }else{
+                    return <div 
+                    className="project"
+                    key={project.id}
+                    onClick={
+                      ()=> this.props.setProjectId(project.id)
+                    }
+                    >
+                    <div className="title-container">
+                      <h3>{ project.project_title }</h3>
+                    </div>
+                  </div>
+                    }
+                  })}
+                </div>
+              )
+            }
+          </section>
+        </div>
+      </>
+    )
+  }
 }
 
-
+// Global Redux State
 const mapStateToProps = state => ({
   user_id: state.user_id,
   projects: state.projects,
@@ -134,66 +132,8 @@ const mapStateToProps = state => ({
   fetchingProjectId: state.fetchingProjectId
 });
 
+// Connecting State and Rdux Reducer Methods
 export default connect(
   mapStateToProps,
   { getProjectsByUserId, addProjectByUserId, setProjectId }
-  )(Profile); 
-
-        {/* <section className="resources-section">
-            <h2>Resources</h2>
-            <div className="resources-list">
-              {sidebar.map(item => {
-                return <div 
-                  style={{
-                    backgroundImage: `url(${blankProject})`,
-                    backgroundPosition: "0 0",
-                    backgroundSize: "cover"
-                    }}
-                  className="resource"
-                  key={item.id}
-                  >
-                  <div className="title-container">
-                    <h3>{ item.title }</h3>
-                  </div>
-                </div>
-              })}
-            </div>
-        </section>
-        <section className="folders-section">
-            <h2>Folders</h2>
-            <div className="folders-list">
-              {folders.map(folder => {
-              return <div 
-                style={{
-                  backgroundImage: `url(${blankFolder})`,
-                  backgroundPosition: "0 0",
-                  backgroundSize: "cover"
-                  }}
-                className="folder"
-                key={folder.id}
-                >
-                <div className="title-container">
-                  <h3>{ folder.title }</h3>
-                </div>
-              </div>
-              })}
-            </div>
-        </section> */}
-
-
-// return <div 
-// style={{
-//   backgroundImage: `url(${blankProject})`,
-//   backgroundPosition: "0 0",
-//   backgroundSize: "cover"
-//   }}
-// className="project"
-// key={project.id}
-// onClick={
-//   ()=> this.props.setProjectId(project.id)
-// }
-// >
-// <div className="title-container">
-//   <h3>{ project.project_title }</h3>
-// </div>
-// </div>
+)(Profile); 

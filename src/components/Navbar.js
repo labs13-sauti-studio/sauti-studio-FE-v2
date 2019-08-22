@@ -1,5 +1,5 @@
 import React from "react";
-import ProfileLoginOut from "./ProfileLoginOut.js";
+import Options from "./NavOptions.js";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -11,7 +11,7 @@ const Navbar = () => {
         </h2>
       </div>
       <div className="navbar-options">
-        <ProfileLoginOut />
+        <Options />
       </div>
     </div>
   );

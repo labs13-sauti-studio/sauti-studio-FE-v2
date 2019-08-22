@@ -10,17 +10,17 @@ export class JSCustomNodeModel extends NodeModel {
       ...options,
       type: "js-custom-node"
     });
-    this.outPortCount = 0;
     this.color = this.color || { options: "red" };
     this.name = this.options.name;
     this.description = this.options.description;
 
-    this.addPort(
+    let port = this.addPort(
       new DefaultPortModel({
         in: true,
         name: "in"
       })
     );
+    port.setMaximumLinks(1);
   }
 
   deserialize(event) {
@@ -48,14 +48,15 @@ export class JSCustomNodeModel extends NodeModel {
   }
 
   addOutPort(label, name) {
-    this.outPortCount++;
-    return this.addPort(
+    let port = this.addPort(
       new DefaultPortModel({
         in: false,
         label: label,
         name: name
       })
     );
+    port.setMaximumLinks(1);
+    return port;
   }
 
   removePort(port, engine) {

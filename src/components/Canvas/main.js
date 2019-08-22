@@ -1,12 +1,4 @@
 import * as React from "react";
-// import Trashcan from "../../images/icons/trash.png";
-// import DocSettings from "../../images/icons/docSettings.png";
-// import Gear from "../../images/icons/gear.png";
-// import Lock from "../../images/icons/lock.png";
-// import PaintBucket from "../../images/icons/paintBucket.png";
-// import Plus from "../../images/icons/plus.png";
-// import ZoomIn from "../../images/icons/zoomIn.png";
-// import ZoomOut from "../../images/icons/zoomOut.png";
 import { connect } from "react-redux";
 import { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState } from "../../actions";
 import DeleteModal from "../DeleteModal.js";
@@ -17,18 +9,18 @@ import createEngine, {
   DefaultNodeFactory,
   DefaultLinkFactory,
   DefaultLinkModel,
-  PointModel
+  PointModel,
+  DeleteItemsAction
 } from "@projectstorm/react-diagrams";
+
 import { JSCustomNodeFactory } from "./custom-node-js/JSCustomNodeFactory";
 import { JSCustomNodeModel } from "./custom-node-js/JSCustomNodeModel";
 import { BodyWidget } from "./BodyWidget";
 
-import Swatches from '../Swatches/Swatches';
-
 // create an instance of the engine
 let engine = createEngine();
 
-// register the two engines
+// register the factories to the engine
 engine.getNodeFactories().registerFactory(new JSCustomNodeFactory());
 engine.getNodeFactories().registerFactory(new DefaultNodeFactory());
 engine.getLinkFactories().registerFactory(new DefaultLinkFactory());
@@ -38,6 +30,7 @@ const model = new DiagramModel();
 
 // install the model into the engine
 engine.setModel(model);
+// Set Link Break points to Zero for all Links
 engine.setMaxNumberPointsPerLink(0);
 
 // ------------- SERIALIZING ------------------
@@ -47,6 +40,14 @@ let str = JSON.stringify(model.serialize());
 let cerealBox = new DiagramModel();
 cerealBox.deserializeModel(JSON.parse(str), engine);
 engine.setModel(cerealBox);
+
+let obj = engine.eventBus.actions;
+for(let key in obj){
+  if(obj[key].options.type === "key-down"){
+    engine.eventBus.deregisterAction(obj[key]);
+  }
+}
+
 
 class CustomExample extends React.Component {
   constructor(props){
@@ -63,6 +64,7 @@ class CustomExample extends React.Component {
   }
 
   componentDidMount(){
+    // On load get project canvas
     this.getCanvas();
   }
 
@@ -88,18 +90,17 @@ class CustomExample extends React.Component {
         engine.setModel(cerealBox);
       },0);
     }
-  //       // Handle Project canvas update on initial load
-  //       if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
-  //         setTimeout(()=>{
-  //           cerealBox = new DiagramModel();
-  //           cerealBox.deserializeModel(this.props.graph_json, engine);
-  //           // engine.setDiagramModel(cerealBox);
-  //           engine.setModel(cerealBox);
-  //           engine.repaintCanvas();
-  //         },0);
-  //       }
+        // Handle Project canvas update on initial load
+        if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
+          setTimeout(()=>{
+            cerealBox = new DiagramModel();
+            cerealBox.deserializeModel(this.props.graph_json, engine);
+            engine.setModel(cerealBox);
+            // engine.repaintCanvas();
+          },0);
+        }
 
-  //       // Handle Project canvas update on initial load
+        // Handle Project canvas update on initial load
         if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
           setTimeout(()=>{
             cerealBox = new DiagramModel();
@@ -107,7 +108,7 @@ class CustomExample extends React.Component {
             engine.setModel(cerealBox);
           },0);
         }
-
+        // Update JSON
         if(this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
           setTimeout(()=>{
             cerealBox = new DiagramModel();
@@ -115,148 +116,14 @@ class CustomExample extends React.Component {
             engine.setModel(cerealBox);
           },0);
         }
-
+        
         if(this.props.graph_json === null){
           cerealBox = new DiagramModel();
           engine.setModel(cerealBox);
         }
+        
   }
-
-  handleChange = (event) => {
-    this.setState({
-      ...this.state,
-      [event.target.name]: event.target.value
-    });
-  }
-
-  handleEdit = (name) => {
-    if (name === "project_title") {
-      this.setState({
-        ...this.state,
-        project_title_class: !this.state.project_title_class
-      });
-  }
-  }
-
-  handleKeyDown = (event) => {
-    if (event.which === this.ENTER_KEY) {
-      this.handleSubmit(event);
-    }
-  }
-
-  handleSubmit = (event) => {
-  if (event.target.name === "project_title") {
-    this.setState({
-      ...this.state,
-      project_title: this.state[event.target.name],
-      project_title_class: !this.state.project_title_class
-    });
-    this.updateTitle();
-  }
-  }
-
-  updateTitle = () => {
-    const objUpdate = {
-        "project_title": this.state.project_title,
-    }
-    this.props.saveCanvas(objUpdate, this.props.project_id);
-  }
-
-  updateSelectedColor = selectedColor => {
-    let selectedItems = cerealBox.getSelectedItems();
-    this.setState({selectedColor}, () => this.changeColor(selectedItems))
-  };
-
-  createNode = () => {
-    let newItem = new JSCustomNodeModel();
-    newItem.nameNode("Enter Node Name...");
-    newItem.provideDescription("Enter Description...");
-    newItem.setPosition(0, 0);
-    cerealBox.addNode(newItem);
-    this.saveCanvas();
-
-  };
-
-  deleteItem = (item) => {
-    // Checks if a node or wire is selected
-    if (item.length !== 0) {
-      for(let i = 0; i < item.length; i++){
-        if (item[i] instanceof JSCustomNodeModel) {
-          // Delete Nodes
-          let promise = new Promise((resolve, reject)=>{
-            resolve(item[i].removePorts(engine));
-          });
-          promise.then(()=>{
-            cerealBox.removeNode(item[i]);
-          });
-          promise.then(()=>{
-            engine.repaintCanvas();
-          });
-        } else if (item[i] instanceof PointModel) {
-          // cerealBox.removeLink(item[i].parent);
-          // engine.repaintCanvas();
-          let promise = new Promise((resolve, reject)=>{
-            resolve(cerealBox.removeLink(item[i].parent));
-          });
-          promise.then(()=>{
-            engine.repaintCanvas();
-          });
-        } else if (item[i] instanceof DefaultLinkModel) {
-          // Delete Links
-          
-          // engine.repaintCanvas();
-          let promise = new Promise((resolve, reject)=>{
-            resolve(cerealBox.removeLink(item[i]));
-          });
-          promise.then(()=>{
-            engine.repaintCanvas();
-          });
-        }
-      }
-    } 
-  };
-
-  changeColor = (item) => {
-    // Checks if a node or wire is selected
-    // console.log(item[0])
-    // console.log('line 78: item[0].constructor.name', item[0].constructor.name)
-    if (item.length !== 0) {
-      if (item[0] instanceof JSCustomNodeModel) {
-        // console.log('JSCustomNodeModel detected');
-        // Change Node Color
-        // item[0].removePorts();
-        // engine.repaintCanvas();
-      } else if (item[0] instanceof PointModel) {
-        // console.log('PointModel detected');
-        // Change Link Color
-        // console.log("----");
-        item[0].parent.setColor(this.state.selectedColor);
-        engine.repaintCanvas();
-      } else if (item[0] instanceof DefaultLinkModel) {
-        // console.log('Link detected');
-        // Change Link Color
-        item[0].setColor("#FCCB00");
-        engine.repaintCanvas();
-      }
-    } 
-  };
-
-  zoomOut = () => {
-    let zoomLevel = cerealBox.getZoomLevel()
-    zoomLevel += 10;
-    cerealBox.setZoomLevel(zoomLevel);
-    cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
-    engine.repaintCanvas();
-  };
-
-  zoomIn = () => {
-    let zoomLevel = cerealBox.getZoomLevel()
-    zoomLevel -= 10;
-    cerealBox.setZoomLevel(zoomLevel);
-    cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
-    engine.repaintCanvas();
-  };
-
+      
   getCanvas = () => {
     this.props.getCanvasById(this.props.project_id);
   }
@@ -278,7 +145,7 @@ class CustomExample extends React.Component {
     }
     else if(count > 0 /* &&savedCanvas.layers[1].models[0].id*/){
       objUpdate = {
-          project_title: this.props.project_title,
+        project_title: this.props.project_title,
           graph_json: savedCanvas,
           user_id: this.props.user_id,
           initial_node_id: null
@@ -286,9 +153,124 @@ class CustomExample extends React.Component {
     }
     this.props.saveCanvas(objUpdate, this.props.project_id);
   }
+  
+  createNode = () => {
+    let newItem = new JSCustomNodeModel();
+    newItem.nameNode("Enter Node Name...");
+    newItem.provideDescription("Enter Description...");
+    newItem.setPosition(0, 0);
+    cerealBox.addNode(newItem);
+    this.saveCanvas();
+  };
+  
+  zoomIn = () => {
+    let zoomLevel = cerealBox.getZoomLevel()
+    zoomLevel -= 10;
+    cerealBox.setZoomLevel(zoomLevel);
+    cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
+    engine.repaintCanvas();
+  };
+
+  zoomOut = () => {
+    let zoomLevel = cerealBox.getZoomLevel()
+    zoomLevel += 10;
+    cerealBox.setZoomLevel(zoomLevel);
+    cerealBox.fireEvent({ zoomLevel }, 'zoomUpdated');
+    engine.repaintCanvas();
+  };
+  
+  deleteItem = (item) => {
+    // Checks if a node or wire is selected
+    if (item.length !== 0) {
+      function deleteNodes(item, length, i){
+        if(i < length){
+          console.log("---------------",item + length + i);
+          if (item[i] instanceof JSCustomNodeModel) {
+            // Delete Nodes
+            let promise = new Promise((resolve, reject)=>{
+              resolve(item[i].removePorts(engine));
+            });
+            promise.then(()=>{
+              cerealBox.removeNode(item[i]);
+            });
+            promise.then(()=>{
+              engine.repaintCanvas();
+            }).then(()=>{
+              let x = i + 1;
+              deleteNodes(item, length, x);
+            });
+          } else{
+            let x = i + 1;
+            deleteNodes(item, length, x);
+          }
+        }
+        return;
+      }
+      deleteNodes(item, item.length, 0)
+      
+        for(let i = 0; i < item.length; i++){
+          if (item[i] instanceof PointModel) {
+            // Delete Points
+            let promise = new Promise((resolve, reject)=>{
+              resolve(cerealBox.removeLink(item[i].parent));
+            });
+            promise.then(()=>{
+              engine.repaintCanvas();
+            });
+          } else if (item[i] instanceof DefaultLinkModel) {
+            // Delete Links
+            let promise = new Promise((resolve, reject)=>{
+              resolve(cerealBox.removeLink(item[i]));
+            });
+            promise.then(()=>{
+              engine.repaintCanvas();
+            });
+          }
+        }
+    } 
+  };
+
+  handleEdit = (name) => {
+    if (name === "project_title") {
+      this.setState({
+        ...this.state,
+        project_title_class: !this.state.project_title_class
+      });
+    }
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      ...this.state,
+      [event.target.name]: event.target.value
+    });
+  }
+
+  handleKeyDown = (event) => {
+    if (event.which === this.ENTER_KEY) {
+      this.handleSubmit(event);
+    }
+  }
+
+  handleSubmit = (event) => {
+    if (event.target.name === "project_title") {
+      this.setState({
+        ...this.state,
+        project_title: this.state[event.target.name],
+        project_title_class: !this.state.project_title_class
+      });
+      this.updateTitle();
+    }
+  }
+
+  updateTitle = () => {
+    const objUpdate = {
+        "project_title": this.state.project_title,
+    }
+    this.props.saveCanvas(objUpdate, this.props.project_id);
+  }
 
   render() {
-    engine.repaintCanvas();
     return (
       <div className="diagram-page">
         <DeleteModal props={this.props.props}/>
@@ -320,7 +302,7 @@ class CustomExample extends React.Component {
                 this.saveCanvas(event);
               }}
             >
-              Save
+              Save App
             </button>
             <button
               className="cursor"
@@ -335,7 +317,7 @@ class CustomExample extends React.Component {
                 console.log("Publish");
               }}
             >
-              Publish
+              Publish App
             </button>
             <button
               className="cursor"
@@ -343,7 +325,7 @@ class CustomExample extends React.Component {
                 this.props.setDeleteState(this.props.delete_project);
               }}
             >
-              Delete Project
+              Delete App
             </button>
           </div>
         </section>
@@ -404,6 +386,7 @@ class CustomExample extends React.Component {
   }
 }
 
+// Global Redux State
 const mapStateToProps = state => ({
   user_id: state.user_id,
   project_id: state.project_id,
@@ -417,43 +400,8 @@ const mapStateToProps = state => ({
   simulate_project: state.simulate_project
 });
 
+// Connecting State and Rdux Reducer Methods
 export default connect(
   mapStateToProps,
   { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState }
-  )(CustomExample); 
-
-
-      // Handle Project canvas update on initial load not the same json object
-    // if(this.props.graph_json !== prevProps.graph_json && this.props.graph_json !== null){
-    //   console.log("if ---------- 2");
-    //   setTimeout(()=>{
-    //     cerealBox.deSerializeDiagram(this.props.graph_json, engine);
-    //     engine.setDiagramModel(cerealBox);
-    //     engine.repaintCanvas();
-    //   },0);
-    // }
-    // else{
-    //   engine.setDiagramModel(model);
-    //   engine.repaintCanvas();
-    // }
-
-    // {/* <div className="taskbar-section">
-    //           <img 
-    //             src={PaintBucket} 
-    //             alt="alt text" 
-    //             // onClick={() => {
-    //             //   let selectedItems = cerealBox.getSelectedItems();
-    //             //   console.log('SELECTED ITEM', selectedItems)
-    //             //   this.changeColor(selectedItems);
-    //             // }}
-    //           />
-    //           <Swatches cerealBox={cerealBox} changeColor={this.changeColor} updateSelectedColor={this.updateSelectedColor} />
-    //         </div>
-    //         <div className="taskbar-section">
-    //           <img src={Lock} alt="alt text" />
-    //           <img src={Gear} alt="alt text" />
-    //         </div> */}
-
-    // {/* <div className="taskbar-section">
-    //           <img src={DocSettings} alt="alt text" />
-    //         </div> */}
+)(CustomExample); 

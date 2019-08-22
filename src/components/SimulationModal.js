@@ -3,11 +3,9 @@ import { connect } from "react-redux";
 import { setSimulationState } from "../actions";
 
 class SimulationModal extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            simulate_project: false,
-        };
+    state = {
+        // local State Indicator Providing Styling Functionality
+        simulate_project: false
     }
 
     componentDidMount(){
@@ -18,7 +16,7 @@ class SimulationModal extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState){
-        // Handle Project title update on initial load
+        // Handle project simulation state on update
         if(this.state.simulate_project !== this.props.simulate_project || prevProps.simulate_project !== this.props.simulate_project){
             this.setState({
                 ...this.state,
@@ -65,25 +63,6 @@ class SimulationModal extends React.Component {
                             <div className="fake-btn"></div>
                             <div className="fake-btn"></div>
                         </div>
-                        {/* <div className="btn-container">
-                        <button
-                            onClick={() => {
-                                this.props.deleteProject(this.props.project_id, this.props.props);
-                            }}
-                            className="delete-btn-yes"
-                        >
-                            Delete Project
-                        </button>
-                        <button
-                            onClick={() =>{
-                                this.props.setDeleteState(this.props.delete_project);
-                                }
-                            }
-                            className="delete-btn-no"
-                        >
-                            Return
-                        </button>
-                        </div> */}
                     </div>
                 </div>
             </>
@@ -91,6 +70,7 @@ class SimulationModal extends React.Component {
     }
 }
 
+// Global Redux State
 const mapStateToProps = state => ({
     user_id: state.user_id,
     project_id: state.project_id,
@@ -102,9 +82,10 @@ const mapStateToProps = state => ({
     saving_canvas: state.saving_canvas,
     delete_project: state.delete_project,
     simulate_project: state.simulate_project
-  });
-  
-  export default connect(
+});
+ 
+// Connecting State and Rdux Reducer Methods
+export default connect(
     mapStateToProps,
     { setSimulationState }
-    )(SimulationModal); 
+)(SimulationModal); 

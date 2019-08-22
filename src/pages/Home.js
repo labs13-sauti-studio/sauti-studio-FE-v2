@@ -1,16 +1,15 @@
 import React from "react"
-import "../sass/index.css"
+
 import image1 from "../images/image1.svg"
 import image2 from "../images/image2.svg"
 import image3 from "../images/image3.svg"
-import Navbar from "../components/Navbar";
 
+import Navbar from "../components/Navbar";
 
 const Home = () => {
   return (
     <>
       <Navbar />
-
       <div className="home-header">
         <div className="header-content">
           <h1>Design Your Own Text-Based Flow</h1>
@@ -26,7 +25,6 @@ const Home = () => {
           <h1>
             Sharing information made simple & easy with Sauti Design Studio
           </h1>
-          <button className="flow-button">STAR A NEW FLOW</button>
         </div>
       </div>
 
@@ -83,10 +81,6 @@ const Home = () => {
           Providing a simple tool to create (develop and deploy) empowering
           solutions and quickly communicate ideas to address property.
         </p>
-      </div>
-
-      <div className="home-content2">
-        <h1>TRY OUR DEMO! Placeholder !</h1>
       </div>
 
       <div className="home-content2">
