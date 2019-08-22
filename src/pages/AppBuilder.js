@@ -1,14 +1,13 @@
 import React from "react";
-import "../sass/index.css";
 
-import ProfileNav from "../components/ProfileNav";
-import CustomExample from "../components/Canvas/main.js";
+import Navbar from "../components/Navbar";
+import ProjectSpace from "../components/Canvas/main.js";
 
 const AppBuilder = props => {
   return (
     <div className="app-builder-container">
-      <ProfileNav />
-      <CustomExample props={props}/>
+      <Navbar />
+      <ProjectSpace props={props}/>
     </div>
   );
 };

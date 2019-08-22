@@ -1,14 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { deleteProject, setDeleteState } from "../actions";
 
+import { deleteProject, setDeleteState } from "../actions";
 class DeleteModal extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            delete_project: false,
-        };
-    }
+    state = {
+        // local State Indicator Providing Styling Functionality
+        delete_project: false,
+    };
 
     componentDidMount(){
         this.setState({
@@ -18,7 +16,7 @@ class DeleteModal extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState){
-        // Handle Project title update on initial load
+        // Handle Project delete state on update
         if(this.state.delete_project !== this.props.delete_project || prevProps.delete_project !== this.props.delete_project){
             this.setState({
                 ...this.state,
@@ -32,7 +30,7 @@ class DeleteModal extends React.Component {
             <>
                 <div className={`delete-${this.state.delete_project}`}>
                     <div className="delete-container">
-                        <h3>Confirm Project Deletion</h3>
+                        <h3>Confirm App Deletion</h3>
                         <div className="btn-container">
                         <button
                             onClick={() => {
@@ -40,7 +38,7 @@ class DeleteModal extends React.Component {
                             }}
                             className="delete-btn-yes"
                         >
-                            Delete Project
+                            Delete
                         </button>
                         <button
                             onClick={() =>{
@@ -59,6 +57,7 @@ class DeleteModal extends React.Component {
     }
 }
 
+// Global Redux State
 const mapStateToProps = state => ({
     user_id: state.user_id,
     project_id: state.project_id,
@@ -69,9 +68,10 @@ const mapStateToProps = state => ({
     loggedIn: state.loggedIn,
     saving_canvas: state.saving_canvas,
     delete_project: state.delete_project
-  });
-  
-  export default connect(
-    mapStateToProps,
-    { deleteProject, setDeleteState }
-    )(DeleteModal); 
+});
+
+// Connecting State and Rdux Reducer Methods
+export default connect(
+mapStateToProps,
+{ deleteProject, setDeleteState }
+)(DeleteModal); 

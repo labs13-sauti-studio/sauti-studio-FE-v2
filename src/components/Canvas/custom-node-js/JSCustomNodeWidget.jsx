@@ -1,9 +1,7 @@
-
 import * as React from 'react';
+
 import { PortWidget } from '@projectstorm/react-diagrams';
-
-import TrashCan from "./icons/trash.png";
-
+import { Toolkit } from '@projectstorm/react-canvas-core';
 export class JSCustomNodeWidget extends React.Component {
 	constructor(props) {
     super(props);
@@ -17,13 +15,13 @@ export class JSCustomNodeWidget extends React.Component {
     };
 	}
 	
-
   componentDidMount() {
     this.setState({
       ...this.state,
       nodeTitle: this.props.node.options.name,
 			description: this.props.node.options.description
     });
+    
   }
 
 
@@ -48,10 +46,11 @@ export class JSCustomNodeWidget extends React.Component {
     }
   }
 
-  handleChange = (e) => {
+  handleChange = (event) => {
+    event.stopPropagation();
     this.setState({
       ...this.state,
-      [e.target.name]: e.target.value
+      [event.target.name]: event.target.value
     });
   }
 
@@ -91,6 +90,7 @@ export class JSCustomNodeWidget extends React.Component {
   }
 
   handleKeyDown = (event, countName) => {
+    event.stopPropagation();
     if (event.which === this.ENTER_KEY) {
       this.handleSubmit(event, countName);
     }
@@ -98,7 +98,9 @@ export class JSCustomNodeWidget extends React.Component {
 
   addSubMenu = (event) => {
     event.stopPropagation();
-    let x = this.props.node.addOutPort("Edit Menu Option..", `out-${this.props.node.options.id + this.props.node.outPortCount + 1}`);
+    let UI = Toolkit.UID();
+    console.log(UI);
+    let x = this.props.node.addOutPort("Edit Menu Option..", `out-${this.props.node.options.id + UI + 1}`);
     let promise = new Promise(function(resolve, reject) {
         resolve(x);
     });
@@ -125,7 +127,8 @@ export class JSCustomNodeWidget extends React.Component {
   }
 
   subMenuGenerator = () => {
-		let obj = this.props.node.ports;
+    let obj = this.props.node.ports;
+    console.log("obj",obj);
     let menus = [];
     let count = "00";
     for (let key in obj) {
@@ -243,14 +246,6 @@ export class JSCustomNodeWidget extends React.Component {
         <div>{this.subMenuGenerator()}</div>
         <div className="custom-node-addMenuOption">
           <h2>Add menu option...</h2>
-          {/* <img
-            className="button-add-port"
-            onClick={(event) => {
-              this.addSubMenu(event);
-            }}
-            src="https://image.flaticon.com/icons/svg/32/32339.svg"
-            alt="plus sign"
-          /> */}
           <i 
                 className="fas fa-plus-square"
                 title="Add Screen"

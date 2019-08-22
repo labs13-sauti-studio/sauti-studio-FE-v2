@@ -3,97 +3,6 @@
     flex-direction: row;
     width: 100%;
     height: calc(100vh - 70px);
-    .resources-section{
-        width: 20rem;
-        height: 100%;
-        background: #575a88;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        h2{
-            padding: 0;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
-        .resources-list{
-            overflow-y: auto;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none;  /* IE 10+ */
-            &::-webkit-scrollbar {
-                width: 0px;
-                background: transparent; /* Chrome/Safari/Webkit */
-            }
-            .resource{
-                width:15rem;
-                height:15rem;
-                margin-bottom: 2rem;
-                display: flex;
-                justify-content: center;
-                align-items: flex-end;
-                cursor:pointer;
-                .title-container{
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
-                    flex-wrap: none;
-                    height: 5rem;
-                    width: 100%;
-                    
-                    h3{
-                        font-size: 2rem;
-                        text-align: center;
-                        margin: 0 0;
-                    }
-                }
-            }
-        }
-    }
-    .folders-section{
-        width: 20rem;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        h2{
-            padding: 0;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
-        .folders-list{
-            overflow-y: auto;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none;  /* IE 10+ */
-            &::-webkit-scrollbar {
-                width: 0px;
-                background: transparent; /* Chrome/Safari/Webkit */
-            }
-            .folder{
-                width:15rem;
-                height:15rem;
-                margin-bottom: 2rem;
-                display: flex;
-                justify-content: center;
-                align-items: flex-end;
-                cursor:pointer;
-                .title-container{
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
-                    height: 5rem;
-                    width: 100%;
-
-                    h3{
-                        font-size: 2rem;
-                        text-align: center;
-                        margin: 0 0;
-                        
-                    }
-                }
-            }
-        }
-    }
     .projects-section{
         width: 100%;
         height: 100%;
@@ -132,14 +41,15 @@
         }
         .projects-list{
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: flex-start;
-            flex-wrap: wrap;
+            align-items: flex-start;
             overflow-y: auto;
             border-top: 0.5rem solid black;
             border-bottom: 0.5rem solid black;
             margin-bottom: 2rem;
             padding-top: 2rem; 
+            height: 100%;
             scrollbar-width: none; /* Firefox */
             -ms-overflow-style: none;  /* IE 10+ */
             &::-webkit-scrollbar {
@@ -148,19 +58,19 @@
             }
             .project{
                 width:100%;
-                height:auto;
-                margin-bottom: 2rem;
+                height: 4rem;
+                margin-bottom: 1rem;
                 display: flex;
                 justify-content: center;
                 align-items: flex-end;
-                @include custom-btn(100%, auto, $darkslateblue, #fbffff, 1.6rem);
+                @include custom-btn(100%, 4rem, $darkslateblue, #fbffff, 1.6rem);
                 .title-container{
                     display: flex;
                     flex-direction: row;
                     justify-content: flex-start;
                     margin-left: 2rem;
                     align-items: center;
-                    height: 5rem;
+                    height: 4rem;
                     width: 100%;
                     text-overflow: ellipsis;
                     white-space: nowrap;
@@ -176,33 +86,6 @@
                     }
                 }
             }
-            // .project{
-            //     width:15rem;
-            //     height:15rem;
-            //     margin-bottom: 2rem;
-            //     margin-right: 2rem;
-            //     display: flex;
-            //     justify-content: center;
-            //     align-items: flex-end;
-            //     cursor:pointer;
-            //     .title-container{
-            //         display: flex;
-            //         flex-direction: row;
-            //         justify-content: center;
-            //         align-items: center;
-            //         height: 5rem;
-            //         width: 100%;
-            //         // border: 1px solid red;
-            //         text-overflow: ellipsis;
-            //         white-space: nowrap;
-            //         overflow: hidden;
-            //         h3{
-            //             font-size: 2rem;
-            //             text-align: center;
-            //             margin: 0 0;
-            //         }
-            //     }
-            // }
         }
     }
 }
