@@ -99,7 +99,6 @@ export class JSCustomNodeWidget extends React.Component {
   addSubMenu = (event) => {
     event.stopPropagation();
     let UI = Toolkit.UID();
-    console.log(UI);
     let x = this.props.node.addOutPort("Edit Menu Option..", `out-${this.props.node.options.id + UI + 1}`);
     let promise = new Promise(function(resolve, reject) {
         resolve(x);
@@ -128,7 +127,6 @@ export class JSCustomNodeWidget extends React.Component {
 
   subMenuGenerator = () => {
     let obj = this.props.node.ports;
-    console.log("obj",obj);
     let menus = [];
     let count = "00";
     for (let key in obj) {
@@ -139,7 +137,8 @@ export class JSCustomNodeWidget extends React.Component {
         }else{
           count = count + ".";
         }
-				let id = obj[key].options.id;
+        let id = obj[key].options.id;
+        let length = Object.keys(obj[key].links).length;
         let mod = id + "a";
         let countName = count + mod;
         if(this.state[id] === undefined){
@@ -191,15 +190,38 @@ export class JSCustomNodeWidget extends React.Component {
     return menus;
   };
 
+  checkPath = (port) => {
+    let links = port.getLinks();
+      for(let key in links){
+        if(links[key].renderedPaths.length > 0){
+          return {
+            background: "black",
+            "border-radius": "50%"
+          };
+        }
+      }
+      return {
+        background: "white",
+        "border-radius": "50%"
+      };
+    ;
+  }
+
 	render() {
-    
 		return (
 			<div 
       className={`custom-node selected-${this.props.node.isSelected()}`} 
       >
         <div className="custom-node-nodeTitle">
-          <div className="line-in">
-						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')}>
+          <div 
+          className="line-in"
+          style={
+            this.checkPath(this.props.node.getPort('in'))
+          }
+          >
+						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')} 
+            
+            >
             </PortWidget>
           </div>
           <h1

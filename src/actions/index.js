@@ -36,13 +36,11 @@ export const getProjectsByUserId = (user_id) => dispatch => {
   }else{
     endpoint = `http://localhost:5000/projects/user/${user_id}`;
   } 
-  console.log("endpoint1",endpoint);
   axios
     .get(
       endpoint,
     )
     .then(response => {
-      console.log("response",response);
       dispatch({ type: GET_PROJECTS_BY_ID_SUCCESS, payload: response.data});
     })
     .catch(err => dispatch({ type: GET_PROJECTS_BY_ID_FAILURE, payload: err }));
@@ -65,13 +63,11 @@ export const getCanvasById = (project_id1) => dispatch => {
   }else{
     endpoint1 = `http://localhost:5000/projects/${project_id1}`;
   } 
-  console.log("endpoint1",endpoint1);
   axios
     .get(
       endpoint1,
     )
     .then(response => {
-      console.log("response",response);
       dispatch({ type: GET_CANVAS_BY_ID_SUCCESS, payload: response.data});
     })
     .catch(err => dispatch({ type: GET_CANVAS_BY_ID_FAILURE, payload: err }));
@@ -113,7 +109,6 @@ export const addProjectByUserId = (item) => dispatch => {
       item
     )
     .then(response => {
-      console.log(response);
       dispatch({
         type: ADD_PROJECT_SUCCESS,
         payload: response.data
