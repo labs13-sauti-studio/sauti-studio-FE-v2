@@ -622,6 +622,12 @@ input, textarea {
       background: tomato;
       border-radius: 50%; }
 
+.fill-port {
+  background: black; }
+
+.fill-port2 {
+  background: white; }
+
 .custom-node-addMenuOption {
   display: flex;
   flex-direction: row;

@@ -2,6 +2,8 @@ import {
   DefaultPortModel,
   NodeModel
 } from "@projectstorm/react-diagrams";
+import { Toolkit } from '@projectstorm/react-canvas-core';
+import {AdvancedPortModel} from "../custom-port-link-js/JSCustomPortAndLink"
 
 import * as _ from "lodash";
 export class JSCustomNodeModel extends NodeModel {
@@ -13,14 +15,7 @@ export class JSCustomNodeModel extends NodeModel {
     this.color = this.color || { options: "red" };
     this.name = this.options.name;
     this.description = this.options.description;
-
-    let port = this.addPort(
-      new DefaultPortModel({
-        in: true,
-        name: "in"
-      })
-    );
-    port.setMaximumLinks(1);
+    this.addInPort();
   }
 
   deserialize(event) {
@@ -49,13 +44,28 @@ export class JSCustomNodeModel extends NodeModel {
 
   addOutPort(label, name) {
     let port = this.addPort(
-      new DefaultPortModel({
+      new AdvancedPortModel({
         in: false,
         label: label,
         name: name
       })
     );
-    port.setMaximumLinks(1);
+    console.log("out port ", port);
+    return port;
+  }
+
+ 
+  addInPort() {
+    let port = this.addPort(
+      this.addPort(
+        new AdvancedPortModel({
+          in: true,
+          name: "in",
+          locked: true
+        })
+      )
+    );
+    console.log("in port ", port);
     return port;
   }
 

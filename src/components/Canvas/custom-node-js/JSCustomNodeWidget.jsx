@@ -128,7 +128,7 @@ export class JSCustomNodeWidget extends React.Component {
 
   subMenuGenerator = () => {
     let obj = this.props.node.ports;
-    console.log("obj",obj);
+    // console.log("obj",this.props.node.ports);
     let menus = [];
     let count = "00";
     for (let key in obj) {
@@ -139,7 +139,9 @@ export class JSCustomNodeWidget extends React.Component {
         }else{
           count = count + ".";
         }
-				let id = obj[key].options.id;
+        let id = obj[key].options.id;
+        console.log("obj[key]",obj[key]);
+        let length = Object.keys(obj[key].links).length;
         let mod = id + "a";
         let countName = count + mod;
         if(this.state[id] === undefined){
@@ -181,7 +183,7 @@ export class JSCustomNodeWidget extends React.Component {
                 title="Delete Option"
               ></i>
             </div>
-            <div className="line-out">
+            <div className={`line-out ${length > 0?"fill-port":"fill-port2"}`}>
 							<PortWidget engine={this.props.engine} port={this.props.node.getPort(obj[key].options.name)} />
             </div>
           </div>
@@ -192,13 +194,15 @@ export class JSCustomNodeWidget extends React.Component {
   };
 
 	render() {
-    
+    console.log("this.props.node",this.props.node);
+    console.log("this.props.node.getPort('in')",this.props.node.getPort('in'));
+    let length = Object.keys(this.props.node.getPort('in').links).length;
 		return (
 			<div 
       className={`custom-node selected-${this.props.node.isSelected()}`} 
       >
         <div className="custom-node-nodeTitle">
-          <div className="line-in">
+          <div className={`line-in ${length > 0?"fill-port":"fill-port2"}`}>
 						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')}>
             </PortWidget>
           </div>

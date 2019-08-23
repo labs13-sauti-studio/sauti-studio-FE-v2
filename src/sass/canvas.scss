@@ -297,6 +297,7 @@
   width: 25px;
   height: 25px;
   border-radius: 20px;
+  // background: black;
   .port{
     width: 100%;
     height: 100%;
@@ -305,6 +306,14 @@
       border-radius: 50%;
     }
   }
+}
+
+.fill-port{
+  background: black;
+}
+
+.fill-port2{
+  background: white;
 }
 
 .custom-node-addMenuOption {

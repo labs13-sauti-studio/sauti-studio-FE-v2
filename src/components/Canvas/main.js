@@ -12,6 +12,7 @@ import createEngine, {
   PointModel,
   DeleteItemsAction
 } from "@projectstorm/react-diagrams";
+import {AdvancedLinkFactory} from "./custom-port-link-js/JSCustomPortAndLink"
 
 import { JSCustomNodeFactory } from "./custom-node-js/JSCustomNodeFactory";
 import { JSCustomNodeModel } from "./custom-node-js/JSCustomNodeModel";
@@ -24,6 +25,7 @@ let engine = createEngine();
 engine.getNodeFactories().registerFactory(new JSCustomNodeFactory());
 engine.getNodeFactories().registerFactory(new DefaultNodeFactory());
 engine.getLinkFactories().registerFactory(new DefaultLinkFactory());
+engine.getLinkFactories().registerFactory(new AdvancedLinkFactory());
 
 // create a diagram model
 const model = new DiagramModel();
@@ -47,8 +49,6 @@ for(let key in obj){
     engine.eventBus.deregisterAction(obj[key]);
   }
 }
-
-
 class CustomExample extends React.Component {
   constructor(props){
     super(props);
@@ -84,37 +84,37 @@ class CustomExample extends React.Component {
 
     // Handle Project canvas update on initial load
     if(this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
-      setTimeout(()=>{
+      // setTimeout(()=>{
         cerealBox = new DiagramModel();
         cerealBox.deserializeModel(this.props.graph_json, engine);
         engine.setModel(cerealBox);
-      },0);
+      // },0);
     }
         // Handle Project canvas update on initial load
         if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
-          setTimeout(()=>{
+          // setTimeout(()=>{
             cerealBox = new DiagramModel();
             cerealBox.deserializeModel(this.props.graph_json, engine);
             engine.setModel(cerealBox);
             // engine.repaintCanvas();
-          },0);
+          // },0);
         }
 
         // Handle Project canvas update on initial load
         if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
-          setTimeout(()=>{
+          // setTimeout(()=>{
             cerealBox = new DiagramModel();
             cerealBox.deserializeModel(this.props.graph_json, engine);
             engine.setModel(cerealBox);
-          },0);
+          // },0);
         }
         // Update JSON
         if(this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
-          setTimeout(()=>{
+          // setTimeout(()=>{
             cerealBox = new DiagramModel();
             cerealBox.deserializeModel(this.props.graph_json, engine);
             engine.setModel(cerealBox);
-          },0);
+          // },0);
         }
         
         if(this.props.graph_json === null){
@@ -204,7 +204,6 @@ class CustomExample extends React.Component {
             deleteNodes(item, length, x);
           }
         }
-        return;
       }
       deleteNodes(item, item.length, 0)
       
@@ -228,6 +227,7 @@ class CustomExample extends React.Component {
           }
         }
     } 
+    
   };
 
   handleEdit = (name) => {
@@ -271,6 +271,8 @@ class CustomExample extends React.Component {
   }
 
   render() {
+    engine.repaintCanvas();
+    console.log("modal", cerealBox);
     return (
       <div className="diagram-page">
         <DeleteModal props={this.props.props}/>
