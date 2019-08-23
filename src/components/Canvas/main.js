@@ -184,7 +184,6 @@ class CustomExample extends React.Component {
     if (item.length !== 0) {
       function deleteNodes(item, length, i){
         if(i < length){
-          console.log("---------------",item + length + i);
           if (item[i] instanceof JSCustomNodeModel) {
             // Delete Nodes
             let promise = new Promise((resolve, reject)=>{
@@ -272,7 +271,6 @@ class CustomExample extends React.Component {
 
   render() {
     engine.repaintCanvas();
-    console.log("modal", cerealBox);
     return (
       <div className="diagram-page">
         <DeleteModal props={this.props.props}/>

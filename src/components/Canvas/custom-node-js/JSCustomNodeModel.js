@@ -50,7 +50,6 @@ export class JSCustomNodeModel extends NodeModel {
         name: name
       })
     );
-    console.log("out port ", port);
     return port;
   }
 
@@ -65,7 +64,6 @@ export class JSCustomNodeModel extends NodeModel {
         })
       )
     );
-    console.log("in port ", port);
     return port;
   }
 

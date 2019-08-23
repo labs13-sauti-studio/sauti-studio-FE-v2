@@ -99,7 +99,6 @@ export class JSCustomNodeWidget extends React.Component {
   addSubMenu = (event) => {
     event.stopPropagation();
     let UI = Toolkit.UID();
-    console.log(UI);
     let x = this.props.node.addOutPort("Edit Menu Option..", `out-${this.props.node.options.id + UI + 1}`);
     let promise = new Promise(function(resolve, reject) {
         resolve(x);
@@ -128,7 +127,6 @@ export class JSCustomNodeWidget extends React.Component {
 
   subMenuGenerator = () => {
     let obj = this.props.node.ports;
-    // console.log("obj",this.props.node.ports);
     let menus = [];
     let count = "00";
     for (let key in obj) {
@@ -140,7 +138,6 @@ export class JSCustomNodeWidget extends React.Component {
           count = count + ".";
         }
         let id = obj[key].options.id;
-        console.log("obj[key]",obj[key]);
         let length = Object.keys(obj[key].links).length;
         let mod = id + "a";
         let countName = count + mod;
@@ -194,8 +191,6 @@ export class JSCustomNodeWidget extends React.Component {
   };
 
 	render() {
-    console.log("this.props.node",this.props.node);
-    console.log("this.props.node.getPort('in')",this.props.node.getPort('in'));
     let length = Object.keys(this.props.node.getPort('in').links).length;
 		return (
 			<div 
