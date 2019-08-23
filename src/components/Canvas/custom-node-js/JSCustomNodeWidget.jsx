@@ -180,7 +180,7 @@ export class JSCustomNodeWidget extends React.Component {
                 title="Delete Option"
               ></i>
             </div>
-            <div className={`line-out ${length > 0?"fill-port":"fill-port2"}`}>
+            <div className="line-out">
 							<PortWidget engine={this.props.engine} port={this.props.node.getPort(obj[key].options.name)} />
             </div>
           </div>
@@ -190,15 +190,38 @@ export class JSCustomNodeWidget extends React.Component {
     return menus;
   };
 
+  checkPath = (port) => {
+    let links = port.getLinks();
+      for(let key in links){
+        if(links[key].renderedPaths.length > 0){
+          return {
+            background: "black",
+            "border-radius": "50%"
+          };
+        }
+      }
+      return {
+        background: "white",
+        "border-radius": "50%"
+      };
+    ;
+  }
+
 	render() {
-    let length = Object.keys(this.props.node.getPort('in').links).length;
 		return (
 			<div 
       className={`custom-node selected-${this.props.node.isSelected()}`} 
       >
         <div className="custom-node-nodeTitle">
-          <div className={`line-in ${length > 0?"fill-port":"fill-port2"}`}>
-						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')}>
+          <div 
+          className="line-in"
+          style={
+            this.checkPath(this.props.node.getPort('in'))
+          }
+          >
+						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')} 
+            
+            >
             </PortWidget>
           </div>
           <h1

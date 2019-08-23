@@ -88,6 +88,7 @@ class CustomExample extends React.Component {
         cerealBox = new DiagramModel();
         cerealBox.deserializeModel(this.props.graph_json, engine);
         engine.setModel(cerealBox);
+        // engine.repaintCanvas();
       // },0);
     }
         // Handle Project canvas update on initial load
@@ -96,7 +97,7 @@ class CustomExample extends React.Component {
             cerealBox = new DiagramModel();
             cerealBox.deserializeModel(this.props.graph_json, engine);
             engine.setModel(cerealBox);
-            // engine.repaintCanvas();
+            engine.repaintCanvas();
           // },0);
         }
 
@@ -106,6 +107,7 @@ class CustomExample extends React.Component {
             cerealBox = new DiagramModel();
             cerealBox.deserializeModel(this.props.graph_json, engine);
             engine.setModel(cerealBox);
+            engine.repaintCanvas();
           // },0);
         }
         // Update JSON
@@ -114,12 +116,14 @@ class CustomExample extends React.Component {
             cerealBox = new DiagramModel();
             cerealBox.deserializeModel(this.props.graph_json, engine);
             engine.setModel(cerealBox);
+            // engine.repaintCanvas(); no
           // },0);
         }
         
         if(this.props.graph_json === null){
           cerealBox = new DiagramModel();
           engine.setModel(cerealBox);
+          // engine.repaintCanvas();
         }
         
   }
@@ -226,7 +230,6 @@ class CustomExample extends React.Component {
           }
         }
     } 
-    
   };
 
   handleEdit = (name) => {
@@ -270,7 +273,7 @@ class CustomExample extends React.Component {
   }
 
   render() {
-    engine.repaintCanvas();
+    // engine.repaintCanvas();
     return (
       <div className="diagram-page">
         <DeleteModal props={this.props.props}/>
