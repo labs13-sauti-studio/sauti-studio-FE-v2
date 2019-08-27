@@ -6,7 +6,8 @@ import createEngine, {
 	DefaultLinkModel,
 	DefaultLinkSegmentWidget,
 	PortModel,
-	DefaultLinkWidget
+	DefaultLinkWidget,
+	PortModelAlignment
 } from '@projectstorm/react-diagrams';
 import { AbstractReactFactory } from '@projectstorm/react-canvas-core';
 
@@ -27,7 +28,53 @@ export class AdvancedLinkModel extends DefaultLinkModel {
 	}
 }
 
-export class AdvancedPortModel extends DefaultPortModel {
+export class AdvancedPortModel extends PortModel {
+	constructor(options, name, label) {
+		if (!!name) {
+			options = {
+				in: !!options,
+				name: name,
+				label: label
+			};
+		}
+		super({
+			label: options.label || options.name,
+			alignment: options.in ? PortModelAlignment.LEFT : PortModelAlignment.RIGHT,
+			type: 'default',
+			...options
+		});
+	}
+
+	deserialize(event) {
+		super.deserialize(event);
+		this.options.in = event.data.in;
+		this.options.label = event.data.label;
+		this.options.locked = event.data.locked;
+	}
+
+	serialize() {
+		return {
+			...super.serialize(),
+			in: this.options.in,
+			label: this.options.label,
+			locked: this.options.locked
+		};
+	}
+
+	link(port, factory){
+		let link = this.createLinkModel(factory);
+		link.setSourcePort(this);
+		link.setTargetPort(port);
+		return link;
+	}
+
+	canLinkToPort(port){
+		if (port) {
+			return this.options.in !== port.getOptions().in;
+		}
+		return true;
+	}
+
 	createLinkModel() {
 		console.log("this",this);
 		let length = Object.keys(this.links).length;
@@ -37,7 +84,7 @@ export class AdvancedPortModel extends DefaultPortModel {
 			}else{
 				return new AdvancedLinkModel();
 			}
-		} return null;
+		};
 	}
 }
 
