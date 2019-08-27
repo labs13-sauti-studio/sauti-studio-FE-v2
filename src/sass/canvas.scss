@@ -146,6 +146,24 @@
       text-overflow: ellipsis;
       text-align: start;
     }
+    .check-box-true{
+      width: 3rem;
+      cursor: pointer;
+      color: $tomato;
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      font-size: 3rem;
+    }
+    .check-box-false{
+      width: 3rem;
+      font-size: 3rem;
+      cursor: pointer;
+      color: white;
+      transition: 0.5s;
+      &:hover{
+        color: $tomato;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      }
+    }
 }
 
 

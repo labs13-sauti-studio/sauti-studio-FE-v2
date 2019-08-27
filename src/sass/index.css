@@ -485,6 +485,21 @@ input, textarea {
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: start; }
+  .custom-node-nodeTitle .check-box-true {
+    width: 3rem;
+    cursor: pointer;
+    color: tomato;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-size: 3rem; }
+  .custom-node-nodeTitle .check-box-false {
+    width: 3rem;
+    font-size: 3rem;
+    cursor: pointer;
+    color: white;
+    transition: 0.5s; }
+    .custom-node-nodeTitle .check-box-false:hover {
+      color: tomato;
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; }
 
 .custom-node-screen {
   display: flex;
