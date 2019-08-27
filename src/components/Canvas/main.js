@@ -97,7 +97,7 @@ class CustomExample extends React.Component {
             cerealBox = new DiagramModel();
             cerealBox.deserializeModel(this.props.graph_json, engine);
             engine.setModel(cerealBox);
-            engine.repaintCanvas();
+            // engine.repaintCanvas();
           // },0);
         }
 
@@ -107,7 +107,7 @@ class CustomExample extends React.Component {
             cerealBox = new DiagramModel();
             cerealBox.deserializeModel(this.props.graph_json, engine);
             engine.setModel(cerealBox);
-            engine.repaintCanvas();
+            // engine.repaintCanvas();
           // },0);
         }
         // Update JSON
@@ -135,24 +135,22 @@ class CustomExample extends React.Component {
   saveCanvas = () => {
     let savedCanvas = cerealBox.serialize();
     console.log("savedCanvas------------", savedCanvas);
-    let count = 0, key, objUpdate;
+    let count = 0, key, objUpdate, parent_id = null;
+    // let length = Object.keys(obj[key].links).length;
+    // for (key in savedCanvas.layers[1].models) {
+    //   if (savedCanvas.layers[1].models.hasOwnProperty(key)) count++;
+    // }
     for (key in savedCanvas.layers[1].models) {
-      if (savedCanvas.layers[1].models.hasOwnProperty(key)) count++;
+      if (savedCanvas.layers[1].models[key].is_parent === true){
+        parent_id = savedCanvas.layers[1].models[key].id;
+      };
     }
     if(count === 0){
       objUpdate = {
         project_title: this.props.project_title,
         graph_json: savedCanvas,
         user_id: this.props.user_id,
-        initial_node_id: null 
-      }
-    }
-    else if(count > 0 /* &&savedCanvas.layers[1].models[0].id*/){
-      objUpdate = {
-        project_title: this.props.project_title,
-          graph_json: savedCanvas,
-          user_id: this.props.user_id,
-          initial_node_id: null
+        initial_node_id: parent_id 
       }
     }
     this.props.saveCanvas(objUpdate, this.props.project_id);

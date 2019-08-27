@@ -17,7 +17,8 @@ import {
   DELETE_PROJECT_SUCCESS,
   DELETE_PROJECT_FAILURE,
   SET_DELETE_STATE_SUCCESS,
-  SET_SIMULATE_STATE_SUCCESS
+  SET_SIMULATE_STATE_SUCCESS,
+  UPDATE_CANVAS_WITHOUT_SAVE
   } from "../actions";
 
   const initialState = {
@@ -152,6 +153,11 @@ import {
           fetching: false,
           error: action.payload
         };
+        case UPDATE_CANVAS_WITHOUT_SAVE:
+          return {
+            ...state,
+            graph_json: action.payload
+          };
 
 
 

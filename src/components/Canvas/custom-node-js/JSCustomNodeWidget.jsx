@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { PortWidget } from '@projectstorm/react-diagrams';
 import { Toolkit } from '@projectstorm/react-canvas-core';
 export class JSCustomNodeWidget extends React.Component {
@@ -11,7 +10,8 @@ export class JSCustomNodeWidget extends React.Component {
       nodeTitle: "",
       editing: false,
       editingDesc: false,
-      selected: false
+      selected: false,
+      is_parent: false
     };
 	}
 	
@@ -19,9 +19,19 @@ export class JSCustomNodeWidget extends React.Component {
     this.setState({
       ...this.state,
       nodeTitle: this.props.node.options.name,
-			description: this.props.node.options.description
+      description: this.props.node.options.description,
+      is_parent: this.props.node.options.is_parent
     });
     
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(this.state.is_parent !== this.props.node.options.is_parent){
+      this.setState({
+        ...this.state,
+        is_parent: this.props.node.options.is_parent
+      });
+    }
   }
 
 
@@ -125,6 +135,37 @@ export class JSCustomNodeWidget extends React.Component {
     });
   }
 
+  makeFirstScreen = () => {
+    let model = this.props.engine.getModel();
+    let nodes = model.getNodes();
+    for(let i = 0; i < nodes.length; i++){
+      if(nodes[i].options.id === this.props.node.options.id){
+        this.props.node.options.is_parent = true;
+      }else{
+        nodes[i].options.is_parent = false;
+      }
+      if(i === nodes.length - 1){
+        this.props.engine.repaintCanvas();
+      }
+    }
+  }
+
+  checkBox = () => {
+    if(this.state.is_parent === true){
+      return <div className="check-box-true" title="First Screen">
+        <i className="fas fa-check-square"></i>
+      </div>
+    }else{
+      return <div 
+              className="check-box-false"
+              title="Make This The First Screen"
+              onClick={this.makeFirstScreen}
+            >
+        <i className="fas fa-check-square"></i>
+      </div>
+    }
+  }
+
   subMenuGenerator = () => {
     let obj = this.props.node.ports;
     let menus = [];
@@ -138,7 +179,7 @@ export class JSCustomNodeWidget extends React.Component {
           count = count + ".";
         }
         let id = obj[key].options.id;
-        let length = Object.keys(obj[key].links).length;
+        
         let mod = id + "a";
         let countName = count + mod;
         if(this.state[id] === undefined){
@@ -241,6 +282,7 @@ export class JSCustomNodeWidget extends React.Component {
               event.stopPropagation();
             }}
           />
+          {this.checkBox()}
         </div>
 
         <div className="custom-node-screen">
@@ -280,3 +322,4 @@ export class JSCustomNodeWidget extends React.Component {
 		);
 	}
 }
+

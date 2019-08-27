@@ -25,6 +25,7 @@ export const DELETE_PROJECT_FAILURE = "DELETE_PROJECT_FAILURE";
 
 export const SET_DELETE_STATE_SUCCESS = "SET_DELETE_STATE_SUCCESS";
 export const SET_SIMULATE_STATE_SUCCESS = "SET_SIMULATE_STATE_SUCCESS";
+export const UPDATE_CANVAS_WITHOUT_SAVE = "UPDATE_CANVAS_WITHOUT_SAVE";
 
 let productionServer = process.env.REACT_APP_BE_API_URL;
 
@@ -123,6 +124,10 @@ export const setDeleteState = (delete_project) => dispatch => {
 
 export const setSimulationState = (simulate_project) => dispatch => {
   dispatch({ type: SET_SIMULATE_STATE_SUCCESS, payload: !simulate_project});
+};
+
+export const updateCanvasWithoutSave = (json) => dispatch => {
+  dispatch({ type: UPDATE_CANVAS_WITHOUT_SAVE, payload: json});
 };
 
 export const deleteProject = (project_id, props) => dispatch => {

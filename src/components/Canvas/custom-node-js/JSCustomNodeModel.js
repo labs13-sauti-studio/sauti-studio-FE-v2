@@ -15,6 +15,7 @@ export class JSCustomNodeModel extends NodeModel {
     this.color = this.color || { options: "red" };
     this.name = this.options.name;
     this.description = this.options.description;
+    this.is_parent = this.options.is_parent;
     this.addInPort();
   }
 
@@ -23,6 +24,7 @@ export class JSCustomNodeModel extends NodeModel {
 		this.options.name = event.data.name;
     this.options.color = event.data.color;
     this.options.description = event.data.description;
+    this.options.is_parent = event.data.is_parent;
 	}
 
 	serialize(){
@@ -30,7 +32,8 @@ export class JSCustomNodeModel extends NodeModel {
 			...super.serialize(),
 			name: this.options.name,
       color: this.options.color,
-      description: this.options.description
+      description: this.options.description,
+      is_parent: this.options.is_parent
 		};
 	}
 
