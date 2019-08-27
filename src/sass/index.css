@@ -457,6 +457,7 @@ input, textarea {
 .custom-node-nodeTitle {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   color: white;
   padding: 0 15px;
@@ -470,15 +471,13 @@ input, textarea {
   line-height: 57px;
   font-family: "LiberationSansRegular"; }
   .custom-node-nodeTitle input {
-    margin-left: 15px;
     font-size: 3rem;
     font-family: "LiberationSansRegular";
-    width: 90%;
+    width: 80%;
     height: 4rem; }
   .custom-node-nodeTitle h1 {
-    width: 90%;
+    width: 80%;
     margin: 0;
-    padding-left: 15px;
     font-size: 3rem;
     font-family: "LiberationSansRegular";
     white-space: nowrap;

@@ -30,17 +30,17 @@ export class AdvancedLinkModel extends DefaultLinkModel {
 export class AdvancedPortModel extends DefaultPortModel {
 	createLinkModel() {
 		console.log("this",this);
+		let length = Object.keys(this.links).length;
 		if(this.options.in === false){
-			let links = this.getLinks();
-			for(let key in links){
-				if(links[key].renderedPaths.length > 0){
-					return;
-				}
+			if(length > 0){
+				this.locked = true;
+			}else{
+				return new AdvancedLinkModel();
 			}
-			return new AdvancedLinkModel();
 		} return null;
 	}
 }
+
 
 export class AdvancedLinkSegment extends React.Component {
 

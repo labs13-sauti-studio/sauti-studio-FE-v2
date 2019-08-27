@@ -116,6 +116,7 @@
 .custom-node-nodeTitle {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   color: white;
   padding: 0 15px;
@@ -129,23 +130,21 @@
   line-height: 57px;
   font-family: "LiberationSansRegular";
   input {
-    margin-left: 15px;
     font-size: 3rem;
     font-family: "LiberationSansRegular";
-    width: 90%;
+    width: 80%;
     height: 4rem;
   }
   h1 {
-    width: 90%;
-      margin: 0;
-      padding-left: 15px;
-      font-size: 3rem;
-      font-family: "LiberationSansRegular";
-      white-space: nowrap; 
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-align: start;
-    }
+    width: 80%;
+    margin: 0;
+    font-size: 3rem;
+    font-family: "LiberationSansRegular";
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: start;
+  }
     .check-box-true{
       width: 3rem;
       cursor: pointer;

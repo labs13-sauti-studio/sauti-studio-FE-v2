@@ -233,6 +233,7 @@ export class JSCustomNodeWidget extends React.Component {
 
   checkPath = (port) => {
     let links = port.getLinks();
+    // console.log("links",links);
       for(let key in links){
         if(links[key].renderedPaths.length > 0){
           return {
@@ -245,7 +246,6 @@ export class JSCustomNodeWidget extends React.Component {
         background: "white",
         "border-radius": "50%"
       };
-    ;
   }
 
 	render() {
