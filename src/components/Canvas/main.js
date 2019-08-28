@@ -110,21 +110,23 @@ class CustomExample extends React.Component {
   saveCanvas = () => {
     let savedCanvas = cerealBox.serialize();
     // console.log("savedCanvas------------", savedCanvas);
-    let count = 0, key, objUpdate, parent_id = null;
+    let key, objUpdate, parent_id = null;
     for (key in savedCanvas.layers[1].models) {
       if (savedCanvas.layers[1].models[key].is_parent === true){
         parent_id = savedCanvas.layers[1].models[key].id;
       };
     }
-    if(count === 0){
+    if(parent_id !== null){
       objUpdate = {
         project_title: this.props.project_title,
         graph_json: savedCanvas,
         user_id: this.props.user_id,
         initial_node_id: parent_id 
       }
+      this.props.saveCanvas(objUpdate, this.props.project_id);
+    }else{
+      window.alert("Check A Parent Node Before Saving!");
     }
-    this.props.saveCanvas(objUpdate, this.props.project_id);
   }
   
   createNode = () => {
