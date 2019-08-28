@@ -175,7 +175,6 @@ export class JSCustomNodeWidget extends React.Component {
     
     for (let key in obj) {
       if (obj[key].options.in === false) {
-        console.log("this.props.node.getPort(obj[key].options.name)",this.props.node.getPort(obj[key].options.name));
         count = (Number(count) + 1).toString();
         if(count.length < 2){
           count = 0 + count + ".";

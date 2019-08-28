@@ -109,7 +109,7 @@ class CustomExample extends React.Component {
         
   saveCanvas = () => {
     let savedCanvas = cerealBox.serialize();
-    console.log("savedCanvas------------", savedCanvas);
+    // console.log("savedCanvas------------", savedCanvas);
     let count = 0, key, objUpdate, parent_id = null;
     for (key in savedCanvas.layers[1].models) {
       if (savedCanvas.layers[1].models[key].is_parent === true){
@@ -285,7 +285,7 @@ class CustomExample extends React.Component {
             </button>
             <button
               onClick={() => {
-                console.log("Publish");
+                {/* console.log("Publish"); */}
               }}
             >
               Publish App
