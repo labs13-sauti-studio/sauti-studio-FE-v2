@@ -1,18 +1,10 @@
-import createEngine, {
-	DiagramModel,
-	DefaultNodeModel,
-	DefaultPortModel,
+import {
 	DefaultLinkFactory,
 	DefaultLinkModel,
-	DefaultLinkSegmentWidget,
 	PortModel,
 	DefaultLinkWidget,
 	PortModelAlignment
 } from '@projectstorm/react-diagrams';
-import { AbstractReactFactory } from '@projectstorm/react-canvas-core';
-
-import styled from '@emotion/styled';
-import { css, keyframes } from '@emotion/core';
 import * as React from 'react';
 
 
@@ -40,7 +32,6 @@ export class AdvancedPortModel extends PortModel {
 		this.name = this.options.name;
 		this.label = this.options.label;
 		this.locked = this.options.locked;
-		this.setMaximumLinks(1);
 	  }
 
 	deserialize(event) {
@@ -74,10 +65,13 @@ export class AdvancedPortModel extends PortModel {
 	}
 
 	createLinkModel(factory){
-		let maxLinks = this.getMaximumLinks();
+		let maxLinks = 1;
+		let number = 0;
 		let links = super.getLinks();
-		let length = Object.keys(links).length;
-		if(maxLinks > length){
+		for(let key in links){
+			number = number + links[key].renderedPaths.length;
+		}
+		if(maxLinks > number){
 			let link = new AdvancedLinkModel();
 			if (!link && factory) {
 				return factory.generateModel({});
@@ -86,6 +80,8 @@ export class AdvancedPortModel extends PortModel {
 		}
 	}
 }
+
+
 
 export class AdvancedLinkFactory extends DefaultLinkFactory {
 	constructor() {
@@ -101,7 +97,6 @@ export class AdvancedLinkFactory extends DefaultLinkFactory {
 	}
 
 	generateLinkSegment(model, selected, path) {
-		console.log("selected",selected);
 		return (
 			<path
 			selected={selected}

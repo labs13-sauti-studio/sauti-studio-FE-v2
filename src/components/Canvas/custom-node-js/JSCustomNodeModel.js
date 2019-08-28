@@ -90,17 +90,7 @@ export class JSCustomNodeModel extends NodeModel {
   }
 
   getPortByPort(port, node, name){
-    let ports = node.getPort(name);
-    console.log("ports", ports);
-    // if(ports.length !== 0){
-    //   return ports[name];
-    // }
-    for(let key in ports){
-      console.log("ports[key]",ports[key]);
-      console.log("instance",ports[key] instanceof AdvancedPortModel);
-      // console.log("instance links",ports[key].links[0] instanceof AdvancedLinkModel);
-    }
-    return ports;
+    return node.getPort(name);
 	}
 
 }
