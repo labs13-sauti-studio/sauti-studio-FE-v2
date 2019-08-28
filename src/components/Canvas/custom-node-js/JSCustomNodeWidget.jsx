@@ -143,8 +143,10 @@ export class JSCustomNodeWidget extends React.Component {
     for(let i = 0; i < nodes.length; i++){
       if(nodes[i].options.id === this.props.node.options.id){
         this.props.node.options.is_parent = true;
+        nodes[i].toggleInPortVisibility(false);
       }else{
         nodes[i].options.is_parent = false;
+        nodes[i].toggleInPortVisibility(true);
       }
       if(i === nodes.length - 1){
         this.props.engine.repaintCanvas();
@@ -243,14 +245,14 @@ export class JSCustomNodeWidget extends React.Component {
       className={`custom-node selected-${this.props.node.isSelected()}`} 
       >
         <div className="custom-node-nodeTitle">
-          <div 
-          className="line-in"
-          >
-						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')} 
-            
-            >
-            </PortWidget>
+          {/* {(this.props.node.options.in_port_visible === true)?( */}
+          <div className="line-in">
+						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')} />
           </div>
+          {/* ):(
+            null
+          )} */}
+
           <h1
             className={this.state.editing ? "hidden" : ""}
             onDoubleClick={() => this.handleEdit("nodeTitle")}
