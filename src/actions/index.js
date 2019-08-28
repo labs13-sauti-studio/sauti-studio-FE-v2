@@ -8,6 +8,14 @@ export const SAVE_CANVAS_START = "SAVE_CANVAS_START";
 export const SAVE_CANVAS_SUCCESS = "SAVE_CANVAS_SUCCESS";
 export const SAVE_CANVAS_FAILURE = "SAVE_CANVAS_FAILURE";
 
+export const SAVE_TITLE_START = "SAVE_TITLE_START";
+export const SAVE_TITLE_SUCCESS = "SAVE_TITLE_SUCCESS";
+export const SAVE_TITLE_FAILURE = "SAVE_TITLE_FAILURE";
+
+export const GET_TITLE_BY_ID_START = "GET_TITLE_BY_ID_START";
+export const GET_TITLE_BY_ID_SUCCESS = "GET_TITLE_BY_ID_SUCCESS";
+export const GET_TITLE_BY_ID_FAILURE = "GET_TITLE_BY_ID_FAILURE";
+
 export const GET_PROJECTS_BY_ID_START = "GET_PROJECTS_BY_ID_START";
 export const GET_PROJECTS_BY_ID_SUCCESS = "GET_PROJECTS_BY_ID_SUCCESS";
 export const GET_PROJECTS_BY_ID_FAILURE = "GET_PROJECTS_BY_ID_FAILURE";
@@ -74,6 +82,24 @@ export const getCanvasById = (project_id1) => dispatch => {
     .catch(err => dispatch({ type: GET_CANVAS_BY_ID_FAILURE, payload: err }));
 };
 
+export const getTitleById = (project_id1) => dispatch => {
+  dispatch({ type: GET_TITLE_BY_ID_START });
+  let endpoint1;
+  if(productionServer){
+    endpoint1 = `${productionServer}/projects/${project_id1}`;
+  }else{
+    endpoint1 = `http://localhost:5000/projects/${project_id1}`;
+  } 
+  axios
+    .get(
+      endpoint1,
+    )
+    .then(response => {
+      dispatch({ type: GET_TITLE_BY_ID_SUCCESS, payload: response.data});
+    })
+    .catch(err => dispatch({ type: GET_TITLE_BY_ID_FAILURE, payload: err }));
+  };
+  
 export const saveCanvas = (objUpdate, project_id) => dispatch => {
   dispatch({ type: SAVE_CANVAS_START });
   let endpoint;
@@ -94,6 +120,28 @@ export const saveCanvas = (objUpdate, project_id) => dispatch => {
       });
     })
     .catch(err => dispatch({ type: SAVE_CANVAS_FAILURE, payload: err }));
+};
+
+export const saveTitle = (objUpdate, project_id) => dispatch => {
+  dispatch({ type: SAVE_TITLE_START });
+  let endpoint;
+  if(productionServer){
+    endpoint = `${productionServer}/projects/${project_id}`;
+  }else{
+    endpoint = `http://localhost:5000/projects/${project_id}`;
+  } 
+  axios
+    .put(
+      endpoint,
+      objUpdate
+    )
+    .then(response => {
+      dispatch({
+        type: SAVE_TITLE_SUCCESS,
+        payload: response.data
+      });
+    })
+    .catch(err => dispatch({ type: SAVE_TITLE_FAILURE, payload: err }));
 };
 
 export const addProjectByUserId = (item) => dispatch => {

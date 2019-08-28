@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { PortWidget } from '@projectstorm/react-diagrams';
 import { Toolkit } from '@projectstorm/react-canvas-core';
+import { instanceOf } from 'prop-types';
+import { AdvancedPortModel } from '../custom-port-link-js/JSCustomPortAndLink';
 export class JSCustomNodeWidget extends React.Component {
 	constructor(props) {
     super(props);
@@ -170,8 +172,10 @@ export class JSCustomNodeWidget extends React.Component {
     let obj = this.props.node.ports;
     let menus = [];
     let count = "00";
+    
     for (let key in obj) {
       if (obj[key].options.in === false) {
+        console.log("this.props.node.getPort(obj[key].options.name)",this.props.node.getPort(obj[key].options.name));
         count = (Number(count) + 1).toString();
         if(count.length < 2){
           count = 0 + count + ".";
@@ -222,7 +226,7 @@ export class JSCustomNodeWidget extends React.Component {
               ></i>
             </div>
             <div className="line-out">
-							<PortWidget engine={this.props.engine} port={this.props.node.getPort(obj[key].options.name)} />
+							<PortWidget engine={this.props.engine} port={this.props.node.getPortByPort(obj[key], this.props.node, obj[key].options.name)} />
             </div>
           </div>
         );
@@ -231,22 +235,8 @@ export class JSCustomNodeWidget extends React.Component {
     return menus;
   };
 
-  checkPath = (port) => {
-    let links = port.getLinks();
-    // console.log("links",links);
-      for(let key in links){
-        if(links[key].renderedPaths.length > 0){
-          return {
-            background: "black",
-            "border-radius": "50%"
-          };
-        }
-      }
-      return {
-        background: "white",
-        "border-radius": "50%"
-      };
-  }
+  // {this.props.node.getPort(obj[key].options.name)}
+
 
 	render() {
 		return (
@@ -256,9 +246,6 @@ export class JSCustomNodeWidget extends React.Component {
         <div className="custom-node-nodeTitle">
           <div 
           className="line-in"
-          style={
-            this.checkPath(this.props.node.getPort('in'))
-          }
           >
 						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')} 
             

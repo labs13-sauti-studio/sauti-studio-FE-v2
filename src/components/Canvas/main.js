@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState } from "../../actions";
+import { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState, saveTitle, getTitleById } from "../../actions";
 import DeleteModal from "../DeleteModal.js";
 import SimulationModal from "../SimulationModal.js";
 
@@ -16,12 +16,14 @@ import {AdvancedLinkFactory} from "./custom-port-link-js/JSCustomPortAndLink"
 
 import { JSCustomNodeFactory } from "./custom-node-js/JSCustomNodeFactory";
 import { JSCustomNodeModel } from "./custom-node-js/JSCustomNodeModel";
+import { AdvancedPortFactory } from "./custom-port-link-js/JSCustomPortFactory";
 import { BodyWidget } from "./BodyWidget";
 
 // create an instance of the engine
 let engine = createEngine();
 
 // register the factories to the engine
+engine.getPortFactories().registerFactory(new AdvancedPortFactory());
 engine.getNodeFactories().registerFactory(new JSCustomNodeFactory());
 engine.getNodeFactories().registerFactory(new DefaultNodeFactory());
 engine.getLinkFactories().registerFactory(new DefaultLinkFactory());
@@ -74,6 +76,11 @@ class CustomExample extends React.Component {
       this.getCanvas();
     }
 
+    // If title is Saved retrieve new title
+    if(this.props.saving_title !== prevProps.saving_title && this.props.saving_title === false){
+      this.props.getTitleById(this.props.user_id);
+    }
+
     // Handle Project title update on initial load
     if(((this.state.project_title !== this.props.project_title && this.state.project_title === null) || prevProps.project_title !== this.props.project_title)){
         this.setState({
@@ -92,33 +99,33 @@ class CustomExample extends React.Component {
       // },0);
     }
         // Handle Project canvas update on initial load
-        if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
-          // setTimeout(()=>{
-            cerealBox = new DiagramModel();
-            cerealBox.deserializeModel(this.props.graph_json, engine);
-            engine.setModel(cerealBox);
-            // engine.repaintCanvas();
-          // },0);
-        }
+        // if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
+        //   // setTimeout(()=>{
+        //     cerealBox = new DiagramModel();
+        //     cerealBox.deserializeModel(this.props.graph_json, engine);
+        //     engine.setModel(cerealBox);
+        //     // engine.repaintCanvas();
+        //   // },0);
+        // }
 
         // Handle Project canvas update on initial load
-        if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
-          // setTimeout(()=>{
-            cerealBox = new DiagramModel();
-            cerealBox.deserializeModel(this.props.graph_json, engine);
-            engine.setModel(cerealBox);
-            // engine.repaintCanvas();
-          // },0);
-        }
+        // if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
+        //   // setTimeout(()=>{
+        //     cerealBox = new DiagramModel();
+        //     cerealBox.deserializeModel(this.props.graph_json, engine);
+        //     engine.setModel(cerealBox);
+        //     // engine.repaintCanvas();
+        //   // },0);
+        // }
         // Update JSON
-        if(this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
-          // setTimeout(()=>{
-            cerealBox = new DiagramModel();
-            cerealBox.deserializeModel(this.props.graph_json, engine);
-            engine.setModel(cerealBox);
-            // engine.repaintCanvas(); no
-          // },0);
-        }
+        // if(this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
+        //   // setTimeout(()=>{
+        //     cerealBox = new DiagramModel();
+        //     cerealBox.deserializeModel(this.props.graph_json, engine);
+        //     engine.setModel(cerealBox);
+        //     // engine.repaintCanvas(); no
+        //   // },0);
+        // }
         
         if(this.props.graph_json === null){
           cerealBox = new DiagramModel();
@@ -267,11 +274,10 @@ class CustomExample extends React.Component {
     const objUpdate = {
         "project_title": this.state.project_title,
     }
-    this.props.saveCanvas(objUpdate, this.props.project_id);
+    this.props.saveTitle(objUpdate, this.props.project_id);
   }
 
   render() {
-    // engine.repaintCanvas();
     return (
       <div className="diagram-page">
         <DeleteModal props={this.props.props}/>
@@ -398,11 +404,13 @@ const mapStateToProps = state => ({
   loggedIn: state.loggedIn,
   saving_canvas: state.saving_canvas,
   delete_project: state.delete_project,
-  simulate_project: state.simulate_project
+  simulate_project: state.simulate_project,
+  saving_title: state.saving_title,
+  fetching_title: state.fetching_title
 });
 
 // Connecting State and Rdux Reducer Methods
 export default connect(
   mapStateToProps,
-  { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState }
+  { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState, saveTitle, getTitleById }
 )(CustomExample); 

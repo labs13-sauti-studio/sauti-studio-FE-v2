@@ -18,7 +18,13 @@ import {
   DELETE_PROJECT_FAILURE,
   SET_DELETE_STATE_SUCCESS,
   SET_SIMULATE_STATE_SUCCESS,
-  UPDATE_CANVAS_WITHOUT_SAVE
+  UPDATE_CANVAS_WITHOUT_SAVE,
+  SAVE_TITLE_START,
+  SAVE_TITLE_SUCCESS,
+  SAVE_TITLE_FAILURE,
+  GET_TITLE_BY_ID_START,
+  GET_TITLE_BY_ID_SUCCESS,
+  GET_TITLE_BY_ID_FAILURE
   } from "../actions";
 
   const initialState = {
@@ -34,7 +40,9 @@ import {
     fetchingProjectId: false,
     saving_canvas: false,
     delete_project: false,
-    simulate_project: false
+    simulate_project: false,
+    saving_title: false,
+    fetching_title: false
   };
   
   const Reducer = (state = initialState, action) => {
@@ -56,6 +64,23 @@ import {
           saving_canvas: false,
           error: action.payload
         };
+        case SAVE_TITLE_START:
+          return {
+            ...state,
+            saving_title: true
+          };
+        case SAVE_TITLE_SUCCESS:
+          return {
+            ...state,
+            saving_title: false,
+            error: false
+          };
+        case SAVE_TITLE_FAILURE:
+          return {
+            ...state,
+            saving_title: false,
+            error: action.payload
+          };
       case GET_CANVAS_BY_ID_START:
         return {
           ...state,
@@ -75,6 +100,24 @@ import {
           fetching: false,
           error: action.payload
         };
+        case GET_TITLE_BY_ID_START:
+          return {
+            ...state,
+            fetching_title: true
+          };
+        case GET_TITLE_BY_ID_SUCCESS:
+          return {
+            ...state,
+            error: null,
+            fetching_title: false,
+            project_title: action.payload.project_title
+          };
+        case GET_TITLE_BY_ID_FAILURE:
+          return {
+            ...state,
+            fetching_title: false,
+            error: action.payload
+          };
       case GET_PROJECTS_BY_ID_START:
         return {
           ...state,

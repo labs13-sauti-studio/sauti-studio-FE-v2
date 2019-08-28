@@ -3,8 +3,7 @@ import {
   NodeModel
 } from "@projectstorm/react-diagrams";
 import { Toolkit } from '@projectstorm/react-canvas-core';
-import {AdvancedPortModel} from "../custom-port-link-js/JSCustomPortAndLink"
-
+import {AdvancedPortModel, AdvancedLinkModel} from "../custom-port-link-js/JSCustomPortAndLink"
 import * as _ from "lodash";
 export class JSCustomNodeModel extends NodeModel {
   constructor(options = {}) {
@@ -89,4 +88,19 @@ export class JSCustomNodeModel extends NodeModel {
       super.removePort(port);
     });
   }
+
+  getPortByPort(port, node, name){
+    let ports = node.getPort(name);
+    console.log("ports", ports);
+    // if(ports.length !== 0){
+    //   return ports[name];
+    // }
+    for(let key in ports){
+      console.log("ports[key]",ports[key]);
+      console.log("instance",ports[key] instanceof AdvancedPortModel);
+      // console.log("instance links",ports[key].links[0] instanceof AdvancedLinkModel);
+    }
+    return ports;
+	}
+
 }
