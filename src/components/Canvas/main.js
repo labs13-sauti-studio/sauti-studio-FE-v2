@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState, publishCanvas } from "../../actions";
+import { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState, saveTitle, getTitleById, publishCanvas } from "../../actions";
 import DeleteModal from "../DeleteModal.js";
 import SimulationModal from "../SimulationModal.js";
 
@@ -16,12 +16,14 @@ import {AdvancedLinkFactory} from "./custom-port-link-js/JSCustomPortAndLink"
 
 import { JSCustomNodeFactory } from "./custom-node-js/JSCustomNodeFactory";
 import { JSCustomNodeModel } from "./custom-node-js/JSCustomNodeModel";
+import { AdvancedPortFactory } from "./custom-port-link-js/JSCustomPortFactory";
 import { BodyWidget } from "./BodyWidget";
 
 // create an instance of the engine
 let engine = createEngine();
 
 // register the factories to the engine
+engine.getPortFactories().registerFactory(new AdvancedPortFactory());
 engine.getNodeFactories().registerFactory(new JSCustomNodeFactory());
 engine.getNodeFactories().registerFactory(new DefaultNodeFactory());
 engine.getLinkFactories().registerFactory(new DefaultLinkFactory());
@@ -74,6 +76,11 @@ class CustomExample extends React.Component {
       this.getCanvas();
     }
 
+    // If title is Saved retrieve new title
+    if((this.props.saving_title !== prevProps.saving_title && this.props.saving_title === false) && (prevProps.project_title !== this.props.project_title)){
+      this.props.getTitleById(this.props.user_id);
+    }
+
     // Handle Project title update on initial load
     if(((this.state.project_title !== this.props.project_title && this.state.project_title === null) || prevProps.project_title !== this.props.project_title)){
         this.setState({
@@ -81,79 +88,52 @@ class CustomExample extends React.Component {
           project_title: this.props.project_title
         });
       }
-
+      
     // Handle Project canvas update on initial load
     if(this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
-      // setTimeout(()=>{
         cerealBox = new DiagramModel();
         cerealBox.deserializeModel(this.props.graph_json, engine);
         engine.setModel(cerealBox);
-        // engine.repaintCanvas();
-      // },0);
     }
-        // Handle Project canvas update on initial load
-        if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
-          // setTimeout(()=>{
-            cerealBox = new DiagramModel();
-            cerealBox.deserializeModel(this.props.graph_json, engine);
-            engine.setModel(cerealBox);
-            // engine.repaintCanvas();
-          // },0);
-        }
+    // when a new project is created
+    if(this.props.graph_json === null){
+      cerealBox = new DiagramModel();
+      engine.setModel(cerealBox);
+    }
 
-        // Handle Project canvas update on initial load
-        if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
-          // setTimeout(()=>{
-            cerealBox = new DiagramModel();
-            cerealBox.deserializeModel(this.props.graph_json, engine);
-            engine.setModel(cerealBox);
-            // engine.repaintCanvas();
-          // },0);
-        }
-        // Update JSON
-        if(this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
-          // setTimeout(()=>{
-            cerealBox = new DiagramModel();
-            cerealBox.deserializeModel(this.props.graph_json, engine);
-            engine.setModel(cerealBox);
-            // engine.repaintCanvas(); no
-          // },0);
-        }
-        
-        if(this.props.graph_json === null){
-          cerealBox = new DiagramModel();
-          engine.setModel(cerealBox);
-          // engine.repaintCanvas();
-        }
-        
+    if(prevProps.publishing_canvas !== this.props.publishing_canvas && this.props.publishing_canvas === false){
+      if(this.props.error === false)
+        window.alert("Publishing Successful!");
+      else
+        window.alert(this.props.error)
+    }
+    
   }
-      
+  
   getCanvas = () => {
     this.props.getCanvasById(this.props.project_id);
   }
-
+        
   saveCanvas = () => {
     let savedCanvas = cerealBox.serialize();
-    console.log("savedCanvas------------", savedCanvas);
-    let count = 0, key, objUpdate, parent_id = null;
-    // let length = Object.keys(obj[key].links).length;
-    // for (key in savedCanvas.layers[1].models) {
-    //   if (savedCanvas.layers[1].models.hasOwnProperty(key)) count++;
-    // }
+    // console.log("savedCanvas------------", savedCanvas);
+    let key, objUpdate, parent_id = null;
     for (key in savedCanvas.layers[1].models) {
       if (savedCanvas.layers[1].models[key].is_parent === true){
         parent_id = savedCanvas.layers[1].models[key].id;
       };
     }
-    if(count === 0){
+    if(parent_id !== null){
       objUpdate = {
         project_title: this.props.project_title,
         graph_json: savedCanvas,
         user_id: this.props.user_id,
         initial_node_id: parent_id 
       }
+      this.props.saveCanvas(objUpdate, this.props.project_id);
+    }else{
+      window.alert("Check A Parent Node Before Saving!");
     }
-    this.props.saveCanvas(objUpdate, this.props.project_id);
   }
 
   publishCanvas = () => {
@@ -166,16 +146,15 @@ class CustomExample extends React.Component {
         parent_id = savedCanvas.layers[1].models[key].id;
       };
     }
-    if(count === 0){
       objUpdate = {
         project_title: this.props.project_title,
         graph_json: savedCanvas,
         user_id: this.props.user_id,
         initial_node_id: parent_id 
       }
-    }
     console.log("PROJECT_ID", this.props.project_id)
     this.props.publishCanvas(objUpdate, this.props.project_id);
+
   }
   
   createNode = () => {
@@ -289,11 +268,10 @@ class CustomExample extends React.Component {
     const objUpdate = {
         "project_title": this.state.project_title,
     }
-    this.props.saveCanvas(objUpdate, this.props.project_id);
+    this.props.saveTitle(objUpdate, this.props.project_id);
   }
 
   render() {
-    // engine.repaintCanvas();
     return (
       <div className="diagram-page">
         <DeleteModal props={this.props.props}/>
@@ -410,6 +388,7 @@ class CustomExample extends React.Component {
   }
 }
 
+
 // Global Redux State
 const mapStateToProps = state => ({
   user_id: state.user_id,
@@ -421,11 +400,36 @@ const mapStateToProps = state => ({
   loggedIn: state.loggedIn,
   saving_canvas: state.saving_canvas,
   delete_project: state.delete_project,
-  simulate_project: state.simulate_project
+  simulate_project: state.simulate_project,
+  saving_title: state.saving_title,
+  publishing_canvas: state.publishing_canvas,
+  fetching_title: state.fetching_title
 });
 
 // Connecting State and Rdux Reducer Methods
 export default connect(
   mapStateToProps,
-  { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState, publishCanvas }
+  { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState, saveTitle, getTitleById, publishCanvas }
 )(CustomExample); 
+
+
+        // Handle Project canvas update on initial load
+        // if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null){
+        //     cerealBox = new DiagramModel();
+        //     cerealBox.deserializeModel(this.props.graph_json, engine);
+        //     engine.setModel(cerealBox);
+        // }
+
+        // Handle Project canvas update on initial load
+        // if(this.props.project_id !== prevProps.project_id && this.props.fetching !== prevProps.fetching && this.props.fetching === false && this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
+        //   cerealBox = new DiagramModel();
+        //     cerealBox.deserializeModel(this.props.graph_json, engine);
+        //     engine.setModel(cerealBox);
+        // }
+        
+        // Update JSON
+        // if(this.props.graph_json !== null && this.props.graph_json !== prevProps.graph_json){
+          //     cerealBox = new DiagramModel();
+          //     cerealBox.deserializeModel(this.props.graph_json, engine);
+          //     engine.setModel(cerealBox);
+          // }

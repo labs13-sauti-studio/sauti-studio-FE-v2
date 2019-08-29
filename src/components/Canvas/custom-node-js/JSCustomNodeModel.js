@@ -3,8 +3,7 @@ import {
   NodeModel
 } from "@projectstorm/react-diagrams";
 import { Toolkit } from '@projectstorm/react-canvas-core';
-import {AdvancedPortModel} from "../custom-port-link-js/JSCustomPortAndLink"
-
+import {AdvancedPortModel, AdvancedLinkModel} from "../custom-port-link-js/JSCustomPortAndLink"
 import * as _ from "lodash";
 export class JSCustomNodeModel extends NodeModel {
   constructor(options = {}) {
@@ -16,6 +15,7 @@ export class JSCustomNodeModel extends NodeModel {
     this.name = this.options.name;
     this.description = this.options.description;
     this.is_parent = this.options.is_parent;
+    this.in_port_visible = this.options.in_port_visible;
     this.addInPort();
   }
 
@@ -25,6 +25,7 @@ export class JSCustomNodeModel extends NodeModel {
     this.options.color = event.data.color;
     this.options.description = event.data.description;
     this.options.is_parent = event.data.is_parent;
+    this.options.in_port_visible = event.data.in_port_visible;
 	}
 
 	serialize(){
@@ -33,7 +34,8 @@ export class JSCustomNodeModel extends NodeModel {
 			name: this.options.name,
       color: this.options.color,
       description: this.options.description,
-      is_parent: this.options.is_parent
+      is_parent: this.options.is_parent,
+      in_port_visible: this.options.in_port_visible
 		};
 	}
 
@@ -63,11 +65,16 @@ export class JSCustomNodeModel extends NodeModel {
         new AdvancedPortModel({
           in: true,
           name: "in",
-          locked: true
+          locked: true,
+          in_port_visible: true
         })
       )
     );
     return port;
+  }
+
+  toggleInPortVisibility(truthy){
+    this.options.in_port_visible = truthy;
   }
 
   removePort(port, engine) {
@@ -89,4 +96,9 @@ export class JSCustomNodeModel extends NodeModel {
       super.removePort(port);
     });
   }
+
+  getPortByPort(port, node, name){
+    return node.getPort(name);
+	}
+
 }

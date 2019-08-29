@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { PortWidget } from '@projectstorm/react-diagrams';
 import { Toolkit } from '@projectstorm/react-canvas-core';
+import { instanceOf } from 'prop-types';
+import { AdvancedPortModel } from '../custom-port-link-js/JSCustomPortAndLink';
 export class JSCustomNodeWidget extends React.Component {
 	constructor(props) {
     super(props);
@@ -141,8 +143,10 @@ export class JSCustomNodeWidget extends React.Component {
     for(let i = 0; i < nodes.length; i++){
       if(nodes[i].options.id === this.props.node.options.id){
         this.props.node.options.is_parent = true;
+        nodes[i].toggleInPortVisibility(false);
       }else{
         nodes[i].options.is_parent = false;
+        nodes[i].toggleInPortVisibility(true);
       }
       if(i === nodes.length - 1){
         this.props.engine.repaintCanvas();
@@ -170,6 +174,7 @@ export class JSCustomNodeWidget extends React.Component {
     let obj = this.props.node.ports;
     let menus = [];
     let count = "00";
+    
     for (let key in obj) {
       if (obj[key].options.in === false) {
         count = (Number(count) + 1).toString();
@@ -222,7 +227,7 @@ export class JSCustomNodeWidget extends React.Component {
               ></i>
             </div>
             <div className="line-out">
-							<PortWidget engine={this.props.engine} port={this.props.node.getPort(obj[key].options.name)} />
+							<PortWidget engine={this.props.engine} port={this.props.node.getPortByPort(obj[key], this.props.node, obj[key].options.name)} />
             </div>
           </div>
         );
@@ -231,22 +236,8 @@ export class JSCustomNodeWidget extends React.Component {
     return menus;
   };
 
-  checkPath = (port) => {
-    let links = port.getLinks();
-      for(let key in links){
-        if(links[key].renderedPaths.length > 0){
-          return {
-            background: "black",
-            "border-radius": "50%"
-          };
-        }
-      }
-      return {
-        background: "white",
-        "border-radius": "50%"
-      };
-    ;
-  }
+  // {this.props.node.getPort(obj[key].options.name)}
+
 
 	render() {
 		return (
@@ -254,17 +245,14 @@ export class JSCustomNodeWidget extends React.Component {
       className={`custom-node selected-${this.props.node.isSelected()}`} 
       >
         <div className="custom-node-nodeTitle">
-          <div 
-          className="line-in"
-          style={
-            this.checkPath(this.props.node.getPort('in'))
-          }
-          >
-						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')} 
-            
-            >
-            </PortWidget>
+          {/* {(this.props.node.options.in_port_visible === true)?( */}
+          <div className="line-in">
+						<PortWidget engine={this.props.engine} port={this.props.node.getPort('in')} />
           </div>
+          {/* ):(
+            null
+          )} */}
+
           <h1
             className={this.state.editing ? "hidden" : ""}
             onDoubleClick={() => this.handleEdit("nodeTitle")}
