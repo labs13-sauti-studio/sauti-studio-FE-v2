@@ -135,7 +135,8 @@ class CustomExample extends React.Component {
     newItem.provideDescription("Enter Description...");
     newItem.setPosition(0, 0);
     cerealBox.addNode(newItem);
-    this.saveCanvas();
+    // this.saveCanvas();
+    engine.repaintCanvas();
   };
   
   zoomIn = () => {
