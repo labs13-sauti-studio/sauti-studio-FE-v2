@@ -2,6 +2,9 @@ import {
   SAVE_CANVAS_START,
   SAVE_CANVAS_SUCCESS,
   SAVE_CANVAS_FAILURE,
+  PUBLISH_CANVAS_START,
+  PUBLISH_CANVAS_SUCCESS,
+  PUBLISH_CANVAS_FAILURE,
   GET_CANVAS_BY_ID_START,
   GET_CANVAS_BY_ID_SUCCESS,
   GET_CANVAS_BY_ID_FAILURE,
@@ -41,6 +44,7 @@ import {
     loggedIn: false,
     fetchingProjectId: false,
     saving_canvas: false,
+    publishing_canvas:false,
     delete_project: false,
     simulate_project: false,
     saving_title: false,
@@ -64,6 +68,23 @@ import {
         return {
           ...state,
           saving_canvas: false,
+          error: action.payload
+        };
+        case PUBLISH_CANVAS_START:
+        return {
+          ...state,
+          publishing_canvas: true
+        };
+      case PUBLISH_CANVAS_SUCCESS:
+        return {
+          ...state,
+          publishing_canvas: false,
+          error: false
+        };
+      case PUBLISH_CANVAS_FAILURE:
+        return {
+          ...state,
+          publishing_canvas: false,
           error: action.payload
         };
         case SAVE_TITLE_START:

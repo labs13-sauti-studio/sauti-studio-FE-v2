@@ -734,7 +734,8 @@ input, textarea {
         align-items: center; }
         .simulation-true .simulation-container .simulation-screen-container .to-container p {
           padding: 0;
-          margin-left: 1rem; }
+          margin-left: 1rem;
+          font-size: 12px; }
       .simulation-true .simulation-container .simulation-screen-container .receive-container {
         border: 1px solid grey;
         height: calc(100% - 8rem);
@@ -748,9 +749,9 @@ input, textarea {
         .simulation-true .simulation-container .simulation-screen-container .send-container p {
           padding: 0;
           margin-left: 1rem; }
-        .simulation-true .simulation-container .simulation-screen-container .send-container input {
+        .simulation-true .simulation-container .simulation-screen-container .send-container form input {
           margin-left: 1rem;
-          width: 75%; }
+          width: 150%; }
     .simulation-true .simulation-container .simulation-btn-container {
       display: flex;
       flex-direction: row;
@@ -763,7 +764,12 @@ input, textarea {
         width: 30%;
         height: 20%;
         border-radius: 6rem;
-        background: snow; }
+        background: snow;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+        .simulation-true .simulation-container .simulation-btn-container .fake-btn p {
+          padding: 0; }
   @media (max-width: 600px) {
     .simulation-true {
       width: 100%; } }

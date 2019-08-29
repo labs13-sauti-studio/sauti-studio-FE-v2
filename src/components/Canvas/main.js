@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState, saveTitle, getTitleById } from "../../actions";
+import { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState, saveTitle, getTitleById, publishCanvas } from "../../actions";
 import DeleteModal from "../DeleteModal.js";
 import SimulationModal from "../SimulationModal.js";
 
@@ -100,6 +100,13 @@ class CustomExample extends React.Component {
       cerealBox = new DiagramModel();
       engine.setModel(cerealBox);
     }
+
+    if(prevProps.publishing_canvas !== this.props.publishing_canvas && this.props.publishing_canvas === false){
+      if(this.props.error === false)
+        window.alert("Publishing Successful!");
+      else
+        window.alert(this.props.error)
+    }
     
   }
   
@@ -127,6 +134,27 @@ class CustomExample extends React.Component {
     }else{
       window.alert("Check A Parent Node Before Saving!");
     }
+  }
+
+  publishCanvas = () => {
+    let savedCanvas = cerealBox.serialize();
+    console.log("savedCanvas------------", savedCanvas);
+    let count = 0, key, objUpdate, parent_id = null;
+    
+    for (key in savedCanvas.layers[1].models) {
+      if (savedCanvas.layers[1].models[key].is_parent === true){
+        parent_id = savedCanvas.layers[1].models[key].id;
+      };
+    }
+      objUpdate = {
+        project_title: this.props.project_title,
+        graph_json: savedCanvas,
+        user_id: this.props.user_id,
+        initial_node_id: parent_id 
+      }
+    console.log("PROJECT_ID", this.props.project_id)
+    this.props.publishCanvas(objUpdate, this.props.project_id);
+
   }
   
   createNode = () => {
@@ -287,8 +315,9 @@ class CustomExample extends React.Component {
               Simulate App
             </button>
             <button
-              onClick={() => {
-                {/* console.log("Publish"); */}
+              className="cursor"
+              onClick={(event) => {
+                this.publishCanvas(event);
               }}
             >
               Publish App
@@ -360,6 +389,7 @@ class CustomExample extends React.Component {
   }
 }
 
+
 // Global Redux State
 const mapStateToProps = state => ({
   user_id: state.user_id,
@@ -373,13 +403,14 @@ const mapStateToProps = state => ({
   delete_project: state.delete_project,
   simulate_project: state.simulate_project,
   saving_title: state.saving_title,
+  publishing_canvas: state.publishing_canvas,
   fetching_title: state.fetching_title
 });
 
 // Connecting State and Rdux Reducer Methods
 export default connect(
   mapStateToProps,
-  { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState, saveTitle, getTitleById }
+  { saveCanvas, getCanvasById, deleteProject, setDeleteState, setSimulationState, saveTitle, getTitleById, publishCanvas }
 )(CustomExample); 
 
 

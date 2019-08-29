@@ -51,6 +51,7 @@
                 p{
                     padding: 0;
                     margin-left: 1rem;
+                    font-size: 12px;
                 }
             }
             .receive-container{
@@ -68,9 +69,11 @@
                     padding: 0;
                     margin-left: 1rem;
                 }
-                input{
-                    margin-left: 1rem;
-                    width: 75%;
+                form {
+                    input{
+                        margin-left: 1rem;
+                        width: 150%;
+                    }
                 }
             }
         }
@@ -87,6 +90,12 @@
                 height: 20%;
                 border-radius: 6rem;
                 background: $snow;
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                p{
+                    padding: 0
+                }
             }
         }
       }

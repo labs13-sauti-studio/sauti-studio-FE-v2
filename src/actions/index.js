@@ -35,6 +35,10 @@ export const SET_DELETE_STATE_SUCCESS = "SET_DELETE_STATE_SUCCESS";
 export const SET_SIMULATE_STATE_SUCCESS = "SET_SIMULATE_STATE_SUCCESS";
 export const UPDATE_CANVAS_WITHOUT_SAVE = "UPDATE_CANVAS_WITHOUT_SAVE";
 
+export const PUBLISH_CANVAS_START = "PUBLISH_CANVAS_START"
+export const PUBLISH_CANVAS_SUCCESS = "PUBLISH_CANVAS_SUCCESS"
+export const PUBLISH_CANVAS_FAILURE = "PUBLISH_CANVAS_FAILURE"
+
 export const SET_USER_BY_ID_START = "SET_USER_BY_ID_START";
 export const SET_USER_BY_ID_SUCCESS = "SET_USER_BY_ID_SUCCESS";
 
@@ -134,6 +138,27 @@ export const saveCanvas = (objUpdate, project_id) => dispatch => {
     .catch(err => dispatch({ type: SAVE_CANVAS_FAILURE, payload: err }));
 };
 
+export const publishCanvas = (objUpdate, project_id) => dispatch => {
+  dispatch({ type: PUBLISH_CANVAS_START });
+  let endpoint;
+  if(productionServer){
+    endpoint = `${productionServer}/projects/publish/${project_id}`;
+  }else{
+    endpoint = `http://localhost:5000/projects/publish/${project_id}`;
+  } 
+  axios
+    .post(endpoint,
+      objUpdate
+    ).then(response => {
+      dispatch({
+        type: PUBLISH_CANVAS_SUCCESS,
+        payload: response.data
+      });
+    })
+    .catch(err => dispatch({ type: PUBLISH_CANVAS_FAILURE, payload: err }));
+        
+  }
+
 export const saveTitle = (objUpdate, project_id) => dispatch => {
   dispatch({ type: SAVE_TITLE_START });
   let endpoint;
@@ -146,10 +171,9 @@ export const saveTitle = (objUpdate, project_id) => dispatch => {
     .put(
       endpoint,
       objUpdate
-    )
-    .then(response => {
+    ).then(response => {
       dispatch({
-        type: SAVE_TITLE_SUCCESS,
+      type: SAVE_TITLE_SUCCESS,
         payload: response.data
       });
     })
