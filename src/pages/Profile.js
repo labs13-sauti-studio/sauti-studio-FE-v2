@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 
-import { getProjectsByUserId,addProjectByUserId,setProjectId } from "../actions";
+import { getProjectsByUserId,addProjectByUserId,setProjectId,setUserId } from "../actions";
 
 import Navbar from '../components/Navbar';
 class Profile extends React.Component {
@@ -10,28 +10,57 @@ class Profile extends React.Component {
     projects: null
   }
 
-  componentDidMount(){
-    // On page load request users projects 
-    if(this.props.user_id !== null){
-      this.props.getProjectsByUserId(this.props.user_id);
+  getCookies = () =>{
+    let pairs = document.cookie.split(";");
+    let cookies = {};
+    for (let i=0; i<pairs.length; i++){
+      let pair = pairs[i].split("=");
+      cookies[(pair[0]+'').trim()] = unescape(pair.slice(1).join('='));
     }
+    return cookies;
+  }
+
+  componentDidMount(){
+    let user_id = Number(this.getCookies().user_id);
+    console.log("user_id",user_id);
+    // On page load request users projects 
+    if(user_id){
+      if(this.props.user_id !== null && (this.props.user_id === user_id)){
+        this.props.getProjectsByUserId(this.props.user_id);
+      }
+      if(this.props.user_id !== user_id){
+        this.props.setUserId(user_id, true);
+      }
+    }else if(!user_id || this.props.loggedIn === false){
+      this.props.history.push("/");
+    }
+ 
   }
 
   componentDidUpdate(prevProps, prevState){
-    // On Create New Project: request projects
-    if(this.props.added_project !== prevProps.added_project && !this.props.added_project){
-      this.props.getProjectsByUserId(this.props.user_id);
-    }
-    // Update project state on modification of props projects
-    else if(this.props.projects !== prevProps.projects && !this.props.fetching){
-        this.setState({
-          ...this.state,
-          projects: this.props.projects
-        });
-    }
-    // On selection of a project an ID is place on redux state and then update routing to project page
-    else if(this.props.fetchingProjectId !== prevProps.fetchingProjectId && this.props.fetchingProjectId === false){
-      this.props.history.push("/workflows");
+    let user_id = Number(this.getCookies().user_id);
+    console.log("user_id",user_id);
+    if(user_id){
+      // On Create New Project: request projects
+      if(this.props.added_project !== prevProps.added_project && !this.props.added_project){
+        this.props.getProjectsByUserId(this.props.user_id);
+      }
+      // Update project state on modification of props projects
+      else if(this.props.projects !== prevProps.projects && !this.props.fetching){
+          this.setState({
+            ...this.state,
+            projects: this.props.projects
+          });
+      }
+      // On selection of a project an ID is place on redux state and then update routing to project page
+      else if(this.props.fetchingProjectId !== prevProps.fetchingProjectId && this.props.fetchingProjectId === false){
+        this.props.history.push("/workflows");
+      }
+      if(this.props.user_id !== prevProps.user_id){
+        this.props.getProjectsByUserId(this.props.user_id);
+      }
+    }else{
+      this.props.history.push("/");
     }
   }
   
@@ -135,5 +164,5 @@ const mapStateToProps = state => ({
 // Connecting State and Rdux Reducer Methods
 export default connect(
   mapStateToProps,
-  { getProjectsByUserId, addProjectByUserId, setProjectId }
+  { getProjectsByUserId, addProjectByUserId, setProjectId, setUserId }
 )(Profile); 

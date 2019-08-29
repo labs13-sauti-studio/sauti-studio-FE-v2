@@ -27,13 +27,15 @@ import {
   SAVE_TITLE_FAILURE,
   GET_TITLE_BY_ID_START,
   GET_TITLE_BY_ID_SUCCESS,
-  GET_TITLE_BY_ID_FAILURE
+  GET_TITLE_BY_ID_FAILURE,
+  SET_USER_BY_ID_START,
+  SET_USER_BY_ID_SUCCESS
   } from "../actions";
 
   const initialState = {
-    user_id: 1,
+    user_id: null,
     projects: null,
-    project_id: 1,
+    project_id: null,
     project_title: null,
     graph_json: null,
     fetching: false,
@@ -188,6 +190,18 @@ import {
           ...state,
           fetchingProjectId: false,
           project_id: action.payload
+        };
+      case SET_USER_BY_ID_START:
+        return {
+          ...state,
+          fetching: true
+        };
+      case SET_USER_BY_ID_SUCCESS:
+        return {
+          ...state,
+          fetching: false,
+          user_id: action.payload.user_id,
+          loggedIn: action.payload.loggedIn
         };
       case SET_DELETE_STATE_SUCCESS:
         return {

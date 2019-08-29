@@ -39,6 +39,9 @@ export const PUBLISH_CANVAS_START = "PUBLISH_CANVAS_START"
 export const PUBLISH_CANVAS_SUCCESS = "PUBLISH_CANVAS_SUCCESS"
 export const PUBLISH_CANVAS_FAILURE = "PUBLISH_CANVAS_FAILURE"
 
+export const SET_USER_BY_ID_START = "SET_USER_BY_ID_START";
+export const SET_USER_BY_ID_SUCCESS = "SET_USER_BY_ID_SUCCESS";
+
 let productionServer = process.env.REACT_APP_BE_API_URL;
 
 export const getProjectsByUserId = (user_id) => dispatch => {
@@ -65,6 +68,15 @@ export const setProjectId = ( project_id) => dispatch => {
   });
   promise.then(function() {
     dispatch({ type: SET_PROJECT_BY_ID_SUCCESS, payload: project_id});
+  });
+};
+
+export const setUserId = ( user_id, loggedIn) => dispatch => {
+  let promise = new Promise(function(resolve, reject) {
+      resolve(dispatch({ type: SET_USER_BY_ID_START }));
+  });
+  promise.then(function() {
+    dispatch({ type: SET_USER_BY_ID_SUCCESS, payload: {user_id: user_id,loggedIn: loggedIn}});
   });
 };
 
@@ -146,7 +158,7 @@ export const publishCanvas = (objUpdate, project_id) => dispatch => {
     .catch(err => dispatch({ type: PUBLISH_CANVAS_FAILURE, payload: err }));
         
   }
-  
+
 export const saveTitle = (objUpdate, project_id) => dispatch => {
   dispatch({ type: SAVE_TITLE_START });
   let endpoint;
