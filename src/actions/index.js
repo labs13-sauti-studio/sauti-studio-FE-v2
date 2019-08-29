@@ -35,6 +35,9 @@ export const SET_DELETE_STATE_SUCCESS = "SET_DELETE_STATE_SUCCESS";
 export const SET_SIMULATE_STATE_SUCCESS = "SET_SIMULATE_STATE_SUCCESS";
 export const UPDATE_CANVAS_WITHOUT_SAVE = "UPDATE_CANVAS_WITHOUT_SAVE";
 
+export const SET_USER_BY_ID_START = "SET_USER_BY_ID_START";
+export const SET_USER_BY_ID_SUCCESS = "SET_USER_BY_ID_SUCCESS";
+
 let productionServer = process.env.REACT_APP_BE_API_URL;
 
 export const getProjectsByUserId = (user_id) => dispatch => {
@@ -61,6 +64,15 @@ export const setProjectId = ( project_id) => dispatch => {
   });
   promise.then(function() {
     dispatch({ type: SET_PROJECT_BY_ID_SUCCESS, payload: project_id});
+  });
+};
+
+export const setUserId = ( user_id, loggedIn) => dispatch => {
+  let promise = new Promise(function(resolve, reject) {
+      resolve(dispatch({ type: SET_USER_BY_ID_START }));
+  });
+  promise.then(function() {
+    dispatch({ type: SET_USER_BY_ID_SUCCESS, payload: {user_id: user_id,loggedIn: loggedIn}});
   });
 };
 
