@@ -30,7 +30,7 @@ class ProfileLoginOut extends React.Component {
 }
 
 deleteCookie = (name) => {
-    this.setCookie(name, "", null , null , null, 1);
+    // this.setCookie(name, "", null , null , null, 1);
     this.props.setUserId(null, false);
 }
 
@@ -42,7 +42,7 @@ deleteCookie = (name) => {
         ):(
         <>
         <Link to={`/profile/${this.props.user_id}`}>Profile</Link>
-        <Link to="/" /*onClick={()=>this.deleteCookie("user_id")}*/>
+        <Link to="/" onClick={()=>this.deleteCookie("user_id")}>
           Log Out
         </Link>
         </>
