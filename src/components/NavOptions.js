@@ -41,8 +41,8 @@ deleteCookie = (name) => {
         <Link to="/login">Login</Link>
         ):(
         <>
-        <Link to="/profile">Profile</Link>
-        <Link onClick={()=>this.deleteCookie("user_id")}>
+        <Link to={`/profile/${this.props.user_id}`}>Profile</Link>
+        <Link to="/" /*onClick={()=>this.deleteCookie("user_id")}*/>
           Log Out
         </Link>
         </>

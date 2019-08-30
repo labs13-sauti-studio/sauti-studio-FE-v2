@@ -21,7 +21,8 @@ class Profile extends React.Component {
   }
 
   componentDidMount(){
-    let user_id = Number(this.getCookies().user_id);
+    // let user_id = Number(this.getCookies().user_id);
+    let user_id = Number(window.location.pathname.split("/").pop());
     console.log("user_id",user_id);
     // On page load request users projects 
     if(user_id){
@@ -38,7 +39,7 @@ class Profile extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    let user_id = Number(this.getCookies().user_id);
+    let user_id = Number(window.location.pathname.split("/").pop());
     console.log("user_id",user_id);
     if(user_id){
       // On Create New Project: request projects
