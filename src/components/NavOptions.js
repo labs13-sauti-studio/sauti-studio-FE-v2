@@ -30,7 +30,7 @@ class ProfileLoginOut extends React.Component {
 }
 
 deleteCookie = (name) => {
-    // this.setCookie(name, "", null , null , null, 1);
+    this.setCookie(name, "", null , null , null, 1);
     this.props.setUserId(null, false);
 }
 
