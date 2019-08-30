@@ -40,7 +40,7 @@ class SimulationModal extends React.Component {
 				console.log(reqBody);
 				axios
 					.post(
-						`http://localhost:5000/workflows/sim/${this.props.project_id}`,
+						`${process.env.REACT_APP_BE_API_URL}/workflows/sim/${this.props.project_id}`,
 						reqBody
 					)
 					.then(response => {
