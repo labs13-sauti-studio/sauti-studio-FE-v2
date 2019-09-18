@@ -1,0 +1,383 @@
+.diagram-page {
+  width: 100%;
+}
+
+.diagram-container {
+  height: calc(100vh - 130px);
+  z-index: 0;
+  svg{
+
+      circle{
+        r: 10px;
+      }
+    
+  } 
+}
+
+.main-diagram-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.title-and-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0px 2%;
+  background: $snow;
+  border-bottom: 1px solid gainsboro;
+  h2 {
+    align-self: center;
+    line-height: auto;
+    font-weight: bold;
+    padding: 0;
+    cursor: pointer;
+    width: calc(100% - 600px);
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+  }
+  input{
+    font-size: 3rem;
+    width: calc(100% - 600px);
+  }
+  .project-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 550px;
+    button {
+      align-self: center;
+      @include custom-btn(23%, 35px, $darkslateblue, #fbffff, 1.4rem);
+    }
+  }
+}
+.taskbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 0px;
+  
+  .taskbar-container{
+    position: absolute;
+    right: 0rem;
+    top: 140px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 1rem;
+    padding: 0 1rem;
+    margin-right: 2%;
+    width: 200px;
+    background: $darkslateblue;
+    z-index: 1;
+    height: 4rem;
+    .taskbar-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+      width: auto;
+      font-size: 2.6rem;
+      color: white;
+      z-index: 2;
+      i{
+        transition: 0.5s;
+        cursor: pointer;
+        &:hover{
+          color: $tomato;
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+        }
+      }
+    }
+  }
+}
+
+.bodywidget-container {
+  width: 100%;
+}
+
+.custom-node {
+  display: flex;
+  flex-direction: column;
+}
+
+.selected-true{
+  border: solid 4px rgb(255, 115, 0);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.custom-node-nodeTitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding: 0 15px;
+  border: solid 2px $darkslateblue;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: $darkslateblue;
+  width: 400px;
+  height: 60px;
+  text-align: center;
+  line-height: 57px;
+  font-family: "LiberationSansRegular";
+  input {
+    font-size: 3rem;
+    font-family: "LiberationSansRegular";
+    width: 80%;
+    height: 4rem;
+  }
+  h1 {
+    width: 80%;
+    margin: 0;
+    font-size: 3rem;
+    font-family: "LiberationSansRegular";
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: start;
+  }
+    .check-box-true{
+      width: 3rem;
+      cursor: pointer;
+      color: $tomato;
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      font-size: 3rem;
+    }
+    .check-box-false{
+      width: 3rem;
+      font-size: 3rem;
+      cursor: pointer;
+      color: white;
+      transition: 0.5s;
+      &:hover{
+        color: $tomato;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      }
+    }
+}
+
+
+
+.custom-node-screen {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  color: #999999;
+  border-left: 2px solid $darkslateblue;
+  border-right: 2px solid $darkslateblue;
+  border-bottom: 2px solid $darkslateblue;
+  background-color: white;
+  width: 400px;
+  height: 300px;
+  text-align: center;
+  font-family: "LiberationSansRegular";
+  p {
+    width: 100%;
+    align-content: left;
+    font-size: 2.5rem;
+    text-align: left;
+    padding: 2rem;
+  }
+ textarea {
+    align-self: center;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    width: 400px;
+    height: 26rem;
+    outline: none;
+    padding: 2rem;
+    box-shadow: none;
+    border: none;
+    box-sizing: content-box;
+    background-color: transparent;
+    overflow-y: hidden;
+    resize: none;
+    font-size: 2.5rem;
+    line-height: 3.8rem;
+    font-family: "LiberationSansRegular";
+  }
+}
+
+
+.custom-node-submenus {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  align-items: center;
+  color: #999999;
+  padding: 0 15px;
+  border-left: solid 2px $darkslateblue;
+  border-right: solid 2px $darkslateblue;
+  border-bottom: solid 2px $darkslateblue;
+  height: 50px;
+  line-height: 50px;
+  max-width: 400px;
+  background-color: white;
+  font-family: "LiberationSansRegular";
+  .submenu-text-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+    .number{
+      width: 17%;
+      padding: 0;
+      font-style: italic;
+      font-family: "LiberationSansRegular";
+    }
+    .option-text{
+      width: 83%;
+      padding: 0;
+      padding-left: 1rem;
+      font-size: 2.6rem;
+      font-style: italic;
+      font-family: "LiberationSansRegular";
+      white-space: nowrap; 
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+    input{
+      width: 83%;
+      font-size: 2.8rem;
+      padding-left: 1rem;
+      font-style: italic;
+      font-family: "LiberationSansRegular";
+      outline: none;
+    }
+  }
+  .trash-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 50px;
+    height: 100%;
+    padding: 0px;
+    i{
+      transition: 0.5s;
+      cursor: pointer;
+      font-size: 2.4rem;
+      color: black;
+      &:hover{
+        color: $tomato;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      }
+    }
+  }
+}
+
+
+
+.trash-icon img {
+  width: auto;
+  height: 55%;
+}
+
+.line-in {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  border: 2px solid $darkslateblue;
+  background-color: white;
+  z-index: 0;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  border-radius: 20px;
+  .port{
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: black;
+    border-radius: 50%;
+    &:hover{
+      background: $tomato;
+      border-radius: 50%;
+    }
+  }
+}
+
+.line-out {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  border: 2px solid $darkslateblue;
+  z-index: 0;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  border-radius: 20px;
+  .port{
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: black;
+    border-radius: 50%;
+    &:hover{
+      background: $tomato;
+      border-radius: 50%;
+    }
+  }
+}
+
+.fill-port{
+  background: black;
+}
+
+.fill-port2{
+  background: white;
+}
+
+.custom-node-addMenuOption {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  background-color: lighten($darkslateblue, 20%);
+  padding: 0 15px;
+  border-left: solid 2px $darkslateblue;
+  border-right: solid 2px $darkslateblue;
+  border-bottom: solid 2px $darkslateblue;
+  height: 50px;
+  line-height: 50px;
+  max-width: 400px;
+  font-family: "LiberationSansRegular";
+  h2 {
+    margin: 0;
+    font-style: italic;
+    font-family: "LiberationSansRegular";
+    text-align: center;
+    font-size: 2.5rem;
+    padding: 0;
+  }
+
+  i{
+    transition: 0.5s;
+    cursor: pointer;
+    font-size: 3rem;
+    &:hover{
+      color: $tomato;
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    }
+  }
+}
+
+
+.hidden {
+  display: none;
+}
+
+.cursor{
+  cursor: pointer;
+}
